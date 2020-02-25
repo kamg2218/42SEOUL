@@ -2,8 +2,8 @@
 
 void	*ft_memcpy(void *destination, const void *source, size_t num)
 {
-	unsigned int		i;
-	char	c;
+	unsigned int	i;
+	char		c;
 
 	i = 0;
 	while (i < num)
