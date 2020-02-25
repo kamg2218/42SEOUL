@@ -1,6 +1,4 @@
-#include <unistd.h>
-
-void	*ft_memcpy(void *destination, const void *source, size_t num)
+void	*ft_memcpy(void *destination, const void *source, unsigned int num)
 {
 	unsigned int	i;
 	char		c;
