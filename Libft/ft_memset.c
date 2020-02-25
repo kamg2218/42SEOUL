@@ -1,7 +1,5 @@
-#include <unistd.h>
-
-void    *ft_memset(void *ptr, int value, size_t num){
-  int   i;
+void    *ft_memset(void *ptr, int value, unsigned int num){
+  unsigned int  i;
 
   i = 0;
   while (i < num){
