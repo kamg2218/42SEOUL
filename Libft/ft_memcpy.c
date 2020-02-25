@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-void	*memcpy(void *destination, const void *source, size_t num)
+void	*ft_memcpy(void *destination, const void *source, size_t num)
 {
 	unsigned int		i;
 	char	c;
@@ -8,11 +8,9 @@ void	*memcpy(void *destination, const void *source, size_t num)
 	i = 0;
 	while (i < num)
 	{
-		if (!*((char *)source + i))
-			c = 0;
-		else
-			c = *((char *)source + i);
-		*((char *)destination + i) = c;
+		*((char *)destination + i) = *((char *)source + i);
+		if (*((char *)source + i) == '\0')
+			break;
 		i++;
 	}
 	return (destination);
