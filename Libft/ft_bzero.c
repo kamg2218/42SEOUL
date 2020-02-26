@@ -1,10 +1,10 @@
-#include <unistd.h>
-
-void   ft_bzero(void *s, size_t n) {
+void	ft_bzero(void *s, unsigned int n)
+{
 	int   i;
 
 	i = 0;
-	while (i < n) {
+	while (i < n)
+	{
 		*(unsigned char *)(s + i) = 0;
 		i++;
 	}
