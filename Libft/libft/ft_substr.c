@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 02:25:32 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/11 02:25:34 by hyoon            ###   ########.fr       */
+/*   Updated: 2020/04/12 14:53:49 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	char	*sub;
 
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (sub == NULL)
-		return (0);
+	if (!s || !(sub = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{

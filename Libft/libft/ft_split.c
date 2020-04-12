@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 02:22:08 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/11 02:22:11 by hyoon            ###   ########.fr       */
+/*   Updated: 2020/04/12 16:12:08 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char			**ft_split(char const *s, char c)
 	int		count;
 	char	**str;
 
+	if (!s)
+		return (0);
 	count = ft_count(s, c);
 	str = (char **)malloc(sizeof(char *) * (count + 1));
 	if (str == NULL)
@@ -101,7 +103,10 @@ char			**ft_split(char const *s, char c)
 	ft_fill(s, str, c);
 	str[count] = (char *)malloc(sizeof(char));
 	if (str[count] == NULL)
+	{
+		free(str);
 		return (0);
+	}
 	str[count] = 0;
 	return (str);
 }
