@@ -1,9 +1,9 @@
 = Host-specific information ====================================================
 $> hostname; uname -msr
-c2r7s1.42seoul.kr
+c1r3s6.42seoul.kr
 Darwin 18.7.0 x86_64
 $> date
-Fri Apr 10 01:55:33 KST 2020
+Sun Apr 12 14:47:19 KST 2020
 $> gcc --version
 Apple LLVM version 10.0.1 (clang-1001.0.46.4)
 Target: x86_64-apple-darwin18.7.0
@@ -32,13 +32,13 @@ ar rc libft.a *.o
 ranlib libft.a
 
 $> ls -la libft.a
--rw-r--r--  1 hyoon  2020_seoul  40272 Apr 10 01:55 /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir/libft.a
+-rw-r--r--  1 hyoon  2020_seoul  40272 Apr 12 14:47 /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir/libft.a
 
 = Part1_functions ==============================================================
 
 = ft_atoi ======================================================================
 $> norminette ft_atoi.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_atoi/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_atoi/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -138,7 +138,7 @@ Diff OK :D
 
 = ft_bzero =====================================================================
 $> norminette ft_bzero.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_bzero/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_bzero/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -153,7 +153,7 @@ Diff OK :D
 
 = ft_calloc ====================================================================
 $> norminette ft_calloc.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_calloc/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_calloc/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -163,7 +163,7 @@ Diff OK :D
 
 = ft_isalnum ===================================================================
 $> norminette ft_isalnum.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_isalnum/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_isalnum/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -203,7 +203,7 @@ Diff OK :D
 
 = ft_isalpha ===================================================================
 $> norminette ft_isalpha.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_isalpha/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_isalpha/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -243,7 +243,7 @@ Diff OK :D
 
 = ft_isascii ===================================================================
 $> norminette ft_isascii.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_isascii/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_isascii/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -283,7 +283,7 @@ Diff OK :D
 
 = ft_isdigit ===================================================================
 $> norminette ft_isdigit.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_isdigit/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_isdigit/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -323,7 +323,7 @@ Diff OK :D
 
 = ft_isprint ===================================================================
 $> norminette ft_isprint.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_isprint/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_isprint/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -363,7 +363,7 @@ Diff OK :D
 
 = ft_memccpy ===================================================================
 $> norminette ft_memccpy.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memccpy/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memccpy/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -388,7 +388,7 @@ Diff OK :D
 
 = ft_memchr ====================================================================
 $> norminette ft_memchr.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memchr/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memchr/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -423,7 +423,7 @@ Diff OK :D
 
 = ft_memcmp ====================================================================
 $> norminette ft_memcmp.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memcmp/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memcmp/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -473,7 +473,7 @@ Diff OK :D
 
 = ft_memcpy ====================================================================
 $> norminette ft_memcpy.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memcpy/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memcpy/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -493,7 +493,7 @@ Diff OK :D
 
 = ft_memmove ===================================================================
 $> norminette ft_memmove.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memmove/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memmove/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -523,7 +523,7 @@ Diff OK :D
 
 = ft_memset ====================================================================
 $> norminette ft_memset.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_memset/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_memset/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -548,7 +548,7 @@ Diff OK :D
 
 = ft_strchr ====================================================================
 $> norminette ft_strchr.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strchr/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strchr/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -583,7 +583,7 @@ Diff OK :D
 
 = ft_strdup ====================================================================
 $> norminette ft_strdup.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strdup/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strdup/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -593,7 +593,7 @@ Diff OK :D
 
 = ft_strlcat ===================================================================
 $> norminette ft_strlcat.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strlcat/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strlcat/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -643,7 +643,7 @@ Diff OK :D
 
 = ft_strlcpy ===================================================================
 $> norminette ft_strlcpy.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strlcpy/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strlcpy/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -673,7 +673,7 @@ Diff OK :D
 
 = ft_strlen ====================================================================
 $> norminette ft_strlen.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strlen/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strlen/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -708,7 +708,7 @@ Diff OK :D
 
 = ft_strncmp ===================================================================
 $> norminette ft_strncmp.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strncmp/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strncmp/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -768,7 +768,7 @@ Diff OK :D
 
 = ft_strnstr ===================================================================
 $> norminette ft_strnstr.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strnstr/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strnstr/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -823,7 +823,7 @@ Diff OK :D
 
 = ft_strrchr ===================================================================
 $> norminette ft_strrchr.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_strrchr/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_strrchr/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -868,7 +868,7 @@ Diff OK :D
 
 = ft_tolower ===================================================================
 $> norminette ft_tolower.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_tolower/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_tolower/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -908,7 +908,7 @@ Diff OK :D
 
 = ft_toupper ===================================================================
 $> norminette ft_toupper.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part1_functions/ft_toupper/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part1_functions/ft_toupper/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -950,7 +950,7 @@ Diff OK :D
 
 = ft_itoa ======================================================================
 $> norminette ft_itoa.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_itoa/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_itoa/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1005,7 +1005,7 @@ Diff OK :D
 
 = ft_putchar_fd ================================================================
 $> norminette ft_putchar_fd.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_putchar_fd/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_putchar_fd/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1045,7 +1045,7 @@ Diff OK :D
 
 = ft_putendl_fd ================================================================
 $> norminette ft_putendl_fd.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_putendl_fd/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_putendl_fd/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1070,7 +1070,7 @@ Diff OK :D
 
 = ft_putnbr_fd =================================================================
 $> norminette ft_putnbr_fd.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_putnbr_fd/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_putnbr_fd/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1120,7 +1120,7 @@ Diff OK :D
 
 = ft_putstr_fd =================================================================
 $> norminette ft_putstr_fd.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_putstr_fd/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_putstr_fd/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1145,7 +1145,7 @@ Diff OK :D
 
 = ft_split =====================================================================
 $> norminette ft_split.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_split/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_split/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1175,7 +1175,7 @@ Diff OK :D
 
 = ft_strjoin ===================================================================
 $> norminette ft_strjoin.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_strjoin/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_strjoin/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1200,7 +1200,7 @@ Diff OK :D
 
 = ft_strmapi ===================================================================
 $> norminette ft_strmapi.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_strmapi/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_strmapi/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1210,7 +1210,7 @@ Diff OK :D
 
 = ft_strtrim ===================================================================
 $> norminette ft_strtrim.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_strtrim/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_strtrim/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1240,7 +1240,7 @@ Diff OK :D
 
 = ft_substr ====================================================================
 $> norminette ft_substr.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Part2_functions/ft_substr/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Part2_functions/ft_substr/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1267,7 +1267,7 @@ Diff OK :D
 
 = ft_lstadd_back ===============================================================
 $> norminette ft_lstadd_back.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstadd_back/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstadd_back/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1277,7 +1277,7 @@ Diff OK :D
 
 = ft_lstadd_front ==============================================================
 $> norminette ft_lstadd_front.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstadd_front/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstadd_front/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1287,7 +1287,7 @@ Diff OK :D
 
 = ft_lstclear ==================================================================
 $> norminette ft_lstclear.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstclear/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstclear/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1297,7 +1297,7 @@ Diff OK :D
 
 = ft_lstdelone =================================================================
 $> norminette ft_lstdelone.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstdelone/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstdelone/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1307,7 +1307,7 @@ Diff OK :D
 
 = ft_lstiter ===================================================================
 $> norminette ft_lstiter.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstiter/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstiter/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1317,7 +1317,7 @@ Diff OK :D
 
 = ft_lstlast ===================================================================
 $> norminette ft_lstlast.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstlast/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstlast/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1332,7 +1332,7 @@ Diff OK :D
 
 = ft_lstmap ====================================================================
 $> norminette ft_lstmap.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstmap/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstmap/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1342,7 +1342,7 @@ Diff OK :D
 
 = ft_lstnew ====================================================================
 $> norminette ft_lstnew.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstnew/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstnew/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
@@ -1362,7 +1362,7 @@ Diff OK :D
 
 = ft_lstsize ===================================================================
 $> norminette ft_lstsize.c | grep -E '(Error|Warning)'
-$> clang -Wextra -Wall -Werror /Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tests/Bonus_functions/ft_lstsize/main.c -L/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42SEOUL/42CURSUS/test_jtoty/tmp_tests_dir
+$> clang -Wextra -Wall -Werror /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tests/Bonus_functions/ft_lstsize/main.c -L/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir -lft -I/Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir
 
 = Test 1 ===================================================
 $> ./user_exe 01
