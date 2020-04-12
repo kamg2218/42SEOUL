@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 02:22:08 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/12 16:12:08 by hyoon            ###   ########.fr       */
+/*   Updated: 2020/04/12 23:13:14 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ static void		ft_fill(char const *s, char **str, char c)
 		{
 			str[k] = (char *)malloc(sizeof(char) * (j + 1));
 			if (str[k] == NULL)
+			{
+				free(str);
 				return ;
+			}
 			ft_strncpy(s, str[k], i, j);
 			k++;
 		}

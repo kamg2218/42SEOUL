@@ -3,7 +3,7 @@ $> hostname; uname -msr
 c1r3s6.42seoul.kr
 Darwin 18.7.0 x86_64
 $> date
-Sun Apr 12 14:47:19 KST 2020
+Sun Apr 12 23:16:53 KST 2020
 $> gcc --version
 Apple LLVM version 10.0.1 (clang-1001.0.46.4)
 Target: x86_64-apple-darwin18.7.0
@@ -32,7 +32,7 @@ ar rc libft.a *.o
 ranlib libft.a
 
 $> ls -la libft.a
--rw-r--r--  1 hyoon  2020_seoul  40272 Apr 12 14:47 /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir/libft.a
+-rw-r--r--  1 hyoon  2020_seoul  40448 Apr 12 23:16 /Users/hyoon/42seoul/gh_libft/Libft/test_jtoty/tmp_tests_dir/libft.a
 
 = Part1_functions ==============================================================
 

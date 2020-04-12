@@ -5,7 +5,7 @@
 ###################################
 
 #Edit the next line with the path of your libft project.
-PATH_LIBFT=~/42seoul/libft
+PATH_LIBFT=~/42seoul/gh_libft/Libft/libft
 
 #If you use a relative path, don't put double quotes.
 #For example :
