@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 01:17:36 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/13 01:41:51 by hyoon            ###   ########.fr       */
+/*   Updated: 2020/04/14 02:27:10 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,23 @@ int		ft_read_file(int fd, t_list *start)
 	t_list	*lst;
 	t_list	*r_lst;
 
-	ft_lstadd_back(&start, ft_lstnew());
+	lst = start;
+	while (lst->content)
+		lst = lst->next;
+	if (lst->content)
+		ft_lstadd_back(&start, ft_lstnew());
 	r_lst = ft_lstnew();
 	re = read(fd, r_lst->content, BUFFER_SIZE);
 	if (re == -1)
+	{
+		free(r_lst);
 		return (-1);
+	}
 	else if (re < BUFFER_SIZE)
 	{
 		*((char *)(r_lst->content) + re) = -1;
 		re++;
 	}
-	lst = start;
-	while (lst->next)
-		lst = lst->next;
 	ft_cpy_line((char *)(lst->content), r_lst, re);
 	if (ft_start_check(r_lst) == -1)
 	{
