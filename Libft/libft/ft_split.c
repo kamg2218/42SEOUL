@@ -6,11 +6,12 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 02:22:08 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/12 23:13:14 by hyoon            ###   ########.fr       */
+/*   Updated: 2020/04/13 20:19:56 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 static int		ft_count(char const *s, char c)
 {
@@ -54,14 +55,13 @@ static int		ft_col_count(char const *s, char c, int i)
 	return (count);
 }
 
-static void		ft_strncpy(char const *s, char *str, int i, int n)
+void			ft_free(char **str, int d)
 {
-	int		k;
+	int		i;
 
-	k = -1;
-	while (++k < n)
-		str[k] = s[i + k];
-	str[k] = 0;
+	i = -1;
+	while (++i < d && str[i])
+		free(str[i]);
 }
 
 static void		ft_fill(char const *s, char **str, char c)
@@ -82,10 +82,11 @@ static void		ft_fill(char const *s, char **str, char c)
 			str[k] = (char *)malloc(sizeof(char) * (j + 1));
 			if (str[k] == NULL)
 			{
-				free(str);
+				ft_free(str, k);
 				return ;
 			}
-			ft_strncpy(s, str[k], i, j);
+			ft_memcpy(str[k], &s[i], j);
+			str[k][j] = 0;
 			k++;
 		}
 		i += j + 1;
@@ -107,6 +108,7 @@ char			**ft_split(char const *s, char c)
 	str[count] = (char *)malloc(sizeof(char));
 	if (str[count] == NULL)
 	{
+		ft_free(str, count);
 		free(str);
 		return (0);
 	}
