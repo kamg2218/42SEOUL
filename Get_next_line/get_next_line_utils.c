@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/13 01:28:42 by hyoon             #+#    #+#             */
-/*   Updated: 2020/04/13 01:34:48 by hyoon            ###   ########.fr       */
+/*   Created: 2020/04/22 18:03:29 by hyoon             #+#    #+#             */
+/*   Updated: 2020/04/29 01:06:59 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	ft_lstclear(t_list **lst)
 {
-	t_list			*l;
-	t_list			*front;
+	t_list	*l;
+	t_list	*front;
 
 	l = *lst;
 	if (!l)
 		return ;
-	while (l->next)
+	while (l)
 	{
 		front = l;
 		l = l->next;
-		front->content = NULL;
+		if (front->content)
+			free(front->content);
 		free(front);
 	}
-	free(l);
 	*lst = NULL;
 }
 
 t_list	*ft_lstnew(void)
 {
+	int				i;
 	t_list			*lst;
-	unsigned int	i;
 
 	lst = (t_list *)malloc(sizeof(t_list));
 	lst->content = (char *)malloc(sizeof(char) * BUFFER_SIZE);
@@ -72,22 +72,25 @@ int		ft_start_check(t_list *start)
 {
 	int				i;
 	int				j;
-	t_list			*lst;
 
 	i = 0;
-	lst = start;
-	while (lst)
+	while (start)
 	{
 		j = 0;
-		while (*((char *)(lst->content) + j))
+		while (j < BUFFER_SIZE)
 		{
-			if (*((char *)(lst->content) + j) == -1
-					|| *((char *)(lst->content) + j) == '\n')
+			if (*((char *)(start->content) + j) == 0)
+			{
+				j = BUFFER_SIZE;
+				continue ;
+			}
+			else if (*((char *)(start->content) + j) == -1 ||
+					*((char *)(start->content) + j) == '\n')
 				return (i);
 			i++;
 			j++;
 		}
-		lst = lst->next;
+		start = start->next;
 	}
 	return (-1);
 }
@@ -103,7 +106,8 @@ void	ft_cpy_line(char *line, t_list *start, int i)
 	lst = start;
 	while (count < i)
 	{
-		if (*((char *)(lst->content) + s_count) == 0)
+		if (s_count >= BUFFER_SIZE
+				|| *((char *)lst->content + s_count) == 0)
 		{
 			lst = lst->next;
 			s_count = 0;
