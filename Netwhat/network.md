@@ -16,7 +16,7 @@ NETWORK
         
         선 연결없이 기계들을 연결할 수 있는데, wireless access point를 사용하고 이런 wireless network를 WI-FI라고 한다.
         
-        ![switch_with_wifi](./switch_with_wifi.png)
+        ![switch_with_wifi](./wifi.png)
         
         여러 개의 기계들을 access point에 여러 번 연결할 수 있고, access point는 switch에 연결하는 역할을 한다.
         
