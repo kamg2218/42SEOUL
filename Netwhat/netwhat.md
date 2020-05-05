@@ -66,3 +66,22 @@
     * 특정한 호스트에서 많은 트래픽을 발생시켜 속도를 저하시키는 문제를 해결하는 데에 용이하다.
     
     * CIDR(Classless Inter-Domain Routing, 사이더)는 클래스가 없는 도메인 간 라우팅 기법으로 최신 IP 주소 할당 방법이다. IP 주소 뒤에 /로 구분하고 서브넷마스크의 비트수를 적어 표시하는 것을 CIDR 표기법이라 부른다.
+
+4. WHAT IS THE BROADCAST ADDRESS OF A SUBNET?
+
+    - [x] Broadcast
+        
+        * 라디오 네트워크를 통해 전달되는 소리나 영상
+        
+        * 컴퓨터 네트워크에서 broadcasting은 모든 네트워크 사용자에게 답신 없이 메세지를 전송하는 것을 말한다.
+        
+        특정한 호트스로 패킷을 전홍하는 것이 아니라 특정 네트워크 전체에 패킷을 전송할 때 사용하는 IP Address가 broadcast IP이다.
+        
+        Broadcast IP address는 255.255.255.255를 사용하거나 IP address의 subnet 부분을 제외한 호스트 자리를 2진수 1로 채운 것이다. 
+        
+        예를 들자면, 10.1.10.100이라는 IP address를 가지는 호스트가 255.255.255.0이라는 subnet mask를 사용한다면, 이 subnet의 broadcast IP는 10.1.10.255가 된다.
+        
+        이런 broadcast는 네트웍을 관리하는 특정 목적의 protocol과 UDP를 사용한 통신에서만 사용이 가능하다.
+        
+        
+        
