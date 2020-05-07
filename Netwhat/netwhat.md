@@ -194,4 +194,6 @@
           
         ![tcp_udp](./tcpudp.png)
         
-10. 
+10. WHAT ARE THE NETWORK LAYERS?
+
+
