@@ -277,6 +277,20 @@
     라우터는 IP 주소를 읽어들여 적절한 위치로 데이터 packet을 전송한다. 
     
 16. WHAT IS A DEFAULT GATEWAY FOR ROUTING?
-
+    목적지 주소가 어떤 라우터에도 확인되지 않을 때 사용되는 것을 Default Route라고 한다.
+    IPv4에서 CIDR에서 default route는 0.0.0.0이다.
+    Default Gateway는 다른 네트워크 기술과 주소 변화를 포함하고, 다른 네트워크로의 access point를 제공하는 네트워크 노드이다.
+    Default Gateway는 IP 라우팅이 라우터에서 불가능할 때 사용되고, Layer 2이하의 장비에서 사용한다.
+    Default Network와 IP 라우트는 IP 라우팅이 라우터에서 불가능하고, 매치되는 주소가 없을 때 사용되고, Layer 3인 장비에서 사용된다.
 
 17. WHAT IS A PORT FROM AN IP POINT OF VIEW AND WHAT IS IT USED FOR WHEN CONNECTING TO ANOTHER DEVICE?
+    - [x] PORT
+        시스템 상에서 서비스에 대한 주소이다. IP 주소와 port는 특정한 시스템에서 특정한 서비스를 의미한다.
+        communication endpoint.
+        이메일을 받을 때에는 보통 TCP port 25를 사용한다. FTP는 port 21을 사용한다.
+        80 == HTTP, 23 == Telnet
+        포트는 0 ~ 1023까지의 숫자를 주로 사용하고, 지속적이고 프로그래밍을 위해 사용된다.
+        0 ~ 1023 : 잘알려진 포트 숫자로 MSN, SQL services 등과 같이 특정 회사에서 사용한다.
+        1024 ~ 49151 : 등록된 포트들로 특정한 프로토콜에 설정할 수 있다.
+        49152 ~ 65535 : 동적이고 개인적인 포트
+        
