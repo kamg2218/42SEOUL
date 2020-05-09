@@ -196,4 +196,87 @@
         
 10. WHAT ARE THE NETWORK LAYERS?
 
+    - [x] OSI(Open Systems Interconnection) / 7 layers
+        1. Physical : hardware (하드웨어 전송기술)
+        2. Data Link : translates binary into signal
+        3. Network : determines how to sending data (IP, ICMP, ...)
+        4. Transport : transport data (TCP, UDP, ...)
+        5. Session : connect between divces (세션 관리)
+        6. Presentation : convert data, formatting (XDR)
+        7. Application : communicate other users (HTTP, SMTP, FTP, ...)
+        
+    - [x] TCP/IP / 4 layers
+        1. Network Access : (= Link Network Interface Layer), combine OSI's Physical, Data Link
+        2. Internet : = Network
+        3. Transport : host-to-host, (= Transport)
+        4. Application : process layer (= session, presentation, application)
 
+11. WHAT IS THE OSI MODEL?
+
+    - [x] OSI model
+        Open Systems Interconnection Reference Model
+        (OSI 7 계층 모형)
+        컴퓨터 네트워크 포로토콜 디자인과 통신을 계층을 나누어 설명한 것이다.
+        
+12. WHAT IS A DHCP SERVER AND THE DHCP PROTOCOL?
+
+    - [x] DHCP (Dynamic Host Configuration Protocol)
+        IP 주소와 TCP/IP 프로토콜의 기본 설정을 클라이언트에게 자동적으로 분할하여 할당하는 네트워크 서버이다.
+        클라이언트 IP 주소가 만료되면 변화하는 동적 IP 주소 할당을 사용하여 클라이언트에게 할당한다.
+        네트워크에 사용되는 IP 주소를 DHCP 서버가 중앙집중식으로 관리하는 클라이언트/서버 모델을 사용한다.
+        DHCP 서버에 의존하기 때문에 서버가 다운되면 IP 할당이 이루어지지 않는다.
+        
+    - [x] DHCP server
+        네트워크 인터페이스를 위해 IP 주소를 가지고 있는 서버에서 실행되는 프로그램으로 일정한 범위의 IP 주소를 다른 클라이언트에게 할당하여 자동으로 설정한다.
+        할당가능한 IP 주소를 관리한다.
+        
+    - [x] DHCP client
+        시스템이 시작하면 DHCP 서버에 IP 주소를 요청하고, 서버로 부터 IP 주소를 부여받으면 TCP/IP 설정이 초기화되고 다른 호스트와 통신할 수 있다.
+        
+    - [x] DHCP protocol
+        DHCP를 통한 IP 주소 할당은 임대라는 개념이 있으며 IP 주소를 영구적으로 단말기에 할당하는 것이 아닌 임대기간을 명시하여 일정 기간 동안만 IP 주소를 사용할 수 있도록한다.
+        IP 주소를 계속해서 사용하고자 한다면, IP 주소 임대기간 연장을 서버에 요청해야 하고, 더 이상 필요하지 않는 경우 IP 주소 반납 절차를 수행한다.
+        
+    * IP주소 할당 절차
+        1. DHCP Discover
+        2. DHCP Offer
+        3. DHCP Request
+        4. DHCP Ack
+
+13. WHAT IS A DNS server AND THE DNS protocol?
+
+    - [x] DNS (Dynamic Name System)
+        the phonebook of the internet.
+        
+        web browers interact through Internet Protocol(IP) addresses.
+        DNS translates domain names to IP addresses so browsers can load internet resources.
+        DNS servers eliminate the need for humans to memorize IP addresses.
+         * 쿼리(query) : DNS 서버가 도메인 이름을 IP 주소로 변환하도록 요청하는 것
+         
+     - [x] DNS servers
+        1. Recursive resolver : DNS recursor, DNS 쿼리의 첫 단계이다. 클라이언트와 DNS nameserver 사이에서 실행된다. DNS 쿼리를 받아서 캐쉬 데이터로 응답하거나 root nameserver에 요청한다. 
+        2. Root nameserver : 13 종류의 nameserver가 존재한다. 
+        3. TLD nameserver : .com, .net과 같이 일반적으로 공유하는 도메인 이름에 대한 정보를 가지고 있다. Generic top-level domains(.com, .org, .net)와 country code-top-level domains(.uk, .us, .kr)로 나누어 관리한다.
+        4. Authoritative nameserver : 도메인 이름에 대한 특정한 정보를 가지고 있다.
+    
+    - [x] DNS protocol
+        DNS는 UDP를 사용하여 DNS 쿼리를 처리한다.
+
+14. WHAT ARE THE RULES TO MAKE 2 DEVICES COMMUNICATE USING IP addresses?
+
+    인터넷을 사용하여 컴퓨터를 연결하고 소통한다. 주로 TCP/IP를 사용한다.
+    네트워크에서 다른 컴퓨터와 연결하기 위해서는 NIC(network interface card)가 설치되어있어야 하고, 네트워크 케이블을 NIC에 연결하고, 다른 쪽은 케이블 모뎀, DSL 모뎀, 라우터 또는 스위치에 연결되어야 인터넷에 연결할 수 있다.
+    ISP(internet service providers)는 인터넷 상에서 컴퓨터와 다른 컴퓨터의 다리 역할을 한다.
+
+15. HOW DOES ROUTING WORK WITH IP?
+
+    라우팅은 데이터 packet을 하나의 노트에서 다른 노드로 컴퓨터 네트워크를 통해 목적지까지 이동시키는 과정을 할한다.
+    데이터가 다른 장치로 IP 네트워크로 전송될 때, packet이라는 작은 단위로 나누어진다.
+    각 packet에 목적지를 알려주는 헤더를 덧붙여서 전송한다. 헤터에는 IP 주소가 들어있다.
+    TCP 또는 다른 프로토콜을 이용하여 데이터를 전송하는데, 데이터 packets은 IP packets으로 묶여서 네트워크를 통해 전달된다. 목적지에 도달하기 위해서 많은 라우터를 지나는데, 이를 라우팅이라고 한다.
+    라우터는 IP 주소를 읽어들여 적절한 위치로 데이터 packet을 전송한다. 
+    
+16. WHAT IS A DEFAULT GATEWAY FOR ROUTING?
+
+
+17. WHAT IS A PORT FROM AN IP POINT OF VIEW AND WHAT IS IT USED FOR WHEN CONNECTING TO ANOTHER DEVICE?
