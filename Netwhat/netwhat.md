@@ -107,6 +107,10 @@
         Private IP 주소는 개인적인 네트워크를 만들어 사용하는 interNIC으로 할당되는 주소 공간이다. 개인적으로 사용하는 IP blocks는 A, B, C Class가 있다. 
         
         컴퓨터에 private IP 주소가 할당되면, local devices들이 IP 주소로 컴퓨터를 볼 수 있다. 그러나 local 네트워크 밖에 있는 기계들은 개인 IP 주소를 사용할 수 없다. 개인 IP 주소에 직접적으로 연결을 하려면 NAT(Network Address Translator)를 사용해야 한다.       
+        
+        Class A : 10.0.0.0 ~ 10.255.255.255
+        Class B : 172.16.0.0 ~ 172.31.255.255
+        Class C : 192.168.0.0 ~ 192.168.255.255
 
 7. WHAT IS A CLASS OF IP ADDRESSES?
 
