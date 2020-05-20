@@ -17,7 +17,7 @@
     
     IP 주소의 클래스는 네트워크의 규모에 따라 결정되는 데, A ~ E Class로 나누어져 있다. 네트워크 주소 영역과 호스트 주소 영역의 차이가 있다.
     
-    ![IP class](./.git/IPclass.png)
+    ![IP class](./IPclass.png)
     
     A Class는 처음 8비트가 네트워크 아이디이며 나머지 24비트가 호스트 아이디로 사용된다. 비트가 0으로 시작하기 때문에 네트워크 할당은 0 ~ 127이다. 
     
@@ -65,7 +65,9 @@
     
     * 특정한 호스트에서 많은 트래픽을 발생시켜 속도를 저하시키는 문제를 해결하는 데에 용이하다.
     
-    * CIDR(Classless Inter-Domain Routing, 사이더)는 클래스가 없는 도메인 간 라우팅 기법으로 최신 IP 주소 할당 방법이다. IP 주소 뒤에 /로 구분하고 서브넷마스크의 비트수를 적어 표시하는 것을 CIDR 표기법이라 부른다.
+    * CIDR(Classless Inter-Domain Routing, 사이더)는 클래스가 없는 도메인 간 라우팅 기법으로 최신 IP 주소 할당 방법이다. 
+    
+    IP 주소 뒤에 /로 구분하고 서브넷마스크의 비트수를 적어 표시하는 것을 CIDR 표기법이라 부른다.
 
 4. WHAT IS THE BROADCAST ADDRESS OF A SUBNET?
 
@@ -101,15 +103,26 @@
 
     - [x] Public IP address
         
-        Public IP 주소는 인터넷을 직접적으로 허용하도록 기계에 할당하는 주소이다. 웹 서버, 이메일 서버와 인터넷에 바로 연결할 수 있는 서버들이 public IP 주소를 사용할 수 있다. Public IP 주소는 전세계적으로 특별하고, 특정한 기계에서만 사용할 수 있다.
+        Public IP 주소는 인터넷을 직접적으로 허용하도록 기계에 할당하는 주소이다. 
+        
+        웹 서버, 이메일 서버와 인터넷에 바로 연결할 수 있는 서버들이 public IP 주소를 사용할 수 있다. Public IP 주소는 전세계적으로 특별하고, 특정한 기계에서만 사용할 수 있다.
         
     - [x] Private IP address
-        Private IP 주소는 개인적인 네트워크를 만들어 사용하는 interNIC으로 할당되는 주소 공간이다. 개인적으로 사용하는 IP blocks는 A, B, C Class가 있다. 
+    
+        Private IP 주소는 개인적인 네트워크를 만들어 사용하는 interNIC으로 할당되는 주소 공간이다. 
         
-        컴퓨터에 private IP 주소가 할당되면, local devices들이 IP 주소로 컴퓨터를 볼 수 있다. 그러나 local 네트워크 밖에 있는 기계들은 개인 IP 주소를 사용할 수 없다. 개인 IP 주소에 직접적으로 연결을 하려면 NAT(Network Address Translator)를 사용해야 한다.       
+        개인적으로 사용하는 IP blocks는 A, B, C Class가 있다. 
+        
+        컴퓨터에 private IP 주소가 할당되면, local devices들이 IP 주소로 컴퓨터를 볼 수 있다. 
+        
+        그러나 local 네트워크 밖에 있는 기계들은 개인 IP 주소를 사용할 수 없다. 
+        
+        개인 IP 주소에 직접적으로 연결을 하려면 NAT(Network Address Translator)를 사용해야 한다.       
         
         Class A : 10.0.0.0 ~ 10.255.255.255
+        
         Class B : 172.16.0.0 ~ 172.31.255.255
+        
         Class C : 192.168.0.0 ~ 192.168.255.255
 
 7. WHAT IS A CLASS OF IP ADDRESSES?
@@ -120,15 +133,20 @@
         
         IPv4 IP 주소에는 5가지 클래스가 있다.
         
-        A Class는 처음 8비트가 네트워크 아이디이며 나머지 24비트가 호스트 아이디로 사용된다. 비트가 0으로 시작하기 때문에 네트워크 할당은 0 ~ 127이다. 
+        A Class는 처음 8비트가 네트워크 아이디이며 나머지 24비트가 호스트 아이디로 사용된다. 
+        
+            비트가 0으로 시작하기 때문에 네트워크 할당은 0 ~ 127이다. 
     
         B Class는 처음 16비트가 네트워크 아이디이고, 나머지 16비트가 호스트 아이디로 사용된다.
-    비트가 10으로 시작하므로 네트워크 할당은 16 - 2 비트인, 2^14개다.
+    
+            비트가 10으로 시작하므로 네트워크 할당은 16 - 2 비트인, 2^14개다.
     
         C Class는 처음 24비트가 네트워크 아이디이고, 나머지 8비트가 호스트 아이디로 사용된다.
-    비트가 110으로 시작하므로 네트워크 할당은 24 - 3 비트인 2^21개다.
+        
+            비트가 110으로 시작하므로 네트워크 할당은 24 - 3 비트인 2^21개다.
     
         D Class는 Multicast, E Class는 미래에 사용하기 위해 남겨둔 것이다. 실제로 사용되는 경우가 거의 없다.
+        
         
 8. WHAT IS TCP?
 
@@ -225,20 +243,29 @@
 12. WHAT IS A DHCP SERVER AND THE DHCP PROTOCOL?
 
     - [x] DHCP (Dynamic Host Configuration Protocol)
+        
         IP 주소와 TCP/IP 프로토콜의 기본 설정을 클라이언트에게 자동적으로 분할하여 할당하는 네트워크 서버이다.
+        
         클라이언트 IP 주소가 만료되면 변화하는 동적 IP 주소 할당을 사용하여 클라이언트에게 할당한다.
+        
         네트워크에 사용되는 IP 주소를 DHCP 서버가 중앙집중식으로 관리하는 클라이언트/서버 모델을 사용한다.
+        
         DHCP 서버에 의존하기 때문에 서버가 다운되면 IP 할당이 이루어지지 않는다.
         
     - [x] DHCP server
+        
         네트워크 인터페이스를 위해 IP 주소를 가지고 있는 서버에서 실행되는 프로그램으로 일정한 범위의 IP 주소를 다른 클라이언트에게 할당하여 자동으로 설정한다.
+        
         할당가능한 IP 주소를 관리한다.
         
     - [x] DHCP client
+        
         시스템이 시작하면 DHCP 서버에 IP 주소를 요청하고, 서버로 부터 IP 주소를 부여받으면 TCP/IP 설정이 초기화되고 다른 호스트와 통신할 수 있다.
         
     - [x] DHCP protocol
+        
         DHCP를 통한 IP 주소 할당은 임대라는 개념이 있으며 IP 주소를 영구적으로 단말기에 할당하는 것이 아닌 임대기간을 명시하여 일정 기간 동안만 IP 주소를 사용할 수 있도록한다.
+        
         IP 주소를 계속해서 사용하고자 한다면, IP 주소 임대기간 연장을 서버에 요청해야 하고, 더 이상 필요하지 않는 경우 IP 주소 반납 절차를 수행한다.
         
     * IP주소 할당 절차
@@ -250,51 +277,79 @@
 13. WHAT IS A DNS server AND THE DNS protocol?
 
     - [x] DNS (Dynamic Name System)
+        
         the phonebook of the internet.
         
         web browers interact through Internet Protocol(IP) addresses.
+        
         DNS translates domain names to IP addresses so browsers can load internet resources.
+        
         DNS servers eliminate the need for humans to memorize IP addresses.
-         * 쿼리(query) : DNS 서버가 도메인 이름을 IP 주소로 변환하도록 요청하는 것
+        
+        * 쿼리(query) : DNS 서버가 도메인 이름을 IP 주소로 변환하도록 요청하는 것
          
      - [x] DNS servers
+        
         1. Recursive resolver : DNS recursor, DNS 쿼리의 첫 단계이다. 클라이언트와 DNS nameserver 사이에서 실행된다. DNS 쿼리를 받아서 캐쉬 데이터로 응답하거나 root nameserver에 요청한다. 
         2. Root nameserver : 13 종류의 nameserver가 존재한다. 
         3. TLD nameserver : .com, .net과 같이 일반적으로 공유하는 도메인 이름에 대한 정보를 가지고 있다. Generic top-level domains(.com, .org, .net)와 country code-top-level domains(.uk, .us, .kr)로 나누어 관리한다.
         4. Authoritative nameserver : 도메인 이름에 대한 특정한 정보를 가지고 있다.
     
     - [x] DNS protocol
+        
         DNS는 UDP를 사용하여 DNS 쿼리를 처리한다.
 
 14. WHAT ARE THE RULES TO MAKE 2 DEVICES COMMUNICATE USING IP addresses?
 
     인터넷을 사용하여 컴퓨터를 연결하고 소통한다. 주로 TCP/IP를 사용한다.
+    
     네트워크에서 다른 컴퓨터와 연결하기 위해서는 NIC(network interface card)가 설치되어있어야 하고, 네트워크 케이블을 NIC에 연결하고, 다른 쪽은 케이블 모뎀, DSL 모뎀, 라우터 또는 스위치에 연결되어야 인터넷에 연결할 수 있다.
+    
     ISP(internet service providers)는 인터넷 상에서 컴퓨터와 다른 컴퓨터의 다리 역할을 한다.
 
 15. HOW DOES ROUTING WORK WITH IP?
 
     라우팅은 데이터 packet을 하나의 노트에서 다른 노드로 컴퓨터 네트워크를 통해 목적지까지 이동시키는 과정을 할한다.
+    
     데이터가 다른 장치로 IP 네트워크로 전송될 때, packet이라는 작은 단위로 나누어진다.
+    
     각 packet에 목적지를 알려주는 헤더를 덧붙여서 전송한다. 헤터에는 IP 주소가 들어있다.
-    TCP 또는 다른 프로토콜을 이용하여 데이터를 전송하는데, 데이터 packets은 IP packets으로 묶여서 네트워크를 통해 전달된다. 목적지에 도달하기 위해서 많은 라우터를 지나는데, 이를 라우팅이라고 한다.
+    
+    TCP 또는 다른 프로토콜을 이용하여 데이터를 전송하는데, 데이터 packets은 IP packets으로 묶여서 네트워크를 통해 전달된다. 
+    
+    목적지에 도달하기 위해서 많은 라우터를 지나는데, 이를 라우팅이라고 한다.
+    
     라우터는 IP 주소를 읽어들여 적절한 위치로 데이터 packet을 전송한다. 
     
 16. WHAT IS A DEFAULT GATEWAY FOR ROUTING?
+    
     목적지 주소가 어떤 라우터에도 확인되지 않을 때 사용되는 것을 Default Route라고 한다.
+    
     IPv4에서 CIDR에서 default route는 0.0.0.0이다.
+    
     Default Gateway는 다른 네트워크 기술과 주소 변화를 포함하고, 다른 네트워크로의 access point를 제공하는 네트워크 노드이다.
+    
     Default Gateway는 IP 라우팅이 라우터에서 불가능할 때 사용되고, Layer 2이하의 장비에서 사용한다.
+    
     Default Network와 IP 라우트는 IP 라우팅이 라우터에서 불가능하고, 매치되는 주소가 없을 때 사용되고, Layer 3인 장비에서 사용된다.
 
 17. WHAT IS A PORT FROM AN IP POINT OF VIEW AND WHAT IS IT USED FOR WHEN CONNECTING TO ANOTHER DEVICE?
+    
     - [x] PORT
+    
         시스템 상에서 서비스에 대한 주소이다. IP 주소와 port는 특정한 시스템에서 특정한 서비스를 의미한다.
+        
         communication endpoint.
+        
         이메일을 받을 때에는 보통 TCP port 25를 사용한다. FTP는 port 21을 사용한다.
+        
         80 == HTTP, 23 == Telnet
+        
         포트는 0 ~ 1023까지의 숫자를 주로 사용하고, 지속적이고 프로그래밍을 위해 사용된다.
+        
         0 ~ 1023 : 잘알려진 포트 숫자로 MSN, SQL services 등과 같이 특정 회사에서 사용한다.
+        
         1024 ~ 49151 : 등록된 포트들로 특정한 프로토콜에 설정할 수 있다.
+        
         49152 ~ 65535 : 동적이고 개인적인 포트
         
