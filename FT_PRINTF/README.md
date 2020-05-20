@@ -30,3 +30,9 @@
         - 값 = 0, precision 있음 : '0x0'과 앞, 뒤 공백 출력
         
     * Type이 's'인 경우, Flags '0'은 사용하지 않는다. (관련 에러는 Moulinette에서 확인하지 않는다.)
+
+### Tester
+
+[42TESTERS-PRINTF by Mazoise] : https://github.com/Mazoise/42TESTERS-PRINTF
+[pft_2019 by cclaude42] : https://github.com/cclaude42/PFT_2019
+[printf_lover by charMstr] : https://github.com/charMstr/printf_lover_v2
