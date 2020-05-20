@@ -33,6 +33,6 @@
 
 ### Tester
 
-[42TESTERS-PRINTF by Mazoise] (https://github.com/Mazoise/42TESTERS-PRINTF)
-[pft_2019 by cclaude42] (https://github.com/cclaude42/PFT_2019).
-[printf_lover by charMstr] (https://github.com/charMstr/printf_lover_v2).
+[42TESTERS-PRINTF by Mazoise](https://github.com/Mazoise/42TESTERS-PRINTF)
+[pft_2019 by cclaude42](https://github.com/cclaude42/PFT_2019)
+[printf_lover by charMstr](https://github.com/charMstr/printf_lover_v2)
