@@ -2,7 +2,7 @@
 
 ### Mandatory part
 
-|:--|:-----|
+|:-----:|:-----|
 |Program name|libftprintf.a|
 |Turn in files|*.c, */*.c, *.h, */*.h, Makefile|
 |Makefile|all, clean, fclean, re, bonus|
