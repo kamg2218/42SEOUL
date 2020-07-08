@@ -120,6 +120,14 @@ Re-code a set of the libc functions, as defined in their man.
 
 - substr
     
-    
+    Function name,ft_substr
+    Prototype,"char    *ft_substr(char const *s, unsigned int start, size_t len);"
+    Parameters,"1. The string from which to create the substring.\n
+    2. The start index of the substring in the string 's'.\n
+    3. The maximum length of the substring."
+    Return value,The substring. NULL if the allocation fails.
+    External functs.,malloc
+    Description,"Allocates (with malloc(3)) and returns a substring from the string 's'.
+    The substring begins at index 'start' and is of maximum size 'len'."
 
 [ft_strjoin](https://www.notion.so/79fbb19d137f451483c6a05e0663eca1)
