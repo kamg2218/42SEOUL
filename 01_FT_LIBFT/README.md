@@ -2,11 +2,15 @@
 
 Property: your very first own library
 
+## ORDER
+
 ### [Introduction](#introduction)
 ### [Mandatory part](#mandatory-part) 
    #### [part 1 - Libc functions](#part-1---libc-functions)
    #### [part 2 - Additional functions](#part-2---additional-functions)
 ### [Bonus part](#bonus-part)
+
+---
 
 ## Introduction
 
