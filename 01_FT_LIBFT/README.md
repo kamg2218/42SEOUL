@@ -4,11 +4,11 @@
 
 ## ORDER
 
-#### [Introduction](#introduction)
-#### [Mandatory part](#mandatory-part) 
-   ##### [part 1 - Libc functions](#libc-functions)
-   ##### [part 2 - Additional functions](#additional-functions)
-#### [Bonus part](#bonus-part)
+#### [Intro](#introduction)
+#### [Mandatory](#mandatory-part) 
+   ##### [part 1](#libc-functions)
+   ##### [part 2](#additional-functions)
+#### [Bonus](#bonus-part)
 
 ## Introduction
 
