@@ -2,11 +2,11 @@
 
 Property: your very first own library
 
-### Introduction
-### Mandatory part
-    part 1 - Libc functions
-    part 2 - Additional functions
-### Bonus part
+### [Introduction](#introduction)
+### [Mandatory part](#mandatory-part) 
+   #### [part 1 - Libc functions](#part-1---libc-functions)
+   #### [part 2 - Additional functions](#part-2---additional-functions)
+### [Bonus part](#bonus-part)
 
 ## Introduction
 
@@ -133,4 +133,6 @@ Re-code a set of the libc functions, as defined in their man.
     |External functs.|malloc|
     |Description|Allocates (with malloc(3)) and returns a substring from the string 's'.\n The substring begins at index 'start' and is of maximum size 'len'.|
 
-[ft_strjoin](https://www.notion.so/79fbb19d137f451483c6a05e0663eca1)
+
+
+## Bonus part
