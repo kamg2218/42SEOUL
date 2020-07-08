@@ -2,11 +2,15 @@
 
 Property: your very first own library
 
+### Introduction
+### Mandatory part
+    part 1 - Libc functions
+    part 2 - Additional functions
+### Bonus part
+
 ## Introduction
 
 This project gives me the opportunity to re-write those functions, understand them, and learn to use them.
-
----
 
 ## Mandatory part
 
@@ -120,6 +124,8 @@ Re-code a set of the libc functions, as defined in their man.
 
 - substr
     
+    |Name|Contents|
+    |:--:|:--|
     |Function name|ft_substr|
     |Prototype|char    \*ft_substr(char const \*s, unsigned int start, size_t len);|
     |Parameters| 1. The string from which to create the substring.\n 2. The start index of the substring in the string 's'.\n 3. The maximum length of the substring.|
