@@ -6,8 +6,8 @@
 
 #### [Intro](#introduction)
 #### [Mandatory](#mandatory-part) 
-   ##### [part 1](#libc-functions)
-   ##### [part 2](#additional-functions)
+   ##### [part 1](#part-1---libc-functions)
+   ##### [part 2](#part-2---additional-functions)
 #### [Bonus](#bonus-part)
 
 ## Introduction
