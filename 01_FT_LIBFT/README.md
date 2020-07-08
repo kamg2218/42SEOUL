@@ -8,7 +8,7 @@ This project gives me the opportunity to re-write those functions, understand th
 
 ---
 
-[Mandatory part](https://www.notion.so/960aee94b4ff4a648e19572ea5595a47)
+## Mandatory part
 
 - Define these sub-functions as static to avoid publishing them with your library.
 - Forbidden to use global variables.
@@ -20,7 +20,7 @@ Re-code a set of the libc functions, as defined in their man.
 
 - memset
 
-    void    *ft_memset(void *ptr, int value, size_t num);
+    void    \*ft_memset(void *ptr, int value, size_t num);
 
 - bzero
 
@@ -32,19 +32,19 @@ Re-code a set of the libc functions, as defined in their man.
 
 - memccpy
 
-    void    *ft_memccpy(void *dest, const void *src, int c, size_t n);
+    void    \*ft_memccpy(void *dest, const void *src, int c, size_t n);
 
 - memmove
 
-    void    *ft_memmove(void *dest, const void *src, size_t n);
+    void    \*ft_memmove(void *dest, const void *src, size_t n);
 
 - memchr
 
-    void    *ft_memchr(const void *s, int c, size_t n);
+    void    \*ft_memchr(const void *s, int c, size_t n);
 
 - memcmp
 
-    void    *ft_memcmp(const void *ptr1, const void *ptr2, size_t n);
+    void    \*ft_memcmp(const void *ptr1, const void *ptr2, size_t n);
 
 - strlen
 
@@ -60,15 +60,15 @@ Re-code a set of the libc functions, as defined in their man.
 
 - strchr
 
-    char    *ft_strchr(char *str, int c);
+    char    \*ft_strchr(char *str, int c);
 
 - strrchr
 
-    char    *ft_strrchr(char *str, int c);
+    char    \*ft_strrchr(char *str, int c);
 
 - strnstr
 
-    char    *ft_strnstr(char *str1, char *str2, size_t n);
+    char    \*ft_strnstr(char *str1, char *str2, size_t n);
 
 - strncmp
 
@@ -108,16 +108,18 @@ Re-code a set of the libc functions, as defined in their man.
 
 - calloc
 
-    void    *ft_calloc(size_t count, size_t size);
+    void    \*ft_calloc(size_t count, size_t size);
 
 - strdup
 
-    char    *ft_strdup(const char *s);
+    char    \*ft_strdup(const char *s);
 
 ---
 
 ### Part 2 - Additional functions
 
-[ft_substr](https://www.notion.so/358f099d7c90489a865134719da60fd1)
+- substr
+    
+    
 
 [ft_strjoin](https://www.notion.so/79fbb19d137f451483c6a05e0663eca1)
