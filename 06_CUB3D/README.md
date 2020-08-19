@@ -4,7 +4,7 @@
 
 
 |NAME|CONTENTS|
-|:--|:---:|
+|:--|:---|
 |Program name|cub3D|
 |Turn in files|All your files|
 |Makefile|all, clean, fclean, re, bonus|
