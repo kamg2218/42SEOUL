@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRC = raycast.c\
-	  try.c\
+	  cub3d.c\
 	  key.c\
 	  bmp.c\
 	  color.c\
@@ -19,7 +19,7 @@ SRC = raycast.c\
 	  ./parsing/get_next_line_utils.c\
 
 OBJECTS = raycast.o\
-		  try.o\
+		  cub3d.o\
 		  key.o\
 		  bmp.o\
 		  color.o\
