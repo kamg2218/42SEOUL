@@ -8,6 +8,18 @@
 
     make maps/map_name.cub --save
 
+### gcc flags
+
+    BFLAGS : -Wall -Wextra -Werror
+    
+    CFLAGS : -L./mlx_opengl -lmlx -framework OpenGL -framework AppKit
+    
+    DFLAGS : -D BUFFER_SIZE=1024
+    
+    EFLAGS : -L./utils -lutils
+    
+    Memory leaks : -fsanitize=address
+
 * Before starting this project : http://users.atw.hu/wolf3d
 
 
