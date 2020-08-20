@@ -45,3 +45,33 @@
     구한 거리를 이용하여 화면에 나타날 이미지의 길이를 결정할 수 있다.
     
     reference : https://lodev.org/cgtutor/raycasting.html
+
+### Minilibx
+
+   * minilibx : an easy way to create graphical software.
+    
+    mlx_init() : create connection 
+    
+    mlx_new_window(void *mlx, int width, int height, char *name) : manage windows
+
+    mlx_destroy_window(void *mlx, void *win) : destroy windows
+
+    mlx_new_image(void *mlx, int width, int height) : manipulate images
+    
+    mlx_put_image_to_window(void *mlx, void *win, void *img, int x, int y) : 
+    
+    mlx_get_data_addr(void *img);
+
+    mlx_xpm_file_to_image(void *mlx, char *file, int *width, int *height);
+
+    mlx_destroy_image(void *mlx, void *img);
+
+    mlx_hook();
+    
+    mlx_loop_hook(void *mlx, );
+
+    mlx_loop(void *mlx) : handle keyboard or mouse events
+    
+    
+### DFS
+
