@@ -36,7 +36,7 @@
     
     광선 투사는 2D 지도에서 3D 관점을 만드는 렌더링 기술이다.
     
-    ![raycasting1](./raycasting1.png)
+    ![raycasting1](.raycasting1.png)
     
     ![raycasting2](.raycasting2.png)
     
