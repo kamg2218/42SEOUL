@@ -36,8 +36,12 @@
     
     광선 투사는 2D 지도에서 3D 관점을 만드는 렌더링 기술이다.
     
-    ![raycasting1](.raycasting1.png)
+  <img src=".raycasting1.png" height="250px" width="250px">  <img src=".raycasting2.png" height="250px" width="250px">
     
-    ![raycasting2](.raycasting2.png)
+    특정한 방향으로 광선을 쏘아 장애물을 만나는 지 확인하고 장애물까지의 거리를 구할 수 있다.
+    
+    플레이어의 시야를 60도로 정하고, 방향벡터를 이용하여 각도에 따른 장애물과 플레이어의 거리를 구한다.
+    
+    구한 거리를 이용하여 화면에 나타날 이미지의 길이를 결정할 수 있다.
     
     reference : https://lodev.org/cgtutor/raycasting.html
