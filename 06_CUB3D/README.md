@@ -56,34 +56,35 @@
     
     구한 거리를 이용하여 화면에 나타날 이미지의 길이를 결정할 수 있다.
     
-    reference : https://lodev.org/cgtutor/raycasting.html
+   reference : https://lodev.org/cgtutor/raycasting.html
 
 ### Minilibx
 
    * minilibx : an easy way to create graphical software.
     
-    mlx_init() : create connection 
+    mlx_init() : create void pointer mlx
     
-    mlx_new_window(void *mlx, int width, int height, char *name) : manage windows
+    mlx_new_window(void *mlx, int width, int height, char *name) : create a new window on the screen, using width, height parameters to determine its size, and name as the text that should be displayed in the window's title bar.
 
-    mlx_destroy_window(void *mlx, void *win) : destroy windows
-
-    mlx_new_image(void *mlx, int width, int height) : manipulate images
+    mlx_clear_window(void *mlx, void *win) : clear the given window.
     
-    mlx_put_image_to_window(void *mlx, void *win, void *img, int x, int y) : 
+    mlx_destroy_window(void *mlx, void *win) : destroy the given window.
+
+    mlx_new_image(void *mlx, int width, int height) : create a new image in memory.
     
-    mlx_get_data_addr(void *img);
-
-    mlx_xpm_file_to_image(void *mlx, char *file, int *width, int *height);
-
-    mlx_destroy_image(void *mlx, void *img);
-
-    mlx_hook();
+    mlx_put_image_to_window(void *mlx, void *win, void *img, int x, int y) : draw image and dump the image inside a window. x, y coordinates define where the image should be placed in the window.
     
-    mlx_loop_hook(void *mlx, );
+    mlx_get_data_addr(void *img, int *pixel, int *size, int *endian) : it returns information about the created image, allowing a user to modify it later. pixel will be filled with the number of bits needed to represent a pixel color. size is the number of bytes used to store one line of the image in memory. endian tells you wether the pixel color in the pixel color in the image needs to be stored in (little, 0) or (big, 1).
 
-    mlx_loop(void *mlx) : handle keyboard or mouse events
+    mlx_xpm_file_to_image(void *mlx, char *file, int *width, int *height): create a new image. minilibX does not use the standard xpm library to deal with xpm images.
+
+    mlx_destroy_image(void *mlx, void *img) : destroys the given image.
+
+    mlx_hook() : on key and mouse events, additional information is passed. keycode tells you which key is pressed.
     
+    mlx_loop_hook(void *mlx, int (*funct)(), void *param) : it is identical to the previous ones, but the given function will be called when no event occurs.
+
+    mlx_loop(void *mlx) : To handle keyboard or mouse events, it must be used. it never returns. It is infinite loop that waits for an event, and then calls a user-defined function associated with this event.
     
 ### DFS
 
