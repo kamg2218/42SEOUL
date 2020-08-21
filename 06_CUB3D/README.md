@@ -88,11 +88,78 @@
     
    reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
     
+### 지도 파일
+
+    지도 파일을 열기 전, ft_endwidth 함수를 이용하여 .cub 파일인지 확인한다.
+    
+    만약, 입력 받은 지도 파일이 존재하지 않는 경우, 오류 메세지를 출력하고 게임을 종료한다.
+    
+    R : resolution
+    
+    F : floor color (hexa)
+    
+    C : ceil color (hexa)
+    
+    EA : east wall color (hexa)
+    
+    WE : west wall color (hexa)
+    
+    SO : south wall color (hexa)
+    
+    NO : north wall color (hexa)
+    
+    위의 EA, WE, SO, NO에 따른 벽의 색을 달리하기위해 texture 배열의 0, 1, 2, 3번째에 차례로 벽의 이미지를 저장한다.
+    
+    지도의 줄 수를 세어 max_row를 저장하고, 메모리를 할당한다.
+    
+    각 row에 따른 col의 수를 세어 메모리를 할당하고, 전역변수에 지도를 저장한다.
+    
+    지도 내에서 E, W, S, N은 플레이어가 바라보는 방향을 나타내고, 이애 따라 direction과 camera plane의 방향이 달라야한다.
+    
+    E, W, S, N : player's direction
+    
+    1 : external wall
+    
+    2, 4 : wall
+    
+    3 : pillar
+    
+    5 : wood sprite
+    
+    6 : light
+    
+    7 : start
+
 ### 지도 유효성 검사
 
-    - 지도가 벽으로 둘러싸여있는 유효한 지도인지를 확인하고, 유효한 지도인 경우, 게임을 실행하고, 아닌 경우, 게임을 종료한다.
+    지도가 벽으로 둘러싸여있는 유효한 지도인지를 확인하고, 유효한 지도인 경우, 게임을 실행하고, 아닌 경우, 게임을 종료한다.
     
-#### DFS (Depth-first Search, 깊이 우선 탐색)
+##### DFS (Depth-first Search, 깊이 우선 탐색)
    
-  
+    루트 노드에서 시작해서 다음 분기로 넘어가기 전에 해당 분기를 완벽하게 탐색하는 방법이다.
+    
+    모든 노드를 방문하고자 하는 경우에 이 방법을 사용한다.
+    
+    dfs 예제 : https://gmlwjd9405.github.io/2018/08/14/algorithm-dfs.html
+    
+    연결리스트로 주변 노드를 연결하고, 시작노드를 저장한다.
+    
+    시작점에서부터 이동 가능한 모든 노드를 방문하면서 도착점에 도달할 수 있는 길을 찾고,
+    
+    가능하다면 1을 반환하여 게임을 실행하고, 길이 없다면 0을 반환하여 게임을 종료한다.
 
+### 장애물(Sprite)
+
+    지도 파일을 열어 장애물에 해당하는 번호의 갯수를 확인하고, 갯수에 따른 sprite 구조체의 메모리를 할당한다.
+    
+    할당한 메모리에 장애물의 위치 정보와 해당 번호를 저장한다.
+    
+    이때, 1에 해당하는 벽인 EA, WE, SO, NO가 0 ~ 3번까지이므로 이후의 모든 번호에 대한 이미지는 2씩 더해야한다.
+    
+    또한, 장애물의 이미지를 변수에 저장한 뒤, 해당 장애물 위치의 지도 값을 0으로 변경한다.
+    
+    이는 지도를 먼저 그린 뒤, 장애물을 그리기위해서이다.
+    
+### ray-casting
+
+    
