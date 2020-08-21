@@ -86,5 +86,13 @@
 
     mlx_loop(void *mlx) : To handle keyboard or mouse events, it must be used. it never returns. It is infinite loop that waits for an event, and then calls a user-defined function associated with this event.
     
-### DFS
+   reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
+    
+### 지도 유효성 검사
+
+    지도가 벽으로 둘러싸여있는 유효한 지도인지를 확인하고, 유효한 지도인 경우, 게임을 실행하고, 아닌 경우, 게임을 종료한다.
+    
+#### DFS (Depth-first Search, 깊이 우선 탐색)
+   
+  
 
