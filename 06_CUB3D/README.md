@@ -87,7 +87,9 @@
     mlx_loop(void *mlx) : To handle keyboard or mouse events, it must be used. it never returns. It is infinite loop that waits for an event, and then calls a user-defined function associated with this event.
     
    reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
-    
+
+---
+
 ### 지도 파일
 
     지도 파일을 열기 전, ft_endwidth 함수를 이용하여 .cub 파일인지 확인한다.
@@ -128,7 +130,7 @@
     
     6 : light
     
-    7 : start
+    7 : star
 
 ### 지도 유효성 검사
 
