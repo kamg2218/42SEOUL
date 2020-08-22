@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 SRC = raycast.c\
 	  cub3d.c\
@@ -36,8 +36,6 @@ OBJECTS = raycast.o\
 		  get_next_line_utils.o\
 		  checking_map.o
 
-BFLAGS = -Wall -Wextra -Werror
-
 CFLAGS = -L./mlx_opengl -lmlx -framework OpenGL -framework AppKit
 
 DFLAGS = -D BUFFER_SIZE=1024
@@ -47,7 +45,7 @@ EFLAGS = -L./utils -lutils -fsanitize=address
 all : $(NAME)
 
 $(NAME) :
-	gcc $(BFALGS) $(CFLAGS) $(DFLAGS) $(EFLAGS) -o $(NAME) $(SRC)
+	gcc $(CFLAGS) $(DFLAGS) $(EFLAGS) -o $(NAME) $(SRC)
 
 clean :
 	/bin/rm -f $(OBJECTS)
