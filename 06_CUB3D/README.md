@@ -34,7 +34,7 @@
  [5. 오류 처리](#오류-처리)
  
  [6. REVIEW CHECK POINT!](#review-check-point)
-
+---
 ### Mandatory part
 
 * Before starting this project : http://users.atw.hu/wolf3d
