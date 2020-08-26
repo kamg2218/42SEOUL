@@ -19,6 +19,21 @@
     EFLAGS : -L./utils -lutils
     
     Memory leaks : -g3 -fsanitize=address
+---
+
+### INDEX
+
+ [1. Mandatory part](#mandatory-part)
+ 
+ [2. Ray-casting](#ray-casting)
+ 
+ [3. Minilibx](#minilibx)
+ 
+ [4. 코드 구현 순서](#코드-구현-순서)
+ 
+ [5. 오류 처리](#오류-처리)
+ 
+ [6. REVIEW CHECK POINT!](#review-check-point)
 
 ### Mandatory part
 
