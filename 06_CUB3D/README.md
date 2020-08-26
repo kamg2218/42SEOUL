@@ -243,4 +243,13 @@
     
     xpm 파일을 저장하는 과정에서 오류가 발생한 경우, FAIL TO READ XPM. 출력한 뒤, 게임을 종료한다.
     
-    
+---
+
+### REVIEW CHECK POINT!
+
+   * 입력 오류 확인! - ./cub3D , ./cub3D maps/1.cub , ./cub3D maps/1.cub --save , ./cub3D maps/non.cub , ...
+   * "--save" flag 있는 경우, screenshot.bmp 파일을 만든 뒤, 게임을 종료해야 한다.
+   * R key 확인! - R 이 있는 경우, 값이 화면보다 큰 경우, 값이 없는 경우
+   * 지도 유효성 검사 - 벽이 둘러싸여 있지 않은 경우
+   * Memory leaks 확인! - -g3 -fsanitize=address / leaks / top
+   
