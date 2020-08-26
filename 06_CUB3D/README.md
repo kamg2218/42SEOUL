@@ -1,10 +1,10 @@
 # 06_CUB3D
 
-### How to use Makefile
+## How to use Makefile
 
     make maps/map_name.cub
     
-### How to make screenshot
+## How to make screenshot
 
     make maps/map_name.cub --save
 
@@ -19,9 +19,10 @@
     EFLAGS : -L./utils -lutils
     
     Memory leaks : -g3 -fsanitize=address
----
 
-### INDEX
+
+## INDEX
+----
 
  [1. Mandatory part](#mandatory-part)
  
@@ -35,9 +36,9 @@
  
  [6. REVIEW CHECK POINT!](#review-check-point)
 
----
 
-### Mandatory part
+## Mandatory part
+---
 
 * Before starting this project : http://users.atw.hu/wolf3d
 
@@ -60,7 +61,7 @@
     
     프레임률이라고도 하며, 단위로 fps를 사용한다.
 
-### Ray-casting
+## Ray-casting
 
     광선 투사로, 광선과 표면의 교차검사를 사용하는 기법을 말한다.
     
@@ -76,7 +77,7 @@
     
    reference : https://lodev.org/cgtutor/raycasting.html
 
-### Minilibx
+## Minilibx
 
    * minilibx : an easy way to create graphical software.
     
@@ -106,9 +107,8 @@
     
    reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
 
+## 코드 구현 순서
 ---
-### 코드 구현 순서
-
 #### XPM 파일
 
     지도에 사용되는 이미지 파일을 읽고 저장한다.
@@ -231,8 +231,6 @@
     플레이어의 위치를 기준으로 장애물까지의 거리를 구한 뒤, 거리가 먼 순으로 배열을 정리한다.
     
     장애물의 거리가 먼 순으로 그림을 표현하여 같은 직선에 장애물이 여러 개이더라도 순서대로 그려지도록 한다.
-    
----
 
 ### Screenshot
 
@@ -242,11 +240,9 @@
     
     bmp 파일의 구조에 맞춰 이미지 색상을 저장하여 파일을 만들어야 한다.
 
-  <img src="screenshot.bmp" height="480px" width="640px">
-       
----
+  <img src="screenshot.bmp" height="320px" width="480px">
 
-### 오류 처리
+## 오류 처리
 
     입력 받은 가변인자의 갯수가 0개 또는 3개 이상일 때, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D , ./cub3D a b c)
     
@@ -260,9 +256,7 @@
     
     xpm 파일을 저장하는 과정에서 오류가 발생한 경우, FAIL TO READ XPM. 출력한 뒤, 게임을 종료한다.
     
----
-
-### REVIEW CHECK POINT!
+## REVIEW CHECK POINT!
 
    * 입력 오류 확인! - ./cub3D , ./cub3D maps/1.cub , ./cub3D maps/1.cub --save , ./cub3D maps/non.cub , ...
    * "--save" flag 있는 경우, screenshot.bmp 파일을 만든 뒤, 게임을 종료해야 한다.
