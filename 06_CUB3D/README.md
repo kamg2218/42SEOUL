@@ -22,7 +22,6 @@
 
 
 ## INDEX
-----
 
  [1. Mandatory part](#mandatory-part)
  
@@ -38,7 +37,6 @@
 
 
 ## Mandatory part
----
 
 * Before starting this project : http://users.atw.hu/wolf3d
 
@@ -108,7 +106,7 @@
    reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
 
 ## 코드 구현 순서
----
+
 #### XPM 파일
 
     지도에 사용되는 이미지 파일을 읽고 저장한다.
