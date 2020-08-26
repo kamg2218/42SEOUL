@@ -242,17 +242,17 @@
 
 ## 오류 처리
 
-    입력 받은 가변인자의 갯수가 0개 또는 3개 이상일 때, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D , ./cub3D a b c)
+   * 입력 받은 가변인자의 갯수가 0개 또는 3개 이상일 때, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D , ./cub3D a b c)
     
-    입력 받은 가변인자의 갯수가 2개이나 2번째 인자가 --save 가 아닌 경우, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps/1.cub -skeif)
+   * 입력 받은 가변인자의 갯수가 2개이나 2번째 인자가 --save 가 아닌 경우, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps/1.cub -skeif)
     
-    지도 파일이 .cub 파일이 아닌 경우, MAP ERROR 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps.txt)
+   * 지도 파일이 .cub 파일이 아닌 경우, MAP ERROR 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps.txt)
     
-    지도 파일이 없는 경우, 파일을 열 수 없는 경우이므로 FAIL TO PARSE MAP 출력한 뒤, 게임을 종료한다. (ex> ./cub3D 4map.cub)
+   * 지도 파일이 없는 경우, 파일을 열 수 없는 경우이므로 FAIL TO PARSE MAP 출력한 뒤, 게임을 종료한다. (ex> ./cub3D 4map.cub)
     
-    메모리 할당을 하지 못하는 오류가 발생한 경우, FAIL TO ALLOCATE SPACES 출력한 뒤, 게임을 종료한다.
+   * 메모리 할당을 하지 못하는 오류가 발생한 경우, FAIL TO ALLOCATE SPACES 출력한 뒤, 게임을 종료한다.
     
-    xpm 파일을 저장하는 과정에서 오류가 발생한 경우, FAIL TO READ XPM. 출력한 뒤, 게임을 종료한다.
+   * xpm 파일을 저장하는 과정에서 오류가 발생한 경우, FAIL TO READ XPM. 출력한 뒤, 게임을 종료한다.
     
 ## REVIEW CHECK POINT!
 
