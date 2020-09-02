@@ -88,6 +88,7 @@ void			clear_graph(t_graph *graph)
 		}
 	}
 	free(graph->node);
+	free(graph);
 }
 
 int				find_start(t_param *param, int *start)

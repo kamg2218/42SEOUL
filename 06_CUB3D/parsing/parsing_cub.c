@@ -25,20 +25,16 @@ int					parse_r(t_param *param, char *line)
 	j = 0;
 	num = 0;
 	len = ft_strlen(line);
-	while (++i < len)
-	{
-		if (ft_isalnum(line[i]) == 4)
-		{
-			i += char_to_num(line + i, &num);
-			if (!j)
-				param->x_render = num;
-			else
-				param->y_render = num;
-			j = !j;
-		}
-	}
-	if (!param->x_render || !param->y_render)
-		return (0);
+	while (i < len && ft_isalnum(line[i]) != 4)
+		i++;
+	i += char_to_num(line + i, &param->x_rdr);
+	while (i < len && ft_isalnum(line[i]) != 4)
+		i++;
+	i += char_to_num(line + i, &param->y_rdr);
+	if (param->x_rdr == 0 || param->x_rdr > 1440)
+		param->x_rdr = 1440;
+	if (param->y_rdr == 0 || param->y_rdr > 840)
+		param->y_rdr = 840;
 	param->mapheight -= 1;
 	return (1);
 }

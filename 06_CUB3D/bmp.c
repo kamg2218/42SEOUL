@@ -34,8 +34,8 @@ int					write_bmp_header(int fd, int filesize, t_param *param)
 	set_int_in_char(bmpheader + 2, filesize);
 	bmpheader[10] = (unsigned char)(54);
 	bmpheader[14] = (unsigned char)(40);
-	set_int_in_char(bmpheader + 18, SCREENWIDTH);
-	set_int_in_char(bmpheader + 22, SCREENHEIGHT);
+	set_int_in_char(bmpheader + 18, param->x_rdr);
+	set_int_in_char(bmpheader + 22, param->y_rdr);
 	bmpheader[27] = (unsigned char)(1);
 	bmpheader[28] = (unsigned char)(24);
 	return (!(write(fd, bmpheader, 54) < 0));
@@ -47,7 +47,7 @@ int					get_color(t_param *param, int x, int y)
 	int				quo;
 	int				color;
 
-	quo = SCREENWIDTH * (SCREENHEIGHT - 1 - y);
+	quo = param->x_rdr * (param->y_rdr - 1 - y);
 	color = *(int *)(param->img.data + quo + x);
 	rgb = (color & 0xff0000) | (color & 0x00ff00) | (color & 0x0000ff);
 	return (rgb);
@@ -64,10 +64,10 @@ int					write_bmp_data(int file, t_param *param, int pad)
 	zero[1] = 0;
 	zero[2] = 0;
 	i = 0;
-	while (i < SCREENHEIGHT)
+	while (i < param->y_rdr)
 	{
 		j = 0;
-		while (j < SCREENWIDTH)
+		while (j < param->x_rdr)
 		{
 			color = get_color(param, j, i);
 			if (write(file, &color, 3) < 0)
@@ -87,8 +87,8 @@ int					save_bmp(t_param *param)
 	int				file;
 	int				pad;
 
-	pad = (4 - (SCREENWIDTH * 3) % 4) % 4;
-	filesize = 54 + (3 + (SCREENWIDTH + pad) * SCREENHEIGHT);
+	pad = (4 - (param->x_rdr * 3) % 4) % 4;
+	filesize = 54 + (3 + (param->x_rdr + pad) * param->y_rdr);
 	if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC)) < 0)
 		return (0);
 	if (!(write_bmp_header(file, filesize, param)))
@@ -96,5 +96,5 @@ int					save_bmp(t_param *param)
 	if (!(write_bmp_data(file, param, pad)))
 		return (0);
 	close(file);
-	return (1);
+	return (error(param, 0));
 }

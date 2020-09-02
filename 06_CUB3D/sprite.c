@@ -79,6 +79,8 @@ int				sort_sprite(t_param *param)
 {
 	double		*dist;
 
+	if (param->sprite == NULL)
+		return (0);
 	if (!(dist_sprite(&dist, param)))
 		return (0);
 	change_sprite(dist, param);
@@ -99,5 +101,5 @@ int				transform_sprite(int i, t_param *param, double *txy)
 	inv_det = 1.0 / (coord.planex * coord.diry - coord.dirx * coord.planey);
 	txy[0] = inv_det * (coord.dirx * y - coord.diry * x);
 	txy[1] = inv_det * (coord.planey * x - coord.planex * y);
-	return ((int)((SCREENWIDTH / 2) * (1 + txy[0] / txy[1])));
+	return ((int)((param->x_rdr / 2) * (1 + txy[0] / txy[1])));
 }

@@ -83,14 +83,14 @@ double		calculate_perp(int side, t_coord *coord, t_map *map)
 	return (perp_dist);
 }
 
-double		height(int side, t_coord *coord, t_map *map)
+double		height(int side, t_param *param, t_map *map)
 {
 	int		h;
 	int		lineheight;
 	double	perp_dist;
 
-	perp_dist = calculate_perp(side, coord, map);
-	h = SCREENHEIGHT;
+	perp_dist = calculate_perp(side, &param->coord, map);
+	h = param->y_rdr;
 	lineheight = (int)(h / perp_dist);
 	map->drawstart = -lineheight / 2 + h / 2;
 	if (map->drawstart < 0)

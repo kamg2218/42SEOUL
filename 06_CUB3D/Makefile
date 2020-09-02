@@ -34,13 +34,13 @@ OBJECTS = raycast.o\
 		  dfs.o\
 		  get_next_line.o\
 		  get_next_line_utils.o\
-		  checking_map.o
+		  checking_map.o\
 
 CFLAGS = -L./mlx_opengl -lmlx -framework OpenGL -framework AppKit
 
 DFLAGS = -D BUFFER_SIZE=1024
 
-EFLAGS = -L./utils -lutils -fsanitize=address
+EFLAGS = -L./utils -lutils
 
 all : $(NAME)
 

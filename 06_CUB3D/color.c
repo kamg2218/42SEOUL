@@ -77,12 +77,12 @@ void			color(int x, t_param *param, t_map *map, int side)
 
 	texpos = 0.0;
 	count_h = -1;
-	while (++count_h < SCREENHEIGHT)
+	while (++count_h < param->y_rdr)
 	{
-		pos = count_h * SCREENWIDTH + x;
+		pos = count_h * param->x_rdr + x;
 		if (count_h >= map->drawstart && count_h <= map->drawend)
 		{
-			texpos += 64.0 / (SCREENHEIGHT - 2 * map->drawstart);
+			texpos += 64.0 / (param->y_rdr - 2 * map->drawstart);
 			param->img.data[pos] = wall(texpos, side, map, param);
 		}
 		else if (count_h < map->drawstart)

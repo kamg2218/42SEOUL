@@ -21,6 +21,8 @@ void		xpm_to_image(int i, char *file, t_param *param)
 	void	*image;
 	t_img	new;
 
+	if (param->img.buff[i] != NULL)
+		free(param->img.buff[i]);
 	width = 64;
 	height = 64;
 	new.img = mlx_xpm_file_to_image(param->mlx, file, &width, &height);
@@ -30,9 +32,14 @@ void		xpm_to_image(int i, char *file, t_param *param)
 
 int			read_xpm(t_param *param)
 {
-	if (!((param->img).buff = (int **)malloc(sizeof(int *) * 11)))
+	int		i;
+
+	if (!(param->img.buff = (int **)malloc(sizeof(int *) * 11)))
 		return (error(param, 5));
-	((param->img).buff)[10] = 0;
+	i = -1;
+	while (++i < 11)
+		param->img.buff[i] = NULL;
+	(param->img.buff)[10] = 0;
 	xpm_to_image(0, "textures/wall_1.xpm", param);
 	xpm_to_image(1, "textures/wall_1.xpm", param);
 	xpm_to_image(2, "textures/wall_1.xpm", param);

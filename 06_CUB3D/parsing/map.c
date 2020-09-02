@@ -14,7 +14,7 @@
 
 extern int	**g_map;
 
-int			exit_game(t_param *param)
+void		exit_game(t_param *param)
 {
 	int		row;
 
@@ -31,16 +31,16 @@ int			exit_game(t_param *param)
 		free(param->sprite);
 	if (param->img.img)
 		mlx_destroy_image(param->mlx, param->img.img);
-	if (param->mlx && param->win)
+	if (param->img.img && param->mlx && param->win)
 		mlx_destroy_window(param->mlx, param->win);
 	if (param->img.buff)
 	{
 		row = -1;
 		while (++row < 10)
 			free(param->img.buff[row]);
+		free(param->img.buff);
 	}
 	exit(0);
-	return (0);
 }
 
 int			error(t_param *param, int n)
@@ -60,7 +60,8 @@ int			error(t_param *param, int n)
 		exit(0);
 		return (0);
 	}
-	return (exit_game(param));
+	exit_game(param);
+	return (0);
 }
 
 void		put_coord(t_param *param, int dir_x, int dir_y)

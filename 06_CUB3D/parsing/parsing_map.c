@@ -92,6 +92,7 @@ int			put_map(int row, t_param *param, char *line)
 
 int			read_map(char *file, t_param *param)
 {
+	int		n;
 	int		fd;
 	int		row;
 	char	*line;
@@ -109,8 +110,10 @@ int			read_map(char *file, t_param *param)
 			parse_f(param, line);
 		else if (line[0] == 'C')
 			parse_c(param, line);
-		else
-			parse(&row, param, line);
+		else if (!(parse(&row, param, line)))
+			return (0);
+		free(line);
 	}
+	free(line);
 	return (row);
 }
