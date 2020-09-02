@@ -1,10 +1,10 @@
-## 06_CUB3D
+# 06_CUB3D
 
-### How to use Makefile
+## How to use Makefile
 
     make maps/map_name.cub
     
-### How to make screenshot
+## How to make screenshot
 
     make maps/map_name.cub --save
 
@@ -18,10 +18,27 @@
     
     EFLAGS : -L./utils -lutils
     
-    Memory leaks : -fsanitize=address
+    Memory leaks : -g3 -fsanitize=address
+
+
+## INDEX
+
+ [1. Mandatory part](#mandatory-part)
+ 
+ [2. Ray-casting](#ray-casting)
+ 
+ [3. Minilibx](#minilibx)
+ 
+ [4. 코드 구현 순서](#코드-구현-순서)
+ 
+ [5. 오류 처리](#오류-처리)
+ 
+ [6. REVIEW CHECK POINT!](#review-check-point)
+
+
+## Mandatory part
 
 * Before starting this project : http://users.atw.hu/wolf3d
-
 
 |NAME|CONTENTS|
 |:--|:---|
@@ -42,7 +59,7 @@
     
     프레임률이라고도 하며, 단위로 fps를 사용한다.
 
-### Ray-casting
+## Ray-casting
 
     광선 투사로, 광선과 표면의 교차검사를 사용하는 기법을 말한다.
     
@@ -58,7 +75,7 @@
     
    reference : https://lodev.org/cgtutor/raycasting.html
 
-### Minilibx
+## Minilibx
 
    * minilibx : an easy way to create graphical software.
     
@@ -88,9 +105,21 @@
     
    reference : https://github.com/qst0/ft_libgfx //minilibX tutorial
 
----
+## 코드 구현 순서
 
-### 지도 파일
+#### XPM 파일
+
+    지도에 사용되는 이미지 파일을 읽고 저장한다.
+    
+    가장 먼저 이미지 파일을 저장하는 이유는, 이후에 지도 파일에서 장애물, 벽의 이미지를 변경하기 위함이다.
+    
+    mlx_xpm_file_to_image() 함수를 이용하여 xpm 파일을 읽고, t_img 이미지 구조체에 저장한다.
+    
+    mlx_get_data_addr() 함수를 이용하여 t_img 구조체에 있는 이미지를 void 파일에 저장한다.
+    
+    이미지 색은 16진수로 int 포인터에 저장하면, 재사용하기에 편하므로 int 포인터에 저장한다.
+
+#### 지도 파일
 
     지도 파일을 열기 전, ft_endwidth 함수를 이용하여 .cub 파일인지 확인한다.
     
@@ -109,6 +138,10 @@
     SO : south wall color (hexa)
     
     NO : north wall color (hexa)
+    
+    R flag는 스크린의 크기를 결정하며, 지도 파일 내에 R flag가 없는 경우, 기본 설정된 값으로 스크린의 크기가 결정된다.
+    
+    만약, 입력받은 해상도의 크기가 사용 중인 컴퓨터 화면의 크기(mac book 13인치 기준)보다 크다면, 최대 크기로 결정된다.
     
     위의 EA, WE, SO, NO에 따른 벽의 색을 달리하기위해 texture 배열의 0, 1, 2, 3번째에 차례로 벽의 이미지를 저장한다.
     
@@ -132,7 +165,7 @@
     
     7 : star
 
-### 지도 유효성 검사
+#### 지도 유효성 검사
 
     지도가 벽으로 둘러싸여있는 유효한 지도인지를 확인하고, 유효한 지도인 경우, 게임을 실행하고, 아닌 경우, 게임을 종료한다.
     
@@ -150,7 +183,7 @@
     
     가능하다면 1을 반환하여 게임을 실행하고, 길이 없다면 0을 반환하여 게임을 종료한다.
 
-### 장애물(Sprite)
+#### 장애물(Sprite)
 
     지도 파일을 열어 장애물에 해당하는 번호의 갯수를 확인하고, 갯수에 따른 sprite 구조체의 메모리를 할당한다.
     
@@ -161,7 +194,71 @@
     또한, 장애물의 이미지를 변수에 저장한 뒤, 해당 장애물 위치의 지도 값을 0으로 변경한다.
     
     이는 지도를 먼저 그린 뒤, 장애물을 그리기위해서이다.
-    
-### ray-casting
+        
+#### key
 
+    입력 받은 키에 따라 플레이어를 이동시킬 수 있다.
     
+    W, UP arrow : move forward (x += dirx, y += diry)
+    
+    S, DOWN arrow : move backward (x -= dirx, y-= diry)
+    
+    A          : move left (x -= diry, y += dirx)
+    
+    D          : move right (x += diry, y -= dirx)
+    
+    LEFT arrow : rotate left side (rotation array)
+    
+    RIGHT arrow : rotate right side (rotation array)
+    
+    
+#### ray-casting
+
+    플레이어의 시야를 60도로 정하고, 방향벡터를 이용하여 각도에 따른 장애물과 플레이어의 거리를 구한다.
+
+    플레이어를 기준으로 벽이나 장애물까지의 거리를 구하여 화면에 표시할 그림의 길이를 구할 수 있다.
+    
+    구한 거리를 이용하여 화면에 나타날 이미지의 시작점과 끝점을 구하여 저장한다.
+    
+    0 ~ 시작점까지는 천장의 색이 표현되고, 끝점 ~ screenheight까지는 바닥의 색이 표현된다.
+    
+    천장과 바닥도 이미지로 표현할 수 있고, 이는 추가적인 계산을 위한 함수가 필요하다.
+    
+#### coloring Sprite
+
+    플레이어의 위치를 기준으로 장애물까지의 거리를 구한 뒤, 거리가 먼 순으로 배열을 정리한다.
+    
+    장애물의 거리가 먼 순으로 그림을 표현하여 같은 직선에 장애물이 여러 개이더라도 순서대로 그려지도록 한다.
+
+### Screenshot
+
+    입력 값에 "--save" flag가 있는 경우(ex> ./cub3D maps/1.cub --save),
+    
+    게임의 첫 화면을 bmp 파일로 저장한 뒤, 게임을 종료한다.
+    
+    bmp 파일의 구조에 맞춰 이미지 색상을 저장하여 파일을 만들어야 한다.
+
+  <img src="screenshot.bmp" height="320px" width="480px">
+
+## 오류 처리
+
+   * 입력 받은 가변인자의 갯수가 0개 또는 3개 이상일 때, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D , ./cub3D a b c)
+    
+   * 입력 받은 가변인자의 갯수가 2개이나 2번째 인자가 --save 가 아닌 경우, INPUT ERROR! 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps/1.cub -skeif)
+    
+   * 지도 파일이 .cub 파일이 아닌 경우, MAP ERROR 출력한 뒤, 게임을 종료한다. (ex> ./cub3D maps.txt)
+    
+   * 지도 파일이 없는 경우, 파일을 열 수 없는 경우이므로 FAIL TO PARSE MAP 출력한 뒤, 게임을 종료한다. (ex> ./cub3D 4map.cub)
+    
+   * 메모리 할당을 하지 못하는 오류가 발생한 경우, FAIL TO ALLOCATE SPACES 출력한 뒤, 게임을 종료한다.
+    
+   * xpm 파일을 저장하는 과정에서 오류가 발생한 경우, FAIL TO READ XPM. 출력한 뒤, 게임을 종료한다.
+    
+## REVIEW CHECK POINT!
+
+   * 입력 오류 확인! - ./cub3D , ./cub3D maps/1.cub , ./cub3D maps/1.cub --save , ./cub3D maps/non.cub , ...
+   * "--save" flag 있는 경우, screenshot.bmp 파일을 만든 뒤, 게임을 종료해야 한다.
+   * R key 확인! - R 이 있는 경우, 값이 화면보다 큰 경우, 값이 없는 경우
+   * 지도 유효성 검사 - 벽이 둘러싸여 있지 않은 경우
+   * Memory leaks 확인! - -g3 -fsanitize=address / leaks / top
+   
