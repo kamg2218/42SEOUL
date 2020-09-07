@@ -258,7 +258,8 @@
 
    * 입력 오류 확인! - ./cub3D , ./cub3D maps/1.cub , ./cub3D maps/1.cub --save , ./cub3D maps/non.cub , ...
    * "--save" flag 있는 경우, screenshot.bmp 파일을 만든 뒤, 게임을 종료해야 한다.
-   * R key 확인! - R 이 있는 경우, 값이 화면보다 큰 경우, 값이 없는 경우
+   * R key 확인! - R 이 있는 경우, 값이 화면보다 큰 경우, 값이 없는 경우, 음수인 경우
    * 지도 유효성 검사 - 벽이 둘러싸여 있지 않은 경우
    * Memory leaks 확인! - -g3 -fsanitize=address / leaks / top
-   
+   * 플레이어가 1명이 아닌 경우 - 0명, 2명인 경우(예외 처리를 하지 않아도 관계없다.)
+   * 지도 내에 공백 줄이 있는 경우 - 예외 처리하지 않아도 관계없다.
