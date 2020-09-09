@@ -29,7 +29,7 @@
    * check point! : ""인 경우, null인 경우
   
   
-### ft_strcpy
+### [ft_strcpy](./ft_strcpy.s)
 
     char *ft_strcpy(char *dest, const char *src);
 
@@ -38,7 +38,7 @@
    * NULL 변수를 입력한 경우, 본래 함수는 SEGV fault 발생.
    * check point! : buf,null인 경우, null, ""인 경우, buf, ""인 경우
 
-#### ft_strcmp
+#### [ft_strcmp](./ft_strcmp.s)
 
     int ft_strcmp(const char *s1, const char *s2);
 
@@ -47,7 +47,7 @@
    * 두 매개변수가 널인 경우, 본래 함수에서는 SEGV fault 발생.
    * check point! : "string", null인 경우, null, null인 경우, "", null인 경우
        
-#### ft_write
+#### [ft_write](./ft_write.s)
 
     ssize_t write(int fd, const void *buf, size_t count);
     
@@ -58,7 +58,7 @@
    * rax, rbx, rcx, rdx 에 차례로 변수를 담아 system call 하면 된다.
    * 함수 호출 이후에 사용할 값들은 스택에 저장해두어 값이 변하지 않도록 한다.
     
-#### ft_read
+#### [ft_read](./ft_read.s)
 
     ssize_t read(int fd, void *buf, size_t count);
     
@@ -68,7 +68,7 @@
    * rax, rbx, rcx에 값을 차례로 넣어 함수를 호출한다.
    * 함수 호출 이후에 사용할 값들은 스택에 저장해두어 값이 변하지 않도록 한다.
 
-#### ft_strdup
+#### [ft_strdup](./ft_strdup.s)
 
     char *strdup(const char *s);
     
@@ -81,7 +81,7 @@
 
 ## Bonus part
 
-#### ft_atoi_base
+#### [ft_atoi_base](./ft_atoi_base_bonus.s)
     
     int ft_atoi_base(char *string, char *base);
     
@@ -94,7 +94,7 @@
    * 문자열에서 베이스에 없는 문자가 나온 경우, 그때까지 계산한 값을 반환
    * check point! : "2147483648", "0123456789"의 경우, "-2147483649", "0123456789"인 경우, "age", "damage"인 경우 - 0, "42age", "0123456789"인 경우 - 42, "doae", "dom age"인 경우 - 0
 
-#### ft_list_push_front
+#### [ft_list_push_front](./ft_list_push_front_bonus.s)
 
     void ft_list_push_front(t_list **begin_list, void *data);
     
@@ -102,7 +102,7 @@
    * 반환 값 : rax
    * [rdi]에 새로 만들어진 첫 노드의 주소를 저장해야한다!
 
-#### ft_list_size
+#### [ft_list_size](./ft_list_size_bonus.s)
 
     int ft_list_size(t_list *begin_list);
     
@@ -110,7 +110,7 @@
    * 반환 값 : rax
 
 
-#### ft_list_sort
+#### [ft_list_sort](./ft_list_sort.s)
 
     void ft_list_sort(t_list **begin_list, int (*cmp)());
    
@@ -122,7 +122,7 @@
    * check point! : 리스트의 데이터에 null이 있는 경우!
 
 
-#### ft_list_remove_if
+#### [ft_list_remove_if](./ft_list_remove_if_bonus.s)
 
     void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
     
