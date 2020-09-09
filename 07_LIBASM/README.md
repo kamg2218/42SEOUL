@@ -10,14 +10,14 @@
    
    [4. Tester](#tester)
 
-## Assembly language
+## 1. Assembly language
     
     기계어와 일대일 대응이 되는 컴퓨터 프로그래밍의 저급 언어이다.
     
     컴퓨터의 CPU에 따라 지원하는 오퍼레이션의 타입과 개수가 다르며 레지스터의 크기와 개수, 저장된 데이터 형의 표현도 다르다.
     
     
-## Mandatory part    
+## 2. Mandatory part    
     
 ### [ft_strlen](./ft_strlen.s)
 
@@ -79,7 +79,7 @@
    * null인 경우, 실제 함수에서 오류가 발생한다.
    * check point! : ""인 경우, null인 경우
 
-## Bonus part
+## 3. Bonus part
 
 #### [ft_atoi_base](./ft_atoi_base_bonus.s)
     
@@ -134,8 +134,7 @@
    * check data : "" 인 경우, null인 경우
    * check list : 첫번째 노드 제거, 중간 노드 제거, 마지막 노드 제거 확인!
 
-## Tester
+## 4. Tester
 
    [42-libasm](https://github.com/Glagan/42-libasm)
-   
    
