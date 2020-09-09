@@ -1,5 +1,3 @@
-extern		_free
-
 section		.text
 global		_ft_list_remove_if
 

@@ -5,7 +5,7 @@ global		_ft_list_push_front
 
 _ft_list_push_front:
 	
-	push	rbp		
+	push	rdi
 	xor		rax, rax			;initialize
 
 malloc_space:
@@ -24,9 +24,9 @@ put_data:
 	mov		[rax], rsi			;copy data
 	mov		rbx, [rdi]		
 	mov		[rax + 8], rbx		;next is rdi
-	mov		[rdi], rax			;first node is rax
 
 error:
 	
-	pop		rbp
+	pop		rdi
+	mov		[rdi], rax			;first node is rax
 	ret
