@@ -1,5 +1,27 @@
 # Libasm
 
+## Makefile
+
+### Mandatory part
+   
+    make  : make library with mandatory files
+
+### Bonus part
+
+    make bonus : make library with mandatory and bonus files
+
+### Run test file
+
+    make test : make library and run it with tester
+    
+    make test_bonus : make library and run it with bonus tester
+
+### Compile
+
+    .s file : nasm -f macho64
+    
+    test file : -L. -lasm -o test main.c
+
 ## INDEX
    
    [1. Assembly Language](#assembly-language)
