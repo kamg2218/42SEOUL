@@ -19,7 +19,7 @@
     
 ## Mandatory part    
     
-### ft_strlen
+### [ft_strlen](./ft_strlen.s)
 
     size_t ft_strlen(const char *s);
 
