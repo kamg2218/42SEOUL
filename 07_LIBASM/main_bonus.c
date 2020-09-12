@@ -131,6 +131,7 @@ int			main(void)
 	
 	printf("-------------------------------- FT_LIST_SORT ------------------------------------\n\n");
 	
+	ft_list_push_front(&list, NULL);
 	ft_list_push_front(&list, strdup("apple"));
 	ft_list_push_front(&list, strdup(""));
 	ft_list_push_front(&list, strdup("banana"));
@@ -139,11 +140,12 @@ int			main(void)
 	ft_list_push_front(&list, strdup("hippo"));
 	ft_list_push_front(&list, NULL);
 	ft_list_push_front(&list, strdup("candy"));
+	ft_list_push_front(&list, NULL);
 
 	printf("Before:\n");
 	printf_list(list);
 	printf("\nAfter:\n");
-	ft_list_sort(&list, &strcmp);
+	//ft_list_sort(&list, &strcmp);
 	printf_list(list);
 
 	printf("-------------------------------- FT_LIST_REMOVE_IF -------------------------------\n\n");

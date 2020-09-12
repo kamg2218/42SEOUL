@@ -38,6 +38,8 @@ compare_list:
 	mov		rdi, [rbx]				;present node data
 	cmp		rdi, 0					;if data is null,
 	je		compare_null			;jump to compare_null
+	cmp		rsi, 0
+	je		compare_null
 	call	rdx						;else, call cmp function
 	
 compare_list_second:
@@ -68,14 +70,14 @@ check_tmp:
 remove_data:
 
 	mov		rdi, [rbx]				;move present node -> data
-	cmp		rdi, 0					;if present data is null,
-	je		remove_null				;jump to remove_null
 	push	rsi						;restore data
 	push	rdx						;restore cmp address
 	push	r8						;restore previous node
 	push	r9						;restore first node
 	push	rcx						;restore free address
 	push	rbx						;restore present node
+	cmp		rdi, 0					;if present data is null,
+	je		remove_list				;jump to remove_null
 	call	rcx						;call free
 
 remove_list:
@@ -99,13 +101,6 @@ first_null:
 
 	mov		rbx, r9					;move first node to present node
 	jmp		compare_list			;repeat comparing
-
-remove_null:
-
-	push	r9
-	mov		rdi, rbx				;move present node to rdi
-	call	rcx						;call free
-	pop		r9
 
 end:
 
