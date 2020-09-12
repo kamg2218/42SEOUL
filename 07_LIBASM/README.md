@@ -154,7 +154,7 @@
    * free_fct : data 포인터를 free하는 함수이다.
    * check point! : begin_list, cmp, free 값이 null인 경우, 오류 처리!
    * check data : "" 인 경우, null인 경우
-   * check list : 첫번째 노드 제거, 중간 노드 제거, 마지막 노드 제거 확인!
+   * check list : 첫번째 노드 제거, 중간 노드 제거, 마지막 노드 제거 확인!, 같은 값이 여러 개일 경우 확인, 특히! 데이터 포인터 값이 null인 값이 여러 개인 경우!
 
 ## 4. Tester
 
