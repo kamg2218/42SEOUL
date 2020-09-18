@@ -97,8 +97,15 @@
     disass [function name] : 특정 함수의 어셈블리어 확인
    
    * Reference : https://itsaessak.tistory.com/78
-
-
+   
+### lldb
+   
+   * lldb [file name]
+   * b [function name] - set breakpoint!
+   * run
+   * next - 다음 줄 실행
+   * reg read - 레지스터 값 확인
+	
 ### NASM(Netwide Assembler)
     
     컴파일 : nasm -f macho64 [file name]
