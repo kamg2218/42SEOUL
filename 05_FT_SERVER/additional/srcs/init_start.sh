@@ -1,3 +1,5 @@
+service nginx start
+
 #openssl
 
 apt-get -y install openssl vim
@@ -12,6 +14,8 @@ apt-get -y install php-fpm
 
 mv default etc/nginx/sites-available/default
 mv phpinfo.php var/www/html/
+
+service php7.3-fpm start
 
 #mysql
 apt-get -y install mariadb-server php-mysql
@@ -28,6 +32,8 @@ mv phpmyadmin var/www/html
 
 cp -rp var/www/html/phpmyadmin/config.sample.inc.php var/www/html/phpmyadmin/config.inc.php
 mv config.inc.php var/www/html/phpmyadmin/config.inc.php
+
+service mysql start
 
 #wordpress
 wget https://wordpress.org/latest.tar.gz
