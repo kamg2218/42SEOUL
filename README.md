@@ -10,4 +10,5 @@
 |5|3| - |[**FT_SERVER**](./05_FT_SERVER)| - |Docker, Dockerfile|
 |6|3|C|[**CUB3D**](./06_CUB3D)|[42-cub3d](https://github.com/Glagan/42-cub3d)|minilibX, raycasting, dfs, bmp file, library file|
 |7|4|C|[**LIBASM**](./07_LIBASM)|[42-libasm](https://github.com/Glagan/42-libasm)|assembly language, 64bits calling convention, nasm, gdb, register|
-|8|4| - |**FT_SERVICES**|||
+|8|4| C |**MINISHELL**|||
+|9|4| - |**FT_SERVICES**|||
