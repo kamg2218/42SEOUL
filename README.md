@@ -12,4 +12,4 @@
 |7|2|C|[**LIBASM**](./07_LIBASM)|[42-libasm](https://github.com/Glagan/42-libasm)|assembly language, 64bits calling convention, nasm, gdb, register|
 |8|3| C |[**MINISHELL**](./08_MINISHELL)| - |builtin functions, fork, pipeline|
 |9|3| - |[**FT_SERVICES**](./09_FT_SERVICES)| - |kubernetes, minikube, docker|
-|10|3| C |[**PHILOSOPHER**](./10_PHILOSOPHER)| - |process, thread|
+|10|3| C |[**PHILOSOPHERS**](./10_PHILOSOPHERS)| - |process, thread|
