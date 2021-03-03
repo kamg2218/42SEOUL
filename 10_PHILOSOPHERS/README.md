@@ -6,7 +6,15 @@ I've never though philosophy would be so deadly.
 
 ### mutex
 
+mutex는 wait 함수를 호출한 오직 한 쓰레드로 시그널을 받을 수 있다.
+
 ### semaphore
+
+semaphore는 wait 함수를 호출한 쓰레드가 다른 쓰레드에서 시그널을 받을 수 있다.
+
+두 개의 원자 조작(기능적으로 분할할 수 없거나 분할되지 않도록 보증된 조작)인 wait, signal을 사용한다.
+
+https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 
 ### Mandatory part
 
