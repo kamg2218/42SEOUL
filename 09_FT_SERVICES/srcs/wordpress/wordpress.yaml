@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  replicas: 1
+  template:
+    metadata:
+      name: wordpress-pod
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress-container
+        image: wordpress
+        imagePullPolicy: Never
+        env:
+          - name: WORDPRESS_DB_HOST
+            value: mysql-service
+        ports:
+        - containerPort: 5050
+          name: wordpress
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - 'pgrep nginx && pgrep php-fpm7'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+  labels:
+    app: wordpress
+spec:
+  selector:
+    app: wordpress
+  ports:
+  - port: 5050
+    name: wordpress
+    targetPort: 5050
+  externalTrafficPolicy: Cluster
+  type: LoadBalancer
