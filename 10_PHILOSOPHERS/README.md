@@ -4,9 +4,21 @@ I've never though philosophy would be so deadly.
 
 ### 프로세스(Process)와 쓰레드(thread)
 
+### thread
+
+한국어로 직역하면 실을 의미한다.
+
+스레드는 어떤 프로그램에서 프로세스가 실행되는 흐름의 단위를 말한다.
+
+스레드는 프로세스와 다르게 메모리를 공유한다.
+
+https://reakwon.tistory.com/56 //thread 개념 - pthread_create, pthread_join
+
 ### mutex
 
 mutex는 wait 함수를 호출한 오직 한 쓰레드로 시그널을 받을 수 있다.
+
+https://reakwon.tistory.com/98 //mutex 예제 - pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
 
 ### semaphore
 
