@@ -58,8 +58,17 @@ int				str_error(char *str, int re)
 
 int				clear(void)
 {
+	int			cnt;
+
 	if (g_argu.mutex)
+	{
+		cnt = 0;
+		while (cnt < g_argu.num)
+			pthread_mutex_destroy(&g_argu.mutex[cnt++]);
 		free(g_argu.mutex);
+	}
+	if (g_argu.thread)
+		free(g_argu.thread);
 	return (0);
 }
 

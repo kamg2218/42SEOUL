@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef struct		s_philo
 {
 	int				order;
-	int				eat;
-	int				think;
-	int				sleep;
+	unsigned long	eat;
+	unsigned long	start;
 }					t_philo;
 
 typedef struct		s_argu
@@ -22,6 +22,7 @@ typedef struct		s_argu
 	int				sleep;
 	int				must_eat;
 	int				death;
+	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
 }					t_argu;
 
@@ -38,5 +39,11 @@ int					clear(void);
 int					argu_init(int argc, char *argv[]);
 void				philo_init(t_philo *philo);
 int					make_thread(void);
+void				eat_meal(t_philo *philo);
+void				sleep_well(t_philo *philo);
+void				think_philo(t_philo *philo);
+void				*do_something(void *philo);
+unsigned long		get_time(void);
+unsigned long		get_difftime(unsigned long time, unsigned long start);
 
 #endif
