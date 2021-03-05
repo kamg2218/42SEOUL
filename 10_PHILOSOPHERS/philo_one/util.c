@@ -71,4 +71,3 @@ int				clear(void)
 		free(g_argu.thread);
 	return (0);
 }
-

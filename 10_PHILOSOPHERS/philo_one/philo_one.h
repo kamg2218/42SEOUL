@@ -13,6 +13,7 @@ typedef struct		s_philo
 	int				eat_cnt;
 	int64_t			eat;
 	int64_t			start;
+	pthread_t		monitor;
 }					t_philo;
 
 typedef struct		s_argu
@@ -48,5 +49,6 @@ void				*do_something(void *philo);
 int64_t				get_time(void);
 int64_t				get_difftime(int64_t time, int64_t start);
 void				print_death(t_philo *philo);
+void				*monitor(void *philo);
 
 #endif
