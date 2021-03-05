@@ -10,18 +10,20 @@
 typedef struct		s_philo
 {
 	int				order;
-	unsigned long	eat;
-	unsigned long	start;
+	int				eat_cnt;
+	int64_t			eat;
+	int64_t			start;
 }					t_philo;
 
 typedef struct		s_argu
 {
 	int				num;
-	int				die;
-	int				eat;
-	int				sleep;
+	int64_t			die;
+	int64_t			eat;
+	int64_t			sleep;
 	int				must_eat;
 	int				death;
+	int				full;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
 }					t_argu;
@@ -43,7 +45,8 @@ void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);
 void				think_philo(t_philo *philo);
 void				*do_something(void *philo);
-unsigned long		get_time(void);
-unsigned long		get_difftime(unsigned long time, unsigned long start);
+int64_t				get_time(void);
+int64_t				get_difftime(int64_t time, int64_t start);
+void				print_death(t_philo *philo);
 
 #endif
