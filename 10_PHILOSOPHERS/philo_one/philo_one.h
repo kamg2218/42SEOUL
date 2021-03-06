@@ -13,7 +13,7 @@ typedef struct		s_philo
 	int				eat_cnt;
 	int				right;
 	int64_t			eat;
-	int64_t			start;
+	//int64_t			start;
 	pthread_t		monitor;
 }					t_philo;
 
