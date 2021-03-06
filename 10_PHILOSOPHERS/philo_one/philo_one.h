@@ -11,6 +11,7 @@ typedef struct		s_philo
 {
 	int				order;
 	int				eat_cnt;
+	int				right;
 	int64_t			eat;
 	int64_t			start;
 	pthread_t		monitor;
@@ -22,6 +23,7 @@ typedef struct		s_argu
 	int64_t			die;
 	int64_t			eat;
 	int64_t			sleep;
+	int64_t			start;
 	int				must_eat;
 	int				death;
 	int				full;
@@ -32,7 +34,6 @@ typedef struct		s_argu
 t_argu				g_argu;
 
 //util.c
-int					ft_isspace(char c);
 int					ft_atoi(const char *str);
 int					ft_minus(const char *str, int *minus);
 int					str_error(char *str, int re);
@@ -40,15 +41,13 @@ int					clear(void);
 
 //philo_one.c
 int					argu_init(int argc, char *argv[]);
-void				philo_init(t_philo *philo);
+void				philo_init(t_philo *philo, int cnt);
 int					make_thread(void);
 void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);
-void				think_philo(t_philo *philo);
 void				*do_something(void *philo);
 int64_t				get_time(void);
-int64_t				get_difftime(int64_t time, int64_t start);
-void				print_death(t_philo *philo);
+void				print_death(void);
 void				*monitor(void *philo);
 
 #endif

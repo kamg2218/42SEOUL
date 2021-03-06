@@ -8,11 +8,6 @@ int64_t				get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int64_t				get_timediff(int64_t time, int64_t start)
-{
-	return (time - start);
-}
-
 int				argu_init(int argc, char *argv[])
 {
 	int			cnt;
@@ -37,12 +32,16 @@ int				argu_init(int argc, char *argv[])
 	return (1);
 }
 
-void			philo_init(t_philo *philo)
+void			philo_init(t_philo *philo, int cnt)
 {
-	philo->order = 0;
-	philo->eat = 0;
 	philo->eat_cnt = 0;
 	philo->start = 0;
+	philo->monitor = 0;	
+	philo->order = cnt + 1;
+	philo->eat = g_argu.start;
+	philo->right = 0;
+	if (philo->right < g_argu.num)
+		philo->right = cnt + 1;
 }
 
 int				make_thread(void)
@@ -54,73 +53,67 @@ int				make_thread(void)
 		return (0);
 	if (!(philo = (t_philo *)malloc(sizeof(t_philo) * g_argu.num)))
 		return (0);
+	g_argu.start = get_time();
 	cnt = 0;
 	while (cnt < g_argu.num)
 	{
-		philo_init(&philo[cnt]);
-		philo[cnt].order = cnt + 1;
+		philo_init(&philo[cnt], cnt);
 		if ((pthread_create(&g_argu.thread[cnt], NULL, do_something, (void *)&philo[cnt])))
 			return (0);
-		pthread_detach(g_argu.thread[cnt++]);
-		usleep(1000);
+		pthread_detach(g_argu.thread[cnt]);
+		usleep(1);
+		cnt += 2;
+		if ((cnt == g_argu.num && g_argu.num % 2 == 0)
+				|| (g_argu.num % 2 && cnt == g_argu.num + 1))
+			cnt = 1;
 	}
-	while (g_argu.death == 0
-			|| (g_argu.must_eat && g_argu.full < g_argu.num))
-		usleep(100);
+	while (g_argu.death == 0)
+		usleep(1);
+	print_death();
 	return (1);
 }
 
 void				eat_meal(t_philo *philo)
 {
-	int				num;
 	int64_t			dst;
 
 	pthread_mutex_lock(&g_argu.mutex[philo->order - 1]);
-	num = philo->order;
-	if (num >= g_argu.num)
-		num = 0;
-	pthread_mutex_lock(&g_argu.mutex[num]);
-	printf("%lldms %d has taken a fork\n", get_timediff(get_time(), philo->start), philo->order);
+	pthread_mutex_lock(&g_argu.mutex[philo->right]);
+	printf("%lldms %d has taken a fork\n", get_time() - g_argu.start, philo->order);
 	philo->eat = get_time();
-	printf("%lldms %d is eating\n", get_timediff(philo->eat, philo->start), philo->order);
+	printf("%lldms %d is eating\n", philo->eat - g_argu.start, philo->order);
 	dst = philo->eat + g_argu.eat;
-	while (dst > get_time())
-		usleep(1000);
+	while (dst >= get_time())
+		usleep(1);
 	philo->eat_cnt += 1;
 	pthread_mutex_unlock(&g_argu.mutex[philo->order - 1]);
-	pthread_mutex_unlock(&g_argu.mutex[num]);
+	pthread_mutex_unlock(&g_argu.mutex[philo->right]);
 }
 
 void				sleep_well(t_philo *philo)
 {
 	int64_t			dst;
+	int64_t			sleep;
 
 	if (g_argu.death != 0)
 		return ;
-	printf("%lldms %d is sleeping\n", get_timediff(get_time(), philo->start), philo->order);
-	dst = philo->eat + g_argu.eat + g_argu.sleep;
-	while (dst > get_time())
-		usleep(1000);
+	sleep = get_time();
+	printf("%lldms %d is sleeping\n", sleep - g_argu.start, philo->order);
+	dst = sleep + g_argu.sleep;
+	while (dst >= get_time())
+		usleep(1);
 }
 
-void			think_philo(t_philo *philo)
-{
-	if (g_argu.death != 0)
-		return ;
-	printf("%lldms %d is thinking\n", get_timediff(get_time(), philo->start), philo->order);
-}
-
-void			print_death(t_philo *philo)
+void			print_death(void)
 {
 	if (g_argu.full == g_argu.num)
 		return ;
-	if (g_argu.death == philo->order)
-		printf("%lld %d died\n", get_timediff(get_time(), philo->start), philo->order);
+	if (g_argu.death)
+		printf("%lldms %d died\n", get_time() - g_argu.start, g_argu.death);
 }
 
 void			*monitor(void *philo)
 {
-	int64_t		t;
 	t_philo		*ph;
 
 	ph = (t_philo *)philo;
@@ -128,12 +121,13 @@ void			*monitor(void *philo)
 	{
 		if (g_argu.must_eat && g_argu.must_eat == ph->eat_cnt)
 			g_argu.full += 1;
-		if (g_argu.full >= g_argu.num)
-			g_argu.death = ph->order;
-		t = ph->eat;
-		if (ph->eat == 0)
-			t = ph->start;
-		if (g_argu.die <= get_timediff(get_time(), t))
+		if (g_argu.full == g_argu.num)
+		{
+			g_argu.death = g_argu.num + 1;
+			printf("All philosopher is full\n");
+			break ;
+		}
+		if (g_argu.die < get_time() - ph->eat)
 			g_argu.death = ph->order;
 	}
 	return (NULL);
@@ -141,20 +135,25 @@ void			*monitor(void *philo)
 
 void			*do_something(void *philo)
 {
+	int64_t		dst;
+	int64_t		sleep;
 	t_philo		*ph;
 
 	ph = (t_philo *)philo;
-	ph->start = get_time();
 	if (pthread_create(&ph->monitor, NULL, monitor, philo))
 		return (NULL);
 	pthread_detach(ph->monitor);
 	while (g_argu.death == 0)
 	{
 		eat_meal(ph);
-		sleep_well(ph);
-		think_philo(ph);
+		//sleep_well(ph);
+		sleep = get_time();
+		printf("%lldms %d is sleeping\n", sleep - g_argu.start, ph->order);
+		dst = sleep + g_argu.sleep;
+		while (dst >= get_time())
+			usleep(1);
+		printf("%lldms %d is thinking\n", get_time() - g_argu.start, ph->order);
 	}
-	print_death(ph);
 	return (NULL);
 }
 
@@ -166,10 +165,6 @@ int				main(int argc, char *argv[])
 		return (str_error("Error: initialize error\n", 0));
 	if (!(make_thread()))
 		return (str_error("Error: fail to make thread\n", 0));
-	if (g_argu.full == g_argu.num)
-		printf("All philosopher is full\n");
-	else
-		printf("dead philosopher is %d\n", g_argu.death);
 	clear();
 	return (0);
 }

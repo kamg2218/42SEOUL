@@ -1,5 +1,5 @@
 #include "philo_one.h"
-
+/*
 int				ft_isspace(char c)
 {
 	if (c == ' ' || c == '\v' || c == '\f'
@@ -7,15 +7,15 @@ int				ft_isspace(char c)
 		return (1);
 	else
 		return (0);
-}
+}*/
 
 int				ft_minus(const char *str, int *minus)
 {
 	int			i;
 
 	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
+	//while (ft_isspace(str[i]))
+	//	i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
