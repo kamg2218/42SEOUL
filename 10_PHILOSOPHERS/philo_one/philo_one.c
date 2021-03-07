@@ -29,6 +29,8 @@ int				argu_init(int argc, char *argv[])
 		if (pthread_mutex_init(&g_argu.mutex[cnt++], NULL))
 			return (0);
 	}
+	if (pthread_mutex_init(&g_argu.msg, NULL))
+		return (0);
 	return (1);
 }
 
@@ -40,8 +42,6 @@ void			philo_init(t_philo *philo, int cnt)
 	philo->right = 0;
 	if (philo->right < g_argu.num)
 		philo->right = cnt + 1;
-	philo->start = get_time();
-	//philo->eat = philo->start;
 	philo->eat = g_argu.start;
 }
 
@@ -70,7 +70,7 @@ int				make_thread(void)
 	}
 	while (g_argu.death == 0)
 		usleep(1);
-	print_death();
+	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }
 
@@ -80,9 +80,11 @@ void				eat_meal(t_philo *philo)
 
 	pthread_mutex_lock(&g_argu.mutex[philo->order - 1]);
 	pthread_mutex_lock(&g_argu.mutex[philo->right]);
-	printf("%lldms %d has taken a fork\n", get_time() - g_argu.start, philo->order);
+	if (!(massage(get_time() - g_argu.start, philo->order, FORK)))
+		return ;
 	philo->eat = get_time();
-	printf("%lldms %d is eating\n", philo->eat - g_argu.start, philo->order);
+	if (!(massage(philo->eat - g_argu.start, philo->order, EAT)))
+		return ;
 	dst = philo->eat + g_argu.eat;
 	while (dst > get_time())
 		usleep(10);
@@ -91,33 +93,28 @@ void				eat_meal(t_philo *philo)
 	philo->eat_cnt += 1;
 }
 
-/*
 void				sleep_well(t_philo *philo)
 {
 	int64_t			dst;
-	int64_t			sleep;
 
-	if (g_argu.death != 0)
+	if (!(massage(get_time() - g_argu.start, philo->order, SLEEP)))
 		return ;
-	sleep = philo->eat + g_argu.eat;
-	//printf("%lldms %d is sleeping\n", get_time() - g_argu.start, philo->order);
-	printf("%lldms %d is sleeping\n", sleep - g_argu.start, philo->order);
-	dst = sleep + g_argu.sleep;
+	dst = philo->eat + g_argu.eat + g_argu.sleep;
 	while (dst > get_time())
 		usleep(10);
 }
-*/
 
-void			print_death(void)
-{
-	if (g_argu.full == g_argu.num)
-		return ;
-	if (g_argu.death)
-		printf("%lldms %d died\n", get_time() - g_argu.start, g_argu.death);
-}
+//void			print_death(void)
+//{
+//	if (g_argu.full == g_argu.num)
+//		return ;
+//	if (!(massage(get_time() - g_argu.start, g_argu.death, DIE)))
+//		return ;
+//}
 
 void			*monitor(void *philo)
 {
+	int64_t		cur;
 	t_philo		*ph;
 
 	ph = (t_philo *)philo;
@@ -127,20 +124,18 @@ void			*monitor(void *philo)
 			g_argu.full += 1;
 		if (g_argu.full == g_argu.num)
 		{
+			if (!(massage(0, ph->order, FULL)))
+				return (NULL);
 			g_argu.death = g_argu.num + 1;
-			printf("All philosopher is full\n");
-			break ;
 		}
-		if (g_argu.die < get_time() - ph->eat)
-			g_argu.death = ph->order;
+		if (g_argu.die < (cur = get_time() - ph->eat))
+			massage(cur, ph->order, DIE);
 	}
 	return (NULL);
 }
 
 void			*do_something(void *philo)
 {
-	int64_t		sleep;
-	int64_t		dst;
 	t_philo		*ph;
 
 	ph = (t_philo *)philo;
@@ -150,16 +145,38 @@ void			*do_something(void *philo)
 	while (g_argu.death == 0)
 	{
 		eat_meal(ph);
-		//sleep_well(ph);
-		sleep = get_time();
-		printf("%lldms %d is sleeping\n", sleep - g_argu.start, ph->order);
-		//dst = ph->eat + g_argu.eat + g_argu.sleep;
-		dst = sleep + g_argu.sleep;
-		while (dst > get_time())
-			usleep(10);
-		printf("%lldms %d is thinking\n", get_time() - g_argu.start, ph->order);
+		sleep_well(ph);
+		if (!(massage(get_time() - g_argu.start, ph->order, THINK)))
+			break ;
 	}
 	return (NULL);
+}
+
+int				massage(int64_t time, int order, int msg)
+{
+	pthread_mutex_lock(&g_argu.msg);
+	if (g_argu.death != 0)
+	{
+		pthread_mutex_unlock(&g_argu.msg);
+		return (0);
+	}
+	if (msg == EAT)
+		printf("%lldms %d is eating\n", time, order);
+	else if (msg == SLEEP)
+		printf("%lldms %d is sleeping\n", time, order);
+	else if (msg == THINK)
+		printf("%lldms %d is thinking\n", time, order);
+	else if (msg == DIE)
+	{
+		printf("%lldms %d died\n", time, order);
+		g_argu.death = order;
+	}
+	else if (msg == FORK)
+		printf("%lldms %d has taken a fork\n", time, order);
+	else if (msg == FULL)
+		printf("All philosopher is full\n");
+	pthread_mutex_unlock(&g_argu.msg);
+	return (1);
 }
 
 int				main(int argc, char *argv[])

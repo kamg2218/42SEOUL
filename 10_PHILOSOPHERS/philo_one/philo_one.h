@@ -7,13 +7,19 @@
 #include <pthread.h>
 #include <sys/time.h>
 
+# define EAT 1
+# define SLEEP 2
+# define THINK 3
+# define DIE 4
+# define FORK 5
+# define FULL 6
+
 typedef struct		s_philo
 {
 	int				order;
 	int				eat_cnt;
 	int				right;
 	int64_t			eat;
-	//int64_t			start;
 	pthread_t		monitor;
 }					t_philo;
 
@@ -29,6 +35,7 @@ typedef struct		s_argu
 	int				full;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
+	pthread_mutex_t	msg;
 }					t_argu;
 
 t_argu				g_argu;
@@ -47,7 +54,8 @@ void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);
 void				*do_something(void *philo);
 int64_t				get_time(void);
-void				print_death(void);
+//void				print_death(void);
 void				*monitor(void *philo);
+int					massage(int64_t time, int order, int msg);
 
 #endif

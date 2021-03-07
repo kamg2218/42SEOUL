@@ -67,6 +67,7 @@ int				clear(void)
 			pthread_mutex_destroy(&g_argu.mutex[cnt++]);
 		free(g_argu.mutex);
 	}
+	pthread_mutex_destroy(&g_argu.msg);
 	if (g_argu.thread)
 		free(g_argu.thread);
 	return (0);
