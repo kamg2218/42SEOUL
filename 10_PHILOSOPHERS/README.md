@@ -57,13 +57,24 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 #### Philo_one
 
 * Program_name : philo_one
-* arguments : number_of_philosophers, time_to_die, time_to_eat, time_to_sleep\[number_of_times_each_philosopher_must_eat]
-* external functs. : memset, printf, malloc, free, write, usleep, gettimeofday, pthread_create, pthread_detach, pthread_join, pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
-* libft : NO
+* Arguments : number_of_philosophers, time_to_die, time_to_eat, time_to_sleep\[number_of_times_each_philosopher_must_eat]
+* External functs. : memset, printf, malloc, free, write, usleep, gettimeofday, pthread_create, pthread_detach, pthread_join, pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
+* Libft : NO
 * Description : philosopher with threads and mutex
 * 철학자 사이에 1개의 포크가 있고, 철학자의 좌우에 1개씩 포크가 있다.
 * 철학자가 포크를 동시에 사용하지 않도록하기위해서, 각자를 mutex로 포크 상태를 보호해야한다.
 * 각 철학자는 하나의 쓰레드가 되어야 한다.
 
 #### Philo_two
+
+* Program_name : philo_two
+* Arguments : number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat
+* External functs. : memset, printf, malloc, free, write, usleep, gettimeofdat, pthread_create, pthread_detach, pthread_join, sem_open, sem_close, sem_post, sem_wait, sem_unlink
+* Libft : NO
+* Description : philosopher with threads and semaphore
+* 모든 포크는 테이블의 중앙에 있다.
+* 메모리에 상태가 있지 않지만, 가능한 포크의 수는 세마포어로 나타낸다.
+* 각 철학자는 스레드가 되어야 한다.
+
+#### Philo_three
 
