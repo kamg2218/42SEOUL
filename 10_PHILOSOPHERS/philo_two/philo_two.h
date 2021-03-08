@@ -35,8 +35,10 @@ typedef struct		s_argu
 	int				death;
 	int				full;
 	pthread_t		*thread;
-	pthread_mutex_t	*mutex;
-	pthread_mutex_t	msg;
+	sem_t			*sem;
+	sem_t			*msg;
+	//pthread_mutex_t	*mutex;
+	//pthread_mutex_t	msg;
 }					t_argu;
 
 t_argu				g_argu;

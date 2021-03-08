@@ -2,8 +2,6 @@
 
 int				argu_init(int argc, char *argv[])
 {
-	int			cnt;
-
 	g_argu.num = ft_atoi(argv[1]);
 	g_argu.die = ft_atoi(argv[2]);
 	g_argu.eat = ft_atoi(argv[3]);
@@ -13,9 +11,9 @@ int				argu_init(int argc, char *argv[])
 	g_argu.must_eat = 0;
 	if (argc == 6)
 		g_argu.must_eat = ft_atoi(argv[5]);
-	if (g_argu.sema = sem_open("semaphore", O_CREAT, 0644, g_argu.num))
+	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)))
 		return (0);
-	if (g_argu.msg = sem_open("msg", O_CREAT, 0644, 1))
+	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)))
 		return (0);
 	return (1);
 }

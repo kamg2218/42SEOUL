@@ -1,4 +1,4 @@
-#include "philo_one.h"
+#include "philo_two.h"
 
 int				make_thread(void)
 {
@@ -18,10 +18,11 @@ int				make_thread(void)
 			return (0);
 		pthread_detach(g_argu.thread[cnt]);
 		usleep(1);
-		cnt += 2;
-		if ((cnt == g_argu.num && g_argu.num % 2 == 0)
-				|| (g_argu.num % 2 && cnt == g_argu.num + 1))
-			cnt = 1;
+		++cnt;
+		//cnt += 2;
+		//if ((cnt == g_argu.num && g_argu.num % 2 == 0)
+		//		|| (g_argu.num % 2 && cnt == g_argu.num + 1))
+		//	cnt = 1;
 	}
 	while (g_argu.death == 0)
 		usleep(1);
@@ -33,8 +34,12 @@ void				eat_meal(t_philo *philo)
 {
 	int64_t			dst;
 
-	pthread_mutex_lock(&g_argu.mutex[philo->order - 1]);
-	pthread_mutex_lock(&g_argu.mutex[philo->right]);
+	//pthread_mutex_lock(&g_argu.mutex[philo->order - 1]);
+	//pthread_mutex_lock(&g_argu.mutex[philo->right]);
+	if (sem_wait(g_argu.sem))
+		return ;
+	if (sem_wait(g_argu.sem))
+		return ;
 	if (!(massage(get_time() - g_argu.start, philo->order, FORK)))
 		return ;
 	philo->eat = get_time();
@@ -43,8 +48,12 @@ void				eat_meal(t_philo *philo)
 	dst = philo->eat + g_argu.eat;
 	while (dst > get_time())
 		usleep(10);
-	pthread_mutex_unlock(&g_argu.mutex[philo->order - 1]);
-	pthread_mutex_unlock(&g_argu.mutex[philo->right]);
+	if (sem_post(g_argu.sem))
+		return ;
+	if (sem_post(g_argu.sem))
+		return ;
+	//pthread_mutex_unlock(&g_argu.mutex[philo->order - 1]);
+	//pthread_mutex_unlock(&g_argu.mutex[philo->right]);
 	philo->eat_cnt += 1;
 }
 

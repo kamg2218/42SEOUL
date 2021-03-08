@@ -1,4 +1,4 @@
-#include "philo_one.h"
+#include "philo_two.h"
 
 int				ft_minus(const char *str, int *minus)
 {
@@ -47,15 +47,12 @@ int				str_error(char *str, int re)
 
 int				clear(void)
 {
-	int			cnt;
-
-	if (g_argu.mutex)
+	if (g_argu.sem)
 	{
-		cnt = 0;
-		while (cnt < g_argu.num)
-			pthread_mutex_destroy(&g_argu.mutex[cnt++]);
-		free(g_argu.mutex);
-		pthread_mutex_destroy(&g_argu.msg);
+		sem_unlink("semaphore");
+		sem_close(g_argu.sem);
+		sem_unlink("msg");
+		sem_close(g_argu.msg);
 	}
 	if (g_argu.thread)
 		free(g_argu.thread);
