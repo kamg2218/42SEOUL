@@ -3,6 +3,7 @@ NAME = philo_one
 CFLAGS = -Werror -Wextra -Wall
 
 SRC = philo_one.c\
+	  philo_work.c\
 	  util.c
 
 OBJ = $(SRC:.c=.o)

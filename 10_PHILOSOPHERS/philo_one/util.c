@@ -1,21 +1,10 @@
 #include "philo_one.h"
-/*
-int				ft_isspace(char c)
-{
-	if (c == ' ' || c == '\v' || c == '\f'
-		|| c == '\r' || c == '\t' || c == '\n')
-		return (1);
-	else
-		return (0);
-}*/
 
 int				ft_minus(const char *str, int *minus)
 {
 	int			i;
 
 	i = 0;
-	//while (ft_isspace(str[i]))
-	//	i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
@@ -66,9 +55,17 @@ int				clear(void)
 		while (cnt < g_argu.num)
 			pthread_mutex_destroy(&g_argu.mutex[cnt++]);
 		free(g_argu.mutex);
+		pthread_mutex_destroy(&g_argu.msg);
 	}
-	pthread_mutex_destroy(&g_argu.msg);
 	if (g_argu.thread)
 		free(g_argu.thread);
 	return (0);
+}
+
+int64_t				get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
