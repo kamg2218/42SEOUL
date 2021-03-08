@@ -3,6 +3,7 @@
 int				argu_init(int argc, char *argv[])
 {
 	g_argu.num = ft_atoi(argv[1]);
+	printf("num = %d\n", g_argu.num);
 	g_argu.die = ft_atoi(argv[2]);
 	g_argu.eat = ft_atoi(argv[3]);
 	g_argu.sleep = ft_atoi(argv[4]);
@@ -11,10 +12,12 @@ int				argu_init(int argc, char *argv[])
 	g_argu.must_eat = 0;
 	if (argc == 6)
 		g_argu.must_eat = ft_atoi(argv[5]);
-	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)))
+	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)) == NULL)
 		return (0);
-	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)))
+	printf("open_1, ");
+	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
 		return (0);
+	printf("opened\n");
 	return (1);
 }
 
@@ -51,11 +54,9 @@ int				massage(int64_t time, int order, int msg)
 {
 	if (sem_wait(g_argu.msg))
 		return (0);
-	//pthread_mutex_lock(&g_argu.msg);
 	if (g_argu.death != 0)
 	{
 		sem_post(g_argu.msg);
-		//pthread_mutex_unlock(&g_argu.msg);
 		return (0);
 	}
 	if (msg == EAT)
@@ -75,7 +76,6 @@ int				massage(int64_t time, int order, int msg)
 		printf("All philosopher is full\n");
 	if (sem_post(g_argu.msg))
 		return (0);
-	//pthread_mutex_unlock(&g_argu.msg);
 	return (1);
 }
 

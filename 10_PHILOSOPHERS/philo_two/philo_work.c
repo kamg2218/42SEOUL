@@ -17,15 +17,11 @@ int				make_thread(void)
 		if ((pthread_create(&g_argu.thread[cnt], NULL, routine, (void *)&philo[cnt])))
 			return (0);
 		pthread_detach(g_argu.thread[cnt]);
-		usleep(1);
+		usleep(10);
 		++cnt;
-		//cnt += 2;
-		//if ((cnt == g_argu.num && g_argu.num % 2 == 0)
-		//		|| (g_argu.num % 2 && cnt == g_argu.num + 1))
-		//	cnt = 1;
 	}
 	while (g_argu.death == 0)
-		usleep(1);
+		usleep(10);
 	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }
@@ -34,8 +30,6 @@ void				eat_meal(t_philo *philo)
 {
 	int64_t			dst;
 
-	//pthread_mutex_lock(&g_argu.mutex[philo->order - 1]);
-	//pthread_mutex_lock(&g_argu.mutex[philo->right]);
 	if (sem_wait(g_argu.sem))
 		return ;
 	if (sem_wait(g_argu.sem))
@@ -52,18 +46,18 @@ void				eat_meal(t_philo *philo)
 		return ;
 	if (sem_post(g_argu.sem))
 		return ;
-	//pthread_mutex_unlock(&g_argu.mutex[philo->order - 1]);
-	//pthread_mutex_unlock(&g_argu.mutex[philo->right]);
 	philo->eat_cnt += 1;
 }
 
 void				sleep_well(t_philo *philo)
 {
+	int64_t			cur;
 	int64_t			dst;
 
-	if (!(massage(get_time() - g_argu.start, philo->order, SLEEP)))
+	if (!(massage((cur = get_time()) - g_argu.start, philo->order, SLEEP)))
 		return ;
-	dst = philo->eat + g_argu.eat + g_argu.sleep;
+	dst = cur + g_argu.sleep;
+	//dst = philo->eat + g_argu.eat + g_argu.sleep;
 	while (dst > get_time())
 		usleep(10);
 }

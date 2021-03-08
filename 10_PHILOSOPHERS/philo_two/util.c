@@ -51,8 +51,10 @@ int				clear(void)
 	{
 		sem_unlink("semaphore");
 		sem_close(g_argu.sem);
+		printf("semaphore___\n");
 		sem_unlink("msg");
 		sem_close(g_argu.msg);
+		printf("msg___\n");
 	}
 	if (g_argu.thread)
 		free(g_argu.thread);
