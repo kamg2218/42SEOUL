@@ -1,4 +1,4 @@
-#include "philo_one.h"
+#include "philo_two.h"
 
 int				argu_init(int argc, char *argv[])
 {
@@ -13,15 +13,9 @@ int				argu_init(int argc, char *argv[])
 	g_argu.must_eat = 0;
 	if (argc == 6)
 		g_argu.must_eat = ft_atoi(argv[5]);
-	if (!(g_argu.mutex = malloc(sizeof(pthread_mutex_t) * g_argu.num)))
+	if (g_argu.sema = sem_open("semaphore", O_CREAT, 0644, g_argu.num))
 		return (0);
-	cnt = 0;
-	while (cnt < g_argu.num)
-	{
-		if (pthread_mutex_init(&g_argu.mutex[cnt++], NULL))
-			return (0);
-	}
-	if (pthread_mutex_init(&g_argu.msg, NULL))
+	if (g_argu.msg = sem_open("msg", O_CREAT, 0644, 1))
 		return (0);
 	return (1);
 }
@@ -30,9 +24,6 @@ void			philo_init(t_philo *philo, int cnt)
 {
 	philo->eat_cnt = 0;
 	philo->order = cnt + 1;
-	philo->right = 0;
-	if (philo->right < g_argu.num)
-		philo->right = cnt + 1;
 	philo->eat = g_argu.start;
 }
 
@@ -60,10 +51,13 @@ void			*monitor(void *philo)
 
 int				massage(int64_t time, int order, int msg)
 {
-	pthread_mutex_lock(&g_argu.msg);
+	if (sem_wait(g_argu.msg))
+		return (0);
+	//pthread_mutex_lock(&g_argu.msg);
 	if (g_argu.death != 0)
 	{
-		pthread_mutex_unlock(&g_argu.msg);
+		sem_post(g_argu.msg);
+		//pthread_mutex_unlock(&g_argu.msg);
 		return (0);
 	}
 	if (msg == EAT)
@@ -81,7 +75,9 @@ int				massage(int64_t time, int order, int msg)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
 		printf("All philosopher is full\n");
-	pthread_mutex_unlock(&g_argu.msg);
+	if (sem_post(g_argu.msg))
+		return (0);
+	//pthread_mutex_unlock(&g_argu.msg);
 	return (1);
 }
 
