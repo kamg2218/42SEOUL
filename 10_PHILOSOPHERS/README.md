@@ -78,3 +78,12 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 
 #### Philo_three
 
+* Program_name : philo_three
+* Arguments : number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat
+* External functs. : memset, printf, malloc, free, write, fork, kill, exit, usleep, gettimeofday, pthread_create, pthread_detach, pthread_join, waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink
+* Libft : NO
+* Description : philosopher with processes and semaphore
+* 모든 포크는 테이블의 중앙에 있다.
+* 메모리에 상태가 없지만, 사용 가능한 포크의 수는 세마포어로 나타낸다.
+* 각 철학자는 프로세스가 되어야 하고, 주요 프로세스는 철학자가 되어서는 안된다.
+
