@@ -76,6 +76,9 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 * 메모리에 상태가 있지 않지만, 가능한 포크의 수는 세마포어로 나타낸다.
 * 각 철학자는 스레드가 되어야 한다.
 
+* check_point! : 프로세스가 종료될 때에는 sem_close가 자동으로 실행된다.
+* https://stackoverflow.com/questions/9537068/sem-close-vs-sem-unlink-when-process-terminates#:~:text=1%20Answer&text=In%20answer%20to%20your%20questions,one%20process%20has%20called%20sem_unlink. //참고
+
 #### Philo_three
 
 * Program_name : philo_three
