@@ -64,6 +64,7 @@ int				massage(int64_t time, int order, int msg)
 	if (g_argu.death != 0)
 	{
 		sem_post(g_argu.msg);
+		kill(0, SIGKILL);
 		return (0);
 	}
 	if (msg == EAT)
@@ -76,11 +77,15 @@ int				massage(int64_t time, int order, int msg)
 	{
 		printf("%lldms %d died\n", time, order);
 		g_argu.death = order;
+		kill(0, SIGQUIT);
 	}
 	else if (msg == FORK)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
+	{
 		printf("All philosopher is full\n");
+		kill(0, SIGQUIT);
+	}
 	if (sem_post(g_argu.msg))
 		return (0);
 	return (1);

@@ -3,11 +3,9 @@
 int				make_thread(void)
 {
 	int			cnt;
-	t_philo		*philo;
+	t_philo		philo;
 	pid_t		pid;
 
-	if (!(philo = (t_philo *)malloc(sizeof(t_philo) * g_argu.num)))
-		return (0);
 	g_argu.start = get_time();
 	cnt = 0;
 	while (cnt < g_argu.num)
@@ -17,19 +15,16 @@ int				make_thread(void)
 			exit(0);
 		else if (pid == 0)
 		{
-			philo_init(&philo[cnt], cnt);
-			routine(&philo[cnt]);
+			philo_init(&philo, cnt);
+			routine(&philo);
 			exit(0);
 		}
 		else
-		{
-			usleep(10);
 			++cnt;
-		}
 	}
 	cnt = 0;
 	while (cnt++ < g_argu.num)
-		waitpid(pid, NULL, 0);
+		waitpid(0, NULL, 0);
 	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }

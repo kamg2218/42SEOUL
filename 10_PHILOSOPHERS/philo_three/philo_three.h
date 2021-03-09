@@ -5,8 +5,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <signal.h>
 #include <semaphore.h>
 #include <sys/time.h>
+#include <sys/types.h>
 
 # define EAT 1
 # define SLEEP 2
