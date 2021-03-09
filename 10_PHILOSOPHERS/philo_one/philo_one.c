@@ -101,6 +101,8 @@ int				main(int argc, char *argv[])
 		return (str_error("Error: Argument!!\n", 0));
 	if (!(argu_init(argc, argv)))
 		return (str_error("Error: initialize error\n", 0));
+	if (!(check_argu()))
+		return (str_error("Error: argument error\n", 0));
 	if (!(make_thread()))
 		return (str_error("Error: fail to make thread\n", 0));
 	clear();

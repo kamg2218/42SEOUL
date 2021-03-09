@@ -1,5 +1,15 @@
 #include "philo_three.h"
 
+int				check_argu(void)
+{
+	if (g_argu.num <= 0)
+		return (0);
+	else if (g_argu.die < 0 || g_argu.eat < 0
+			|| g_argu.sleep < 0 || g_argu.must_eat < 0)
+		return (0);
+	return (1);
+}
+
 int				argu_init(int argc, char *argv[])
 {
 	g_argu.num = ft_atoi(argv[1]);
@@ -85,8 +95,8 @@ int				main(int argc, char *argv[])
 		return (str_error("Error: Argument!!\n", 0));
 	if (!(argu_init(argc, argv)))
 		return (str_error("Error: initialize error\n", 0));
-	//if (!(make_thread()))
-	//	return (str_error("Error: fail to make thread\n", 0));
+	if (!(check_argu()))
+		return (str_error("Error: argument error\n", 0));
 	pid = fork();
 	if (pid == -1)
 		exit(0);
@@ -94,9 +104,10 @@ int				main(int argc, char *argv[])
 	{
 		if (!(make_thread()))
 			return (str_error("Error: fail to make thread\n", 0));
+		exit(0);
 	}
 	else
-		waitpid(pid, NULL, 0);
+		waitpid(0, NULL, 0);
 	clear();
 	return (0);
 }
