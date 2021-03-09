@@ -1,5 +1,5 @@
-#ifndef PHILO_TWO_H
-# define PHILO_TWO_H
+#ifndef PHILO_THREE_H
+# define PHILO_THREE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,7 +34,6 @@ typedef struct		s_argu
 	int				must_eat;
 	int				death;
 	int				full;
-	pthread_t		*thread;
 	sem_t			*sem;
 	sem_t			*msg;
 }					t_argu;
@@ -58,6 +57,6 @@ int					massage(int64_t time, int order, int msg);
 int					make_thread(void);
 void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);
-void				*routine(void *philo);
+void				*routine(t_philo *philo);
 
 #endif

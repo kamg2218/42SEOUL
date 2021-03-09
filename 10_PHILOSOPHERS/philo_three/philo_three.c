@@ -1,4 +1,4 @@
-#include "philo_two.h"
+#include "philo_three.h"
 
 int				argu_init(int argc, char *argv[])
 {
@@ -78,13 +78,25 @@ int				massage(int64_t time, int order, int msg)
 
 int				main(int argc, char *argv[])
 {
+	pid_t		pid;
+
 	g_argu.sem = NULL;
 	if (argc != 5 && argc != 6)
 		return (str_error("Error: Argument!!\n", 0));
 	if (!(argu_init(argc, argv)))
 		return (str_error("Error: initialize error\n", 0));
-	if (!(make_thread()))
-		return (str_error("Error: fail to make thread\n", 0));
+	//if (!(make_thread()))
+	//	return (str_error("Error: fail to make thread\n", 0));
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	else if (pid == 0)
+	{
+		if (!(make_thread()))
+			return (str_error("Error: fail to make thread\n", 0));
+	}
+	else
+		waitpid(pid, NULL, 0);
 	clear();
 	return (0);
 }

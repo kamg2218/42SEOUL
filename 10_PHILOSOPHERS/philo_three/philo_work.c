@@ -1,27 +1,35 @@
-#include "philo_two.h"
+#include "philo_three.h"
 
 int				make_thread(void)
 {
 	int			cnt;
 	t_philo		*philo;
+	pid_t		pid;
 
-	if (!(g_argu.thread = malloc(sizeof(pthread_t) * g_argu.num)))
-		return (0);
 	if (!(philo = (t_philo *)malloc(sizeof(t_philo) * g_argu.num)))
 		return (0);
 	g_argu.start = get_time();
 	cnt = 0;
 	while (cnt < g_argu.num)
 	{
-		philo_init(&philo[cnt], cnt);
-		if ((pthread_create(&g_argu.thread[cnt], NULL, routine, (void *)&philo[cnt])))
-			return (0);
-		pthread_detach(g_argu.thread[cnt]);
-		usleep(10);
-		++cnt;
+		pid = fork();
+		if (pid == -1)
+			exit(0);
+		else if (pid == 0)
+		{
+			philo_init(&philo[cnt], cnt);
+			routine(&philo[cnt]);
+			exit(0);
+		}
+		else
+		{
+			usleep(10);
+			++cnt;
+		}
 	}
-	while (g_argu.death == 0)
-		usleep(10);
+	cnt = 0;
+	while (cnt++ < g_argu.num)
+		waitpid(pid, NULL, 0);
 	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }
@@ -58,19 +66,16 @@ void				sleep_well(t_philo *philo)
 		usleep(10);
 }
 
-void			*routine(void *philo)
+void			*routine(t_philo *philo)
 {
-	t_philo		*ph;
-
-	ph = (t_philo *)philo;
-	if (pthread_create(&ph->monitor, NULL, monitor, philo))
+	if (pthread_create(&philo->monitor, NULL, monitor, (void *)philo))
 		return (NULL);
-	pthread_detach(ph->monitor);
+	pthread_detach(philo->monitor);
 	while (g_argu.death == 0)
 	{
-		eat_meal(ph);
-		sleep_well(ph);
-		if (!(massage(get_time() - g_argu.start, ph->order, THINK)))
+		eat_meal(philo);
+		sleep_well(philo);
+		if (!(massage(get_time() - g_argu.start, philo->order, THINK)))
 			break ;
 	}
 	return (NULL);

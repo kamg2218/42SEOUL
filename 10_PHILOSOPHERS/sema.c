@@ -27,6 +27,6 @@ int			main(void)
 	printf("end!\n");
 	if (sem_close(sem))
 		printf("fail to close\n");
-	if (sem_unlink(name))
-		printf("fail to unlink\n");
+	//if (sem_unlink(name))
+	//	printf("fail to unlink\n");
 }

@@ -1,4 +1,4 @@
-#include "philo_two.h"
+#include "philo_three.h"
 
 int				ft_minus(const char *str, int *minus)
 {
@@ -54,8 +54,6 @@ int				clear(void)
 		sem_unlink("msg");
 		sem_close(g_argu.msg);
 	}
-	if (g_argu.thread)
-		free(g_argu.thread);
 	return (0);
 }
 
