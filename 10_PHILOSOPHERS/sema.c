@@ -25,8 +25,10 @@ int			main(void)
 	if (sem_post(sem) == -1)
 		printf("fail to post\n");
 	printf("end!\n");
-	if (sem_close(sem))
-		printf("fail to close\n");
-	//if (sem_unlink(name))
-	//	printf("fail to unlink\n");
+	if (sem_unlink(name))
+		printf("fail to unlink\n");
+	printf("unlink\n");
+	//if (sem_close(sem))
+	//	printf("fail to close\n");
+	printf("close\n");
 }

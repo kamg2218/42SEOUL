@@ -1,5 +1,15 @@
 #include "philo_two.h"
 
+int				check_argu(void)
+{
+	if (g_argu.num <= 0)
+		return (0);
+	else if (g_argu.die < 0 || g_argu.eat < 0
+			|| g_argu.sleep < 0 || g_argu.must_eat < 0)
+		return (0);
+	return (1);
+}
+
 int				argu_init(int argc, char *argv[])
 {
 	g_argu.num = ft_atoi(argv[1]);

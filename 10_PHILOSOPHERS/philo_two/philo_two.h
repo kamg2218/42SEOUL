@@ -48,11 +48,12 @@ int					str_error(char *str, int re);
 int					clear(void);
 int64_t				get_time(void);
 
-//philo_one.c
+//philo_two.c
 int					argu_init(int argc, char *argv[]);
 void				philo_init(t_philo *philo, int cnt);
 void				*monitor(void *philo);
 int					massage(int64_t time, int order, int msg);
+int					check_argu(void);
 
 //philo_work.c
 int					make_thread(void);

@@ -48,6 +48,7 @@ int					clear(void);
 int64_t				get_time(void);
 
 //philo_one.c
+int					check_argu(void);
 int					argu_init(int argc, char *argv[]);
 void				philo_init(t_philo *philo, int cnt);
 void				*monitor(void *philo);

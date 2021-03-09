@@ -50,11 +50,13 @@ void				eat_meal(t_philo *philo)
 
 void				sleep_well(t_philo *philo)
 {
+	int64_t			cur;
 	int64_t			dst;
 
-	if (!(massage(get_time() - g_argu.start, philo->order, SLEEP)))
+	if (!(massage((cur = get_time()) - g_argu.start, philo->order, SLEEP)))
 		return ;
-	dst = philo->eat + g_argu.eat + g_argu.sleep;
+	//dst = philo->eat + g_argu.eat + g_argu.sleep;
+	dst = cur + g_argu.sleep;
 	while (dst > get_time())
 		usleep(10);
 }

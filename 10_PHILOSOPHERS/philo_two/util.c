@@ -50,9 +50,9 @@ int				clear(void)
 	if (g_argu.sem)
 	{
 		sem_unlink("semaphore");
-		sem_close(g_argu.sem);
+		//sem_close(g_argu.sem);
 		sem_unlink("msg");
-		sem_close(g_argu.msg);
+		//sem_close(g_argu.msg);
 	}
 	if (g_argu.thread)
 		free(g_argu.thread);
