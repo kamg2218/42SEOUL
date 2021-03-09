@@ -3,7 +3,6 @@
 int				argu_init(int argc, char *argv[])
 {
 	g_argu.num = ft_atoi(argv[1]);
-	printf("num = %d\n", g_argu.num);
 	g_argu.die = ft_atoi(argv[2]);
 	g_argu.eat = ft_atoi(argv[3]);
 	g_argu.sleep = ft_atoi(argv[4]);
@@ -14,10 +13,8 @@ int				argu_init(int argc, char *argv[])
 		g_argu.must_eat = ft_atoi(argv[5]);
 	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)) == NULL)
 		return (0);
-	printf("open_1, ");
 	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
 		return (0);
-	printf("opened\n");
 	return (1);
 }
 

@@ -17,7 +17,7 @@ int				make_thread(void)
 		if ((pthread_create(&g_argu.thread[cnt], NULL, routine, (void *)&philo[cnt])))
 			return (0);
 		pthread_detach(g_argu.thread[cnt]);
-		usleep(10);
+		//usleep(10);
 		++cnt;
 	}
 	while (g_argu.death == 0)
