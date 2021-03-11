@@ -64,7 +64,7 @@ int				massage(int64_t time, int order, int msg)
 	if (g_argu.death != 0)
 	{
 		sem_post(g_argu.msg);
-		kill(0, SIGKILL);
+		//kill(0, SIGKILL);
 		return (0);
 	}
 	if (msg == EAT)
@@ -77,14 +77,14 @@ int				massage(int64_t time, int order, int msg)
 	{
 		printf("%lldms %d died\n", time, order);
 		g_argu.death = order;
-		kill(0, SIGQUIT);
+		//kill(0, SIGQUIT);
 	}
 	else if (msg == FORK)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
 	{
 		printf("All philosopher is full\n");
-		kill(0, SIGQUIT);
+		//kill(0, SIGQUIT);
 	}
 	if (sem_post(g_argu.msg))
 		return (0);
@@ -104,12 +104,11 @@ int				main(int argc, char *argv[])
 		return (str_error("Error: argument error\n", 0));
 	pid = fork();
 	if (pid == -1)
-		exit(0);
+		return (str_error("Error: fork error\n", 0));
 	else if (pid == 0)
 	{
 		if (!(make_thread()))
 			return (str_error("Error: fail to make thread\n", 0));
-		exit(0);
 	}
 	else
 		waitpid(0, NULL, 0);

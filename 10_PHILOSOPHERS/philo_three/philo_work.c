@@ -3,6 +3,7 @@
 int				make_thread(void)
 {
 	int			cnt;
+	int			status;
 	t_philo		philo;
 	pid_t		pid;
 
@@ -22,9 +23,12 @@ int				make_thread(void)
 		else
 			++cnt;
 	}
-	cnt = 0;
-	while (cnt++ < g_argu.num)
-		waitpid(0, NULL, 0);
+	cnt = -1;
+	while (++cnt < g_argu.num)
+	{
+		waitpid(0, &status, 0);
+		printf("status = %d\n", status);
+	}
 	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }
@@ -56,7 +60,6 @@ void				sleep_well(t_philo *philo)
 	if (!(massage((cur = get_time()) - g_argu.start, philo->order, SLEEP)))
 		return ;
 	dst = cur + g_argu.sleep;
-	//dst = philo->eat + g_argu.eat + g_argu.sleep;
 	while (dst > get_time())
 		usleep(10);
 }
