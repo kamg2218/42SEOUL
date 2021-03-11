@@ -21,9 +21,11 @@ int				argu_init(int argc, char *argv[])
 	g_argu.must_eat = 0;
 	if (argc == 6)
 		g_argu.must_eat = ft_atoi(argv[5]);
-	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)) == NULL)
+	sem_unlink("semaphore");
+	if (!(g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)))
 		return (0);
-	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
+	sem_unlink("msg");
+	if (!(g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)))
 		return (0);
 	return (1);
 }
@@ -50,21 +52,25 @@ void			*monitor(void *philo)
 			if (!(massage(0, ph->order, FULL)))
 				return (NULL);
 			g_argu.death = g_argu.num + 1;
+			//kill(g_argu.pid, SIGQUIT);
 		}
 		if (g_argu.die < (cur = get_time() - ph->eat))
-			massage(cur, ph->order, DIE);
+		{
+			if (!(massage(cur, ph->order, DIE)))
+				return (NULL);
+			//g_argu.death = ph->order;
+			//kill(g_argu.pid, SIGKILL);
+		}
 	}
 	return (NULL);
 }
 
 int				massage(int64_t time, int order, int msg)
 {
-	if (sem_wait(g_argu.msg))
-		return (0);
+	sem_wait(g_argu.msg);
 	if (g_argu.death != 0)
 	{
 		sem_post(g_argu.msg);
-		//kill(0, SIGKILL);
 		return (0);
 	}
 	if (msg == EAT)
@@ -76,18 +82,19 @@ int				massage(int64_t time, int order, int msg)
 	else if (msg == DIE)
 	{
 		printf("%lldms %d died\n", time, order);
-		g_argu.death = order;
-		//kill(0, SIGQUIT);
+		//g_argu.death = order;
+		printf("pid = %d\n", g_argu.pid);
+		kill(g_argu.pid, SIGKILL);
 	}
 	else if (msg == FORK)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
 	{
 		printf("All philosopher is full\n");
-		//kill(0, SIGQUIT);
+		printf("pid = %d\n", g_argu.pid);
+		kill(g_argu.pid, SIGKILL);
 	}
-	if (sem_post(g_argu.msg))
-		return (0);
+	sem_post(g_argu.msg);
 	return (1);
 }
 

@@ -21,8 +21,10 @@ int				argu_init(int argc, char *argv[])
 	g_argu.must_eat = 0;
 	if (argc == 6)
 		g_argu.must_eat = ft_atoi(argv[5]);
+	sem_unlink("semaphore");
 	if ((g_argu.sem = sem_open("semaphore", O_CREAT, 0644, g_argu.num)) == NULL)
 		return (0);
+	sem_unlink("msg");
 	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
 		return (0);
 	return (1);

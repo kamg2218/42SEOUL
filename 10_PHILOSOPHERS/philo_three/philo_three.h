@@ -36,6 +36,7 @@ typedef struct		s_argu
 	int				must_eat;
 	int				death;
 	int				full;
+	int				pid;
 	sem_t			*sem;
 	sem_t			*msg;
 }					t_argu;

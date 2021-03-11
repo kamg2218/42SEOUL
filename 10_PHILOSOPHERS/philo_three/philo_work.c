@@ -3,9 +3,9 @@
 int				make_thread(void)
 {
 	int			cnt;
-	int			status;
 	t_philo		philo;
 	pid_t		pid;
+	int			status;
 
 	g_argu.start = get_time();
 	cnt = 0;
@@ -20,8 +20,7 @@ int				make_thread(void)
 			routine(&philo);
 			exit(0);
 		}
-		else
-			++cnt;
+		++cnt;
 	}
 	cnt = -1;
 	while (++cnt < g_argu.num)
@@ -29,7 +28,8 @@ int				make_thread(void)
 		waitpid(0, &status, 0);
 		printf("status = %d\n", status);
 	}
-	massage(get_time() - g_argu.start, g_argu.death, DIE);
+	if (status == 0)
+		massage(get_time() - g_argu.start, 0, FULL);
 	return (1);
 }
 
