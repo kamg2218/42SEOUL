@@ -6,29 +6,51 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:43:17 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:43:19 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/11 20:54:45 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
+void				*monitor(void *philo)
+{
+	int64_t			cur;
+	t_philo			*ph;
+
+	ph = (t_philo *)philo;
+	while (g_argu.death == 0)
+	{
+		if (g_argu.must_eat && g_argu.must_eat == ph->eat_cnt)
+			g_argu.full += 1;
+		if (g_argu.full == g_argu.num)
+		{
+			if (!(massage(0, ph->order, FULL)))
+				return (NULL);
+			g_argu.death = g_argu.num + 1;
+		}
+		if (g_argu.die < (cur = get_time() - ph->eat))
+			massage(cur, ph->order, DIE);
+	}
+	return (NULL);
+}
+
 int					make_thread(void)
 {
 	int				cnt;
 	t_philo			*philo;
+	pthread_t		*thread;
 
-	if (!(g_argu.thread = malloc(sizeof(pthread_t) * g_argu.num)))
-		return (0);
 	if (!(philo = (t_philo *)malloc(sizeof(t_philo) * g_argu.num)))
 		return (0);
 	g_argu.start = get_time();
+	thread = g_argu.thread;
 	cnt = 0;
 	while (cnt < g_argu.num)
 	{
 		philo_init(&philo[cnt], cnt);
-		if ((pthread_create(&g_argu.thread[cnt], NULL, routine, (void *)&philo[cnt])))
+		if ((pthread_create(&thread[cnt], NULL, routine, (void *)&philo[cnt])))
 			return (0);
-		pthread_detach(g_argu.thread[cnt]);
+		pthread_detach(thread[cnt]);
 		usleep(1);
 		cnt += 2;
 		if ((cnt == g_argu.num && g_argu.num % 2 == 0)

@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:37:17 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:37:18 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/11 20:57:31 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int				argu_init(int argc, char *argv[])
 	sem_unlink("msg");
 	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
 		return (0);
+	if (!(g_argu.thread = malloc(sizeof(pthread_t) * g_argu.num)))
+		return (0);
 	return (1);
 }
 
@@ -47,28 +49,6 @@ void			philo_init(t_philo *philo, int cnt)
 	philo->eat_cnt = 0;
 	philo->order = cnt + 1;
 	philo->eat = g_argu.start;
-}
-
-void			*monitor(void *philo)
-{
-	int64_t		cur;
-	t_philo		*ph;
-
-	ph = (t_philo *)philo;
-	while (g_argu.death == 0)
-	{
-		if (g_argu.must_eat && g_argu.must_eat == ph->eat_cnt)
-			g_argu.full += 1;
-		if (g_argu.full == g_argu.num)
-		{
-			if (!(massage(0, ph->order, FULL)))
-				return (NULL);
-			g_argu.death = g_argu.num + 1;
-		}
-		if (g_argu.die < (cur = get_time() - ph->eat))
-			massage(cur, ph->order, DIE);
-	}
-	return (NULL);
 }
 
 int				massage(int64_t time, int order, int msg)

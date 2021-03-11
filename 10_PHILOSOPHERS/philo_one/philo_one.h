@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:33:47 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:34:04 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/11 20:49:37 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ typedef struct		s_argu
 
 t_argu				g_argu;
 
-int					ft_atoi(const char *str);
-int					ft_minus(const char *str, int *minus);
-int					str_error(char *str, int re);
 int					clear(void);
+int					ft_atoi(const char *str);
+int					str_error(char *str, int re);
+int					ft_minus(const char *str, int *minus);
 int64_t				get_time(void);
 
 int					check_argu(void);
 int					argu_init(int argc, char *argv[]);
-void				philo_init(t_philo *philo, int cnt);
-void				*monitor(void *philo);
 int					massage(int64_t time, int order, int msg);
+void				philo_init(t_philo *philo, int cnt);
 
 int					make_thread(void);
 void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);
 void				*routine(void *philo);
+void				*monitor(void *philo);
 
 #endif
