@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_work.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 20:43:17 by hyoon             #+#    #+#             */
+/*   Updated: 2021/03/11 20:43:19 by hyoon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-int				make_thread(void)
+int					make_thread(void)
 {
-	int			cnt;
-	t_philo		*philo;
+	int				cnt;
+	t_philo			*philo;
 
 	if (!(g_argu.thread = malloc(sizeof(pthread_t) * g_argu.num)))
 		return (0);
@@ -55,15 +67,14 @@ void				sleep_well(t_philo *philo)
 
 	if (!(massage((cur = get_time()) - g_argu.start, philo->order, SLEEP)))
 		return ;
-	//dst = philo->eat + g_argu.eat + g_argu.sleep;
 	dst = cur + g_argu.sleep;
 	while (dst > get_time())
 		usleep(10);
 }
 
-void			*routine(void *philo)
+void				*routine(void *philo)
 {
-	t_philo		*ph;
+	t_philo			*ph;
 
 	ph = (t_philo *)philo;
 	if (pthread_create(&ph->monitor, NULL, monitor, philo))

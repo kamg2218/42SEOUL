@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_three.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 20:31:07 by hyoon             #+#    #+#             */
+/*   Updated: 2021/03/11 20:38:21 by hyoon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_three.h"
 
 int				check_argu(void)
@@ -27,6 +39,14 @@ int				argu_init(int argc, char *argv[])
 	sem_unlink("msg");
 	if (!(g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)))
 		return (0);
+	if (!(g_argu.pid = (pid_t *)malloc(sizeof(pid_t) * g_argu.num)))
+		return (0);
+	sem_unlink("monitor");
+	if (!(g_argu.monitor = sem_open("monitor", O_CREAT, 0644, 0)))
+		return (0);
+	sem_unlink("full");
+	if (!(g_argu.full = sem_open("full", O_CREAT, 0644, 0)))
+		return (0);
 	return (1);
 }
 
@@ -35,34 +55,6 @@ void			philo_init(t_philo *philo, int cnt)
 	philo->eat_cnt = 0;
 	philo->order = cnt + 1;
 	philo->eat = g_argu.start;
-}
-
-void			*monitor(void *philo)
-{
-	int64_t		cur;
-	t_philo		*ph;
-
-	ph = (t_philo *)philo;
-	while (g_argu.death == 0)
-	{
-		if (g_argu.must_eat && g_argu.must_eat == ph->eat_cnt)
-			g_argu.full += 1;
-		if (g_argu.full == g_argu.num)
-		{
-			if (!(massage(0, ph->order, FULL)))
-				return (NULL);
-			g_argu.death = g_argu.num + 1;
-			//kill(g_argu.pid, SIGQUIT);
-		}
-		if (g_argu.die < (cur = get_time() - ph->eat))
-		{
-			if (!(massage(cur, ph->order, DIE)))
-				return (NULL);
-			//g_argu.death = ph->order;
-			//kill(g_argu.pid, SIGKILL);
-		}
-	}
-	return (NULL);
 }
 
 int				massage(int64_t time, int order, int msg)
@@ -80,28 +72,20 @@ int				massage(int64_t time, int order, int msg)
 	else if (msg == THINK)
 		printf("%lldms %d is thinking\n", time, order);
 	else if (msg == DIE)
-	{
 		printf("%lldms %d died\n", time, order);
-		//g_argu.death = order;
-		printf("pid = %d\n", g_argu.pid);
-		kill(g_argu.pid, SIGKILL);
-	}
 	else if (msg == FORK)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
-	{
 		printf("All philosopher is full\n");
-		printf("pid = %d\n", g_argu.pid);
-		kill(g_argu.pid, SIGKILL);
-	}
-	sem_post(g_argu.msg);
+	if (msg == DIE)
+		sem_post(g_argu.monitor);
+	else
+		sem_post(g_argu.msg);
 	return (1);
 }
 
 int				main(int argc, char *argv[])
 {
-	pid_t		pid;
-
 	g_argu.sem = NULL;
 	if (argc != 5 && argc != 6)
 		return (str_error("Error: Argument!!\n", 0));
@@ -109,16 +93,10 @@ int				main(int argc, char *argv[])
 		return (str_error("Error: initialize error\n", 0));
 	if (!(check_argu()))
 		return (str_error("Error: argument error\n", 0));
-	pid = fork();
-	if (pid == -1)
-		return (str_error("Error: fork error\n", 0));
-	else if (pid == 0)
-	{
-		if (!(make_thread()))
-			return (str_error("Error: fail to make thread\n", 0));
-	}
-	else
-		waitpid(0, NULL, 0);
-	clear();
+	if (!(make_thread()))
+		return (str_error("Error: fail to make thread\n", 0));
+	sem_unlink("semaphore");
+	sem_unlink("msg");
+	free(g_argu.pid);
 	return (0);
 }

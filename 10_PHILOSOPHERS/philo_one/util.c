@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 20:34:20 by hyoon             #+#    #+#             */
+/*   Updated: 2021/03/11 20:35:44 by hyoon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-int				ft_minus(const char *str, int *minus)
+int					ft_minus(const char *str, int *minus)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -16,11 +28,11 @@ int				ft_minus(const char *str, int *minus)
 	return (i);
 }
 
-int				ft_atoi(const char *str)
+int					ft_atoi(const char *str)
 {
-	int			i;
-	int			minus;
-	long long	result;
+	int				i;
+	int				minus;
+	long long		result;
 
 	minus = 1;
 	result = 0;
@@ -38,16 +50,16 @@ int				ft_atoi(const char *str)
 	return (result * minus);
 }
 
-int				str_error(char *str, int re)
+int					str_error(char *str, int re)
 {
 	printf("%s", str);
 	clear();
 	return (re);
 }
 
-int				clear(void)
+int					clear(void)
 {
-	int			cnt;
+	int				cnt;
 
 	if (g_argu.mutex)
 	{

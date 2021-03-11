@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 20:40:29 by hyoon             #+#    #+#             */
+/*   Updated: 2021/03/11 20:42:20 by hyoon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_TWO_H
 # define PHILO_TWO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <semaphore.h>
+# include <sys/time.h>
 
 # define EAT 1
 # define SLEEP 2
@@ -41,21 +53,19 @@ typedef struct		s_argu
 
 t_argu				g_argu;
 
-//util.c
 int					ft_atoi(const char *str);
 int					ft_minus(const char *str, int *minus);
 int					str_error(char *str, int re);
 int					clear(void);
 int64_t				get_time(void);
 
-//philo_two.c
 int					argu_init(int argc, char *argv[]);
 void				philo_init(t_philo *philo, int cnt);
 void				*monitor(void *philo);
 int					massage(int64_t time, int order, int msg);
 int					check_argu(void);
 
-//philo_work.c
+int					check_argu(void);
 int					make_thread(void);
 void				eat_meal(t_philo *philo);
 void				sleep_well(t_philo *philo);

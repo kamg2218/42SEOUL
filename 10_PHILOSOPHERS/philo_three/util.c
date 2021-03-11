@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/11 20:31:21 by hyoon             #+#    #+#             */
+/*   Updated: 2021/03/11 20:38:43 by hyoon            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_three.h"
 
 int				ft_minus(const char *str, int *minus)
@@ -41,23 +53,14 @@ int				ft_atoi(const char *str)
 int				str_error(char *str, int re)
 {
 	printf("%s", str);
-	clear();
+	sem_unlink("semaphore");
+	sem_unlink("msg");
+	if (g_argu.pid)
+		free(g_argu.pid);
 	return (re);
 }
 
-int				clear(void)
-{
-	if (g_argu.sem)
-	{
-		sem_unlink("semaphore");
-		sem_close(g_argu.sem);
-		sem_unlink("msg");
-		sem_close(g_argu.msg);
-	}
-	return (0);
-}
-
-int64_t				get_time(void)
+int64_t			get_time(void)
 {
 	struct timeval	time;
 
