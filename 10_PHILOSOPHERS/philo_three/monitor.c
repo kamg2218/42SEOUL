@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:31:52 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:31:53 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/12 13:49:18 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void			*get_full(void *philo)
 	cnt = -1;
 	while (++cnt < g_argu.num)
 		sem_wait(g_argu.full);
+	massage(0, 0, FULL);
 	cnt = 0;
 	while (cnt < g_argu.num)
 		kill(g_argu.pid[cnt++], SIGKILL);
 	sem_unlink("full");
-	massage(0, 0, FULL);
 	return (NULL);
 }
 

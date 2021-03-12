@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:25:47 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:25:50 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/12 13:41:02 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int				make_monitor(void)
 {
+	int			cnt;
 	pthread_t	monitor;
 	pthread_t	full;
 
