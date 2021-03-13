@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:34:09 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/13 20:46:05 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 21:10:28 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int					massage(int64_t time, int order, int msg)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
 		printf("All philosopher is full\n");
-	pthread_mutex_unlock(&g_argu.msg);
+	if (msg != DIE && msg != FULL)
+		pthread_mutex_unlock(&g_argu.msg);
 	return (1);
 }
 
