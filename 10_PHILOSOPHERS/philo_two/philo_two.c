@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:37:17 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/13 19:53:35 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 21:14:33 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void			philo_init(t_philo *philo, int cnt)
 
 int				massage(int64_t time, int order, int msg)
 {
-	if (sem_wait(g_argu.msg))
-		return (0);
+	sem_wait(g_argu.msg);
 	if (g_argu.death != 0)
 	{
 		sem_post(g_argu.msg);
@@ -77,8 +76,8 @@ int				massage(int64_t time, int order, int msg)
 		printf("%lldms %d has taken a fork\n", time, order);
 	else if (msg == FULL)
 		printf("All philosopher is full\n");
-	if (sem_post(g_argu.msg))
-		return (0);
+	if (msg != FULL && msg != DIE)
+		sem_post(g_argu.msg);
 	return (1);
 }
 
