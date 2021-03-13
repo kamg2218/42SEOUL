@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:33:47 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:49:37 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 20:39:42 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_argu
 	int				must_eat;
 	int				death;
 	int				full;
+	t_philo			*philo;
 	pthread_t		*thread;
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	msg;
@@ -59,6 +60,7 @@ int					ft_minus(const char *str, int *minus);
 int64_t				get_time(void);
 
 int					check_argu(void);
+int					pointer_init(void);
 int					argu_init(int argc, char *argv[]);
 int					massage(int64_t time, int order, int msg);
 void				philo_init(t_philo *philo, int cnt);

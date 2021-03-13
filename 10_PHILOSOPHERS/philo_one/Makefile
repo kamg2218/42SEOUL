@@ -4,6 +4,7 @@ CFLAGS = -Werror -Wextra -Wall
 
 SRC = philo_one.c\
 	  philo_work.c\
+	  init.c\
 	  util.c
 
 OBJ = $(SRC:.c=.o)
