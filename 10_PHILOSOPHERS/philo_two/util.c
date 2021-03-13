@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:45:42 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:45:43 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 20:48:50 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int					clear(void)
 	}
 	if (g_argu.thread)
 		free(g_argu.thread);
+	if (g_argu.philo)
+		free(g_argu.philo);
 	return (0);
 }
 

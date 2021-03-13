@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:40:29 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:42:20 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 19:50:59 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_argu
 	int				must_eat;
 	int				death;
 	int				full;
+	t_philo			*philo;
 	pthread_t		*thread;
 	sem_t			*sem;
 	sem_t			*msg;

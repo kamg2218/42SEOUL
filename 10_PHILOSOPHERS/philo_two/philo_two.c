@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:37:17 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:57:31 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 19:53:35 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int				argu_init(int argc, char *argv[])
 	if ((g_argu.msg = sem_open("msg", O_CREAT, 0644, 1)) == NULL)
 		return (0);
 	if (!(g_argu.thread = malloc(sizeof(pthread_t) * g_argu.num)))
+		return (0);
+	if (!(g_argu.philo = malloc(sizeof(t_philo) * g_argu.num)))
 		return (0);
 	return (1);
 }

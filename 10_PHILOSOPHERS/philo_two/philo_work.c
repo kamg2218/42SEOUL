@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:44:19 by hyoon             #+#    #+#             */
-/*   Updated: 2021/03/11 20:57:10 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/03/13 20:48:39 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int					make_thread(void)
 	t_philo			*philo;
 	pthread_t		*thread;
 
-	if (!(philo = (t_philo *)malloc(sizeof(t_philo) * g_argu.num)))
-		return (0);
+	philo = g_argu.philo;
 	g_argu.start = get_time();
 	thread = g_argu.thread;
 	cnt = 0;
@@ -56,7 +55,6 @@ int					make_thread(void)
 	}
 	while (g_argu.death == 0)
 		usleep(10);
-	massage(get_time() - g_argu.start, g_argu.death, DIE);
 	return (1);
 }
 
