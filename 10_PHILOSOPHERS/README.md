@@ -12,17 +12,19 @@ I've never though philosophy would be so deadly.
 
 스레드는 프로세스와 다르게 메모리를 공유한다.
 
+기본적으로 메인 프로세스 내에는 하나의 스레드가 있고, 그것이 메인 스레드가 된다.
+
 https://reakwon.tistory.com/56 //thread 개념 - pthread_create, pthread_join
 
 ### mutex
 
-mutex는 wait 함수를 호출한 오직 한 쓰레드로 시그널을 받을 수 있다.
+mutex는 wait 함수를 호출한 오직 한 스레드나 프로세스로 시그널을 받을 수 있다.
 
 https://reakwon.tistory.com/98 //mutex 예제 - pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
 
 ### semaphore
 
-semaphore는 wait 함수를 호출한 쓰레드가 다른 쓰레드에서 시그널을 받을 수 있다.
+semaphore는 wait 함수를 호출한 스레드(또는 프로세스)가 다른 스레드(또는 프로세스)에서 시그널을 받을 수 있다.
 
 두 개의 원자 조작(기능적으로 분할할 수 없거나 분할되지 않도록 보증된 조작)인 wait, signal을 사용한다.
 
@@ -65,6 +67,7 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 * 철학자가 포크를 동시에 사용하지 않도록하기위해서, 각자를 mutex로 포크 상태를 보호해야한다.
 * 각 철학자는 하나의 쓰레드가 되어야 한다.
 
+
 #### Philo_two
 
 * Program_name : philo_two
@@ -79,6 +82,7 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 * check_point! : 프로세스가 종료될 때에는 sem_close가 자동으로 실행된다.
 * https://stackoverflow.com/questions/9537068/sem-close-vs-sem-unlink-when-process-terminates#:~:text=1%20Answer&text=In%20answer%20to%20your%20questions,one%20process%20has%20called%20sem_unlink. //참고
 
+
 #### Philo_three
 
 * Program_name : philo_three
@@ -90,3 +94,59 @@ https://worthpreading.tistory.com/90 //뮤텍스와 세마포어 개념
 * 메모리에 상태가 없지만, 사용 가능한 포크의 수는 세마포어로 나타낸다.
 * 각 철학자는 프로세스가 되어야 하고, 주요 프로세스는 철학자가 되어서는 안된다.
 
+#### External functions
+
+##### thread functions
+
+* header : pthread.h
+
+###### pthread_create
+
+    int pthread_create(pthread_t \*thread, const pthread_attr_t \*attr, void \*(\*start_routine) (void \*), void \*arg);
+  
+    스레드를 생성하는 함수이다.
+  
+    새로 생성한 스레드의 값은 thread에 저장되고, 환경변수 값으로 attr을 넣을 수 있다.
+  
+    새로운 스레드를 만들면, 스레드 안에서 실행하고자 하는 내용을 담은 함수를 실행할 수 있는 데, 이는 start_routine 변수에 함수의 이름을 넣어 실행할 수 있다.
+  
+    이때, 함수의 반환값은 항상 보이드 포인터(void \*)이고, 매개변수도 보이트 포인터(void \*)로 arg 하나만 가질 수 있다.
+
+
+###### pthread_detach
+
+    int pthread_detach(pthread_t thread);
+    
+    생성한 스레드가 종료되면 이를 감지하여 스레드를 종료시킨다.
+    
+    감지된 스레드를 종료할 때, 스레드의 자원도 자동적으로 
+
+###### pthread_join
+
+##### mutex functions
+
+###### pthread_mutex_init
+###### pthread_mutex_destroy
+###### pthread_mutex_lock
+###### pthread_mutex_unlock
+
+##### semaphore functions
+
+###### sem_open
+###### sem_close
+###### sem_post,
+###### sem_wait
+###### sem_unlink
+
+##### others
+
+###### usleep
+###### gettimeofday 
+###### memset
+###### printf
+###### malloc
+###### free
+###### write
+###### fork
+###### kill
+###### exit
