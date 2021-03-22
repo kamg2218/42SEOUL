@@ -1,12 +1,11 @@
-NAME = phonebook
+NAME = Pony
 
 CFLAGS = -Wall -Wextra -Werror
 
 DFLAGS = -std=c++98
 
-SRC = phonebook.cpp\
-	  main.cpp\
-	  print.cpp
+SRC = Pony.cpp\
+	  main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
