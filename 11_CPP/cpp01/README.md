@@ -63,4 +63,22 @@ void    memoryLeak()
 * 좀비들은 적절한 패션에 할당되어야 한다. 때론 스택에 있어야 적절하고, 다른 때엔 힙 영역에 있는 것이 더 낫다.
 * 긍정적인 점수를 받기 위해 한 것을 정의해야 한다.
 
+---
+
+### ex03 - Moar brainz!
+
+|TOPIC|CONTENTS|
+|:--:|:--:|
+|Turn-in directory|ex03/|
+|Files to turn in|Zombie.cpp, Zombie.hpp, ZombieHorde.cpp, ZombieHorde.hpp, main.cpp|
+|Forbidden functions|None|
+
+* 이전에 만든 좀비 클래스를 재사용하여 ZombieHorde 클래스를 만들어라.
+* 좀비떼 클래스는 integer N을 갖는 생성자가 있어야 한다.
+* 랜덤한 이름으로 N Zombie 객체들을 할당해야 하고 저장해야 한다.
+* 각각의 좀비 객체를 갖는 announce() 함수를 포함해야 한다.
+* 각각의 할당에서 모든 Zombie 객체를 할당해야 하고, ZombieHorde를 파괴할 때, 사라져야 한다.
+* 평소대로 테스트할 메인을 제공해야 하고, 선택들을 설명해야 한다.
+
+---
 
