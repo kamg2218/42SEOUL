@@ -82,3 +82,48 @@ void    memoryLeak()
 
 ---
 
+### ex04 - HI THIS IS BRAIN
+
+|TOPIC|CONTENTS|
+|:--:|:--:|
+|Turn-in directory|ex04/|
+|Files to turn in|ex04.cpp|
+|Forbidden functions|None|
+
+* "HI THIS IS BRAIN"을 포함하는 문자열을 만들고 가리키고 참조하는 프로그램을 만들어라.
+* 포인터를 사용하여 가리키고, 참조자를 사용하여 가리켜라.
+
+---
+
+### ex05 - HI BRAIN THIS IS HUMAN
+
+|TOPIC|CONTENTS|
+|:--:|:--:|
+|Turn-in directory|ex05/|
+|Files to turn in|Brain.cpp, Brain.hpp, Human.cpp, Human.hpp, main.cpp|
+|Forbidden functions|None|
+
+* Brain 클래스를 만들어라.
+* Brain 클래스는 brain에 적절하다고 생각하는 것들을 포함한다.
+* identify() 함수를 포함하고, 메모리에 뇌의 주소(16진수 형태, ex)0x194F87EA)를 포함하는 문자열을 반환한다.
+* Human 클래스를 만들어라.
+* human 클래스는 같은 생활을 갖는 brain 속성을 갖는다.
+* identify() 함수를 갖고, Brain의 함수를 호출하고 결과를 반환한다.
+
+~~~
+
+int         main()
+{
+    Human   bob;
+    
+    std::cout << bob.identify() << std::endl;
+    std::cout << bob.getBrain().identify() << std::endl;
+}
+
+~~~
+
+* 위의 코드는 두개의 같은 주소를 출력한다.
+* 위의 코드는 main으로 제출해야 하고, Human이나 Brain 클래스에 무엇을 더하든지 "될 때까지 해봤다"는 말 보다는 다른 말로 주장해야 한다.
+
+---
+
