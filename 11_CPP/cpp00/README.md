@@ -1,6 +1,6 @@
 ## CPP module 00
 
-### ex00 - Megaphone
+### [**ex00 - Megaphone**](./ex00)
 
 |TOPIC|CONTENTS|
 |:--:|:--:|
@@ -12,7 +12,7 @@
 
 ---
 
-### ex01 - My Awesome
+### [**ex01 - My Awesome**](./ex01)
 
 |TOPIC|CONTENTS|
 |:--:|:--:|
