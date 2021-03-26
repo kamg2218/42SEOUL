@@ -21,9 +21,9 @@ class phonebook
 		std::string	darkest_secret;
 	public:
 		void	put_str();
-		void	get_str();
 		void	put_info();
 		void	put_ten(std::string name);
+		int		get_str();
 		int		find_idx(std::string name, std::string cnt);
 };
 
