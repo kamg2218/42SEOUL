@@ -1,17 +1,3 @@
-## CPP module 00
-
-### ex00 - Megaphone
-
-|TOPIC|CONTENTS|
-|:--:|:--:|
-|Turn-in directory|ex00/|
-|Files to turn in|Makefile, megaphone.cpp|
-|Forbidden functions|None|
-
-소문자를 대문자로 바꾸어 출력하는 문제!
-
----
-
 ### ex01 - My Awesome
 
 |TOPIC|CONTENTS|
@@ -31,6 +17,8 @@
 프로그램은 빈 전화번호부로 시작하고, 다른 동적할당을 사용하면 안되고, 8개 이상의 연락처를 저장할 수 없다.
 
 9번째 연락처가 저장되면, 적절한 행동을 실행해야 한다.
+
+---
 
 #### EXIT
 
@@ -64,3 +52,27 @@
 
 ### 만약, 명력어가 적절하게 실행되었다면, 프로그램은 다른 ADD, SEARCH, EXIT 명령어가 입력될 때까지 기다린다.
 
+---
+
+### Review
+
+#### ADD
+
+* add, ADD 둘 다 가능
+* 정보 없이 엔터만 입력한 경우
+* 8개 이상의 정보를 add 하려는 경우 확인
+
+#### SEARCH
+
+* search, SEARCH 둘 다 가능
+* 연락처가 1개도 없을 때, search 한 경우
+* search 명령어 입력 후, 전체 연락처 정보가 나오는 지 확인
+* 검색의 기준 입력받기(index, first name, last name, nickname)
+* index - 없는 인덱스 번호를 입력한 경우, 특수 문자를 입력한 경우
+* first name, first - 없는 이름을 입력한 경우, 같은 이름의 정보가 여러 개인 경우
+* last name, last - 없는 이름을 입력한 경우, 같은 이름의 정보가 여러 개인 경우
+* nick, nickname - 없는 이름을 입력한 경우, 같은 이름의 정보가 여러 개인 경우
+
+#### EXIT
+
+* EXIT, exit 둘 다 가능
