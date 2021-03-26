@@ -20,17 +20,18 @@ class phonebook
 		std::string	underwear_color;
 		std::string	darkest_secret;
 	public:
-		void get_str();
-		void put_ten(std::string name);
-		void put_str();
-		int	find_idx(std::string name, std::string cnt);
+		void	put_str();
+		void	get_str();
+		void	put_info();
+		void	put_ten(std::string name);
+		int		find_idx(std::string name, std::string cnt);
 };
 
 //print.cpp
 void	put_full(void);
 void	put_empty(void);
 void	put_char(std::string str, int cnt);
-void	put_string(int start, int end, int count, phonebook book[8]);
+void	put_phonebook(int start, int end, int count, phonebook book[8]);
 
 //main.cpp
 int		check_command(std::string cmd);

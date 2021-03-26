@@ -3,27 +3,42 @@
 void	phonebook::get_str()
 {
 	std::cout << "frist name : ";
-	std::cin >> first_name;
+	std::getline(std::cin, first_name, '\n');
 	std::cout << "last name : ";
-	std::cin >> last_name;
+	std::getline(std::cin, last_name, '\n');
 	std::cout << "nickname : ";
-	std::cin >> nickname;
+	std::getline(std::cin, nickname, '\n');
 	std::cout << "login : ";
-	std::cin >> login;
+	std::getline(std::cin, login, '\n');
 	std::cout << "postal address : ";
-	std::cin >> postal_address;
+	std::getline(std::cin, postal_address, '\n');
 	std::cout << "email address : ";
-	std::cin >> email_address;
+	std::getline(std::cin, email_address, '\n');
 	std::cout << "phone number : ";
-	std::cin >> phone_number;
+	std::getline(std::cin, phone_number, '\n');
 	std::cout << "birthday date : ";
-	std::cin >> birthday_date;
+	std::getline(std::cin, birthday_date, '\n');
 	std::cout << "favorite meal : ";
-	std::cin >> favorite_meal;
+	std::getline(std::cin, favorite_meal, '\n');
 	std::cout << "underwear color : ";
-	std::cin >> underwear_color;
+	std::getline(std::cin, underwear_color, '\n');
 	std::cout << "darkest secret : ";
-	std::cin >> darkest_secret;
+	std::getline(std::cin, darkest_secret, '\n');
+}
+
+void	phonebook::put_info()
+{
+	std::cout << "frist name : " << first_name << std::endl;
+	std::cout << "last name : " << last_name << std::endl;
+	std::cout << "nickname : " << nickname << std::endl;
+	std::cout << "login : " << login << std::endl;
+	std::cout << "postal address : " << postal_address << std::endl;
+	std::cout << "email address : " << email_address << std::endl;
+	std::cout << "phone number : " << phone_number << std::endl;
+	std::cout << "birthday date : " << birthday_date << std::endl;
+	std::cout << "favorite meal : " << favorite_meal << std::endl;
+	std::cout << "underwear color : " << underwear_color << std::endl;
+	std::cout << "darkest secret : " << darkest_secret << std::endl;
 }
 
 void	phonebook::put_ten(std::string name)
@@ -43,9 +58,9 @@ void	phonebook::put_ten(std::string name)
 void	phonebook::put_str()
 {
 	put_ten(first_name);
-	std::cout << " |   ";
+	std::cout << " | ";
 	put_ten(last_name);
-	std::cout << " |   ";
+	std::cout << " | ";
 	put_ten(nickname);
 }
 

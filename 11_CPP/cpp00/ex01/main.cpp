@@ -18,18 +18,25 @@ void		find_string(std::string search, int count, phonebook book[8])
 	std::string	name;
 
 	std::cout << search << " : ";
-	std::cin >> name;
+	std::getline(std::cin, name, '\n');
 	cnt = 0;
 	for (i = 0; i < count ; i++)
 	{
 		if (book[i].find_idx(search, name))
 		{
-			put_string(i, i, count, book);
+			put_char("-", 53);
+			std::cout << std::endl;
+			book[i].put_info();
 			cnt++;
 		}
 	}
 	if (cnt == 0)
 		std::cout << "ERROR : IT DOES NOT EXIST : " << name << std::endl;
+	else
+	{
+		put_char("-", 53);
+		std::cout << std::endl;
+	}
 }
 
 int			do_search(int count, phonebook book[8])
@@ -37,20 +44,23 @@ int			do_search(int count, phonebook book[8])
 	int			idx;
 	std::string	search;
 
-	std::cout << "Search with (ex> index, firstname, lastname, nickname, all): ";
-	std::cin >> search;
-	if (search.compare("all") == 0)
-		put_string(0, count - 1, count, book);
-	else if (search.compare("index") == 0)
+	std::cout << "Search with (ex> index, firstname, lastname, nickname): ";
+	std::getline(std::cin, search, '\n');
+	if (search.compare("index") == 0)
 	{
-		std::cout << "0 ~ " << count - 1 << ": ";
+		std::cout << "index : ";
 		std::cin >> idx;
+		std::cin.ignore(1, '\n');
 		if (idx >= count)
-		{
 			std::cout << "ERROR: IT DOES NOT EXIST" << std::endl;
-			return (0);
+		else
+		{
+			put_char("-", 53);
+			std::cout << std::endl;
+			book[idx].put_info();
+			put_char("-", 53);
+			std::cout << std::endl;
 		}
-		put_string(idx, idx, count, book);
 	}
 	else if (search.compare("first") == 0 || search.compare("firstname") == 0)
 		find_string("first_name", count, book);
@@ -59,7 +69,7 @@ int			do_search(int count, phonebook book[8])
 	else if (search.compare("nick") == 0 || search.compare("nickname") == 0)
 		find_string("nickname", count, book);
 	else
-		return (1);
+		do_search(count, book);
 	return (0);
 }
 
@@ -84,8 +94,8 @@ int			do_command(int ret, phonebook book[8], int count)
 			put_empty();
 			return (0);
 		}
-		if (do_search(count, book))
-			do_command(ret, book, count);
+		put_phonebook(0, count - 1, count, book);
+		do_search(count, book);
 	}
 	return (0);
 }
@@ -101,7 +111,7 @@ int			main(void)
 	while (1)
 	{
 		std::cout << "COMMAND(ex> ADD, SEARCH, EXIT) : ";
-		std::cin >> cmd;
+		std::getline(std::cin, cmd, '\n');
 		ret = check_command(cmd);
 		if (ret == -1)
 			break ;
