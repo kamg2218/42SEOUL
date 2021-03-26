@@ -1,4 +1,4 @@
-# Lift
+# Libft
 
    your very first own library
 
