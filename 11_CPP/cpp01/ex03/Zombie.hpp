@@ -6,10 +6,18 @@
 
 class	Zombie
 {
-	public:
+	private:
 		std::string	name;
 		std::string type;
-		void	announce(void);
+	public:
+		Zombie() {};
+		~Zombie() {};
+		
+		void		announce(void);
+		void		setName(std::string str);
+		void		setType(std::string str);
+		std::string	getName();
+		std::string	getType();
 };
 
 #endif

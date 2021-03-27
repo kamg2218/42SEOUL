@@ -1,14 +1,15 @@
 #include "ZombieEvent.hpp"
 
+int			ZombieEvent::getTypeSize(void) { return 9; }
+
+int			ZombieEvent::getAlphaSize(void) { return alpha_num.size();}
+
 std::string	ZombieEvent::setZombieType(void)
 {
-	std::string	str;
 	int			len;
 
-	len = rand() % 10 + 1;
-	for (int i = 0; i < len; i++)
-		str += alphanum[rand() % (length - 1)];
-	return (str);
+	len = rand() % getTypeSize();
+	return (type_list[len]);
 }
 
 Zombie*		ZombieEvent::newZombie(std::string name)
@@ -16,31 +17,21 @@ Zombie*		ZombieEvent::newZombie(std::string name)
 	Zombie*	new_zombie;
 
 	new_zombie = new Zombie;
-	new_zombie->name = name;
-	new_zombie->type = setZombieType();
+	new_zombie->setName(name);
+	new_zombie->setType(setZombieType());
 	return (new_zombie);
 }
 
 Zombie*		ZombieEvent::randomChump(void)
 {
+	int			len;
 	std::string	name;
 	Zombie*		new_zombie;
 
-	alphanum = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	length = alphanum.size();
-	name = "zombie" + std::to_string(rand() % 10);
+	len = rand() % 10 + 1;
+	for (int i = 0; i < len; i++)
+		name += alpha_num[rand() % (getAlphaSize() - 1)];
 	new_zombie = newZombie(name);
 	new_zombie->announce();
 	return (new_zombie);
-}
-
-int			main(void)
-{
-	Zombie		*new_zombie;
-	ZombieEvent	event;
-
-	srand(time(0));
-	new_zombie = event.randomChump();
-	delete new_zombie;
-	return (0);
 }
