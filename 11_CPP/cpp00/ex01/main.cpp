@@ -18,7 +18,8 @@ void		find_string(std::string search, int count, phonebook book[8])
 	std::string	name;
 
 	std::cout << search << " : ";
-	std::getline(std::cin, name, '\n');
+	if ((std::getline(std::cin, name, '\n')) == 0)
+		return ;
 	cnt = 0;
 	for (i = 0; i < count ; i++)
 	{
@@ -45,11 +46,19 @@ int			do_search(int count, phonebook book[8])
 	std::string	search;
 
 	std::cout << "Search with (ex> index, firstname, lastname, nickname): ";
-	std::getline(std::cin, search, '\n');
+	if ((std::getline(std::cin, search, '\n')) == 0)
+		return (0);
 	if (search.compare("index") == 0)
 	{
 		std::cout << "index : ";
 		std::cin >> idx;
+		if (!std::cin)
+		{
+			std::cout << "Error: Numbers only!" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			return (0);
+		}
 		std::cin.ignore(1, '\n');
 		if (idx >= count)
 			std::cout << "ERROR: IT DOES NOT EXIST" << std::endl;
@@ -84,7 +93,8 @@ int			do_command(int ret, phonebook book[8], int count)
 			put_full();
 			return (0);
 		}
-		book[count].get_str();
+		if (book[count].get_str())
+			return (0);
 		return (1);
 	}
 	else if (ret == 2)
@@ -110,8 +120,10 @@ int			main(void)
 	count = 0;
 	while (1)
 	{
-		std::cout << "COMMAND(ex> ADD, SEARCH, EXIT) : ";
-		std::getline(std::cin, cmd, '\n');
+		if (!std::cin.fail())
+			std::cout << "COMMAND(ex> ADD, SEARCH, EXIT) : ";
+		if ((std::getline(std::cin, cmd, '\n')) == 0)
+			break ;
 		ret = check_command(cmd);
 		if (ret == -1)
 			break ;

@@ -1,44 +1,73 @@
 #include "phonebook.hpp"
 
-void	phonebook::get_str()
+int		phonebook::get_str()
 {
 	std::cout << "frist name : ";
-	std::getline(std::cin, first_name, '\n');
+	if ((std::getline(std::cin, first_name, '\n')) == 0)
+		return (1);
 	std::cout << "last name : ";
-	std::getline(std::cin, last_name, '\n');
+	if ((std::getline(std::cin, last_name, '\n')) == 0)
+		return (1);
 	std::cout << "nickname : ";
-	std::getline(std::cin, nickname, '\n');
+	if ((std::getline(std::cin, nickname, '\n')) == 0)
+		return (1);
+	if (!first_name.compare("") && !last_name.compare("")
+			&& !nickname.compare(""))
+	{
+		std::cout << "Please put the names more than one of them!" << std::endl;
+		return (1);
+	}
 	std::cout << "login : ";
-	std::getline(std::cin, login, '\n');
+	if ((std::getline(std::cin, login, '\n')) == 0)
+		return (1);
 	std::cout << "postal address : ";
-	std::getline(std::cin, postal_address, '\n');
+	if ((std::getline(std::cin, postal_address, '\n')) == 0)
+		return (1);
 	std::cout << "email address : ";
-	std::getline(std::cin, email_address, '\n');
+	if ((std::getline(std::cin, email_address, '\n')) == 0)
+		return (1);
 	std::cout << "phone number : ";
-	std::getline(std::cin, phone_number, '\n');
+	if ((std::getline(std::cin, phone_number, '\n')) == 0)
+		return (1);
 	std::cout << "birthday date : ";
-	std::getline(std::cin, birthday_date, '\n');
+	if ((std::getline(std::cin, birthday_date, '\n')) == 0)
+		return (1);
 	std::cout << "favorite meal : ";
-	std::getline(std::cin, favorite_meal, '\n');
+	if ((std::getline(std::cin, favorite_meal, '\n')) == 0)
+		return (1);
 	std::cout << "underwear color : ";
-	std::getline(std::cin, underwear_color, '\n');
+	if ((std::getline(std::cin, underwear_color, '\n')) == 0)
+		return (1);
 	std::cout << "darkest secret : ";
-	std::getline(std::cin, darkest_secret, '\n');
+	if ((std::getline(std::cin, darkest_secret, '\n')) == 0)
+		return (1);
+	return (0);
 }
 
 void	phonebook::put_info()
 {
-	std::cout << "frist name : " << first_name << std::endl;
-	std::cout << "last name : " << last_name << std::endl;
-	std::cout << "nickname : " << nickname << std::endl;
-	std::cout << "login : " << login << std::endl;
-	std::cout << "postal address : " << postal_address << std::endl;
-	std::cout << "email address : " << email_address << std::endl;
-	std::cout << "phone number : " << phone_number << std::endl;
-	std::cout << "birthday date : " << birthday_date << std::endl;
-	std::cout << "favorite meal : " << favorite_meal << std::endl;
-	std::cout << "underwear color : " << underwear_color << std::endl;
-	std::cout << "darkest secret : " << darkest_secret << std::endl;
+	if (first_name.compare(""))
+		std::cout << "frist name : " << first_name << std::endl;
+	if (last_name.compare(""))
+		std::cout << "last name : " << last_name << std::endl;
+	if (nickname.compare(""))
+		std::cout << "nickname : " << nickname << std::endl;
+	if (login.compare(""))
+		std::cout << "login : " << login << std::endl;
+	if (postal_address.compare(""))
+		std::cout << "postal address : " << postal_address << std::endl;
+	if (email_address.compare(""))
+		std::cout << "email address : " << email_address << std::endl;
+	if (phone_number.compare(""))
+		std::cout << "phone number : " << phone_number << std::endl;
+	if (birthday_date.compare(""))
+		std::cout << "birthday date : " << birthday_date << std::endl;
+	if (favorite_meal.compare(""))
+		std::cout << "favorite meal : " << favorite_meal << std::endl;
+	if (underwear_color.compare(""))
+		std::cout << "underwear color : " << underwear_color << std::endl;
+	if (darkest_secret.compare(""))
+		std::cout << "darkest secret : " << darkest_secret << std::endl;
 }
 
 void	phonebook::put_ten(std::string name)
