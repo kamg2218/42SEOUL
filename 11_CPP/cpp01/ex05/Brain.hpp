@@ -12,11 +12,12 @@ class	Brain
 		std::string		parietal_lobe;//두정엽-사고력, 수학
 		std::string		occipital_lobe;//후두엽-시각
 	public:
-		std::string		identify(long long address);
 		Brain()
 		{
 			frontal_lobe = "0123456789ABCDEF";
 		}
+		std::string		identify();
+		std::string		getFrontal();
 };
 
 #endif

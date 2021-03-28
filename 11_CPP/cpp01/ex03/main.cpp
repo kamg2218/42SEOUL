@@ -2,17 +2,14 @@
 
 int			main(void)
 {
-	ZombieHorde		**horde;
-
 	srand(time(0));
-	horde = new ZombieHorde*[3];
-	for (int i = 0; i < 3; i++)
-	{
-		std::cout << i + 2 << std::endl;
-		horde[i] = new ZombieHorde(i + 2);
-	}
-	for (int i = 0; i < 3; i++)
-		delete horde[i];
-	delete horde;
+	
+	ZombieHorde		a;
+
+	ZombieHorde		b(1);
+
+	ZombieHorde 	c(3);
+	
+
 	return (0);
 }

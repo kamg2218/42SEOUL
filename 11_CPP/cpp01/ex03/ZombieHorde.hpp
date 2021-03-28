@@ -8,36 +8,23 @@
 class	ZombieHorde
 {
 	private:
-		int				length;
+		int				len;
 		int				num;
-		Zombie			**zb;
+		Zombie			*zb;
 		std::string		alpha_num;
 		std::string		type_list[10];
 	public:
-		ZombieHorde()
-		{
-			alpha_num = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			type_list[0] = "Regular";
-			type_list[1] = "Light";
-			type_list[2] = "Heavy";
-			type_list[3] = "Psycho";
-			type_list[4] = "Venom";
-			type_list[5] = "Stamper";
-			type_list[6] = "Chaser";
-			type_list[7] = "Banshee";
-			type_list[8] = "Deimos";
-		}
-		
+		ZombieHorde() {initialize();};
 		ZombieHorde(int n);
 		
 		int			getTypeSize();
 		int			getAlphaSize();
-		void		clear();
-		Zombie		*randomChump();
-		Zombie		*newZombie(std::string name);
+		void		initialize();
+		void		announce(Zombie &zb);
+		void		randomChump(Zombie &zb);
 		std::string	setZombieType();
 
-		~ZombieHorde() { delete[] zb; }
+		~ZombieHorde() { delete[] zb;}
 };
 
 #endif

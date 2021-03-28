@@ -1,6 +1,6 @@
-#include "Brain.hpp"
+#include "Human.hpp"
 
-std::string		Brain::identify()
+std::string		Human::identify()
 {
 	std::string	ch;
 	std::string	str;
@@ -10,7 +10,7 @@ std::string		Brain::identify()
 	address = (long long)this;
 	while (address)
 	{
-		ch = frontal_lobe[address % 16];
+		ch = brn.getFrontal()[address % 16];
 		str = ch + str;
 		address /= 16;
 	}
@@ -18,7 +18,7 @@ std::string		Brain::identify()
 	return (str);
 }
 
-std::string		Brain::getFrontal()
+Brain			&Human::getBrain()
 {
-	return		frontal_lobe;
+	return brn;
 }

@@ -6,8 +6,10 @@
 class	Human
 {
 	private:
-	
+		Brain		brn;
 	public:
+		std::string	identify();
+		Brain		&getBrain();
 };
 
 #endif
