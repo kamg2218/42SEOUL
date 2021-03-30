@@ -2,7 +2,7 @@
 
 ### Memory allocation, References, Pointers to members, File streams
 
-### ex00 - Heap of quadrupeds
+### [ex00 - Heap of quadrupeds](./ex00)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
@@ -18,7 +18,7 @@
 
 ---
 
-### ex01 - Plumbing problem
+### [ex01 - Plumbing problem](./ex01)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
@@ -42,7 +42,7 @@ void    memoryLeak()
 
 ---
 
-### ex02 - Plucking some brains
+### [ex02 - Plucking some brains](./ex02)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
@@ -65,7 +65,7 @@ void    memoryLeak()
 
 ---
 
-### ex03 - Moar brainz!
+### [ex03 - Moar brainz!](./ex03)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
@@ -82,7 +82,7 @@ void    memoryLeak()
 
 ---
 
-### ex04 - HI THIS IS BRAIN
+### [ex04 - HI THIS IS BRAIN](./ex04)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
@@ -95,7 +95,7 @@ void    memoryLeak()
 
 ---
 
-### ex05 - HI BRAIN THIS IS HUMAN
+### [ex05 - HI BRAIN THIS IS HUMAN](./ex05)
 
 |TOPIC|CONTENTS|
 |:--:|:--|
