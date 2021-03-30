@@ -1,6 +1,6 @@
 #include "libstack.h"
 
-t_stack		*new(void *content)
+t_stack		*new(int content)
 {
 	t_stack	*n;
 

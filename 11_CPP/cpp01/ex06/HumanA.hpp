@@ -6,13 +6,14 @@
 class	HumanA
 {
 	private:
-		Weapon		wpA;
+		//using pointer
+		//Weapon	*wpA;
+		//using reference
+		Weapon		&wpA;
 		std::string	name;
 	public:
-		HumanA();
-		HumanA(std::string str, Weapon &a);
+		explicit HumanA(std::string str, Weapon &a);
 		void		attack();
-		~HumanA();
 };
 
 #endif

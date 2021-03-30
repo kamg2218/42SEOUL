@@ -2,19 +2,13 @@
 
 std::string		Human::identify()
 {
-	std::string	ch;
-	std::string	str;
-	long long	address;
+	long long			address;
+	std::string			str;
+	std::stringstream	ss;
 
-	str = "";
 	address = (long long)this;
-	while (address)
-	{
-		ch = brn.getFrontal()[address % 16];
-		str = ch + str;
-		address /= 16;
-	}
-	str = "0x" + str;
+	ss << "0x" << std::uppercase << std::hex << address;
+	ss >> str;
 	return (str);
 }
 

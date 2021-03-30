@@ -1,20 +1,24 @@
 #include "libstack.h"
 
-void			push(t_stack **head, void *content)
+t_stack			*push(t_stack **head, void *content)
 {
 	t_stack		*n;
 	t_stack		*tmp;
 
-	if (!(n = new(content)))
-		return ;
-	if (head == NULL || *head == NULL)
+	if (head == NULL)
+		return (NULL);
+	n = new(content);
+	if (n == NULL)
+		return (NULL);
+	if (*head == NULL)
 	{
 		*head = n;
-		return ;
+		return (n);
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = n;
 	n->next = NULL;
+	return (n);
 }

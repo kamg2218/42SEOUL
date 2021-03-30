@@ -15,7 +15,7 @@ int					empty(t_stack **head);
 void				pop(t_stack **head);
 void				*top(t_stack **head);
 void				clear(t_stack **head);
-void				push(t_stack **head, void *content);
+t_stack				*push(t_stack **head, void *content);
 t_stack				*new(void *content);
 
 #endif
