@@ -3,7 +3,7 @@
 ### [**ex00 - Megaphone**](./ex00)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex00/|
 |Files to turn in|Makefile, megaphone.cpp|
 |Forbidden functions|None|
@@ -15,7 +15,7 @@
 ### [**ex01 - My Awesome**](./ex01)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex01/|
 |Files to turn in|Makefile, \*.cpp, \*.{h, hpp}|
 |Forbidden functions|None|

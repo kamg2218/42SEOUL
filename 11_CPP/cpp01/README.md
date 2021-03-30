@@ -2,10 +2,10 @@
 
 ### Memory allocation, References, Pointers to members, File streams
 
-### ex00 - Heap of quadrupeds
+### [ex00 - Heap of quadrupeds](./ex00)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex00/|
 |Files to turn in|Pony.cpp, Pony.hpp, main.cpp|
 |Forbidden functions|None|
@@ -18,10 +18,10 @@
 
 ---
 
-### ex01 - Plumbing problem
+### [ex01 - Plumbing problem](./ex01)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex01/|
 |Files to turn in|ex01.cpp|
 |Forbidden functions|None|
@@ -42,10 +42,10 @@ void    memoryLeak()
 
 ---
 
-### ex02 - Plucking some brains
+### [ex02 - Plucking some brains](./ex02)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex02/|
 |Files to turn in|Zombie.cpp, Zombie.hpp, ZombieEvent.cpp, ZombieEvent.hpp|
 |Forbidden functions|None|
@@ -65,10 +65,10 @@ void    memoryLeak()
 
 ---
 
-### ex03 - Moar brainz!
+### [ex03 - Moar brainz!](./ex03)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex03/|
 |Files to turn in|Zombie.cpp, Zombie.hpp, ZombieHorde.cpp, ZombieHorde.hpp, main.cpp|
 |Forbidden functions|None|
@@ -82,10 +82,10 @@ void    memoryLeak()
 
 ---
 
-### ex04 - HI THIS IS BRAIN
+### [ex04 - HI THIS IS BRAIN](./ex04)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex04/|
 |Files to turn in|ex04.cpp|
 |Forbidden functions|None|
@@ -95,10 +95,10 @@ void    memoryLeak()
 
 ---
 
-### ex05 - HI BRAIN THIS IS HUMAN
+### [ex05 - HI BRAIN THIS IS HUMAN](./ex05)
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex05/|
 |Files to turn in|Brain.cpp, Brain.hpp, Human.cpp, Human.hpp, main.cpp|
 |Forbidden functions|None|
@@ -126,4 +126,55 @@ int         main()
 * 위의 코드는 main으로 제출해야 하고, Human이나 Brain 클래스에 무엇을 더하든지 "될 때까지 해봤다"는 말 보다는 다른 말로 주장해야 한다.
 
 ---
+
+### [ex06 - Unnecessary violence](./ex06)
+
+|TOPIC|CONTENTS|
+|:--:|:--|
+|Turn-in directory|ex06/|
+|Files to turn in|Weapon.cpp, Weapon.hpp, HumanA.cpp, HumanA.hpp, HumanB.cpp, HumanB.hpp, main.cpp|
+|Forbidden functions|None|
+
+* Weapon 클래스는 string type 멤버변수가 있고, string에 const reference 를 반환하는 getType 함수가 있고, setType 함수가 있다.
+* HumanA 클래스와 HumanB 클래스는 Weapon 멤버변수가 있고, name 가 있고, attack() 함수가 있다.
+* attack 함수는 "NAME attacks with his WEAPON_TYPE" 같은 것을 출력해야 한다.
+
+~~~
+
+    int main()
+    {
+        {
+            Weapon club = Weapon("crude spiked club");
+            HumanA bob("Bob", club);
+            bob.attack();
+            club.setType("some other type of club");
+            bob.attack();
+        }
+        {
+            Weapon club = Weapon("crude spiked club");
+            HumanB jim("Jim");
+            jim.setWeapon(club);
+            jim.attack();
+            club.setType("some other type of club");
+            jim.attack();
+        }
+    }
+
+~~~
+
+---
+
+### [ex07 - Sed is for losers](./ex07)
+
+|TOPIC|CONTENTS|
+|:--:|:--|
+|Turn-in directory|ex07/|
+|Files to turn in|Makefile, and whatever else you need|
+|Forbidden functions|None|
+
+* replace 프로그램을 만들어라.
+* 프로그램은 filename, 두 개의 string, s1과 s2를 입력 받는다.
+* s1를 s2로 교체하여 filename.replace에 저장한다.
+* 오류 처리에 신경써야 한다.
+* test files 를 포함하여 제출해야 한다.
 
