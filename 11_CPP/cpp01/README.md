@@ -127,3 +127,54 @@ int         main()
 
 ---
 
+### [ex06 - Unnecessary violence](./ex06)
+
+|TOPIC|CONTENTS|
+|:--:|:--|
+|Turn-in directory|ex06/|
+|Files to turn in|Weapon.cpp, Weapon.hpp, HumanA.cpp, HumanA.hpp, HumanB.cpp, HumanB.hpp, main.cpp|
+|Forbidden functions|None|
+
+* Weapon 클래스는 string type 멤버변수가 있고, string에 const reference 를 반환하는 getType 함수가 있고, setType 함수가 있다.
+* HumanA 클래스와 HumanB 클래스는 Weapon 멤버변수가 있고, name 가 있고, attack() 함수가 있다.
+* attack 함수는 "NAME attacks with his WEAPON_TYPE" 같은 것을 출력해야 한다.
+
+~~~
+
+    int main()
+    {
+        {
+            Weapon club = Weapon("crude spiked club");
+            HumanA bob("Bob", club);
+            bob.attack();
+            club.setType("some other type of club");
+            bob.attack();
+        }
+        {
+            Weapon club = Weapon("crude spiked club");
+            HumanB jim("Jim");
+            jim.setWeapon(club);
+            jim.attack();
+            club.setType("some other type of club");
+            jim.attack();
+        }
+    }
+
+~~~
+
+---
+
+### [ex07 - Sed is for losers](./ex07)
+
+|TOPIC|CONTENTS|
+|:--:|:--|
+|Turn-in directory|ex07/|
+|Files to turn in|Makefile, and whatever else you need|
+|Forbidden functions|None|
+
+* replace 프로그램을 만들어라.
+* 프로그램은 filename, 두 개의 string, s1과 s2를 입력 받는다.
+* s1를 s2로 교체하여 filename.replace에 저장한다.
+* 오류 처리에 신경써야 한다.
+* test files 를 포함하여 제출해야 한다.
+
