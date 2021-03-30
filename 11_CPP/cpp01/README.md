@@ -5,7 +5,7 @@
 ### ex00 - Heap of quadrupeds
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex00/|
 |Files to turn in|Pony.cpp, Pony.hpp, main.cpp|
 |Forbidden functions|None|
@@ -21,7 +21,7 @@
 ### ex01 - Plumbing problem
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex01/|
 |Files to turn in|ex01.cpp|
 |Forbidden functions|None|
@@ -45,7 +45,7 @@ void    memoryLeak()
 ### ex02 - Plucking some brains
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex02/|
 |Files to turn in|Zombie.cpp, Zombie.hpp, ZombieEvent.cpp, ZombieEvent.hpp|
 |Forbidden functions|None|
@@ -68,7 +68,7 @@ void    memoryLeak()
 ### ex03 - Moar brainz!
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex03/|
 |Files to turn in|Zombie.cpp, Zombie.hpp, ZombieHorde.cpp, ZombieHorde.hpp, main.cpp|
 |Forbidden functions|None|
@@ -85,7 +85,7 @@ void    memoryLeak()
 ### ex04 - HI THIS IS BRAIN
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex04/|
 |Files to turn in|ex04.cpp|
 |Forbidden functions|None|
@@ -98,7 +98,7 @@ void    memoryLeak()
 ### ex05 - HI BRAIN THIS IS HUMAN
 
 |TOPIC|CONTENTS|
-|:--:|:--:|
+|:--:|:--|
 |Turn-in directory|ex05/|
 |Files to turn in|Brain.cpp, Brain.hpp, Human.cpp, Human.hpp, main.cpp|
 |Forbidden functions|None|
