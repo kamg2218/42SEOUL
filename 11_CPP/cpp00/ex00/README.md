@@ -13,6 +13,7 @@
 ### Review
 
 * c++98 기준으로 작성되었는가?
-* ./megaphone 만 입력한 경우, 즉 입력이 없는 경우
+* ./megaphone 만 입력한 경우, 즉 입력이 없는 경우 -> "* LOUD AND UNBEARABLE FEEDBACK NOISE *"
 * 문자열 사이에 공백이 있는 경우
 * 문자열에 특수문자나 숫자가 있는 경우
+* 문자열의 마지막에 개행이 있는 지!
