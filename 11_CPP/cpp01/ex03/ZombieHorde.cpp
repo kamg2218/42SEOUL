@@ -30,7 +30,7 @@ ZombieHorde::ZombieHorde(int n)
 	}
 }
 
-const std::string		ZombieHorde::setZombieType(void)
+const std::string&		ZombieHorde::setZombieType(void)
 {
 	int			len;
 

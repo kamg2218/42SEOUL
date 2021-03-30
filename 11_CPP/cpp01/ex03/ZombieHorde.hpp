@@ -21,7 +21,7 @@ class	ZombieHorde
 		void		initialize();
 		void		announce(Zombie &zb);
 		void		randomChump(Zombie &zb);
-		const std::string	setZombieType();
+		const std::string&	setZombieType();
 
 		~ZombieHorde() { delete[] zb;}
 };

@@ -9,7 +9,7 @@ class	Human
 		Brain		brn;
 	public:
 		const std::string	identify();
-		Brain				&getBrain();
+		Brain&				getBrain();
 };
 
 #endif

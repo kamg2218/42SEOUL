@@ -12,14 +12,7 @@ int			main(void)
 	delete new_zombie;
 
 	std::cout << "ZombieEvent Class" << std::endl;
-	new_zombie = event.randomChump();
-	delete new_zombie;
-	
-	new_zombie = event.randomChump();
-	delete new_zombie;
-
-	new_zombie = event.randomChump();
-	delete new_zombie;
-	
+	event.randomChump();
+	event.randomChump();
 	return (0);
 }
