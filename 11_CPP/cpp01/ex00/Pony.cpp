@@ -8,7 +8,6 @@ void		Pony::ponyOnTheHeap(void)
 	std::cout << "heap pony = " << &pny << std::endl;
 	std::cout << "new heap pony = " << pny << std::endl;
 	std::cout << "new heap pony's name = " << pny->name << std::endl;
-	std::cout << "new heap pony's address = " << &(pny->name) << std::endl;
 	delete pny;
 }
 
@@ -19,5 +18,14 @@ void		Pony::ponyOnTheStack(void)
 	pny.name = "blue";
 	std::cout << "stack pony = " << &pny << std::endl;
 	std::cout << "stack pony's name = " << pny.name << std::endl;
-	std::cout << "stack pony's address = " << &pny.name << std::endl;
+}
+
+void		Pony::cry(void)
+{
+	std::cout << "heeeeeee-haaaw" << std::endl;
+}
+
+void		Pony::run(void)
+{
+	std::cout << "kklooooopppppp" << std::endl;
 }

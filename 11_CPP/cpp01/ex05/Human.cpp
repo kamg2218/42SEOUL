@@ -1,6 +1,6 @@
 #include "Human.hpp"
 
-std::string		Human::identify()
+const std::string		Human::identify()
 {
 	long long			address;
 	std::string			str;
@@ -12,7 +12,7 @@ std::string		Human::identify()
 	return (str);
 }
 
-Brain			&Human::getBrain()
+Brain&		Human::getBrain()
 {
 	return brn;
 }

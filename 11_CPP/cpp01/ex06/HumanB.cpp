@@ -1,14 +1,14 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string str)
+HumanB::HumanB(const std::string str)
+	: name(str)
 {
-	name = str;
 }
 
-HumanB::HumanB(std::string str, Weapon &wp)
+HumanB::HumanB(const std::string str, Weapon &wp)
+	: name(str)
+	, wpB(&wp)
 {
-	name = str;
-	wpB = &wp;
 }
 
 void	HumanB::attack()

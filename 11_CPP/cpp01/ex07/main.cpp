@@ -15,10 +15,15 @@ int		main(int argc, char *argv[])
 		std::cout << "Error: Wrong Input!" << std::endl;
 		return (-1);
 	}
-	fname = static_cast<std::string>(argv[1]) + ".replace";
 	ifs.open(argv[1], std::ifstream::in);
+	if (!ifs.is_open())
+	{
+		std::cout << "Error: Unable to open file" << std::endl;
+		return (-1);
+	}
+	fname = static_cast<std::string>(argv[1]) + ".replace";
 	ofs.open(fname, std::ofstream::out);
-	if (!ifs.is_open() || !ofs.is_open())
+	if (!ofs.is_open())
 	{
 		std::cout << "Error: Unable to open file" << std::endl;
 		return (-1);

@@ -1,6 +1,6 @@
 #include "Brain.hpp"
 
-std::string		Brain::identify()
+const std::string		Brain::identify()
 {
 	long long			address;
 	std::string			str;
@@ -13,7 +13,7 @@ std::string		Brain::identify()
 	return (str);
 }
 
-std::string		Brain::getFrontal()
+const std::string		Brain::getFrontal()
 {
 	return		frontal_lobe;
 }

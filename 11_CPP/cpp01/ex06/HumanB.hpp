@@ -10,8 +10,8 @@ class	HumanB
 		std::string	name;
 	public:
 		HumanB() { };
-		HumanB(std::string str);
-		HumanB(std::string str, Weapon &b);
+		HumanB(const std::string str);
+		HumanB(const std::string str, Weapon &b);
 		void		attack();
 		void		setWeapon(Weapon &wp);
 		~HumanB() { };

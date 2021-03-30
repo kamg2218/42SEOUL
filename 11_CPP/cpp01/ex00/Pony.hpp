@@ -9,8 +9,12 @@ class Pony
 	private:
 		std::string	name;
 	public:
-		void		ponyOnTheHeap(void);
-		void		ponyOnTheStack(void);
+		Pony() { cry(); }
+		void		cry();
+		void		run();
+		void		ponyOnTheHeap();
+		void		ponyOnTheStack();
+		~Pony() { run(); }
 };
 
 #endif

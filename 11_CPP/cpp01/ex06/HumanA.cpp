@@ -1,11 +1,9 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string str, Weapon &wp)
+HumanA::HumanA(const std::string str, Weapon &wp)
 	: name(str)
 	, wpA(wp)
 {
-	//using pointer
-	//wpA = &wp;
 }
 
 void	HumanA::attack()

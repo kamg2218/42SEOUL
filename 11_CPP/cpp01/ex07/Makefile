@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 DFLAGS = -std=c++98
 
-SRC = main.cpp\
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

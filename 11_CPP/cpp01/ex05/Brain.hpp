@@ -17,8 +17,8 @@ class	Brain
 		{
 			frontal_lobe = "0123456789ABCDEF";
 		}
-		std::string		identify();
-		std::string		getFrontal();
+		const std::string		identify();
+		const std::string		getFrontal();
 };
 
 #endif

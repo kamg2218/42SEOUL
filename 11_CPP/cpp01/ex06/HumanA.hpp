@@ -12,7 +12,7 @@ class	HumanA
 		Weapon		&wpA;
 		std::string	name;
 	public:
-		explicit HumanA(std::string str, Weapon &a);
+		HumanA(const std::string str, Weapon &a);
 		void		attack();
 };
 

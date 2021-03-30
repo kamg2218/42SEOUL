@@ -8,8 +8,8 @@ class	Human
 	private:
 		Brain		brn;
 	public:
-		std::string	identify();
-		Brain		&getBrain();
+		const std::string	identify();
+		Brain				&getBrain();
 };
 
 #endif

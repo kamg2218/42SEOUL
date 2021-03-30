@@ -14,10 +14,10 @@ class	Zombie
 		~Zombie() {};
 		
 		void		announce(void);
-		void		setName(std::string str);
-		void		setType(std::string str);
-		std::string	getName();
-		std::string	getType();
+		void		setName(const std::string str);
+		void		setType(const std::string str);
+		const std::string	getName();
+		const std::string	getType();
 };
 
 #endif

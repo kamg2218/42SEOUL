@@ -8,7 +8,6 @@
 class	ZombieHorde
 {
 	private:
-		int				len;
 		int				num;
 		Zombie			*zb;
 		std::string		alpha_num;
@@ -22,7 +21,7 @@ class	ZombieHorde
 		void		initialize();
 		void		announce(Zombie &zb);
 		void		randomChump(Zombie &zb);
-		std::string	setZombieType();
+		const std::string	setZombieType();
 
 		~ZombieHorde() { delete[] zb;}
 };
