@@ -1,12 +1,10 @@
-NAME = phonebook
+NAME = replacement
 
 CFLAGS = -Wall -Wextra -Werror
 
 DFLAGS = -std=c++98
 
-SRC = phonebook.cpp\
-	  main.cpp\
-	  print.cpp
+SRC = main.cpp\
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -28,11 +28,11 @@ int		main(int argc, char *argv[])
 		num = 0;
 		while (num != std::string::npos)
 		{
-			num = line.find(argv[2], strlen(argv[2]));
-			std::cout << num << std::endl;
+			num = line.find(argv[2], num);
 			if (num == std::string::npos)
 				break ;
 			line.replace(num, strlen(argv[2]), argv[3]);
+			num += strlen(argv[3]);
 		}
 		ofs << line;
 		if (!ifs.eof())
