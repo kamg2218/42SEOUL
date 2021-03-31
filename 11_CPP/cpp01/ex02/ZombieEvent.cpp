@@ -22,16 +22,25 @@ Zombie*		ZombieEvent::newZombie(std::string name)
 	return (new_zombie);
 }
 
-void			ZombieEvent::randomChump(void)
+//void			ZombieEvent::randomChump(void)
+Zombie*			ZombieEvent::randomChump(void)
 {
 	int			len;
 	std::string	name;
-	Zombie		new_zombie;
+	Zombie*		new_zombie;
+	//Zombie	new_zombie;
 
 	len = rand() % 10 + 1;
 	for (int i = 0; i < len; i++)
 		name += alpha_num[rand() % (getAlphaSize() - 1)];
+	//스택 메모리 사용하는 경우
+	/*
 	new_zombie.setName(name);
 	new_zombie.setType(setZombieType());
 	new_zombie.announce();
+	*/
+	new_zombie = newZombie(name);
+	new_zombie->setType(setZombieType());
+	new_zombie->announce();
+	return new_zombie;
 }

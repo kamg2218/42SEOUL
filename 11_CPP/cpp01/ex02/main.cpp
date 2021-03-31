@@ -12,7 +12,14 @@ int			main(void)
 	delete new_zombie;
 
 	std::cout << "ZombieEvent Class" << std::endl;
-	event.randomChump();
-	event.randomChump();
+	//스택 메모리 사용하는 경우
+	//event.randomChump();
+	//event.randomChump();
+	
+	new_zombie = event.randomChump();
+	delete new_zombie;
+	new_zombie = event.randomChump();
+	delete new_zombie;
+	
 	return (0);
 }
