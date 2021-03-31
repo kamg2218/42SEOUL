@@ -41,12 +41,21 @@ Fixed&	Fixed::operator=(const Fixed& fx)
 	fvalue = fx.toFloat();
 	return *this;
 }
-
 /*
-std::ostream&	operator<<(std::ostream& os, const Fixed& fx)
+float	Fixed::operator<<(const Fixed& fx)
 {
-	os << fx.toFloat();
-	return os;
+	unsigned int	c = fx.toInt();
+	int		sign = 1;
+
+	if (c < 0)
+	{
+		c -= 1;
+		c = ~c;
+		sign = -1;
+	}
+	float f = (1.0 * c) / pow(2, this->fraction);
+	f = f * sign;
+	return f;
 }
 */
 

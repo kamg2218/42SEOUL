@@ -16,6 +16,7 @@ class	Fixed
 		Fixed(const float num);
 		Fixed(const Fixed& fx);
 		Fixed& operator=(const Fixed& fx);
+		//float operator<<(const Fixed& fx);
 		//friend std::ostream& operator<<(std::ostream& os, const Fixed& fx);
 		operator float(void) const { return fvalue; } //형변환 연산자
 		~Fixed();
