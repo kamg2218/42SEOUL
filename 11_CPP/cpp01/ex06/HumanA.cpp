@@ -4,6 +4,8 @@ HumanA::HumanA(const std::string str, Weapon &wp)
 	: name(str)
 	, wpA(wp)
 {
+	//pointer
+	//wpA(&wp)
 }
 
 void	HumanA::attack()
