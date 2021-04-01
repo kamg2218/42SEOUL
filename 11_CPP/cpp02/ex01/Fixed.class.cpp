@@ -30,7 +30,7 @@ Fixed::Fixed(const float num)
 	std::cout << "Float constructor called" << std::endl;
 	if (num < 0)
 		sign = -1;
-	ivalue = static_cast<int>(num * (1 << fraction)) * sign;
+	ivalue = static_cast<int>(roundf(num * (1 << fraction))) * sign;
 }
 
 Fixed::Fixed(const Fixed& fx)
@@ -60,7 +60,6 @@ float	Fixed::toFloat(void) const
 
 int		Fixed::toInt(void) const
 {
-	//return sign * (ivalue >> fraction);
 	return static_cast<int>(roundf(toFloat()));
 }
 int		Fixed::getFraction(void) const { return fraction; }
