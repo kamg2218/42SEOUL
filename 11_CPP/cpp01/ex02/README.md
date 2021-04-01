@@ -19,4 +19,4 @@
 * Zombie\* newZombie(std::string name) 함수를 만들어야 한다.
 * newZombie 함수는 새로운 좀비를 만들고, 타입을 정하여 저장하고, name을 저장해야 한다.
 * randomChump 함수는 랜덤한 이름을 저장하고, announce 함수를 실행한다.
-* randomChump 함수에서 새로운 좀비는 **스택 영역**에 저장되어야 한다!!
+* randomChump 함수에서 새로운 좀비는 **스택 영역** 또는 **힙 영역**에 저장되어야 한다!!
