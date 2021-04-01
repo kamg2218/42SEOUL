@@ -1,8 +1,8 @@
 #include "Fixed.class.hpp"
 
 Fixed::Fixed()
-	: ivalue(0)
-	, fvalue(0.0)
+	: sign(1)
+	, ivalue(0)
 {
 	std::cout << "Default constructor called" << std::endl;
 }
@@ -13,22 +13,29 @@ Fixed::~Fixed()
 }
 
 Fixed::Fixed(const int num)
+	: sign(1)
+	, ivalue(0)
 {
 	std::cout << "Int constructor called" << std::endl;
-	ivalue = num;
-	fvalue = static_cast<float>(num);
+	if (num < 0)
+		sign = -1;
+	ivalue = num << fraction;
+	ivalue *= sign;
 }
 
 Fixed::Fixed(const float num)
+	: sign(1)
+	, ivalue(0)
 {
 	std::cout << "Float constructor called" << std::endl;
-	ivalue = static_cast<int>(roundf(num));
-	fvalue = num;
+	if (num < 0)
+		sign = -1;
+	ivalue = static_cast<int>(num * (1 << fraction)) * sign;
 }
 
 Fixed::Fixed(const Fixed& fx)
-	: ivalue(0)
-	, fvalue(0.0)
+	: sign(1)
+	, ivalue(0)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = fx; //call operator=
@@ -37,34 +44,31 @@ Fixed::Fixed(const Fixed& fx)
 Fixed&	Fixed::operator=(const Fixed& fx)
 {
 	std::cout << "Assignation operator called" << std::endl;
-	ivalue = fx.toInt();
-	fvalue = fx.toFloat();
+	sign = fx.getSign();
+	ivalue = fx.getIvalue();
 	return *this;
 }
-/*
-float	Fixed::operator<<(const Fixed& fx)
-{
-	unsigned int	c = fx.toInt();
-	int		sign = 1;
-
-	if (c < 0)
-	{
-		c -= 1;
-		c = ~c;
-		sign = -1;
-	}
-	float f = (1.0 * c) / pow(2, this->fraction);
-	f = f * sign;
-	return f;
-}
-*/
 
 float	Fixed::toFloat(void) const
 {
-	return fvalue;
+	float	flt;
+
+	flt = static_cast<float>(ivalue);
+	flt = flt / (1 << fraction);
+   	return sign * flt;
 }
 
 int		Fixed::toInt(void) const
 {
-	return ivalue;
+	//return sign * (ivalue >> fraction);
+	return static_cast<int>(roundf(toFloat()));
+}
+int		Fixed::getFraction(void) const { return fraction; }
+int		Fixed::getSign(void) const { return sign; }
+int		Fixed::getIvalue(void) const { return ivalue; }
+
+std::ostream&	operator<<(std::ostream& os, const Fixed& fx)
+{
+	os << fx.toFloat();
+	return os;
 }
