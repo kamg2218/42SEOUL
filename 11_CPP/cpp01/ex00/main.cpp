@@ -6,6 +6,7 @@ int			main(void)
 
 	std::cout << "The address of pn is " << &pn << std::endl;
 	pn.ponyOnTheHeap();
+	std::cout << "-------------------------" << std::endl;
 	pn.ponyOnTheStack();
 	return (0);
 }

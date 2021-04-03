@@ -15,8 +15,8 @@ class	ZombieEvent
 		int			getAlphaSize();
 		std::string	setZombieType();
 		Zombie		*newZombie(std::string name);
-		//void		randomChump();
-		Zombie		*randomChump();
+		//void		randomChump(); //스택 영역
+		Zombie		*randomChump(); //힙 영역
 		
 		ZombieEvent()
 		{
