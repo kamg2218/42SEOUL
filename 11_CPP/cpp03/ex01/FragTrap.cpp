@@ -6,6 +6,7 @@ FragTrap::FragTrap()
 	, Level(1), Melee_attack_damage(30)
 	, Ranged_attack_damage(20), Armor_damage_reduction(5)
 {
+	std::cout << "FT4G-TP " << Name << " made!!" << std::endl;
 }
 
 FragTrap::FragTrap(std::string const &str)
@@ -15,9 +16,16 @@ FragTrap::FragTrap(std::string const &str)
 	, Ranged_attack_damage(20), Armor_damage_reduction(5)
 	, Name(str)
 {
+	std::cout << "FT4G-TP " << Name << " made!!" << std::endl;
 }
 
-int		FragTrap::getLevel(void) const { return Level; }
+FragTrap::~FragTrap()
+{
+	std::cout << "FR4G-TP " << Name << " died..." << std::endl; 
+}
+
+int				FragTrap::getLevel(void) const { return Level; }
+std::string		FragTrap::getName(void) const { return Name; }
 
 void	FragTrap::rangedAttack(std::string const &target)
 {
@@ -45,7 +53,7 @@ void	FragTrap::takeDamage(unsigned int amount)
 
 void	FragTrap::beRepaired(unsigned int amount)
 {
-	std::cout << amount << " was repaired" << std::endl;
+	std::cout << amount << " point was repaired" << std::endl;
 	Hit_points += amount;
 	if (Hit_points > Max_hit_points)
 		Hit_points = Max_hit_points;

@@ -6,7 +6,7 @@
 
 class	FragTrap
 {
-	private:
+	protected:
 		int				Hit_points;
 		int				Max_hit_points;
 		int				Energy_points;
@@ -25,7 +25,8 @@ class	FragTrap
 		void			beRepaired(unsigned int amount);
 		void			vaulthunter_dot_exe(std::string const &target);
 		int				getLevel(void) const;
-		~FragTrap() { };
+		std::string		getName(void) const;
+		~FragTrap();
 };
 
 #endif
