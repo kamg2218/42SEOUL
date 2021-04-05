@@ -3,35 +3,43 @@
 SuperTrap::SuperTrap()
 	: FragTrap(), NinjaTrap()
 {
-	FragTrap::Hit_points = 100;
-	FragTrap::Max_hit_points = 100;
-	NinjaTrap::Energy_points = 100;
-	NinjaTrap::Max_energy_points = 100;
-	Level = 1;
-	Melee_attack_damage = 30;
-	Ranged_attack_damage = 20;
-	Armor_damage_reduction = 5;
-	std::cout << "SuperTrap " << FragTrap::Name << " made!!" << std::endl;
+	this->Hit_points = FragTrap::Hit_points;
+	this->Max_hit_points = FragTrap::Max_hit_points;
+	this->Energy_points = NinjaTrap::Energy_points;
+	this->Max_energy_points = NinjaTrap::Max_energy_points;
+	this->Level = 1;
+	this->Melee_attack_damage = NinjaTrap::Melee_attack_damage;
+	this->Ranged_attack_damage = FragTrap::Ranged_attack_damage;
+	this->Armor_damage_reduction = FragTrap::Armor_damage_reduction;
+	std::cout << "SuperTrap " << Name << "made!!" << std::endl;
 }
 
 SuperTrap::SuperTrap(std::string const &str)
 	: FragTrap(str), NinjaTrap(str)
 {
-	/*
-	Hit_points = 100;
-	Max_hit_points = 100;
-	Energy_points = 100;
-	Max_energy_points = 100;
-	Level = 1;
-	Melee_attack_damage = 30;
-	Ranged_attack_damage = 20;
-	Armor_damage_reduction = 5;
-	Name = str;
-	*/
-	std::cout << "SuperTrap " << FragTrap::Name << " made!!" << std::endl;
+	this->Hit_points = FragTrap::Hit_points;
+	this->Max_hit_points = FragTrap::Max_hit_points;
+	this->Energy_points = NinjaTrap::Energy_points;
+	this->Max_energy_points = NinjaTrap::Max_energy_points;
+	this->Level = 1;
+	this->Melee_attack_damage = NinjaTrap::Melee_attack_damage;
+	this->Ranged_attack_damage = FragTrap::Ranged_attack_damage;
+	this->Armor_damage_reduction = FragTrap::Armor_damage_reduction;
+	this->Name = str;
+	std::cout << "SuperTrap " << Name << " made!!" << std::endl;
 }
 
 SuperTrap::~SuperTrap()
 {
-	std::cout << "SuperTrap " << FragTrap::Name << " died..." << std::endl; 
+	std::cout << "SuperTrap " << Name << " died..." << std::endl; 
+}
+
+void			SuperTrap::rangedAttack(std::string const &target)
+{
+	FragTrap::rangedAttack(target);	
+}
+
+void			SuperTrap::meleeAttack(std::string const &target)
+{
+	NinjaTrap::meleeAttack(target);
 }

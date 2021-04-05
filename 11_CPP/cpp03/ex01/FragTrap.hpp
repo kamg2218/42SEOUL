@@ -6,7 +6,7 @@
 
 class	FragTrap
 {
-	protected:
+	private:
 		int				Hit_points;
 		int				Max_hit_points;
 		int				Energy_points;

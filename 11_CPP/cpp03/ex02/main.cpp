@@ -23,7 +23,7 @@ int			main(void)
 	st.takeDamage(10);
 	st.beRepaired(10);
 	st.rangedAttack(ft.getName());
-	st.challengeNewcomer(ft.getName());
+	st.challengeNewcomer(ft);
 	std::cout << "--------------------------------" << std::endl;
 
 	return 0;

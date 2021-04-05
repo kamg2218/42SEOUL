@@ -52,3 +52,16 @@ void	NinjaTrap::ninjaShoebox(ClapTrap& ct)
 	std::cout << "ClapTrap " << ct.getName() << " is wearing ct shoes!" << std::endl;
 }
 
+void	NinjaTrap::rangedAttack(std::string const &target)
+{
+	std::cout << "ScavTrap " << Name << " attacked " << target;
+	std::cout << " at range, causing " << Ranged_attack_damage;
+	std::cout << " points of damage!" << std::endl;
+}
+
+void	NinjaTrap::meleeAttack(std::string const &target)
+{
+	std::cout << "ScavTrap " << Name << " attacked " << target;
+	std::cout << " at melee, causing " << Melee_attack_damage;
+	std::cout << " points of damage!" << std::endl;
+}

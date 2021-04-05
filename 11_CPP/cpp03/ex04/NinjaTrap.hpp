@@ -1,11 +1,9 @@
 #ifndef NINJATRAP_HPP
 # define NINJATRAP_HPP
 
-#include "ClapTrap.hpp"
-#include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-class	NinjaTrap : public ClapTrap
+class	NinjaTrap : virtual public ClapTrap
 {
 	public:
 		NinjaTrap();
@@ -14,6 +12,8 @@ class	NinjaTrap : public ClapTrap
 		void	ninjaShoebox(FragTrap& ft);
 		void	ninjaShoebox(ScavTrap& st);
 		void	ninjaShoebox(ClapTrap& ct);
+		void	rangedAttack(std::string const &target);
+		void	meleeAttack(std::string const &target);
 		~NinjaTrap();
 };
 

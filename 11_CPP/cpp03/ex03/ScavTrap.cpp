@@ -32,12 +32,12 @@ ScavTrap::~ScavTrap()
 	std::cout << "Gatekeeper " << Name << " opened the door!" << std::endl;
 }
 
-void	ScavTrap::challengeNewcomer(std::string const &ft)
+void	ScavTrap::challengeNewcomer(FragTrap const &ft)
 {
 	int			num;
 	std::string	challenge[5] = {"Typone Jornal", "Target of opportunity", "Legendary Hunt", "Typone Tangent", "Crimson Radio"};
 
 	num = rand() % 5;
-	std::cout << "FR4G-TP " << ft << " starts new challenge, ";
+	std::cout << "FR4G-TP " << ft.getName() << " starts new challenge, ";
 	std::cout << challenge[num] << std::endl;
 }

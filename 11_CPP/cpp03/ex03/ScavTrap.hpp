@@ -2,13 +2,14 @@
 # define SCAVTRAP_HPP
 
 #include "ClapTrap.hpp"
+#include "FragTrap.hpp"
 
 class	ScavTrap : public ClapTrap
 {
 	public:
 		ScavTrap();
 		ScavTrap(std::string const &str);
-		void			challengeNewcomer(std::string const &ft);
+		void	challengeNewcomer(FragTrap const &ft);
 		~ScavTrap();
 };
 

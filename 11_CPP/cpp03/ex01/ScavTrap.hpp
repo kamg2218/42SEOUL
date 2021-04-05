@@ -23,17 +23,8 @@ class	ScavTrap
 		void			takeDamage(unsigned int amount);
 		void			beRepaired(unsigned int amount);
 		int				getLevel(void) const;
-		void			challengeNewcomer(FragTrap& ft);
+		void			challengeNewcomer(FragTrap const &ft);
 		~ScavTrap();
 };
-/*
-class	ScavTrap : public FragTrap
-{
-	public:
-		ScavTrap();
-		ScavTrap(std::string const &str);
-		void			challengeNewcomer(FragTrap& ft);
-		~ScavTrap();
-};
-*/
+
 #endif

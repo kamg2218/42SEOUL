@@ -28,14 +28,14 @@ int		ScavTrap::getLevel(void) const { return Level; }
 
 void	ScavTrap::rangedAttack(std::string const &target)
 {
-	std::cout << "Gatekeeper " << Name << " attacks " << target;
+	std::cout << "Gatekeeper " << Name << " attacked " << target;
 	std::cout << " at range, causing " << Ranged_attack_damage;
 	std::cout << " points of damage!" << std::endl;
 }
 
 void	ScavTrap::meleeAttack(std::string const &target)
 {
-	std::cout << "Gatekeeper " << Name << " attacks " << target;
+	std::cout << "Gatekeeper " << Name << " attacked " << target;
 	std::cout << " at melee, causing " << Melee_attack_damage;
 	std::cout << " points of damage!" << std::endl;
 }
@@ -47,7 +47,7 @@ void	ScavTrap::takeDamage(unsigned int amount)
 	Hit_points -= amount - Armor_damage_reduction;
 	if (Hit_points < 0)
 		Hit_points = 0;
-	std::cout << "Now, Hit point is " << Hit_points << std::endl;
+	std::cout << "Hit point is " << Hit_points << std::endl;
 }
 
 void	ScavTrap::beRepaired(unsigned int amount)
@@ -59,11 +59,11 @@ void	ScavTrap::beRepaired(unsigned int amount)
 	Energy_points += amount;
 	if (Energy_points > Max_energy_points)
 		Energy_points = Max_energy_points;
-	std::cout << "Now, Hit point is " << Hit_points << std::endl;
-	std::cout << "And, Energy point is " << Energy_points << std::endl;
+	std::cout << "Hit point is " << Hit_points << std::endl;
+	std::cout << "Energy point is " << Energy_points << std::endl;
 }
 
-void	ScavTrap::challengeNewcomer(FragTrap& ft)
+void	ScavTrap::challengeNewcomer(FragTrap const &ft)
 {
 	int			num;
 	std::string	challenge[5] = {"Typone Jornal", "Target of opportunity", "Legendary Hunt", "Typone Tangent", "Crimson Radio"};

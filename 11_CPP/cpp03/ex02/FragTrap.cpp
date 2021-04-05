@@ -37,11 +37,16 @@ void	FragTrap::vaulthunter_dot_exe(std::string const &target)
 	int			num;
 	std::string	skill[5] = {"Miniontrap", "Meat unicycle", "Funzerker", "Mechomagician", "Shhhh....trap"};
 
+	if (Energy_points < 25)
+	{
+		std::cout << "FR4G-TP " << Name << " has not enough energy!!" << std::endl;
+		return ;
+	}
 	num = rand() % 5;
-	std::cout << "FR4G-TP " << Name << " attacks " << target;
+	std::cout << "FR4G-TP " << Name << " attacked " << target;
 	std::cout << " with " << skill[num] << std::endl;
-	Energy_points -= 15;
+	Energy_points -= 25;
 	if (Energy_points < 0)
 		Energy_points = 0;
-	std::cout << "Now, Energy point is " << Energy_points << std::endl;
+	std::cout << "Energy point is " << Energy_points << std::endl;
 }
