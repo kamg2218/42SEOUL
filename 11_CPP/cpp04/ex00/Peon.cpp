@@ -1,7 +1,6 @@
 #include "Peon.hpp"
 
 Peon::Peon()
-	: Victim()
 {
 	std::cout << "Zog zog." << std::endl;
 }

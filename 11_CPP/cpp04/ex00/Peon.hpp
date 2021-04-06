@@ -7,6 +7,7 @@ class	Peon : public Victim
 {
 	private:
 		std::string		m_name;
+		//Peon();
 	public:
 		Peon();
 		Peon(std::string name);

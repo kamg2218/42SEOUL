@@ -40,7 +40,7 @@ void			Sorcerer::polymorph(Victim const &vt)
 
 std::ostream&	operator<<(std::ostream& os, Sorcerer const &scr)
 {
-	os << "I am " << scr.getName() << ". " << scr.getTitle();
+	os << "I am " << scr.getName() << ", " << scr.getTitle();
 	os << ", and I like ponies!" << std::endl;
 	return os;
 }

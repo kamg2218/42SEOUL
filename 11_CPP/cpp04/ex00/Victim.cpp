@@ -1,6 +1,7 @@
 #include "Victim.hpp"
 
 Victim::Victim()
+	: m_name("default")
 {
 	std::cout << "Some random victim called " << m_name;
 	std::cout << " just appeared!" << std::endl;
