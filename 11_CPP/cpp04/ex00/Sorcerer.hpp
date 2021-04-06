@@ -12,6 +12,7 @@ class	Sorcerer
 	public:
 		Sorcerer();
 		Sorcerer(std::string name, std::string title);
+		Sorcerer&	operator=(Sorcerer const &scr);
 		~Sorcerer();
 };
 
