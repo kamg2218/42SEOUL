@@ -19,6 +19,11 @@ FragTrap::FragTrap(std::string const &str)
 	std::cout << "FT4G-TP " << Name << " made!!" << std::endl;
 }
 
+FragTrap&	operator=(FragTrap const &ft)
+{
+	this->Hit_points = ft.Hit_points;
+}
+
 FragTrap::~FragTrap()
 {
 	std::cout << "FR4G-TP " << Name << " died..." << std::endl; 
