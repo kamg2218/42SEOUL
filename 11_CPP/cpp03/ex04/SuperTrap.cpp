@@ -3,28 +3,28 @@
 SuperTrap::SuperTrap()
 	: FragTrap(), NinjaTrap()
 {
-	this->Hit_points = FragTrap::Hit_points;
-	this->Max_hit_points = FragTrap::Max_hit_points;
-	this->Energy_points = NinjaTrap::Energy_points;
-	this->Max_energy_points = NinjaTrap::Max_energy_points;
+	this->Hit_points = 100;
+	this->Max_hit_points = 100;
+	this->Energy_points = 50;
+	this->Max_energy_points = 50;
 	this->Level = 1;
-	this->Melee_attack_damage = NinjaTrap::Melee_attack_damage;
-	this->Ranged_attack_damage = FragTrap::Ranged_attack_damage;
-	this->Armor_damage_reduction = FragTrap::Armor_damage_reduction;
+	this->Melee_attack_damage = 20;
+	this->Ranged_attack_damage = 20;
+	this->Armor_damage_reduction = 5;
 	std::cout << "SuperTrap " << Name << "made!!" << std::endl;
 }
 
 SuperTrap::SuperTrap(std::string const &str)
 	: FragTrap(str), NinjaTrap(str)
 {
-	this->Hit_points = FragTrap::Hit_points;
-	this->Max_hit_points = FragTrap::Max_hit_points;
-	this->Energy_points = NinjaTrap::Energy_points;
-	this->Max_energy_points = NinjaTrap::Max_energy_points;
+	this->Hit_points = 100;
+	this->Max_hit_points = 100;
+	this->Energy_points = 50;
+	this->Max_energy_points = 50;
 	this->Level = 1;
-	this->Melee_attack_damage = NinjaTrap::Melee_attack_damage;
-	this->Ranged_attack_damage = FragTrap::Ranged_attack_damage;
-	this->Armor_damage_reduction = FragTrap::Armor_damage_reduction;
+	this->Melee_attack_damage = 20;
+	this->Ranged_attack_damage = 20;
+	this->Armor_damage_reduction = 5;
 	this->Name = str;
 	std::cout << "SuperTrap " << Name << " made!!" << std::endl;
 }

@@ -3,7 +3,7 @@
 
 #include "NinjaTrap.hpp"
 
-class	SuperTrap : virtual public FragTrap, virtual public NinjaTrap
+class	SuperTrap : public FragTrap, public NinjaTrap
 {
 	protected:
 		int				Hit_points;
