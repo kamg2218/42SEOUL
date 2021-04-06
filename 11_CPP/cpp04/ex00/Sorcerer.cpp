@@ -15,10 +15,32 @@ Sorcerer&	Sorcerer::operator=(Sorcerer const &scr)
 {
 	m_name = scr.m_name;
 	m_title = scr.m_title;
+	return *this;
 }
 
 Sorcerer::~Sorcerer()
 {
 	std::cout << m_name << ", " << m_title << ", is dead. ";
-	std::cout << ""
+	std::cout << "Consequences will never be the same!" << std::endl;
+}
+
+void	Sorcerer::introduce()
+{
+	std::cout << "I am " << m_name << ", " << m_title;
+	std::cout << ", and I like ponies!" << std::endl;
+}
+
+std::string		Sorcerer::getName() const { return m_name; }
+std::string		Sorcerer::getTitle() const { return m_title; }
+
+void			Sorcerer::polymorph(Victim const &vt)
+{
+	vt.getPolymorphed();
+}
+
+std::ostream&	operator<<(std::ostream& os, Sorcerer const &scr)
+{
+	os << "I am " << scr.getName() << ". " << scr.getTitle();
+	os << ", and I like ponies!" << std::endl;
+	return os;
 }
