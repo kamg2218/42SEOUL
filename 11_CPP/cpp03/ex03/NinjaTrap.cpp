@@ -32,6 +32,20 @@ NinjaTrap::~NinjaTrap()
 	std::cout << "NinjaTrap " << Name << " died..." << std::endl; 
 }
 
+NinjaTrap&	NinjaTrap::operator=(NinjaTrap const &nt)
+{
+	this->Hit_points = nt.Hit_points;
+	this->Max_hit_points = nt.Max_hit_points;
+	this->Energy_points = nt.Energy_points;
+   	this->Max_energy_points = nt.Max_energy_points;
+	this->Level = nt.Level;
+	this->Melee_attack_damage = nt.Melee_attack_damage;
+	this->Ranged_attack_damage = nt.Ranged_attack_damage;
+	this->Armor_damage_reduction = nt.Armor_damage_reduction;
+	this->Name = nt.Name;
+	return *this;
+}
+
 void	NinjaTrap::ninjaShoebox(NinjaTrap& nt)
 {
 	std::cout << "NinjaTrap " << nt.getName() << " is wearing nt shoes!" << std::endl;

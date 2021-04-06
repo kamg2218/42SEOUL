@@ -24,6 +24,20 @@ ClapTrap::~ClapTrap()
 	std::cout << "ClapTrap " << Name << " died..." << std::endl; 
 }
 
+ClapTrap&	ClapTrap::operator=(ClapTrap const &ct)
+{
+	this->Hit_points = ct.Hit_points;
+	this->Max_hit_points = ct.Max_hit_points;
+	this->Energy_points = ct.Energy_points;
+   	this->Max_energy_points = ct.Max_energy_points;
+	this->Level = ct.Level;
+	this->Melee_attack_damage = ct.Melee_attack_damage;
+	this->Ranged_attack_damage = ct.Ranged_attack_damage;
+	this->Armor_damage_reduction = ct.Armor_damage_reduction;
+	this->Name = ct.Name;
+	return *this;
+}
+
 int				ClapTrap::getLevel(void) const { return Level; }
 std::string		ClapTrap::getName(void) const { return Name; }
 

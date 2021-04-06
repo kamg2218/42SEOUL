@@ -8,9 +8,10 @@ class	ScavTrap : virtual public ClapTrap
 	public:
 		ScavTrap();
 		ScavTrap(std::string const &str);
-		void	challengeNewcomer(FragTrap const &ft);
-		void	rangedAttack(std::string const &target);
-		void	meleeAttack(std::string const &target);
+		ScavTrap&	operator=(ScavTrap const &st);
+		void		challengeNewcomer(FragTrap const &ft);
+		void		rangedAttack(std::string const &target);
+		void		meleeAttack(std::string const &target);
 		~ScavTrap();
 };
 

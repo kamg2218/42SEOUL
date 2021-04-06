@@ -18,6 +18,7 @@ class	ScavTrap
 	public:
 		ScavTrap();
 		ScavTrap(std::string const &str);
+		ScavTrap&		operator=(ScavTrap const &st);
 		void			rangedAttack(std::string const &target);
 		void			meleeAttack(std::string const &target);
 		void			takeDamage(unsigned int amount);

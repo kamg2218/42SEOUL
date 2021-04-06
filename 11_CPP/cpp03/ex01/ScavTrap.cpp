@@ -24,6 +24,20 @@ ScavTrap::~ScavTrap()
 	std::cout << "Gatekeeper " << Name << " opened the door!" << std::endl;
 }
 
+ScavTrap&	ScavTrap::operator=(ScavTrap const &st)
+{
+	this->Hit_points = st.Hit_points;
+	this->Max_hit_points = st.Max_hit_points;
+	this->Energy_points = st.Energy_points;
+   	this->Max_energy_points = st.Max_energy_points;
+	this->Level = st.Level;
+	this->Melee_attack_damage = st.Melee_attack_damage;
+	this->Ranged_attack_damage = st.Ranged_attack_damage;
+	this->Armor_damage_reduction = st.Armor_damage_reduction;
+	this->Name = st.Name;
+	return *this;
+}
+
 int		ScavTrap::getLevel(void) const { return Level; }
 
 void	ScavTrap::rangedAttack(std::string const &target)

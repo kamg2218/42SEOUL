@@ -32,6 +32,20 @@ FragTrap::~FragTrap()
 	std::cout << "FR4G-TP " << Name << " died..." << std::endl; 
 }
 
+FragTrap&	FragTrap::operator=(FragTrap const &ft)
+{
+	this->Hit_points = ft.Hit_points;
+	this->Max_hit_points = ft.Max_hit_points;
+	this->Energy_points = ft.Energy_points;
+   	this->Max_energy_points = ft.Max_energy_points;
+	this->Level = ft.Level;
+	this->Melee_attack_damage = ft.Melee_attack_damage;
+	this->Ranged_attack_damage = ft.Ranged_attack_damage;
+	this->Armor_damage_reduction = ft.Armor_damage_reduction;
+	this->Name = ft.Name;
+	return *this;
+}
+
 void	FragTrap::vaulthunter_dot_exe(std::string const &target)
 {
 	int			num;
