@@ -1,15 +1,15 @@
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
 
-#include <iostream>
-#include <string>
+#include "AWeapon.hpp"
+#include "Enemy.hpp"
 
 class	Character
 {
-	pivate:	
+	private:	
 		std::string m_name;
 		int			m_apcost;
-		int			m_damage;
+		int			m_max_apcost;
 		AWeapon		*m_awp;
 	public:
 		Character();
@@ -20,6 +20,11 @@ class	Character
 		void			equip(AWeapon *awp);
 		void			attack(Enemy *em);
 		std::string		getName() const;
+		std::string		getWeaponName() const;
+		int				getAPCost() const;
+		bool			isAWP() const;
 };
+
+std::ostream&	operator<<(std::ostream& os, Character const &crt);
 
 #endif

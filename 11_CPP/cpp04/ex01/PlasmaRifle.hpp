@@ -11,9 +11,9 @@ class	PlasmaRifle : public AWeapon
 		int			m_damage;
 	public:
 		PlasmaRifle();
-		PlasmaRifle(std::string const &name, int apcost, int damage);
+		PlasmaRifle(PlasmaRifle const &prf);
 		PlasmaRifle&	operator=(PlasmaRifle const &prf);
-		virtual void	attack();
+		virtual void	attack() const;
 		int				getAPCost() const;
 		int				getDamage() const;
 		std::string		getName() const;

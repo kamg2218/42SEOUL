@@ -11,9 +11,9 @@ class	PowerFist : public AWeapon
 		int			m_damage;
 	public:
 		PowerFist();
-		PowerFist(std::string const &name, int apcost, int damage);
+		PowerFist(PowerFist const &pf);
 		PowerFist&		operator=(PowerFist const &pf);
-		virtual void	attack();
+		virtual void	attack() const;
 		int				getAPCost() const;
 		int				getDamage() const;
 		std::string		getName() const;

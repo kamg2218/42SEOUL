@@ -18,7 +18,7 @@ class	AWeapon
 		int			getAPCost() const;
 		int			getDamage() const;
 		virtual void	attack() const = 0;
-		~AWeapon();
+		virtual ~AWeapon();
 };
 
 #endif

@@ -6,19 +6,18 @@
 
 class	Enemy
 {
-	pivate:
+	protected:
 		int			m_hp;
-		int			m_apcost;
-		int			m_damage;
 		std::string m_type;
 	public:
 		Enemy();
 		Enemy(int hp, std::string const &type);
 		Enemy&			operator=(Enemy const &emy);
-		~Enemy();
+		virtual ~Enemy();
 		std::string		getType() const;
 		int				getHP() const;
-		virtual void	takeDamage(int);
+		void			setHP(int amount);
+		virtual void	takeDamage(int amount);
 };
 
 #endif
