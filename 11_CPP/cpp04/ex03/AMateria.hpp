@@ -6,7 +6,7 @@
 
 class	AMateria
 {
-	private:
+	protected:
 		unsigned int	_xp;
 		std::string		_type;
 	public:
