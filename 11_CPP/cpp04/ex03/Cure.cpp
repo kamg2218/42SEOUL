@@ -12,7 +12,7 @@ Cure::Cure(std::string const &name)
 
 Cure&	Cure::operator=(Cure const &cr)
 {
-	this->_name = cr->_name;
+	this->_name = cr._name;
 	return *this;
 }
 

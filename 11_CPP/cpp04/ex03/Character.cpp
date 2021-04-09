@@ -17,7 +17,7 @@ Character&	Character::operator=(Character const &ch)
 	this->_idx = ch._idx;
 	this->_max = ch._max;
 	for (int i = 0; i < ch._idx; i++)
-		this->_materia[i] = ch._materia[i];
+		this->_materia[i] = ch._materia[i]->clone();
 	return *this;
 }
 
@@ -34,7 +34,7 @@ void	Character::equip(AMateria* m)
 		std::cout << "It's full, already!" << std::endl;
 		return ;
 	}
-	_materia[_idx] = m;
+	_materia[_idx] = m->clone();
 	_idx++;
 }
 		
@@ -45,9 +45,15 @@ void	Character::unequip(int idx)
 		std::cout << "It's empty!" << std::endl;
 		return ;
 	}
+	delete _materia[idx];
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
-	_materia[idx].use(target);
+	if (idx >= _idx)
+	{
+		std::cout << "It's empty!" << std::endl;
+		return ;
+	}
+	_materia[idx]->use(target);
 }

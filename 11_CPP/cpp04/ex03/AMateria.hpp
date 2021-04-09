@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 
+class AMateria;
+#include "ICharacter.hpp"
+
 class	AMateria
 {
 	protected:
@@ -13,7 +16,9 @@ class	AMateria
 		AMateria();
 		AMateria(std::string const &type);
 		AMateria&	operator=(AMateria const &amt);
-		~AMateria();
+		virtual	~AMateria();
+		void	setXP(unsigned int xp);
+		void	setType(std::string const &type);
 		std::string const	&getType() const;
 		unsigned int		getXP() const;
 		virtual	AMateria*	clone() const = 0;

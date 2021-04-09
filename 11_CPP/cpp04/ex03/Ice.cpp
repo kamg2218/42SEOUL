@@ -12,7 +12,7 @@ Ice::Ice(std::string const &name)
 
 Ice&	Ice::operator=(Ice const &icy)
 {
-	this->_name = icy->_name;
+	this->_name = icy._name;
 	return *this;
 }
 

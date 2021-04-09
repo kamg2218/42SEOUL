@@ -1,14 +1,16 @@
-#ifndef MateriaSource
-# define MateriaSource
+#ifndef MATERIASOURCE_HPP
+# define MATERIASOURCE_HPP
 
 #include "IMateriaSource.hpp"
+#include "Cure.hpp"
+#include "Ice.hpp"
 
 class	MateriaSource : public IMateriaSource
 {
 	private:
 		int			_idx;
 		int			_max;
-		AMateria	_materia[4];
+		AMateria*	_materia[4];
 	public:
 		MateriaSource();
 		MateriaSource(MateriaSource const &mts);
