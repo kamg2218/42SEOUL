@@ -8,7 +8,7 @@ class	PresidentialPardonForm : virtual public Form
 	private:
 		PresidentialPardonForm();
 	public:
-		PresidentialPardonForm(Form* fm);
+		PresidentialPardonForm(std::string const &target);
 		PresidentialPardonForm&	operator=(PresidentialPardonForm const &ppf);
 		~PresidentialPardonForm();
 		void	action() const;

@@ -5,10 +5,9 @@ RobotomyRequestForm::RobotomyRequestForm()
 {
 }
 
-RobotomyRequestForm::RobotomyRequestForm(Form* fm)
-	: Form(fm->getName(), 72, 45)
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target)
+	: Form(target, 72, 45)
 {
-	_sign = fm->getSign();
 }
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm const &rmrf)
@@ -30,15 +29,7 @@ void	RobotomyRequestForm::action() const
 	else
 		std::cout << "It's a failure." << std::endl;
 }
-/*
-void	RobotomyRequestForm::check(Bureaucrat const &executor) const
-{
-	if (this->_sign == false)
-		throw Form::IsNotSigned();
-	else if (executor.getGrade() > this->_exec_grade)
-		throw Form::GradeTooLowException();
-}
-*/
+
 void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
 	try{

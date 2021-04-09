@@ -5,10 +5,10 @@ PresidentialPardonForm::PresidentialPardonForm()
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(Form* fm)
-	: Form(fm->getName(), 25, 5)
+PresidentialPardonForm::PresidentialPardonForm(std::string const &target)
+	: Form(target, 25, 5)
 {
-	_sign = fm->getSign();
+	//_sign = fm->getSign();
 }
 
 PresidentialPardonForm&	PresidentialPardonForm::operator=(PresidentialPardonForm const &ppf)

@@ -5,10 +5,9 @@ ShrubberyCreationForm::ShrubberyCreationForm()
 {
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(Form* fm)
-	: Form(fm->getName(), 145, 137)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target)
+	: Form(target, 145, 137)
 {
-	_sign = fm->getSign();
 }
 
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(ShrubberyCreationForm const &sbcf)

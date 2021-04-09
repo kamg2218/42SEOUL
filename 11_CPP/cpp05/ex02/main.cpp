@@ -5,20 +5,18 @@
 
 int		main(void)
 {
-	Form		fm("home", 10, 8);
 	Bureaucrat	brew("brew", 7);
 
-	ShrubberyCreationForm	berry(&fm);
-	//berry.action();
-	brew.signForm(fm);
-	berry.execute(brew);
+	ShrubberyCreationForm	berry("home");
+	//brew.signForm(berry);
+	//berry.execute(brew);
+	brew.executeForm(berry);
 
-	RobotomyRequestForm robert(&fm);
-	//robert.action();
+	RobotomyRequestForm robert("robert");
+	brew.signForm(robert);
 	robert.execute(brew);
 
-	PresidentialPardonForm	president(&fm);
-	//president.action();
+	PresidentialPardonForm	president("presi");
 	president.execute(brew);
 
 	return 0;
