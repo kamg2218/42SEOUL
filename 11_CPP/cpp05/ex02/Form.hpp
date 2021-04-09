@@ -6,35 +6,41 @@ class	Form;
 
 class	Form
 {
-	private:
+	protected:
 		std::string const	_name;
 		bool		_sign;
 		int const	_sign_grade;
 		int	const	_exec_grade;
-		std::exception	_ex;
 		Form();
 	public:
 		Form(std::string name, int sign, int exec);
-		~Form();
-		std::string	getName() const;
+		virtual ~Form();
+		std::string getName() const;
 		int		getSignGrade() const;
 		int		getExecGrade() const;
 		bool	getSign() const;
 		void	beSigned(Bureaucrat const &brc);
+		void	check(Bureaucrat const &executor) const;
+		//virtual void	execute(Bureaucrat const &executor) const = 0;
 		class	GradeTooHighException : public std::exception
 		{
 			public:
-			virtual const char* what() const throw()
-			{
+			virtual const char* what() const throw(){
 				return "the grade is too hgih!\n";
 			}
 		};
 		class	GradeTooLowException : public std::exception
 		{
 			public:
-			virtual const char* what() const throw()
-			{
+			virtual const char* what() const throw(){
 				return "the grade is too low!\n";
+			}
+		};
+		class	IsNotSigned : public std::exception
+		{
+			public:
+			virtual const char* what() const throw(){
+				return "this form is not signed yet!\n";
 			}
 		};
 };

@@ -21,6 +21,14 @@ void	Form::beSigned(Bureaucrat const &brc)
 	_sign = true;
 }
 
+void	Form::check(Bureaucrat const &executor) const
+{
+	if (this->_sign == false)
+		throw Form::IsNotSigned();
+	else if (executor.getGrade() > this->_exec_grade)
+		throw Form::GradeTooLowException();
+}
+
 std::string		Form::getName() const { return _name; }
 int				Form::getSignGrade() const { return _sign_grade; }
 int				Form::getExecGrade() const { return _exec_grade; }

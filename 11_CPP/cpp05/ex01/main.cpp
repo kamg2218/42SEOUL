@@ -2,39 +2,12 @@
 
 int		main(void)
 {
-	Bureaucrat	*brc;
+	Bureaucrat	brc1("owner", 1);
+	Bureaucrat	brc2("ceo", 3);
+	Form		fm("form_first", 2, 5);
 
-	try
-	{
-		brc = new Bureaucrat("first", 2);
-		std::cout << *brc;
-		brc->increment();
-		std::cout << *brc;
-		brc->increment();
-		std::cout << *brc;
-	}
-	catch (std::exception& e)//(bool exception)
-	{
-		std::cout << "Error!!!" << std::endl;
-	}
-	
-	delete brc;
-	
-	try
-	{
-		brc = new Bureaucrat("first", 149);
-		std::cout << *brc;
-		brc->decrement();
-		std::cout << *brc;
-		brc->decrement();
-		std::cout << *brc;
-	}
-	catch (std::exception& e)//(bool exception)//(std::exception & e)
-	{
-		std::cout << "Error!!!" << std::endl;
-	}
-
-	delete brc;
+	brc1.signForm(fm);
+	brc2.signForm(fm);
 
 	return 0;
 }
