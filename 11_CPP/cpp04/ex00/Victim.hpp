@@ -6,7 +6,7 @@
 
 class	Victim
 {
-	private:
+	protected:
 		std::string		m_name;
 	public:
 		Victim();

@@ -11,8 +11,8 @@ class	Character
 		int			m_apcost;
 		int			m_max_apcost;
 		AWeapon		*m_awp;
-	public:
 		Character();
+	public:
 		Character(std::string const &name);
 		Character&		operator=(Character const &crt);
 		~Character();

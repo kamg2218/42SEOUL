@@ -1,12 +1,13 @@
 #include "Laborer.hpp"
 
 Laborer::Laborer()
+	: Victim(), m_name("default")
 {
 	std::cout << "Zog zog zog." << std::endl;
 }
 
 Laborer::Laborer(std::string name)
-	: m_name(name)
+	: Victim(name), m_name(name)
 {
 	std::cout << "Zog zog zog." << std::endl;
 }

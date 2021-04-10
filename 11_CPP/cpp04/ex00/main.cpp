@@ -23,7 +23,8 @@ int			main(void)
 
 	robert.polymorph(jay);
 	std::cout << "------------------------" << std::endl;
-	//Peon		pn;
+	Laborer		lab("Lab");
+	robert.polymorph(lab);
 	std::cout << "------------------------" << std::endl;
 	return 0;
 }

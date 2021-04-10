@@ -1,11 +1,9 @@
 #ifndef LABORER_HPP
 # define LABORER_HPP
 
-//#include <iostream>
-//#include <string>
-#include "Peon.hpp"
+#include "Victim.hpp"
 
-class	Laborer : public Peon
+class	Laborer : public Victim
 {
 	private:
 		std::string		m_name;

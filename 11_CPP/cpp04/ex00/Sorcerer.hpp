@@ -5,7 +5,7 @@
 
 class	Sorcerer
 {
-	private:
+	protected:
 		std::string		m_name;
 		std::string		m_title;
 		Sorcerer();
