@@ -1,7 +1,7 @@
 #include "Laborer.hpp"
 
 Laborer::Laborer()
-	: Victim(), m_name("default")
+	: Victim("default"), m_name("default")
 {
 	std::cout << "Zog zog zog." << std::endl;
 }
@@ -21,12 +21,6 @@ Laborer&	Laborer::operator=(Laborer const &lb)
 Laborer::~Laborer()
 {
 	std::cout << "Labor..." << std::endl;
-}
-
-void	Laborer::introduce()
-{
-	std::cout << "I am " << m_name;
-	std::cout << " and I like blue pony!" << std::endl;
 }
 
 std::string		Laborer::getName() const { return m_name; }

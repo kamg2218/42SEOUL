@@ -11,7 +11,6 @@ class	Laborer : public Victim
 	public:
 		Laborer(std::string name);
 		Laborer&	operator=(Laborer const &lb);
-		void		introduce();
 		void		getPolymorphed() const;
 		std::string	getName() const;
 		~Laborer();

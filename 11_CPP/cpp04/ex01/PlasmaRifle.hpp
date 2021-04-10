@@ -5,10 +5,6 @@
 
 class	PlasmaRifle : public AWeapon
 {
-	private:
-		std::string	m_name;
-		int			m_apcost;
-		int			m_damage;
 	public:
 		PlasmaRifle();
 		PlasmaRifle(PlasmaRifle const &prf);

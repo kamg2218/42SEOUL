@@ -23,5 +23,6 @@ int			main(void)
 
 	robert.polymorph(jay);
 	std::cout << "------------------------" << std::endl;
+	
 	return 0;
 }

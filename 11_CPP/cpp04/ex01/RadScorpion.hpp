@@ -5,9 +5,6 @@
 
 class	RadScorpion : public Enemy
 {
-	private:
-		int			m_hp;
-		std::string m_type;
 	public:
 		RadScorpion();
 		RadScorpion(RadScorpion const &rsp);

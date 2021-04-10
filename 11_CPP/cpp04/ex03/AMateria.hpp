@@ -9,7 +9,7 @@ class AMateria;
 
 class	AMateria
 {
-	protected:
+	private:
 		unsigned int	_xp;
 		std::string		_type;
 	public:
@@ -19,8 +19,8 @@ class	AMateria
 		virtual	~AMateria();
 		void	setXP(unsigned int xp);
 		void	setType(std::string const &type);
-		std::string const	&getType() const;
 		unsigned int		getXP() const;
+		std::string const	&getType() const;
 		virtual	AMateria*	clone() const = 0;
 		virtual	void		use(ICharacter& target);
 };

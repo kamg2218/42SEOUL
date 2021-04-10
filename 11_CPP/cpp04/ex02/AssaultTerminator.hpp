@@ -6,10 +6,10 @@
 class	AssaultTerminator : public ISpaceMarine
 {
 	private:
-		ISpaceMarine*	m_ispm;
+		int		_hp;
 	public:
 		AssaultTerminator();
-		AssaultTerminator(AssaultTerminator const &ast);
+		AssaultTerminator(int hp);
 		AssaultTerminator&		operator=(AssaultTerminator const &ast);
 		~AssaultTerminator();
 		virtual	ISpaceMarine*	clone() const;

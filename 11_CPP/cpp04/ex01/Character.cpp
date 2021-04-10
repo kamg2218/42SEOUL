@@ -34,6 +34,11 @@ void	Character::recoverAP()
 }
 void	Character::equip(AWeapon *awp)
 {
+	if (awp == NULL)
+	{
+		std::cout << "It's empty!" << std::endl;
+		return ;
+	}
 	std::cout << m_name << " have a weapon, now!" << std::endl;
 	m_awp = awp;
 }
@@ -60,10 +65,7 @@ void	Character::attack(Enemy *enm)
 	m_apcost -= m_awp->getAPCost();
 	enm->setHP(enm->getHP() - m_awp->getDamage());
 	if (enm->getHP() <= 0 && enm)
-	{
-		std::cout << "!! " << enm->getType() << " died!!" << std::endl;
 		delete enm;
-	}
 }
 
 std::ostream&	operator<<(std::ostream &os, Character const &crt)

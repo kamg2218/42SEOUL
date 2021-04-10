@@ -5,9 +5,6 @@
 
 class	SuperMutant : public Enemy
 {
-	private:
-		int			m_hp;
-		std::string m_type;
 	public:
 		SuperMutant();
 		SuperMutant(SuperMutant const &smt);

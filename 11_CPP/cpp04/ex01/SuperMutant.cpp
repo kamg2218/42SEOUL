@@ -1,8 +1,10 @@
 #include "SuperMutant.hpp"
 
 SuperMutant::SuperMutant()
-	: Enemy(170, "Super Mutant"), m_hp(170), m_type("Super Mutant")
+	: Enemy(170, "Super Mutant")
 {
+	m_hp = 170;
+	m_type = "Super Mutant";
 	std::cout << "Gaaah. Me want smash heads!" << std::endl;
 }
 

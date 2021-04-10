@@ -1,8 +1,12 @@
 #include "PowerFist.hpp"
 
 PowerFist::PowerFist()
-	: AWeapon("Power Fist", 8, 50), m_name("Power Fist"), m_apcost(8), m_damage(50)
+	: AWeapon("Power Fist", 8, 50)
+//	: AWeapon("Power Fist", 8, 50), m_name("Power Fist"), m_apcost(8), m_damage(50)
 {
+	m_name = "Power Fist";
+	m_apcost = 8;
+	m_damage = 50;
 	std::cout << "Clitter-fist" << std::endl;
 }
 

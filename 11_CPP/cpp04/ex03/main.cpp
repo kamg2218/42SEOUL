@@ -23,9 +23,9 @@ int			main()
 
 	me->use(0, *bob);
 	me->use(1, *bob);
-
-	std::cout << "-----------------------------" << std::endl;
 /*
+	std::cout << "-----------------------------" << std::endl;
+
 	me->unequip(0);
 	me->use(0, *bob);
 	me->use(1, *bob);
@@ -49,9 +49,5 @@ int			main()
 	delete me;
 	delete src;
 	
-<<<<<<< HEAD
-	while (1) ;
-=======
->>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 	return 0;
 }

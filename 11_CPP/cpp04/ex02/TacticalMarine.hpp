@@ -6,10 +6,10 @@
 class	TacticalMarine : public ISpaceMarine
 {
 	private:
-		ISpaceMarine*	m_ispm;
+		int		_hp;
 	public:
 		TacticalMarine();
-		TacticalMarine(TacticalMarine const &tacm);
+		TacticalMarine(int hp);
 		TacticalMarine&		operator=(TacticalMarine const &tacm);
 		~TacticalMarine();
 		virtual	ISpaceMarine*	clone() const;

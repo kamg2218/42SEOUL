@@ -1,8 +1,10 @@
 #include "RadScorpion.hpp"
 
 RadScorpion::RadScorpion()
-	: Enemy(80, "RadScorpion"), m_hp(80), m_type("RadScorpion")
+	: Enemy(80, "RadScorpion")
 {
+	m_hp = 80;
+	m_type = "RadScorpion";
 	std::cout << "* click click click *" << std::endl;
 }
 

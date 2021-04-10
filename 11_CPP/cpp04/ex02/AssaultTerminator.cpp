@@ -1,35 +1,33 @@
 #include "AssaultTerminator.hpp"
 
 AssaultTerminator::AssaultTerminator()
+	: _hp(10)
 {
 	std::cout << "* teleports from space *" << std::endl;
 }
 
-AssaultTerminator::AssaultTerminator(AssaultTerminator const &ast)
+AssaultTerminator::AssaultTerminator(int hp)
+	: _hp(hp)
 {
-	*this = ast;
+	std::cout << "* teleports from space *" << std::endl;
 }
 
 AssaultTerminator&		AssaultTerminator::operator=(AssaultTerminator const &ast)
 {
-	if (m_ispm)
-		delete m_ispm;
-	this->m_ispm = ast.clone();
+	this->_hp = ast._hp;
 	return *this;
 }
 
 AssaultTerminator::~AssaultTerminator()
 {
 	std::cout << "I'll be back..." << std::endl;
-	if (m_ispm)
-		delete m_ispm;
 }
 
 ISpaceMarine*	AssaultTerminator::clone() const
 {
 	ISpaceMarine* tmp;
 
-	tmp = new AssaultTerminator;
+	tmp = new AssaultTerminator();
 	return tmp;
 }
 

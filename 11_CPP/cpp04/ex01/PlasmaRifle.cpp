@@ -1,8 +1,11 @@
 #include "PlasmaRifle.hpp"
 
 PlasmaRifle::PlasmaRifle()
-	: AWeapon("Plasma Rifle", 5, 21), m_name("Plasma Rifle"), m_apcost(5), m_damage(21)
+	: AWeapon("Plasma Rifle", 5, 21)
 {
+	m_name = "Plasma Rifle";
+	m_apcost = 5;
+	m_damage = 21;
 	std::cout << "Clitter-rifle" << std::endl;
 }
 

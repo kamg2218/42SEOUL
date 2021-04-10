@@ -1,6 +1,7 @@
 #include "Sorcerer.hpp"
 
 Sorcerer::Sorcerer()
+	: m_name("default"), m_title("default")
 {
 	std::cout << m_name << ", " << m_title << ", is born!" << std::endl;
 }
@@ -22,12 +23,6 @@ Sorcerer::~Sorcerer()
 {
 	std::cout << m_name << ", " << m_title << ", is dead. ";
 	std::cout << "Consequences will never be the same!" << std::endl;
-}
-
-void	Sorcerer::introduce()
-{
-	std::cout << "I am " << m_name << ", " << m_title;
-	std::cout << ", and I like ponies!" << std::endl;
 }
 
 std::string		Sorcerer::getName() const { return m_name; }

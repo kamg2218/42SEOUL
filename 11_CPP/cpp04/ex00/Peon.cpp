@@ -1,6 +1,7 @@
 #include "Peon.hpp"
 
 Peon::Peon()
+	: Victim("default"), m_name("default")
 {
 	std::cout << "Zog zog." << std::endl;
 }
@@ -20,12 +21,6 @@ Peon&	Peon::operator=(Peon const &pn)
 Peon::~Peon()
 {
 	std::cout << "Bleuark..." << std::endl;
-}
-
-void	Peon::introduce()
-{
-	std::cout << "I am " << m_name;
-	std::cout << " and I like pink pony!" << std::endl;
 }
 
 std::string		Peon::getName() const { return m_name; }

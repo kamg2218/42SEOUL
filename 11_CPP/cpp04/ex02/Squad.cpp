@@ -1,7 +1,7 @@
 #include "Squad.hpp"
 
 Squad::Squad()
-	: m_count(0), m_ispm(0)
+	: ISquad(), m_count(0), m_ispm(0)
 {
 }
 
@@ -21,11 +21,7 @@ Squad&	Squad::operator=(Squad const &sqd)
 	this->m_count = sqd.m_count;
 	this->m_ispm = new ISpaceMarine*[m_count];
 	for (int i = 0; i < m_count; i++)
-<<<<<<< HEAD
-		m_ispm[i] = sqd.getUnit(i)->clone();//sqd.getUnit(i);
-=======
 		m_ispm[i] = sqd.getUnit(i)->clone();
->>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 	return *this;
 }
 

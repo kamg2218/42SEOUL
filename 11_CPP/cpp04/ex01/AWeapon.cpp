@@ -1,14 +1,13 @@
 #include "AWeapon.hpp"
 
 AWeapon::AWeapon()
+	: m_name("default"), m_apcost(0), m_damage(0)
 {
-	//std::cout << "Clitter-clatter" << std::endl;
 }
 
 AWeapon::AWeapon(std::string const &name, int apcost, int damage)
 	: m_name(name), m_apcost(apcost), m_damage(damage)
 {
-	//std::cout << "Clitter-clatter" << std::endl;
 }
 
 AWeapon&	AWeapon::operator=(AWeapon const &awp)
@@ -21,7 +20,6 @@ AWeapon&	AWeapon::operator=(AWeapon const &awp)
 
 AWeapon::~AWeapon()
 {
-	//std::cout << "clooooop" << std::endl;
 }
 
 int				AWeapon::getAPCost() const { return m_apcost; }

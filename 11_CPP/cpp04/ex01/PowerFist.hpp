@@ -5,10 +5,6 @@
 
 class	PowerFist : public AWeapon
 {
-	private:
-		std::string	m_name;
-		int			m_apcost;
-		int			m_damage;
 	public:
 		PowerFist();
 		PowerFist(PowerFist const &pf);

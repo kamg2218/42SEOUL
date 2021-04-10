@@ -1,29 +1,26 @@
 #include "TacticalMarine.hpp"
 
 TacticalMarine::TacticalMarine()
-	: m_ispm(0)
+	: _hp(10)
 {
 	std::cout << "Tactical Marine ready for battle!" << std::endl;
 }
 
-TacticalMarine::TacticalMarine(TacticalMarine const &tacm)
+TacticalMarine::TacticalMarine(int	hp)
+	: _hp(hp)
 {
-	*this = tacm;
+	std::cout << "Tactical Marine ready for battle!" << std::endl;
 }
 
 TacticalMarine&		TacticalMarine::operator=(TacticalMarine const &tacm)
 {
-	if (m_ispm)
-		delete m_ispm;
-	this->m_ispm = tacm.clone();
+	this->_hp = tacm._hp;
 	return *this;
 }
 
 TacticalMarine::~TacticalMarine()
 {
 	std::cout << "Aaargh..." << std::endl;
-	if (m_ispm)
-		delete m_ispm;
 }
 
 ISpaceMarine*	TacticalMarine::clone() const
