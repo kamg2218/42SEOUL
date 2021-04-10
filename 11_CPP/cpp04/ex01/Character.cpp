@@ -44,6 +44,11 @@ void	Character::attack(Enemy *enm)
 		std::cout << m_name << " doesn't have equipped weapon!!" << std::endl;
 		return ;
 	}
+	else if (enm == NULL)
+	{
+		std::cout << "Enemy is already died..." << std::endl;
+		return ;
+	}
 	else if (m_apcost < m_awp->getAPCost())
 	{
 		std::cout << "Not enough apcost.." << std::endl;
@@ -54,8 +59,12 @@ void	Character::attack(Enemy *enm)
 	m_awp->attack();
 	m_apcost -= m_awp->getAPCost();
 	enm->setHP(enm->getHP() - m_awp->getDamage());
-	if (enm->getHP() <= 0)
+	if (enm->getHP() <= 0 && enm)
+	{
+		std::cout << enm->getType() << " died!!" << std::endl;
 		delete enm;
+		enm = NULL;
+	}
 }
 
 std::ostream&	operator<<(std::ostream &os, Character const &crt)
@@ -69,13 +78,16 @@ std::ostream&	operator<<(std::ostream &os, Character const &crt)
 }
 
 std::string	Character::getName() const { return m_name; }
+
 std::string	Character::getWeaponName() const
 {
 	if (m_awp)
 		return m_awp->getName();
 	return "NULL";
 }
+
 int			Character::getAPCost() const { return m_apcost; }
+
 bool		Character::isAWP() const
 {
 	if (m_awp)

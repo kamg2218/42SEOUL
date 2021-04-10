@@ -29,16 +29,5 @@ int				SuperMutant::getHP() const { return m_hp; }
 
 void			SuperMutant::takeDamage(int amount)
 {
-	/*
-	if (amount < 3)
-	{
-		std::cout << m_type << " didn't get damage!" << std::endl;
-		return ;
-	}
-	std::cout << m_type << " got damage!!" << std::endl;
-	m_hp -= amount - 3; 
-	if (m_hp < 0)
-		m_hp = 0;
-	*/
 	Enemy::takeDamage(amount - 3);
 }

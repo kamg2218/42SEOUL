@@ -38,7 +38,14 @@ int			main(void)
 	std::cout << "------------------------" << std::endl;
 	me->attack(b);
 	std::cout << *me;
+	me->attack(b);
+	std::cout << *me;
+	me->attack(b);
+	std::cout << *me;
 	
+	std::cout << "------------------------" << std::endl;
+	me->attack(b);
+	std::cout << *me;
 	std::cout << "------------------------" << std::endl;
 
 	return 0;
