@@ -13,6 +13,8 @@ int			main()
 
 	AMateria* tmp;
 	tmp = src->createMateria("ice");
+	tmp = src->createMateria("ice");
+	
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
@@ -21,8 +23,9 @@ int			main()
 
 	me->use(0, *bob);
 	me->use(1, *bob);
-/*
+
 	std::cout << "-----------------------------" << std::endl;
+/*
 	me->unequip(0);
 	me->use(0, *bob);
 	me->use(1, *bob);
@@ -45,6 +48,6 @@ int			main()
 	delete bob;
 	delete me;
 	delete src;
-
+	
 	return 0;
 }
