@@ -16,7 +16,7 @@ int			main()
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
-
+	//me->unequip(0);
 	ICharacter* bob = new Character("bob");
 
 	me->use(0, *bob);
@@ -25,6 +25,7 @@ int			main()
 	delete bob;
 	delete me;
 	delete src;
-
+	
+	while (1) ;
 	return 0;
 }

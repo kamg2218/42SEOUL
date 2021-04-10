@@ -17,7 +17,7 @@ Squad&	Squad::operator=(Squad const &sqd)
 	this->m_count = sqd.m_count;
 	this->m_ispm = new ISpaceMarine*[m_count];
 	for (int i = 0; i < m_count; i++)
-		m_ispm[i] = sqd.getUnit(i);
+		m_ispm[i] = sqd.getUnit(i)->clone();//sqd.getUnit(i);
 	return *this;
 }
 
@@ -41,6 +41,8 @@ int		Squad::push(ISpaceMarine* ispm)
 {
 	ISpaceMarine** tmp;
 	
+	if (ispm == NULL)
+		return m_count;
 	m_count += 1;
 	tmp = new ISpaceMarine*[m_count];
 	for (int i = 0; i < m_count - 1; i++)
