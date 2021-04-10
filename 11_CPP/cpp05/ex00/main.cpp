@@ -13,7 +13,7 @@ int		main(void)
 		brc->increment();
 		std::cout << *brc;
 	}
-	catch (std::exception& e)//(bool exception)
+	catch (std::exception& e)
 	{
 		std::cout << "Error!!!" << std::endl;
 	}
@@ -29,7 +29,7 @@ int		main(void)
 		brc->decrement();
 		std::cout << *brc;
 	}
-	catch (std::exception& e)//(bool exception)//(std::exception & e)
+	catch (std::exception& e)
 	{
 		std::cout << "Error!!!" << std::endl;
 	}

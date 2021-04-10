@@ -13,6 +13,8 @@ int			main()
 
 	AMateria* tmp;
 	tmp = src->createMateria("ice");
+	tmp = src->createMateria("ice");
+	
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
@@ -22,10 +24,34 @@ int			main()
 	me->use(0, *bob);
 	me->use(1, *bob);
 
+	std::cout << "-----------------------------" << std::endl;
+/*
+	me->unequip(0);
+	me->use(0, *bob);
+	me->use(1, *bob);
+	std::cout << "-----------------------------" << std::endl;
+*/
+/*
+	ICharacter* you = new Character("you");
+	AMateria*	icy = new Ice();
+	AMateria*	cure = new Cure();
+
+	you->equip(icy);
+	you->equip(cure);
+
+	you->use(0, *bob);
+	you->use(1, *bob);
+	
+	std::cout << "-----------------------------" << std::endl;
+	delete you;
+*/	
 	delete bob;
 	delete me;
 	delete src;
 	
+<<<<<<< HEAD
 	while (1) ;
+=======
+>>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 	return 0;
 }

@@ -19,8 +19,14 @@ int			main(void)
 		cur->meleeAttack();
 		std::cout << "---------" << std::endl;
 	}
+<<<<<<< HEAD
 	std::cout << "----------------------------" << std::endl;
 	ISpaceMarine*	jay = new TacticalMarine;
+=======
+	
+	std::cout << "----------------------------" << std::endl;
+	ISpaceMarine* jay = new TacticalMarine;
+>>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 	vlc->push(jay);
 	for (int i = 0; i < vlc->getCount(); i++)
 	{
@@ -31,7 +37,12 @@ int			main(void)
 		std::cout << "---------" << std::endl;
 	}
 	std::cout << "----------------------------" << std::endl;
+<<<<<<< HEAD
 	delete vlc;
+=======
+>>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 
+	delete vlc;
+	
 	return 0;
 }

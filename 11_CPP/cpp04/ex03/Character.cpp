@@ -23,34 +23,41 @@ Character&	Character::operator=(Character const &ch)
 
 Character::~Character()
 {
+	for (int i = 0; i < _idx; i++)
+		delete _materia[i];
 }
 
 std::string const	&Character::getName() const { return _name; }
 		
 void	Character::equip(AMateria* m)
 {
-	if (_idx == _max)
+	if (m == NULL)
+	{
+		std::cout << "Materia is empty!" << std::endl;
+		return ;
+	}
+	else if (_idx == _max)
 	{
 		std::cout << "It's full, already!" << std::endl;
 		return ;
 	}
-	_materia[_idx] = m->clone();
+	_materia[_idx] = m;
 	_idx++;
 }
 		
 void	Character::unequip(int idx)
 {
-	if (idx >= _idx)
+	if (idx >= _idx || _materia[idx] == 0)
 	{
 		std::cout << "It's empty!" << std::endl;
 		return ;
 	}
-	delete _materia[idx];
+	_materia[idx] = 0;
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
-	if (idx >= _idx)
+	if (idx >= _idx || _materia[idx] == 0)
 	{
 		std::cout << "It's empty!" << std::endl;
 		return ;

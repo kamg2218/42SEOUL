@@ -13,11 +13,19 @@ Squad::Squad(Squad const &sqd)
 Squad&	Squad::operator=(Squad const &sqd)
 {
 	if (m_count && m_ispm)
+	{
+		for (int i = 0; i < m_count; i++)
+			delete m_ispm[i];
 		delete[] m_ispm;
+	}
 	this->m_count = sqd.m_count;
 	this->m_ispm = new ISpaceMarine*[m_count];
 	for (int i = 0; i < m_count; i++)
+<<<<<<< HEAD
 		m_ispm[i] = sqd.getUnit(i)->clone();//sqd.getUnit(i);
+=======
+		m_ispm[i] = sqd.getUnit(i)->clone();
+>>>>>>> 5ea95cb2a2f2668f717a9c2f384cceb4e675a164
 	return *this;
 }
 

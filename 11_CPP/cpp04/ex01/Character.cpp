@@ -61,9 +61,8 @@ void	Character::attack(Enemy *enm)
 	enm->setHP(enm->getHP() - m_awp->getDamage());
 	if (enm->getHP() <= 0 && enm)
 	{
-		std::cout << enm->getType() << " died!!" << std::endl;
+		std::cout << "!! " << enm->getType() << " died!!" << std::endl;
 		delete enm;
-		enm = NULL;
 	}
 }
 
