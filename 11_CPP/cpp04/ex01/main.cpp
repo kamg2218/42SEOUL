@@ -38,15 +38,31 @@ int			main(void)
 	std::cout << "------------------------" << std::endl;
 	me->attack(b);
 	std::cout << *me;
-	me->attack(b);
-	std::cout << *me;
-	me->attack(b);
-	std::cout << *me;
 	
 	std::cout << "------------------------" << std::endl;
-	me->attack(b);
+	Enemy *c = new SuperMutant();
+	me->attack(c);
 	std::cout << *me;
 	std::cout << "------------------------" << std::endl;
+	me->recoverAP();
+	std::cout << *me;
+	me->recoverAP();
+	std::cout << *me;
+	me->recoverAP();
+	std::cout << *me;
+	me->recoverAP();
+	std::cout << *me;
+	std::cout << "------------------------" << std::endl;
+	me->attack(c);
+	std::cout << *me;
+	me->equip(pf);
+	me->attack(c);
+	std::cout << *me;
+	std::cout << "------------------------" << std::endl;
+	
+	delete c;
+	delete pf;
+	delete pr;
 
 	return 0;
 }

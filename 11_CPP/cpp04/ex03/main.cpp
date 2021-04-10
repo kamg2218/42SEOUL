@@ -21,7 +21,27 @@ int			main()
 
 	me->use(0, *bob);
 	me->use(1, *bob);
+/*
+	std::cout << "-----------------------------" << std::endl;
+	me->unequip(0);
+	me->use(0, *bob);
+	me->use(1, *bob);
+	std::cout << "-----------------------------" << std::endl;
+*/
+/*
+	ICharacter* you = new Character("you");
+	AMateria*	icy = new Ice();
+	AMateria*	cure = new Cure();
 
+	you->equip(icy);
+	you->equip(cure);
+
+	you->use(0, *bob);
+	you->use(1, *bob);
+	
+	std::cout << "-----------------------------" << std::endl;
+	delete you;
+*/	
 	delete bob;
 	delete me;
 	delete src;

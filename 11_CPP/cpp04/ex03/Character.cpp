@@ -23,6 +23,8 @@ Character&	Character::operator=(Character const &ch)
 
 Character::~Character()
 {
+	for (int i = 0; i < _idx; i++)
+		delete _materia[i];
 }
 
 std::string const	&Character::getName() const { return _name; }
@@ -40,17 +42,18 @@ void	Character::equip(AMateria* m)
 		
 void	Character::unequip(int idx)
 {
-	if (idx >= _idx)
+	if (idx >= _idx || _materia[idx] == 0)
 	{
 		std::cout << "It's empty!" << std::endl;
 		return ;
 	}
 	delete _materia[idx];
+	_materia[idx] = 0;
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
-	if (idx >= _idx)
+	if (idx >= _idx || _materia[idx] == 0)
 	{
 		std::cout << "It's empty!" << std::endl;
 		return ;
