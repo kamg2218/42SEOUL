@@ -3,7 +3,7 @@
 
 #include "Form.hpp"
 
-class	RobotomyRequestForm : virtual public Form
+class	RobotomyRequestForm : public Form
 {
 	private:
 		RobotomyRequestForm();
@@ -12,7 +12,6 @@ class	RobotomyRequestForm : virtual public Form
 		RobotomyRequestForm& operator=(RobotomyRequestForm const &rmrf);
 		~RobotomyRequestForm();
 		void	action() const;
-		void	execute(Bureaucrat const &executor) const;
 };
 
 #endif

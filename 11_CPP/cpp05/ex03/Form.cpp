@@ -29,6 +29,18 @@ void	Form::check(Bureaucrat const &executor) const
 		throw Form::GradeTooLowException();
 }
 
+void	Form::execute(Bureaucrat const &executor) const
+{
+	try{
+		check(executor);
+		action();
+	}
+	catch (std::exception& ex){
+		std::cout << executor.getName() << " can not execute this form, ";
+		std::cout << "because " << ex.what();
+	}
+}
+
 std::string		Form::getName() const { return _name; }
 int				Form::getSignGrade() const { return _sign_grade; }
 int				Form::getExecGrade() const { return _exec_grade; }

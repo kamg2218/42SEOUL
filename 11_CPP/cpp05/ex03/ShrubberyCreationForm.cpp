@@ -30,6 +30,7 @@ void	ShrubberyCreationForm::action() const
 		std::cout << "Error: Unable to open file" << std::endl;
 		return ;
 	}
+	std::cout << "drawing tree..." << std::endl;
 	ofs << "                 __/\\__" << std::endl;
 	ofs << "                 \\ ** /" << std::endl;
 	ofs << "                 /_**_\\" << std::endl;
@@ -50,24 +51,4 @@ void	ShrubberyCreationForm::action() const
 	ofs << "                 |   |" << std::endl;
 	ofs << "                 |___|" << std::endl;
 	ofs.close();
-}
-/*
-void	ShrubberyCreationForm::check(Bureaucrat const &executor) const
-{
-	if (this->_sign == false)
-		throw Form::IsNotSigned();
-	else if (executor.getGrade() > this->_exec_grade)
-		throw Form::GradeTooLowException();
-}
-*/
-void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
-{
-	try{
-		check(executor);
-		action();
-	}
-	catch (std::exception& ex){
-		std::cout << executor.getName() << " can not execute this form, ";
-		std::cout << "because " << ex.what();
-	}
 }

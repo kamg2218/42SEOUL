@@ -17,7 +17,7 @@ Form::~Form()
 void	Form::beSigned(Bureaucrat const &brc)
 {
 	if (brc.getGrade() > _sign_grade)
-		throw Form::GradeTooLowException();
+		throw GradeTooLowException();
 	_sign = true;
 }
 

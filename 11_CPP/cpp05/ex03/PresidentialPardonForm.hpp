@@ -3,7 +3,7 @@
 
 #include "Form.hpp"
 
-class	PresidentialPardonForm : virtual public Form
+class	PresidentialPardonForm : public Form
 {
 	private:
 		PresidentialPardonForm();
@@ -12,8 +12,6 @@ class	PresidentialPardonForm : virtual public Form
 		PresidentialPardonForm&	operator=(PresidentialPardonForm const &ppf);
 		~PresidentialPardonForm();
 		void	action() const;
-		//void	check(Bureaucrat const &executor) const;
-		void	execute(Bureaucrat const &executor) const;
 };
 
 #endif

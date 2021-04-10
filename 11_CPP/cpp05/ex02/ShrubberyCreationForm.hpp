@@ -4,7 +4,7 @@
 #include "Form.hpp"
 #include <fstream>
 
-class	ShrubberyCreationForm : virtual public Form
+class	ShrubberyCreationForm : public Form
 {
 	private:
 		ShrubberyCreationForm();
@@ -13,8 +13,6 @@ class	ShrubberyCreationForm : virtual public Form
 		ShrubberyCreationForm&	operator=(ShrubberyCreationForm const &sbcf);
 		~ShrubberyCreationForm();
 		void	action() const;
-		//void	check(Bureaucrat const &executor) const;
-		void	execute(Bureaucrat const &executor) const;
 };
 
 #endif

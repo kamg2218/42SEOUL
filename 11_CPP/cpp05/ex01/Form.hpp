@@ -11,7 +11,6 @@ class	Form
 		bool		_sign;
 		int const	_sign_grade;
 		int	const	_exec_grade;
-		std::exception	_ex;
 		Form();
 	public:
 		Form(std::string name, int sign, int exec);

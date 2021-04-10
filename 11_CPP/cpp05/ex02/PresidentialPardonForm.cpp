@@ -8,7 +8,6 @@ PresidentialPardonForm::PresidentialPardonForm()
 PresidentialPardonForm::PresidentialPardonForm(std::string const &target)
 	: Form(target, 25, 5)
 {
-	//_sign = fm->getSign();
 }
 
 PresidentialPardonForm&	PresidentialPardonForm::operator=(PresidentialPardonForm const &ppf)
@@ -24,24 +23,4 @@ PresidentialPardonForm::~PresidentialPardonForm()
 void	PresidentialPardonForm::action() const
 {
 	std::cout << _name << " has been pardoned by Zafod Beeblebrox." << std::endl;
-}
-/*
-void	PresidentialPardonForm::check(Bureaucrat const &executor) const
-{
-	if (this->_sign == false)
-		throw Form::IsNotSigned();
-	else if (executor.getGrade() > this->_exec_grade)
-		throw Form::GradeTooLowException();
-}
-*/
-void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
-{
-	try{
-		check(executor);
-		action();
-	}
-	catch (std::exception& ex){
-		std::cout << executor.getName() << " can not execute this form, ";
-		std::cout << "because " << ex.what();
-	}
 }

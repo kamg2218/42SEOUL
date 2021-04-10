@@ -12,29 +12,49 @@ int		main(void)
 		std::cout << *brc;
 		brc->increment();
 		std::cout << *brc;
+		delete brc;
 	}
 	catch (std::exception& e)
 	{
-		std::cout << "Error!!!" << std::endl;
+		std::cout << "Error : " << e.what();
 	}
-	
-	delete brc;
 	
 	try
 	{
-		brc = new Bureaucrat("first", 149);
+		brc = new Bureaucrat("second", 149);
 		std::cout << *brc;
 		brc->decrement();
 		std::cout << *brc;
 		brc->decrement();
 		std::cout << *brc;
+		delete brc;
 	}
 	catch (std::exception& e)
 	{
-		std::cout << "Error!!!" << std::endl;
+		std::cout << "Error : " << e.what();
 	}
 
-	delete brc;
+	try
+	{
+		brc = new Bureaucrat("third", -1);
+		std::cout << *brc;
+		delete brc;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Error : " << e.what();
+	}
+
+	try
+	{
+		brc = new Bureaucrat("forth", 200);
+		std::cout << *brc;
+		delete brc;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Error : " << e.what();
+	}
 
 	return 0;
 }

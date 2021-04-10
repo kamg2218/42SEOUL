@@ -29,15 +29,3 @@ void	RobotomyRequestForm::action() const
 	else
 		std::cout << "It's a failure." << std::endl;
 }
-
-void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
-{
-	try{
-		check(executor);
-		action();
-	}
-	catch (std::exception& ex){
-		std::cout << executor.getName() << " can not execute this form, ";
-		std::cout << "because " << ex.what();
-	}
-}

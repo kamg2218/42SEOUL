@@ -8,6 +8,10 @@ Bureaucrat::Bureaucrat()
 Bureaucrat::Bureaucrat(std::string name, int grade)
 	: _name(name), _grade(grade)
 {
+	if (grade < 1)
+		throw Form::GradeTooHighException();
+	else if (grade > 150)
+		throw Form::GradeTooLowException();
 }
 
 Bureaucrat&	Bureaucrat::operator=(Bureaucrat const &brc)
@@ -28,16 +32,14 @@ void			Bureaucrat::increment()
 {
 	if (_grade < 2)
 		throw Form::GradeTooHighException();
-	else
-		_grade -= 1;
+	_grade -= 1;
 }
 
 void			Bureaucrat::decrement()
 {
 	if (_grade > 149)
 		throw Form::GradeTooLowException();
-	else
-		_grade += 1;
+	_grade += 1;
 }
 
 void			Bureaucrat::signForm(Form &fm)

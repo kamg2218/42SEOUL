@@ -22,7 +22,7 @@ class	Form
 		virtual void	action() const = 0;
 		void	beSigned(Bureaucrat const &brc);
 		void	check(Bureaucrat const &executor) const;
-		virtual void	execute(Bureaucrat const &executor) const = 0;
+		void	execute(Bureaucrat const &executor) const;
 		class	GradeTooHighException : public std::exception
 		{
 			public:

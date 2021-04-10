@@ -5,19 +5,35 @@
 
 int		main(void)
 {
-	Bureaucrat	brew("brew", 7);
+	try{	
+		//Bureaucrat	brew("brew", 200);
+		//Bureaucrat	brew("brew", -1);
+		Bureaucrat	brew("brew", 3);
 
-	ShrubberyCreationForm	berry("home");
-	//brew.signForm(berry);
-	//berry.execute(brew);
-	brew.executeForm(berry);
+		ShrubberyCreationForm	berry("home");
+		brew.signForm(berry);
+		berry.execute(brew);
+		std::cout << "----------------------" << std::endl;
+		
+		ShrubberyCreationForm	burry("home");
+		brew.signForm(burry);
+		brew.executeForm(burry);
+		std::cout << "----------------------" << std::endl;
+	
+		RobotomyRequestForm robert("robert");
+		brew.signForm(robert);
+		robert.execute(brew);
+		robert.execute(brew);
+		robert.execute(brew);
+		robert.execute(brew);
+		std::cout << "----------------------" << std::endl;
 
-	RobotomyRequestForm robert("robert");
-	brew.signForm(robert);
-	robert.execute(brew);
-
-	PresidentialPardonForm	president("presi");
-	president.execute(brew);
-
+		PresidentialPardonForm	president("presi");
+		president.execute(brew);
+		std::cout << "----------------------" << std::endl;
+	}
+	catch(std::exception &e){
+		std::cout << "Error : " << e.what();
+	}
 	return 0;
 }
