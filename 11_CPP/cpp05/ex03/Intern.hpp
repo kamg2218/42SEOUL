@@ -23,9 +23,6 @@ class	Intern
 		Intern&	operator=(Intern const &it);
 		~Intern();
 		Form*	makeForm(std::string const &name, std::string const &target);
-//		Form*	createShrubberyForm(std::string const &target);
-//		Form*	createRobotomyForm(std::string const &target);
-//		Form*	createPresidentialForm(std::string const &target);
 };
 
 Form*	createShrubberyForm(std::string const &target);
