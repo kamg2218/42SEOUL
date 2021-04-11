@@ -22,6 +22,8 @@ Intern::Intern(std::string const &name)
 	_type[2].func = &createRobotomyForm;
 }
 
+Intern::Intern(Intern const &it) { *this = it; }
+
 Intern&	Intern::operator=(Intern const &it)
 {
 	this->_name = it._name;

@@ -10,6 +10,11 @@ RobotomyRequestForm::RobotomyRequestForm(std::string const &target)
 {
 }
 
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &rmrf)
+{
+	*this = rmrf;
+}
+
 RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm const &rmrf)
 {
 	this->_sign = rmrf.getSign();

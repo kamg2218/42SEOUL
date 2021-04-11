@@ -10,6 +10,8 @@ PresidentialPardonForm::PresidentialPardonForm(std::string const &target)
 {
 }
 
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &ppf) { *this = ppf; }
+
 PresidentialPardonForm&	PresidentialPardonForm::operator=(PresidentialPardonForm const &ppf)
 {
 	this->_sign = ppf._sign;

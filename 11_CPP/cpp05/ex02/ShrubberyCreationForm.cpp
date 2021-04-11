@@ -10,6 +10,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target)
 {
 }
 
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &sbcf) { *this = sbcf; }
+
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(ShrubberyCreationForm const &sbcf)
 {
 	this->_sign = sbcf._sign;

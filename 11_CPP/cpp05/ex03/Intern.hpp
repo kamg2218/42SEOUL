@@ -20,6 +20,7 @@ class	Intern
 	public:
 		Intern();
 		Intern(std::string const &name);
+		Intern(Intern const &it);
 		Intern&	operator=(Intern const &it);
 		~Intern();
 		Form*	makeForm(std::string const &name, std::string const &target);

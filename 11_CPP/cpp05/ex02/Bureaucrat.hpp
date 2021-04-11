@@ -24,6 +24,18 @@ class	Bureaucrat
 		void	decrement();
 		void	signForm(Form &fm);
 		void	executeForm(Form const &form);
+		class	GradeTooHighException : public std::exception{
+			public:
+				virtual const char* what() const throw(){
+					return "the grade is too high!\n";
+				}
+		};
+		class	GradeTooLowException : public std::exception{
+			public:
+				virtual const char* what() const throw(){
+					return "the grade is too low!\n";
+				}
+		};
 };
 
 std::ostream&	operator<<(std::ostream &os, const Bureaucrat &brc);
