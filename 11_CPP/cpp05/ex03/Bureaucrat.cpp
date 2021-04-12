@@ -14,9 +14,14 @@ Bureaucrat::Bureaucrat(std::string name, int grade)
 		throw GradeTooLowException();
 }
 
+Bureaucrat::Bureaucrat(Bureaucrat const &brc)
+	: _name(brc.getName())
+{
+	*this = brc;
+}
+
 Bureaucrat&	Bureaucrat::operator=(Bureaucrat const &brc)
 {
-	this->_name = brc._name;
 	this->_grade = brc._grade;
 	return *this;
 }

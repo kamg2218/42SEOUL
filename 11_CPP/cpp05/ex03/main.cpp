@@ -39,7 +39,7 @@ int		main(void)
 		delete fm;
 		std::cout << "----------------------" << std::endl;
 		
-		fm = randomIntern.makeForm("no one know", "creative");
+		fm = randomIntern.makeForm("no one knows", "creative");
 		delete fm;
 	}
 	catch(std::exception &e){

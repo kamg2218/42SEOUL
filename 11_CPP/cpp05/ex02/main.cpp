@@ -15,7 +15,7 @@ int		main(void)
 		berry.execute(brew);
 		std::cout << "----------------------" << std::endl;
 		
-		ShrubberyCreationForm	burry("home");
+		ShrubberyCreationForm	burry("house");
 		brew.signForm(burry);
 		brew.executeForm(burry);
 		std::cout << "----------------------" << std::endl;
@@ -29,6 +29,7 @@ int		main(void)
 		std::cout << "----------------------" << std::endl;
 
 		PresidentialPardonForm	president("presi");
+		brew.signForm(president);
 		president.execute(brew);
 		std::cout << "----------------------" << std::endl;
 	}

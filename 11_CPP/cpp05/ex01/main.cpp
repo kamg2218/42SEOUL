@@ -7,20 +7,20 @@ int		main(void)
 		Bureaucrat	brc2("ceo", 3);
 		Form		fm("form_first", 2, 5);
 
-		brc1.signForm(fm);
-		std::cout << fm.getSign() << std::endl;
-		
 		brc2.signForm(fm);
-		std::cout << fm.getSign() << std::endl;
+		std::cout << fm;
+		
+		brc1.signForm(fm);
+		std::cout << fm;
 		
 		brc2.increment();
 		brc2.signForm(fm);
-		std::cout << fm.getSign() << std::endl;
+		std::cout << fm;
 		
 		brc1.decrement();
 		brc1.decrement();
 		brc1.signForm(fm);
-		std::cout << fm.getSign() << std::endl;
+		std::cout << fm;
 	}
 	catch (std::exception &e){
 		std::cout << e.what();
@@ -31,13 +31,11 @@ int		main(void)
 		Bureaucrat	brc4("ceo", 3);
 		Form		ffm("form_first", 2, 5);
 
-		//std::cout << "sign : " << ffm.getSign() << std::endl;
-		//std::cout << "---------" << std::endl;
 		ffm.beSigned(brc3);
-		std::cout << "sign : " << ffm.getSign() << std::endl;
+		std::cout << ffm;
 		std::cout << "---------" << std::endl;
 		ffm.beSigned(brc4);
-		std::cout << "sign : " << ffm.getSign() << std::endl;
+		std::cout << ffm;
 		std::cout << "---------" << std::endl;
 	}
 	catch (std::exception &e){

@@ -8,12 +8,12 @@
 class	Bureaucrat
 {
 	private:
-		std::string	_name;
+		std::string	const _name;
 		int			_grade;
-		std::exception	_ex;
 		Bureaucrat();
 	public:
 		Bureaucrat(std::string name, int grade);
+		Bureaucrat(Bureaucrat const &brc);
 		Bureaucrat&	operator=(Bureaucrat const &brc);
 		~Bureaucrat();
 		std::string	getName() const;

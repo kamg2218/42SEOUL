@@ -14,9 +14,14 @@ Bureaucrat::Bureaucrat(std::string name, int grade)
 		throw GradeTooLowException();
 }
 
+Bureaucrat::Bureaucrat(Bureaucrat const &brc)
+	: _name(brc.getName())
+{
+	*this = brc;
+}
+
 Bureaucrat&	Bureaucrat::operator=(Bureaucrat const &brc)
 {
-	this->_name = brc._name;
 	this->_grade = brc._grade;
 	return *this;
 }
@@ -57,8 +62,7 @@ void			Bureaucrat::signForm(Form &fm)
 void	Bureaucrat::executeForm(Form const &form)
 {
 	try{
-		form.check(*this);
-		form.action();
+		form.execute(*this);
 		std::cout << this->_name << " executes " << form.getName() << std::endl;
 	}
 	catch (std::exception& ex){
