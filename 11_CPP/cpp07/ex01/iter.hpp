@@ -9,12 +9,10 @@ void	print(T a)
 }
 
 template<typename T>
-void	iter(T *array, unsigned int size, T *func)
+void	iter(T *array, unsigned int size, void (*func)(T))
 {
 	for (unsigned int i = 0; i < size; i++)
-	{
 		func(array[i]);
-	}
 }
 
 #endif
