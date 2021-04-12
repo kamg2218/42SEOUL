@@ -43,7 +43,8 @@ int			main(int argc, char* argv[])
 
 		std::cout << "float: ";
 		f = ctf.change(argv[1]);
-		std::cout << f << std::endl;
+		std::cout.precision(1);
+		std::cout << std::fixed << f << "f" << std::endl;
 	}
 	catch (std::exception &ex){
 		std::cout << ex.what();
@@ -51,7 +52,6 @@ int			main(int argc, char* argv[])
 
 	try{
 		double d;
-
 		std::cout << "double: ";
 		d = ctd.change(argv[1]);
 		std::cout << d << std::endl;

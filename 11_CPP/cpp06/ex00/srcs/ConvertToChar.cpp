@@ -29,15 +29,15 @@ char	ConvertToChar::change(char* str)
 	result = std::strtod(str, &end);
 	if (result != result)
 		throw Nan();
-	else if (end)
+	else if (result == 0 && strlen(str) == 1 && str[0] != '0')
+		result = static_cast<double>(str[0]);
+	else if (*end == 'f' && *(end + 1) == '\0')
+		end = end + 1;
+	else if (*end != '\0')
 		throw Impossible();
-	else if (result == 0 && strlen(str) == 1)
-	{
-		int		ch = static_cast<int>(str[0]);
-		if (ch > 31 && ch < 127)
-			result = static_cast<double>(ch);
-	}	
-	if (result <= 31 || result >= 127)
+	if (result >= 0 && result <= 31)
 		throw NonDisplayable();
+	else if (result < 0 || result > 127)
+		throw Impossible();
 	return static_cast<char>(result);
 }

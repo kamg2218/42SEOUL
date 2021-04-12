@@ -36,7 +36,7 @@ void*	Serialize::serialize()
 	}
 	//std::cout << std::endl;
 	int*	num = reinterpret_cast<int*>(data + 8);
-	*num = rand() % 100000;
+	*num = rand();
 	//std::cout << "num : " << *num << std::endl;
 	//std::cout << "s2 = ";
 	for (int i = 12; i < 20; i++)
