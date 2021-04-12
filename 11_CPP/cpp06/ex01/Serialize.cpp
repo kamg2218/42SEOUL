@@ -24,36 +24,39 @@ Serialize::~Serialize()
 
 void*	Serialize::serialize()
 {
-	Data* data = new Data;
+	char*	data = new char[20];
 	std::string	letter = num + alpha;
 
 	srand(clock());
-	data->s1.clear();
+	//std::cout << "s1 = ";
 	for (int i = 0; i < 8; i++)
-		data->s1 += letter[rand() % letter.size()];
-	data->n = rand() % 100000;
-	data->s2.clear();
-	for (int i = 0; i < 8; i++)
-		data->s2 += letter[rand() % letter.size()];
-	return static_cast<void*>(data);
+	{
+		data[i] += letter[rand() % letter.size()];
+		//std::cout << data[i];
+	}
+	//std::cout << std::endl;
+	int*	num = reinterpret_cast<int*>(data + 8);
+	*num = rand() % 100000;
+	//std::cout << "num : " << *num << std::endl;
+	//std::cout << "s2 = ";
+	for (int i = 12; i < 20; i++)
+	{
+		data[i] += letter[rand() % letter.size()];
+		//std::cout << data[i];
+	}
+	//std::cout << std::endl;
+	return reinterpret_cast<void*>(data);
 }
 
 Data*	Serialize::deserialize(void* raw)
 {
+	char*	ptr;
 	Data* data = new Data;
 
-	data->s1 = std::string(static_cast<char*>(raw), 9);
-	data->n = *(static_cast<int*>(raw) + 24);
-	data->s2 = std::string(static_cast<char*>(raw) + 32, 9);
-	
-	std::cout << data << std::endl;
-	std::cout << &data->s1 << std::endl;
-	std::cout << &data->n << std::endl;
-	std::cout << &data->s2 << std::endl;
-	std::cout << sizeof(char) << std::endl;
-	std::cout << sizeof(int) << std::endl;
-	std::cout << sizeof(*data) << std::endl;
-	std::cout << sizeof(std::string) << std::endl;
+	data->s1 = std::string(reinterpret_cast<char*>(raw), 8);
+	ptr = reinterpret_cast<char*>(raw) + 8;
+	data->n = *(reinterpret_cast<int*>(ptr));
+	data->s2 = std::string(static_cast<char*>(raw) + 12, 8);
 	
 	return data;
 }

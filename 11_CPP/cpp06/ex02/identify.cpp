@@ -14,9 +14,6 @@ Base*	generate()
 	function	func[3] = {getA, getB, getC};
 	
 	srand(clock());
-	//int n = rand() % 3;
-	//std::cout << "num is " << n << std::endl;
-	//base = func[n]();
 	base = func[rand() % 3]();
 	return base;
 }
