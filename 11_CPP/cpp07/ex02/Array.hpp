@@ -13,18 +13,27 @@ class	Array
 		Array() : _n(0), _array(0) { _array = new T(); }
 		Array(unsigned int n) : _n(n), _array(0)
 		{
-			_array = new T[n];
-			for (unsigned int i = 0; i < n; i++)
-				_array[i] = 0;
+			_array = new T[n]();
+			//for (unsigned int i = 0; i < n; i++)
+			//	_array[i] = 0;
 		}
 		Array(Array const &array) { *this = array; }
 		Array&	operator=(Array const &array)
 		{
 			_n = array._n;
-			_array = array._array;
+			delete[] _array;
+			_array = new T[_n];
+			for (unsigned int i = 0; i < _n; i++)
+				_array[i] = array._array[i];
 			return *this;
 		}
-		T*	operator[](unsigned int num)
+		T&	operator[](unsigned int num)
+		{
+			if (num >= _n || num < 0)
+				throw OutOfTheLimits();
+			return _array[num];
+		}
+		const T&	operator[](unsigned int num) const
 		{
 			if (num >= _n || num < 0)
 				throw OutOfTheLimits();
@@ -34,19 +43,13 @@ class	Array
 		{
 			void*	tmp;
 			
-			if (num < 0)
-				throw OutOfTheLimits();
+			//if (num < 0)
+			//	throw OutOfTheLimits();
 			tmp = new T[num];
 			return tmp;
 		}
 		~Array() { delete[] _array; }
 		unsigned int	size() const { return _n; }
-		T&				getNum(unsigned int num)
-		{
-			if (num >= _n)
-				throw OutOfTheLimits();
-			return _array[num];
-		}
 		class	OutOfTheLimits : public std::exception {
 			public:
 				virtual const char*	what() const throw(){

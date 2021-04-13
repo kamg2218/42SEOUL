@@ -27,4 +27,25 @@ T		max(T a, T b)
 	return b;
 }
 
+class	Awesome{
+	private:
+		int	_n;
+	public:
+		Awesome() : _n(0) {}
+		Awesome(int n) : _n(n) {}
+		bool operator==(Awesome const &rhs) { return (this->_n == rhs._n); }
+		bool operator!=(Awesome const &rhs) { return (this->_n != rhs._n); }
+		bool operator>(Awesome const &rhs) { return (this->_n > rhs._n); }
+		bool operator<(Awesome const &rhs) { return (this->_n < rhs._n); }
+		bool operator>=(Awesome const &rhs) { return (this->_n >= rhs._n); }
+		bool operator<=(Awesome const &rhs) { return (this->_n <= rhs._n); }
+		int	getNum() const { return _n; }
+};
+
+std::ostream&	operator<<(std::ostream &os, Awesome const &rhs)
+{
+	os << rhs.getNum();
+	return os;
+}
+
 #endif
