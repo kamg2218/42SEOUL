@@ -1,5 +1,4 @@
 #include "Mutantstack.hpp"
-#include <algorithm>
 
 int			main(void)
 {
@@ -12,13 +11,17 @@ int			main(void)
 	Mutantstack<int>::iterator it1 = mts.begin(); 
 	std::cout << *it1 << std::endl;
 	std::cout << *(it1 + 1) << std::endl;
-	std::cout << "\n-------------------\n";
+	std::cout << "-------------------\n";
+	Mutantstack<int>::reverse_iterator it2 = mts.rbegin(); 
+	std::cout << *it2 << std::endl;
+	std::cout << *(it2 + 1) << std::endl;
+	std::cout << "-------------------\n";
 	std::cout << mts.size() << std::endl;
 	std::cout << mts.top() << std::endl;
 	mts.pop();
 	if (!mts.empty())
 		std::cout << mts.top() << std::endl;
-	std::cout << "\n-------------------\n";
+	std::cout << "-------------------\n";
 
 	Mutantstack<int>	nmts;
 
