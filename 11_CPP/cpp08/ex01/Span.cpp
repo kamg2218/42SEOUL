@@ -11,6 +11,8 @@ Span::Span(Span const &sp)
 
 Span&	Span::operator=(Span const &sp)
 {
+	if (this == &sp)
+		return *this;
 	this->_size = sp._size;
 	for (unsigned int i = 0; i < _size; i++)
 		this->_v.push_back(sp._v[i]);
