@@ -2,14 +2,12 @@
 # define MUTANTSTACK_HPP
 
 #include <iostream>
+#include <algorithm>
 #include <stack>
-#include <iterator>
 
 template<typename T>
-class	Mutantstack : public stack<T>
+class	Mutantstack : public std::stack<T>
 {
-	private:
-		std::stack<T>	_stk;
 	public:
 		Mutantstack() {}
 		Mutantstack(Mutantstack const &mts) { *this = mts; }
@@ -17,25 +15,22 @@ class	Mutantstack : public stack<T>
 		{
 			if (this == &mts)
 				return *this;
-			std::copy(mts.begin(), mts.end(), this->_stk);
+			this->c = mts.c;
 			return *this;
 		}
-		~Mutantstack() {} 
-};
-
-template<typename T>
-class	Iterator : public std::iterator<std::bidirectional_iterator_tag, T>
-{
-	private:
-		T*	p;
-	public:
-		Iterator(T* x) : p(x) {}
-		Iterator(const Iterator& it) : p(it.p) {}
-		Iterator&	operator++() { ++p; return *this;}
-		Iterator	operator++(T) {Iterator tmp(*this); operator++(); return tmp;}
-		bool operator==(const Iterator& it) const { return p==it.p; }
-		bool operator!=(const Iterator& it) const { return p!=it.p; }
-		int& operator*() { return *p; }
+		~Mutantstack() {}
+		typedef typename std::stack<T>::container_type::iterator iterator;
+		typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+		typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+		typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+		iterator	begin() { return this->c.begin();}
+		const_iterator	begin() const { return this->c.begin();}
+		iterator	end() { return this->c.end();}
+		const_iterator	end() const { return this->c.end();}
+		reverse_iterator	rbegin() { return this->c.rbegin();}
+		const_reverse_iterator	rbegin() const { return this->c.rbegin();}
+		reverse_iterator	rend() { return this->c.rend();}
+		const_reverse_iterator	rend() const { return this->c.rend();}
 };
 
 #endif
