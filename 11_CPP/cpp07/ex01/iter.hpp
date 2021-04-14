@@ -15,6 +15,7 @@ void	iter(T *array, unsigned int size, void (*func)(T))
 		func(array[i]);
 }
 
+/*
 class Awesome
 {
 	private:
@@ -29,5 +30,5 @@ std::ostream&	operator<<(std::ostream& os, Awesome const &rhs)
 	os << rhs.get();
 	return os;
 }
-
+*/
 #endif

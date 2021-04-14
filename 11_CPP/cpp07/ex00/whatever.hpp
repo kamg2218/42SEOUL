@@ -27,6 +27,7 @@ T		max(T a, T b)
 	return b;
 }
 
+/*
 class	Awesome{
 	private:
 		int	_n;
@@ -47,5 +48,5 @@ std::ostream&	operator<<(std::ostream &os, Awesome const &rhs)
 	os << rhs.getNum();
 	return os;
 }
-
+*/
 #endif

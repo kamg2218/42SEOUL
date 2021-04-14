@@ -14,8 +14,6 @@ class	Array
 		Array(unsigned int n) : _n(n), _array(0)
 		{
 			_array = new T[n]();
-			//for (unsigned int i = 0; i < n; i++)
-			//	_array[i] = 0;
 		}
 		Array(Array const &array) { *this = array; }
 		Array&	operator=(Array const &array)
@@ -43,8 +41,6 @@ class	Array
 		{
 			void*	tmp;
 			
-			//if (num < 0)
-			//	throw OutOfTheLimits();
 			tmp = new T[num];
 			return tmp;
 		}
