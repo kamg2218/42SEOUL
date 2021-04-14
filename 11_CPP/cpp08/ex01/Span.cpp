@@ -26,32 +26,33 @@ void	Span::addNumber(unsigned int num)
 	_v.push_back(num);
 }
 
+unsigned int	Span::size() { return _v.size(); }
+
 unsigned int	Span::shortestSpan()
 {
 	unsigned int	min;
+	std::vector<unsigned int>	tmp = _v;
 
-	if (_v.size() == 0)
-		return 0;
-	min = this->_v[0];
-	for (unsigned int i = 1; i < _v.size(); i++){
-		if (min > _v[i])
-			min = _v[i];
+	if (_v.size() <= 1)
+		throw NoSpanToFind();
+	sort(tmp.begin(), tmp.end());
+	min = tmp[1] - tmp[0];
+	for (unsigned int i = 0; i < tmp.size() - 1; i++)
+	{
+		if (min > tmp[i + 1] - tmp[i])
+			min = tmp[i + 1] - tmp[i];
 	}
 	return min;
 }
 
 unsigned int	Span::longestSpan()
 {
-	unsigned int	max;
+	std::vector<unsigned int>	tmp = _v;
 
-	if (_v.size() == 0)
-		return 0;
-	max = this->_v[0];
-	for (unsigned int i = 1; i < _v.size(); i++){
-		if (max < _v[i])
-			max = _v[i];
-	}
-	return max;
+	if (_v.size() <= 1)
+		throw NoSpanToFind();
+	sort(tmp.begin(), tmp.end());
+	return (tmp.back() - tmp.front());
 }
 
 const char*	Span::NoMoreSpace::what() const throw()
@@ -62,4 +63,9 @@ const char*	Span::NoMoreSpace::what() const throw()
 const char*	Span::NoExist::what() const throw()
 {
 	return "No Exist\n";
+}
+
+const char*	Span::NoSpanToFind::what() const throw()
+{
+	return "No Span To Find\n";
 }
