@@ -7,9 +7,10 @@ namespace ft
 {
 	template <class T, class Allocator = std::allocator<T>>
 	class	list {
-		//typedef using value_type = T;
-		using allocator_type	= Allocator;
-		using size_type			= size_t;
+		typedef value_type 			= T;
+		typedef allocator_type		= allocator;
+		typedef size_type			= size_t;
+		typedef difference_type		= ptrdiff_t;
 	};
 
 	class	vector {
