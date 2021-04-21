@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <typeinfo>
+#include <list>
 
 namespace ft
 {
@@ -29,23 +30,27 @@ namespace ft
 		list() : size(0) { head = al.allocate(0); }
 		list(const list& other) { *this = other; }
 		list&	operator=(list const &lst) {
-			//if (size > 0)
-			//	al.deallocate(head, head[0]);
 			size = lst.size;
 			head = al.allocate(size);
 			for (size_type i = 0; i < size; i++)
 				head[i] = lst.head[i];
 			return *this;
 		}
-		explicit list(const Allocator& alloc) : size(0) { head = const_cast<Allocator&>(alloc).allocate(0); }
+		explicit list(const Allocator& alloc) : size(0) { 
+			al = alloc;
+			head = al.allocate(0);
+		}
 		explicit list(size_type count, const T& value = T(), const Allocator& alloc = Allocator()) : size(count) {
-			head = alloc.allocate(count);
+			al = alloc;
+			head = al.allocate(count);
 			for (size_type i = 0; i < count; i++)
 				head[i] = value;
 		}
 		template<class InputIt> list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) {
 			size = last - first;
-			head = const_cast<Allocator&>(alloc).allocate(size);
+			//head = const_cast<Allocator&>(alloc).allocate(size);
+			al = alloc;
+			head = al.allocate(size);
 			for (InputIt i = first; i != last; i++)
 				head[i - first] = *i;
 		}
@@ -60,31 +65,35 @@ namespace ft
 		}
 		template<class InputIt>
 		void	assign(InputIt first, InputIt last){
-			std::cout << sizeof(first) << ", " << sizeof(int) << std::endl;
+			std::cout << "< last all >\n";
+			size = last - first;
 			al.deallocate(head, head[0]);
-			//size = last - first;
+			//head = const_cast<Allocator&>(al).allocate(size);
+			head = al.allocate(size);
+			for (size_type i = 0; i < size; i++)
+				head[i] = first++;
+		}
+		template<>
+		void	assign(typename std::list<T>::iterator first, typename std::list<T>::iterator last){
+			std::cout << "< iterator >" << std::endl;
 			size = 0;
-			for (InputIt i = first; i != last; i++)
+			for (typename std::list<T>::iterator i = first; i != last; i++)
 				size++;
-			head = const_cast<Allocator&>(al).allocate(size);
-			std::cout << "typeid = " << typeid(first).name() << std::endl;
-			if (typeid(size_type).name() == typeid(InputIt).name())
-				std::cout << "size_type = " << typeid(size_type).name() << "\n";
-			if (typeid(value_type).name() == typeid(InputIt).name())
-				std::cout << "value_type = " << typeid(value_type).name() << "\n";
-			else
-				std::cout << "else = " << typeid(InputIt).name() << "\n";
-	
-			if (typeid(value_type).name() == typeid(InputIt).name()){
-				std::cout << "same\n";
-			}
-			else{
-				std::cout << "different\n";
-				T*	tmp = head;
-				for (InputIt i = first; i != last; i++, tmp++)
-					*tmp = *i;
-			}
-		
+			al.deallocate(head, head[0]);
+			//head = const_cast<Allocator&>(al).allocate(size);
+			head = al.allocate(size);
+			for (size_type i = 0; i < size; i++, first++)
+				head[i] = *first;
+		}
+		template<>
+		void	assign(T* first, T* last){
+			std::cout << "< pointer >\n";
+			size = last - first;
+			al.deallocate(head, head[0]);
+			//head = const_cast<Allocator&>(al).allocate(size);
+			head = al.allocate(size);
+			for (size_type i = 0; i < size; i++, first++)
+				head[i] = *first;
 		}
 		//allocator_type	get_allocator() const {}
 	};
