@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+#include <typeinfo>
 
 namespace ft
 {
@@ -34,7 +35,6 @@ namespace ft
 			head = al.allocate(size);
 			for (size_type i = 0; i < size; i++)
 				head[i] = lst.head[i];
-				//al.construct(head[i], lst.head[i]);
 			return *this;
 		}
 		explicit list(const Allocator& alloc) : size(0) { head = const_cast<Allocator&>(alloc).allocate(0); }
@@ -42,28 +42,52 @@ namespace ft
 			head = alloc.allocate(count);
 			for (size_type i = 0; i < count; i++)
 				head[i] = value;
-				//alloc.construct(head[i], value);
 		}
 		template<class InputIt> list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) {
-			size = (last - first) / sizeof(InputIt);
-			head = alloc.allocate(size);
-			for (value_type i = 0; i < size; i++)
-				head[i] = first[i];
-				//alloc.construct(head[i], first[i]);
+			size = last - first;
+			head = const_cast<Allocator&>(alloc).allocate(size);
+			for (InputIt i = first; i != last; i++)
+				head[i - first] = *i;
 		}
-
 		~list() { std::cout << "destructor\n";
 			al.deallocate(head, head[0]);}
-		//void	assign(size_type count, const T& value) {}
+		void	assign(size_type count, const T& value){
+			size = count;
+			al.deallocate(head, head[0]);
+			head = al.allocate(count);
+			for (size_type i = 0; i < count; i++)
+				head[i] = value;
+		}
+		template<class InputIt>
+		void	assign(InputIt first, InputIt last){
+			std::cout << sizeof(first) << ", " << sizeof(int) << std::endl;
+			al.deallocate(head, head[0]);
+			//size = last - first;
+			size = 0;
+			for (InputIt i = first; i != last; i++)
+				size++;
+			head = const_cast<Allocator&>(al).allocate(size);
+			std::cout << "typeid = " << typeid(first).name() << std::endl;
+			if (typeid(size_type).name() == typeid(InputIt).name())
+				std::cout << "size_type = " << typeid(size_type).name() << "\n";
+			if (typeid(value_type).name() == typeid(InputIt).name())
+				std::cout << "value_type = " << typeid(value_type).name() << "\n";
+			else
+				std::cout << "else = " << typeid(InputIt).name() << "\n";
+	
+			if (typeid(value_type).name() == typeid(InputIt).name()){
+				std::cout << "same\n";
+			}
+			else{
+				std::cout << "different\n";
+				T*	tmp = head;
+				for (InputIt i = first; i != last; i++, tmp++)
+					*tmp = *i;
+			}
+		
+		}
 		//allocator_type	get_allocator() const {}
 	};
-
-	/*
-	class	vector
-	class	map
-	class	stack
-	class	queue
-	*/
 }
 
 #endif
