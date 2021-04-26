@@ -1,13 +1,15 @@
 #include "ft.hpp"
+/*
+template<class T, class Allocator>
+ft::list<T, Allocator>::list() : size(0){
+	head = al.allocate(0);
+}
 
-template <class T, class Allocator>
-ft::list<T, Allocator>::list() : size(0) { head = al.allocate(0); }
-
-template <class T, class Allocator>
+template<class T, class Allocator>
 ft::list<T, Allocator>::list(const list& other) { *this = other; }
 
-template <class T, class Allocator>
-ft::list<T, Allocator>&	ft::list<T, Allocator>::operator=(list const &lst) {
+template<class T, class Allocator>
+ft::list<T, Allocator>&	ft::list<T, Allocator>::operator=(list<T, Allocator> const &lst) {
 	size = lst.size;
 	head = al.allocate(size);
 	for (size_type i = 0; i < size; i++)
@@ -15,13 +17,13 @@ ft::list<T, Allocator>&	ft::list<T, Allocator>::operator=(list const &lst) {
 	return *this;
 }
 
-template <class T, class Allocator>
+template<class T, class Allocator>
 ft::list<T, Allocator>::list(const Allocator& alloc) : size(0) { 
 	al = alloc;
 	head = al.allocate(0);
 }
 
-template <class T, class Allocator>
+template<class T, class Allocator>
 ft::list<T, Allocator>::list(size_type count, const T& value, const Allocator& alloc) : size(count) {
 	al = alloc;
 	head = al.allocate(count);
@@ -54,7 +56,7 @@ void	ft::list<T, Allocator>::assign(size_type count, const T& value){
 		head[i] = value;
 }
 
-template <class T, class Allocator>
+template<class T, class Allocator>
 template<class InputIt>
 void	ft::list<T, Allocator>::assign(InputIt first, InputIt last){
 	std::cout << "< last all >\n";
@@ -64,11 +66,9 @@ void	ft::list<T, Allocator>::assign(InputIt first, InputIt last){
 	for (size_type i = 0; i < size; i++)
 		head[i] = first++;
 }
-/*
-template <class T, class Allocator>
-//template<class InputIt>
-template<>
-void	ft::list<T, Allocator>::assign(typename std::list<T>::iterator first, typename std::list<T>::iterator last){
+
+template<class T, class Allocator>
+void	ft::list<T, Allocator>::assign<std::list<T>::iterator>(typename std::list<T>::iterator first, typename std::list<T>::iterator last){
 	std::cout << "< iterator >" << std::endl;
 	size = 0;
 	for (typename std::list<T>::iterator i = first; i != last; i++)
@@ -79,10 +79,8 @@ void	ft::list<T, Allocator>::assign(typename std::list<T>::iterator first, typen
 		head[i] = *first;
 }
 
-template <class T, class Allocator>
-//template<class InputIt>
-template<>
-void	ft::list<T, Allocator>::assign(T* first, T* last){
+template<class T, class Allocator>
+void	ft::list<T, Allocator>::assign<T*>(T* first, T* last){
 	std::cout << "< pointer >\n";
 	size = last - first;
 	al.deallocate(head, head[0]);

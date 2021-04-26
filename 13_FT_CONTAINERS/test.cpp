@@ -28,26 +28,28 @@ int			main(void)
 	int		num = 5;
 	size_t	size = 3;
 	lst6.assign(size, num);
-	for (int i = 0; i < lst6.size; i++)
+	for (int i = 0; i < lst6.size(); i++)
 		std::cout << lst6.head[i];
 	std::cout << std::endl;
 	
 	std::cout << "3, 4\n";
 	lst6.assign(3, 4);
-	for (int i = 0; i < lst6.size; i++)
+	for (int i = 0; i < lst6.size(); i++)
 		std::cout << lst6.head[i];
 	std::cout << std::endl;
 	
 	std::cout << "num, num\n";
 	lst6.assign(num, num);
-	for (int i = 0; i < lst6.size; i++)
+	for (int i = 0; i < lst6.size(); i++)
 		std::cout << lst6.head[i];
 	std::cout << std::endl;
 
 	std::cout << "arr pointer\n";
 	lst6.assign(arr, arr + 5);
-	for (int i = 0; i < lst6.size; i++)
+	for (int i = 0; i < lst6.size(); i++)
 		std::cout << lst6.head[i];
+	std::cout << lst6.front();
+	std::cout << lst6.back();
 	std::cout << std::endl;
 	
 	std::cout << "lst iterator\n";
@@ -58,8 +60,12 @@ int			main(void)
 	lst.push_back(4);
 	ft::list<int>	lst7;
 	lst7.assign(lst.begin(), lst.end());
-	for (int i = 0; i < lst7.size; i++)
+	for (int i = 0; i < lst7.size(); i++)
 		std::cout << lst7.head[i];
+	std::cout << lst7.front();
+	std::cout << lst7.back();
 	std::cout << std::endl;
+
+	std::cout << lst7.max_size();
 	return 0;
 }
