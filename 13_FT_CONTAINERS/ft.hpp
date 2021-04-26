@@ -46,7 +46,8 @@ namespace ft
 			for (size_type i = 0; i < count; i++)
 				head[i] = value;
 		}*/
-		template<class InputIt> list(InputIt first, InputIt last, const Allocator& alloc = Allocator()); /* {
+		template<class InputIt>
+		list(InputIt first, InputIt last, const Allocator& alloc = Allocator()); /* {
 			size = last - first;
 			//head = const_cast<Allocator&>(alloc).allocate(size);
 			al = alloc;
@@ -74,7 +75,7 @@ namespace ft
 				head[i] = first++;
 		}*/
 		template<>
-		void	assign(typename std::list<T>::iterator first, typename std::list<T>::iterator last); /*{
+		void	assign(typename std::list<T>::iterator first, typename std::list<T>::iterator last) {
 			std::cout << "< iterator >" << std::endl;
 			size = 0;
 			for (typename std::list<T>::iterator i = first; i != last; i++)
@@ -84,9 +85,9 @@ namespace ft
 			head = al.allocate(size);
 			for (size_type i = 0; i < size; i++, first++)
 				head[i] = *first;
-		}*/
+		}
 		template<>
-		void	assign(T* first, T* last); /*{
+		void	assign(T* first, T* last){
 			std::cout << "< pointer >\n";
 			size = last - first;
 			al.deallocate(head, head[0]);
@@ -94,7 +95,7 @@ namespace ft
 			head = al.allocate(size);
 			for (size_type i = 0; i < size; i++, first++)
 				head[i] = *first;
-		}*/
+		}
 		//allocator_type	get_allocator() const {}
 	};
 }
