@@ -31,7 +31,7 @@ void*	Serialize::serialize()
 	//std::cout << "s1 = ";
 	for (int i = 0; i < 8; i++)
 	{
-		data[i] += letter[rand() % letter.size()];
+		data[i] = letter[rand() % letter.size()];
 		//std::cout << data[i];
 	}
 	//std::cout << std::endl;
@@ -41,7 +41,7 @@ void*	Serialize::serialize()
 	//std::cout << "s2 = ";
 	for (int i = 12; i < 20; i++)
 	{
-		data[i] += letter[rand() % letter.size()];
+		data[i] = letter[rand() % letter.size()];
 		//std::cout << data[i];
 	}
 	//std::cout << std::endl;
