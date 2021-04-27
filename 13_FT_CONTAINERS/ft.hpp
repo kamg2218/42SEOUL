@@ -7,11 +7,12 @@
 #include <list>
 #include <iterator>
 #include <limits>
+#include "iterator.hpp"
 
 namespace ft
 {
 	template <class T, class Allocator = std::allocator<T> >
-	class	list {
+	class	list : public Iterator<T>{
 	public:
 		Allocator							al;
 		T*									head;
@@ -24,8 +25,8 @@ namespace ft
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
-		//typedef bidirectionalIterator		iterator;
-		//typedef bidirectionalIterator		const_iterator;
+		typedef Iterator<T>					iterator;
+		typedef const iterator				const_iterator;
 		//typedef bidirectionalIterator		reverse_iterator;
 		//typedef bidirectionalIterator		const_reverse_iterator;
 		//constructor
@@ -97,6 +98,13 @@ namespace ft
 		allocator_type	get_allocator() const{
 			return this->al;
 		}
+
+		//iterator
+		iterator			begin() { return iterator(&head[0]); }
+		const_iterator		begin() const { return iterator(&head[0]); }
+		iterator			end() { return iterator(&head[sz - 1]); }
+		const_iterator		end() const { return iterator(&head[sz - 1]); }
+
 		//access
 		reference	front() { return head[0]; } //return *(begin());
 		const_reference	front() const { return head[0]; }
