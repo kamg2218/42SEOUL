@@ -32,8 +32,25 @@ class	Iterator : public std::iterator<Category, T> {
 			this->ptr -= 1;
 			return *this;
 		}
-		T&		operator*() const { return *ptr; }
-		T&		operator->() const { return *ptr; }
+		reference	operator*() const { return *ptr; }
+		reference	operator->() const { return *ptr; }
+		pointer		getPtr() const { return ptr; }
 };
+
+template<class T>
+bool	operator==(Iterator<T> const &a, Iterator<T> const &b){
+	if (a.getPtr() == b.getPtr())
+		return true;
+	else
+		return false;
+}
+
+template<class T>
+bool	operator!=(Iterator<T> const &a, Iterator<T> const &b){
+	if (a.getPtr() != b.getPtr())
+		return true;
+	else
+		return false;
+}
 
 #endif

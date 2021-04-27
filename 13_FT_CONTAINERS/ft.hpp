@@ -8,6 +8,7 @@
 #include <iterator>
 #include <limits>
 #include "iterator.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -27,8 +28,8 @@ namespace ft
 		typedef typename Allocator::const_reference	const_reference;
 		typedef Iterator<T>					iterator;
 		typedef const iterator				const_iterator;
-		//typedef bidirectionalIterator		reverse_iterator;
-		//typedef bidirectionalIterator		const_reverse_iterator;
+		typedef ReverseIterator<T>			reverse_iterator;
+		typedef const reverse_iterator		const_reverse_iterator;
 		//constructor
 		list() : sz(0) { head = al.allocate(0); }
 		list(const list& other) { *this = other; }
@@ -101,17 +102,23 @@ namespace ft
 
 		//iterator
 		iterator			begin() { return iterator(&head[0]); }
-		const_iterator		begin() const { return iterator(&head[0]); }
-		iterator			end() { return iterator(&head[sz - 1]); }
-		const_iterator		end() const { return iterator(&head[sz - 1]); }
+		const_iterator		begin() const { return const_iterator(&head[0]); }
+		iterator			end() { return iterator(&head[sz]); }
+		const_iterator		end() const { return const_iterator(&head[sz]); }
+		reverse_iterator		rbegin() { return reverse_iterator(&head[sz]); }
+		const_reverse_iterator	rbegin() const { return const_reverse_iterator(&head[sz]); }
+		reverse_iterator		rend() { return reverse_iterator(&head[0]); }
+		const_reverse_iterator	rend() const { return const_reverse_iterator(&head[0]); }
+		
 
 		//access
-		reference	front() { return head[0]; } //return *(begin());
-		const_reference	front() const { return head[0]; }
-		reference	back() { return head[sz - 1]; } //return *(end());
-		const_reference	back() const { return head[sz - 1]; }
+		reference	front() { return *(begin()); } //return head[0];
+		const_reference	front() const { return *(begin()); }//head[0]; }
+		reference	back() { return *(end()); } //head[sz - 1]; }
+		const_reference	back() const { return *(end()); } //head[sz - 1]; }
 		//capacity
-		bool		empty() const { if (this->sz) return true; else return false; }
+		bool		empty() const { if (begin() == end()) return true; else return false;}
+			//if (this->sz) return true; else return false; }
 		size_type	size() const { return this->sz; } //return std::distance(begin(), end());
 		size_type	max_size() const { return std::numeric_limits<difference_type>::max(); }
 	};
