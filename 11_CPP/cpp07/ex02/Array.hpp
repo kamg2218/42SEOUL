@@ -18,6 +18,8 @@ class	Array
 		Array(Array const &array) { *this = array; }
 		Array&	operator=(Array const &array)
 		{
+			if (this == &array)
+				return *this;
 			_n = array._n;
 			delete[] _array;
 			_array = new T[_n];
