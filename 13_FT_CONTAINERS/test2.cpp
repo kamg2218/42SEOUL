@@ -45,9 +45,24 @@ int			main(void)
 	lst.push_back(1);
 	lst.push_back(2);
 	lst.push_back(3);
-	lst.push_back(4);
-	std::list<int>	lst7;
-	lst7.assign(lst.begin(), lst.end());
-	std::cout << std::endl;
+	lst.push_back(10);
+	std::cout << "begin = " << &(*lst.begin()) << ", " << *lst.begin() << std::endl;
+	std::cout << "end = " << &(*lst.end()) << ", " << *lst.end() << std::endl;
+	lst.insert(lst.begin(), 3);
+	std::cout << "begin = " << &(*lst.begin()) << ", " << *lst.begin() << std::endl;
+	std::cout << "end = " << &(*lst.end()) << ", " << *lst.end() << std::endl;
+	std::cout << "rbegin = " << &(*lst.rbegin()) << ", " << *lst.rbegin() << std::endl;
+	std::cout << "rend = " << &(*lst.rend()) << ", " << *lst.rend() << std::endl;
+	
+	lst.insert(lst.begin(), 42);
+	lst.insert(lst.begin(), 42);
+	std::cout << "begin = " << &(*lst.begin()) << ", " << *lst.begin() << std::endl;
+	std::cout << "end = " << &(*lst.end()) << ", " << *lst.end() << std::endl;
+	while (!lst.empty()){
+		std::cout << "lst = " << &(*lst.begin()) << ", " << *lst.begin() << std::endl;
+		lst.pop_front();
+	}
+	std::cout << "lst = " << &(*lst.begin()) << ", " << *lst.begin() << std::endl;
+	
 	return 0;
 }
