@@ -24,20 +24,11 @@ int		main()
 	//std::cout << lst.end();
 
 	std::list<int>::iterator	itr = vt.begin();
-	std::cout << "itr = " << *itr << std::endl;
 	std::cout << "*begin = " << *(vt.begin()) << std::endl;
-
-	//std::cout << "begin = " << lst.begin() << std::endl;
+	
 	std::cout << "*begin = " << *(lst.begin()) << std::endl;
 
 	it = lst.begin();
-	int num[5] = {1, 2, 3, 4, 5};
-	//std::list<int>::iterator	it;
-
-	//it = &num[0];
-
-	//it++;
-	//++it;
 
 	std::cout << *it;
 	
@@ -45,28 +36,30 @@ int		main()
 		std::cout << "Same\n";
 
 	std::list<int>::reverse_iterator	r_it = vt.rbegin();
-	for (int i = 0; i < vt.size(); i++){
+	for (size_t i = 0; i < vt.size(); i++){
 		std::cout << *r_it << " -> " << &(*r_it) << std::endl;
 		++r_it;
 	}
 	std::cout << std::endl;
 
 	std::list<int>::iterator	c_it = vt.begin();
-	for (int i = 0; i < vt.size(); i++) {
+	for (size_t i = 0; i < vt.size(); i++) {
 		std::cout << *c_it << " -> " << &(*c_it) << std::endl;
 		++c_it;
 	}
 	std::cout << std::endl;
-	
+
 	ft::list<int>::reverse_iterator fr_it = lst.rbegin();
-	for (int i = 0; i < lst.size(); i++){
+	std::cout << "rend = " << &(*lst.rend()) << std::endl;
+	for (size_t i = 0; i < lst.size(); i++){
 		std::cout << *fr_it << " -> " << &(*fr_it) << std::endl;
 		++fr_it;
 	}
 	std::cout << std::endl;
 
 	ft::list<int>::iterator	fc_it = lst.begin();
-	for (int i = 0; i < lst.size(); i++) {
+	std::cout << "front = " << lst.front() << "back = " << lst.back() << std::endl;
+	for (size_t i = 0; i < lst.size(); i++) {
 		std::cout << *fc_it << " -> " << &(*fc_it) << std::endl;
 		++fc_it;
 	}
@@ -76,6 +69,14 @@ int		main()
 		std::cout << "lst is empty\n";
 	else
 		std::cout << "lst is not empty\n";
+	
+	lst.clear();
+	
+	if (lst.empty())
+		std::cout << "lst is empty\n";
+	else
+		std::cout << "lst is not empty\n";
+	
 	ft::list<int>	lt;
 	if (lt.empty())
 		std::cout << "lt is empty\n";
