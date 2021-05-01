@@ -1,12 +1,12 @@
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
 
-#include <iterator>
+#include "iterator.hpp"
 
 template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ReverseIterator : public std::iterator<Category, T> {
 	protected:
-		Pointer				ptr;
+		node<T>*				ptr;
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -15,7 +15,7 @@ class	ReverseIterator : public std::iterator<Category, T> {
 		typedef Reference	reference;
 
 		ReverseIterator() : ptr(0) {}
-		ReverseIterator(pointer const p) : ptr(p) {}
+		ReverseIterator(node<T>* const p) : ptr(p) {}
 		ReverseIterator(ReverseIterator const &rit) { *this = rit; }
 		ReverseIterator&	operator=(ReverseIterator const &rit){
 			if (&rit == this)
@@ -25,15 +25,17 @@ class	ReverseIterator : public std::iterator<Category, T> {
 		}
 		~ReverseIterator() {}
 		ReverseIterator&		operator++(){
-			this->ptr -= 1;
+			//this->ptr -= 1;
+			this->ptr = this->ptr->prev;
 			return *this;
 		}
 		ReverseIterator&		operator--(){
-			this->ptr += 1;
+			//this->ptr += 1;
+			this->ptr = this->ptr->next;
 			return *this;
 		}
-		T&		operator*() const { return *ptr; }
-		T&		operator->() const { return *ptr; }
+		T&		operator*() const { return *(ptr->value); }
+		T&		operator->() const { return *(ptr->value); }
 };
 
 #endif

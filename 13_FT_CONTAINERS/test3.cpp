@@ -12,11 +12,15 @@ int		main()
 	vt.push_back(6);
 	Iterator<int>	it;// = vt.begin();
 	ft::list<int> lst;
-	lst.assign((int)3, (int)5);
+	
+	//lst.assign((int)3, (int)5);
 	std::cout << "size = " << lst.size() << std::endl;
-	for (int i = 0; i < lst.size(); i++)
-		std::cout << "i = " << lst.head[i] << "\n";
-	std::cout << "front = " << lst.front() << std::endl;
+	//for (int i = 0; i < lst.size(); i++)
+	//	std::cout << "i = " << lst.head[i] << "\n";
+	if (!lst.empty())
+		std::cout << "front = " << lst.front() << std::endl;
+	else
+		std::cout << "It's empty\n";
 	//std::cout << lst.end();
 
 	std::list<int>::iterator	itr = vt.begin();
