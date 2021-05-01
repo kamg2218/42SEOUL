@@ -249,12 +249,22 @@ namespace ft
 		
 
 		//access
+<<<<<<< HEAD
 		reference	front() { return *(begin()); }
 		const_reference	front() const { return *(begin()); }
 		reference	back() { if (sz > 0) return *(tail->prev->value); else return *(end()); }
 		const_reference	back() const { if (sz > 0) return *(tail->prev->value); else return *(end()); }
 		//capacity
 		bool		empty() const { if (begin() == end()) return true; else return false;}
+=======
+		reference	front() { return head[0]; } //*(begin())
+		const_reference	front() const { return head[0]; } //*(begin())
+		reference	back() { return head[sz - 1]; } //head[sz - 1]; }
+		const_reference	back() const { return head[sz - 1]; } //head[sz - 1]; }
+		//capacity
+		bool		empty() const { if (begin() == end()) return true; else return false;}
+			//if (this->sz) return true; else return false; }
+>>>>>>> 4bdfef3cac3b12e76ff5c90648e3db550764bbfc
 		size_type	size() const { return sz; } //std::distance(begin(), end())
 		size_type	max_size() const { return std::numeric_limits<difference_type>::max(); }
 
