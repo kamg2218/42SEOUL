@@ -44,7 +44,12 @@ namespace ft
 		}
 
 		//constructor
-		list() : sz(0), head(0), tail(0) { head = malloc(); head->value = al.allocate(0); tail = head;}
+		list() : sz(0), head(0), tail(0) {
+			push_back(0);
+			push_back(0);
+			//head = malloc();
+			//head->value = al.allocate(0); tail = head;
+		}
 		list(const list& other) { *this = other; }
 		list&	operator=(list const &lst) {
 			if (this == &lst)
@@ -53,148 +58,63 @@ namespace ft
 			iterator	l_it = lst.begin();
 			clear();
 			sz = lst.sz;
+			push_back(0);
 			for (size_type i = 0; i < sz; i++){
 				push_back(*l_it);
-				//tmp = malloc();
-				//tmp->value = al.allocator(1);
-				//tmp->value[0] = *l_it;
-				//if (head == 0)
-				//	head = tmp;
-				//if (tail)
-				//	tail->next = tmp;
-				//tmp->prev = tail;
-				//tail = tmp;
 				l_it++;
 			}
-			tmp = malloc();
-			tmp->value = al.allocate(0);
-			tmp->prev = tail;
-			if (tail)
-				tail->next = tmp;
-			if (head == 0)
-				head = tmp;
-			tail = tmp;
+			push_back(0);
 			return *this;
 		}
 		explicit list(const Allocator& alloc) : sz(0), head(0), tail(0) { 
 			al = alloc;
 		}
 		explicit list(size_type count, const T& value = T(), const Allocator& alloc = Allocator()) : sz(count), head(0), tail(0) {
-			al = alloc;
 			node*		tmp;
-			for (size_type i = 0; i < count; i++){
-				/*
-				node*	tmp = malloc();
-				
-				tmp->value = alloc.allocator(1);
-				tmp->value[0] = 0;
-				if (head == 0)
-					head = tmp;
-				if (tail)
-					tail->next = tmp;
-				tmp->prev = tail;
-				tail = tmp;
-				*/
+
+			al = alloc;
+			push_back(0);
+			for (size_type i = 0; i < count; i++)
 				push_back(0);
-			}
-			tmp = malloc();
-			tmp->value = alloc.allocate(0);
-			tmp->prev = tail;
-			if (tail)
-				tail->next = tmp;
-			if (head == 0)
-				head = tmp;
-			tail = tmp;
+			push_back(0);
 		}
 		template<class InputIt>
 		list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) : sz(first), head(0), tail(0) {
 			node*	tmp;
 
 			al = alloc;
-			for (InputIt i = 0; i < first; i++){
-			/*
-				tmp = malloc();
-				tmp->value = alloc.allocator(1);
-				tmp->value[0] = last;
-				if (head == 0)
-					head = tmp;
-				if (tail)
-					tail->next = tmp;
-				tmp->prev = tail;
-				tail = tmp;
-			*/
+			push_back(0);
+			for (InputIt i = 0; i < first; i++)
 				push_back(last);
-			}
-			tmp = malloc();
-			tmp->value = alloc.allocate(0);
-			tmp->prev = tail;
-			if (tail)
-				tail->next = tmp;
-			if (head == 0)
-				head = tmp;
-			tail = tmp;
+			push_back(0);
 		}
 		template<>
 		list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-			node*	tmp;
-			
 			al = alloc;
+			push_back(0);
 			for (iterator i = first; i != last; i++){
 				sz++;
-				/*
-				tmp = malloc();
-				tmp->value = alloc.allocator(1);
-				tmp->value[0] = *i;
-				if (head == 0)
-					head = tmp;
-				if (tail)
-					tail->next = tmp;
-				tmp->prev = tail;
-				tail = tmp;
-				*/
 				push_back(*i);
 			}
-			tmp = malloc();
-			tmp->value = alloc.allocate(0);
-			tmp->prev = tail;
-			if (tail)
-				tail->next = tmp;
-			if (head == 0)
-				head = tmp;
-			tail = tmp;
+			push_back(0);
 		}
 		template<>
 		list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-			node*	tmp;
-			
 			al = alloc;
 			for (T* i = first; i != last; i++){
 				sz++;
-				/*
-			   	tmp = malloc();
-				if (tmp->value){
-					tmp->value = al.allocator(1);
-					tmp->value[0] = *i;
-				}
-				if (head == 0)
-					head = tmp;
-				if (tail)
-					tail->next = tmp;
-				tmp->prev = tail;
-				tail = tmp;
-				*/
 				push_back(*i);
 			}
-			tmp = malloc();
-			tmp->value = alloc.allocate(0);
-			tmp->prev = tail;
-			if (tail)
-				tail->next = tmp;
-			if (head == 0)
-				head = tmp;
-			tail = tmp;
+			push_back(0);
 		}
-		~list() { std::cout << "destructor\n"; clear(); }
+		~list() {
+			std::cout << "destructor\n";
+			clear();
+			al.deallocate(head->value, 1);
+			free(head);
+			al.deallocate(tail->value, 1);
+			free(tail);
+		}
 		/*
 		void	assign(size_type count, const T& value){
 			sz = count;
@@ -238,33 +158,23 @@ namespace ft
 		}
 
 		//iterator
-		iterator			begin() { return iterator(head); }
-		const_iterator		begin() const { return const_iterator(head); }
+		iterator			begin() { return iterator(head->next); }
+		const_iterator		begin() const { return const_iterator(head->next); }
 		iterator			end() { return iterator(tail); }
 		const_iterator		end() const { return const_iterator(tail); }
-		reverse_iterator		rbegin() { return reverse_iterator(tail); }
-		const_reverse_iterator	rbegin() const { return const_reverse_iterator(tail); }
+		reverse_iterator		rbegin() { return reverse_iterator(tail->prev); }
+		const_reverse_iterator	rbegin() const { return const_reverse_iterator(tail->prev); }
 		reverse_iterator		rend() { return reverse_iterator(head); }
 		const_reverse_iterator	rend() const { return const_reverse_iterator(head); }
 		
 
 		//access
-<<<<<<< HEAD
 		reference	front() { return *(begin()); }
 		const_reference	front() const { return *(begin()); }
-		reference	back() { if (sz > 0) return *(tail->prev->value); else return *(end()); }
+		reference	back() { return *(tail->prev->value); } //if (sz > 0) return *(tail->prev->value); else return *(end()); }
 		const_reference	back() const { if (sz > 0) return *(tail->prev->value); else return *(end()); }
 		//capacity
 		bool		empty() const { if (begin() == end()) return true; else return false;}
-=======
-		reference	front() { return head[0]; } //*(begin())
-		const_reference	front() const { return head[0]; } //*(begin())
-		reference	back() { return head[sz - 1]; } //head[sz - 1]; }
-		const_reference	back() const { return head[sz - 1]; } //head[sz - 1]; }
-		//capacity
-		bool		empty() const { if (begin() == end()) return true; else return false;}
-			//if (this->sz) return true; else return false; }
->>>>>>> 4bdfef3cac3b12e76ff5c90648e3db550764bbfc
 		size_type	size() const { return sz; } //std::distance(begin(), end())
 		size_type	max_size() const { return std::numeric_limits<difference_type>::max(); }
 
@@ -273,16 +183,20 @@ namespace ft
 			if (sz == 0)
 				return ;
 			node*	tmp;
+			node*	pre;
 
-			while (head){
-				tmp = head;
+			pre = head->next;
+			if (pre == tail)
+				return ;
+			while (pre != tail){
+				tmp = pre;
 				if (tmp->value)
 					al.deallocate(tmp->value, 1);
-				head = tmp->next;
+				pre = tmp->next;
 				free(tmp);
 			}
-			head = 0;
-			tail = 0;
+			head->next = tail;
+			tail->prev = head;
 			sz = 0;
 		}
 		void		push_front(const T& value){
