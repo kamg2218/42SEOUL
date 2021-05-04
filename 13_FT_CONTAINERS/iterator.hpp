@@ -32,17 +32,25 @@ class	Iterator : public std::iterator<Category, T> {
 		}
 		~Iterator() {}
 		Iterator&		operator++(){
-			//this->ptr += 1;
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		Iterator&		operator++(int zero){
+			zero = zero;
 			this->ptr = this->ptr->next;
 			return *this;
 		}
 		Iterator&		operator--(){
-			//this->ptr -= 1;
+			this->ptr = this->prt->prev;
+			return *this;
+		}
+		Iterator&		operator--(int zero){
+			zero = zero;
 			this->ptr = this->prt->prev;
 			return *this;
 		}
 		reference	operator*() const { return getValue(); }
-		//reference	operator->() const { return getValue(); }
+		reference	operator->() const { return getValue(); }
 		reference	getValue() const { return *(ptr->value); }
 };
 

@@ -25,17 +25,40 @@ class	ReverseIterator : public std::iterator<Category, T> {
 		}
 		~ReverseIterator() {}
 		ReverseIterator&		operator++(){
-			//this->ptr -= 1;
+			this->ptr = this->ptr->prev;
+			return *this;
+		}
+		ReverseIterator&		operator++(int zero){
+			zero = zero;
 			this->ptr = this->ptr->prev;
 			return *this;
 		}
 		ReverseIterator&		operator--(){
-			//this->ptr += 1;
 			this->ptr = this->ptr->next;
 			return *this;
 		}
-		T&		operator*() const { return *(ptr->value); }
-		T&		operator->() const { return *(ptr->value); }
+		ReverseIterator&		operator--(int zero){
+			zero = zero;
+			this->ptr = this->ptr->next;
+			return *this;
+		}
+		reference	operator*() const { return *(ptr->value); }
+		reference	operator->() const { return *(ptr->value); }
+		reference	getValue() const { return *(ptr->value); }
 };
+
+template<class T>
+bool	operator==(ReverseIterator<T> const &a, ReverseIterator<T> const &b){
+	if (a.getValue() == b.getValue())
+		return true;
+	return false;
+}
+
+template<class T>
+bool	operator!=(ReverseIterator<T> const &a, ReverseIterator<T> const &b){
+	if (a.getValue() != b.getValue())
+		return true;
+	return false;
+}
 
 #endif
