@@ -1,7 +1,4 @@
 #include "ft.hpp"
-//#include "iterator.hpp"
-//#include <list>
-//#include <iostream>
 
 int		main()
 {

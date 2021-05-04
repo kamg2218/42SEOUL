@@ -1,5 +1,16 @@
 #include "ft.hpp"
 /*
+template <class T, class Allocator>
+node<T>*		ft::list<T, Allocator>::malloc(){
+	node*	tmp;
+
+	tmp = new node;
+	tmp->prev = 0;
+	tmp->next = 0;
+	return tmp;
+}
+*/
+/*
 template<class T, class Allocator>
 ft::list<T, Allocator>::list() : size(0){
 	head = al.allocate(0);
