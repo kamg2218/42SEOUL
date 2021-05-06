@@ -42,9 +42,9 @@ class	ReverseIterator : public std::iterator<Category, T> {
 			this->ptr = this->ptr->next;
 			return *this;
 		}
-		reference	operator*() const { return *(ptr->value); }
-		reference	operator->() const { return *(ptr->value); }
-		reference	getValue() const { return *(ptr->value); }
+		reference	operator*() const { return ptr->value; }
+		reference	operator->() const { return ptr->value; }
+		reference	getValue() const { return ptr->value; }
 };
 
 template<class T>

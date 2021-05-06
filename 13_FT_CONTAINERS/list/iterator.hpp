@@ -5,7 +5,7 @@
 	
 template <class T>
 struct node {
-	T*			value;
+	T			value;
 	node<T>		*prev;
 	node<T>		*next;
 };
@@ -20,7 +20,7 @@ class	Iterator : public std::iterator<Category, T> {
 		typedef Distance	difference_type;
 		typedef Pointer		pointer;
 		typedef Reference	reference;
-
+	
 		Iterator() : ptr(0) {}
 		Iterator(node<T>* const p) : ptr(p) {}
 		Iterator(Iterator const &it) { *this = it; }
@@ -51,7 +51,9 @@ class	Iterator : public std::iterator<Category, T> {
 		}
 		reference	operator*() const { return getValue(); }
 		reference	operator->() const { return getValue(); }
-		reference	getValue() const { return *(ptr->value); }
+		reference	getValue() const { return ptr->value; }
+		node<T>*	getPointer() const { return ptr; }
+		//#include "itr.hpp"
 };
 
 template<class T>

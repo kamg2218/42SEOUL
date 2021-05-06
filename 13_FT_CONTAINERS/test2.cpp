@@ -1,9 +1,31 @@
 #include <iostream>
 #include <list>
+#include "ft.hpp"
+
+void		print(std::list<int>& lst){
+	std::list<int>::iterator	tmp;
+
+	tmp = lst.begin();
+	while (tmp != lst.end()){
+		std::cout << *tmp << ", " << &(*tmp) << std::endl;
+		tmp++;
+	}
+}
+
+void		ft_print(ft::list<int>& lst){
+	ft::list<int>::iterator	tmp;
+
+	tmp = lst.begin();
+	while (tmp != lst.end()){
+		std::cout << *tmp << ", " << &(*tmp) << std::endl;
+		tmp++;
+	}
+}
 
 int			main(void)
 {
 	std::allocator<int>	alloc;
+	
 	std::list<int>	lst1;
 	std::cout << "lst1 made" << std::endl;
 
@@ -40,21 +62,25 @@ int			main(void)
 
 	std::cout << "num, size\n";
 	std::list<int>	lst6;
-	int		num = 5;
+	int		num = 7;
 	size_t	size = 3;
 	lst6.assign(size, num);
+	print(lst6);
 	std::cout << std::endl;
 	
 	std::cout << "3, 4\n";
 	lst6.assign(3, 4);
+	print(lst6);
 	std::cout << std::endl;
 	
 	std::cout << "num, num\n";
-	lst6.assign(num, num);
+	lst6.assign((int)3, num);
+	print(lst6);
 	std::cout << std::endl;
 
 	std::cout << "arr pointer\n";
 	lst6.assign(arr, arr + 5);
+	print(lst6);
 	std::cout << std::endl;
 	
 	std::cout << "lst iterator\n";
@@ -86,5 +112,60 @@ int			main(void)
 		lst9.pop_front();
 	}
 	std::cout << std::endl;
+/*
+	std::cout << "-----------------\n";
+	ft::list<int>	ft_lst;
+	ft_lst.assign(size, num);
+	ft_print(ft_lst);
+	std::cout << std::endl;
+	
+	std::cout << "3, 4\n";
+	ft_lst.assign(3, 4);
+	ft_print(ft_lst);
+	std::cout << std::endl;
+	
+	std::cout << "num, num\n";
+	ft_lst.assign((int)3, num);
+	ft_print(ft_lst);
+	std::cout << std::endl;
+
+	std::cout << "arr pointer\n";
+	ft_lst.assign(arr, arr + 5);
+	ft_print(ft_lst);
+	std::cout << std::endl;
+	
+	ft::list<int>	ft_lst2(3, 5);
+	ft_print(ft_lst2);
+	std::cout << std::endl;
+	
+	ft::list<int>	ft_lst3((unsigned int)3, 5);
+	ft_print(ft_lst3);
+	std::cout << std::endl;
+*/
+	std::cout << "-----------------\n";
+	
+	std::list<int>	lst_2(7, 5);
+	print(lst_2);
+	std::cout << std::endl;
+	
+	std::list<int>	lst_3((unsigned int)7, 5);
+	print(lst_3);
+	std::cout << std::endl;
+
+	lst_2.resize(5);
+	print(lst_2);
+	std::cout << std::endl;
+
+	//lst_2.push_back(1);
+	//lst_2.push_back(2);
+	lst_2.resize(7, 4);
+	print(lst_2);
+	std::cout << std::endl;
+
+	lst_2.swap(lst_3);
+	print(lst_2);
+	std::cout << std::endl;
+	
+	print(lst_3);
 	return 0;
 }
