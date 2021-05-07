@@ -87,7 +87,21 @@ int			main(void)
 	lst6.assign(arr, arr + 5);
 	print(lst6);
 	std::cout << std::endl;
-	
+	lst6.remove(3);
+	print(lst6);
+	std::cout << std::endl;
+	lst6.insert(lst6.begin()++, 3);
+	print(lst6);
+	std::cout << std::endl;
+	lst6.push_back(1);
+	lst6.push_back(3);
+	lst6.push_front(3);
+	print(lst6);
+	std::cout << std::endl;
+	lst6.unique();
+	print(lst6);
+	std::cout << std::endl;
+
 	std::cout << "lst iterator\n";
 	std::list<int>	lst;
 	lst.push_back(1);

@@ -111,17 +111,37 @@ int		main()
 	}
 	std::cout << std::endl;
 
-	std::cout << "--------merge---------\n";
+	std::cout << "--------reverse---------\n";
+	new_lst.reverse();
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+
+	std::cout << "--------push_back---------\n";
 	lst.push_back(100);
 	lst.push_back(300);
 	lst.push_back(200);
+	lst.push_back(300);
 	l_it = lst.begin();
 	for (size_t i = 0; i < lst.size(); i++) {
 		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
 		++l_it;
 	}
 	std::cout << std::endl;
+	std::cout << "--------merge---------\n";
 	new_lst.merge(lst);
+	new_lst.push_back(3);
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "--------unique---------\n";
+	new_lst.unique();
 	l_it = new_lst.begin();
 	for (size_t i = 0; i < new_lst.size(); i++) {
 		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
@@ -131,7 +151,20 @@ int		main()
 	
 	if (lst.empty())
 		std::cout << "lst is empty\n";
-	std::cout << "-----------------\n";
+	std::cout << "--------splice---------\n";
+	l_it--;
+	l_it--;
+	//l_it = new_lst.begin();
+	//lst.splice(lst.begin(), new_lst, l_it);
+	lst.splice(lst.begin(), new_lst, l_it, new_lst.end());
+	//lst.splice(lst.begin(), new_lst);
+	l_it = lst.begin();
+	for (size_t i = 0; i < lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "--------splice---------\n";
 	new_lst.pop_back();
 	new_lst.pop_front();
 	new_lst.push_back(100);
@@ -143,6 +176,46 @@ int		main()
 		++l_it;
 	}
 	std::cout << std::endl;
+	std::cout << "--------swap---------\n";
+	new_lst.swap(lst);
+	std::cout << "lst \n";
+	l_it = lst.begin();
+	for (size_t i = 0; i < lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "new_lst \n";
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "--------swap2---------\n";
+	//swap(new_lst, lst);
+	ft::swap(new_lst, lst);
+	std::cout << "lst \n";
+	l_it = lst.begin();
+	for (size_t i = 0; i < lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "new_lst \n";
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	std::cout << "--------cmp---------\n";
+	if (lst > new_lst)
+		std::cout << "lst is bigger\n";
+	else if (lst < new_lst)
+		std::cout << "lst is smaller\n";
+	else
+		std::cout << "lst and new_lst is same\n";
 /*
 	std::cout << "--------erase---------\n";
 	new_lst.erase(new_lst.begin(), new_lst.end());
@@ -160,6 +233,17 @@ int		main()
 		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
 		++l_it;
 	}
+
+	std::cout << "--------remove---------\n";
+	new_lst.remove(new_lst.front());
+	//new_lst.erase(new_lst.begin());
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << "sizeof = " << sizeof(*new_lst.head) << std::endl;
+
 /*	if (new_lst.empty())
 		std::cout << "It's empty\n";
 	std::cout << std::endl;

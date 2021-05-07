@@ -2,6 +2,7 @@
 # define FT_HPP
 
 #include <iostream>
+#include <algorithm>
 #include <memory>
 #include <typeinfo>
 #include <iterator>
@@ -34,6 +35,8 @@ namespace ft
 		typedef const ReverseIterator<T>	const_reverse_iterator;
 		#include "./list/list.hpp"
 	};
-};
+	#include "./list/non_member.hpp"
+}
+
 
 #endif

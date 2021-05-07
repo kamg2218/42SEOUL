@@ -34,7 +34,6 @@ list(const list& other) { *this = other; }
 list&	operator=(list const &lst) {
 	if (this == &lst)
 		return *this;
-	node*		tmp;
 	iterator	l_it = lst.begin();
 	clear();
 	sz = lst.sz;
@@ -153,6 +152,7 @@ size_type	max_size() const { return std::numeric_limits<difference_type>::max();
 
 //modifiers
 void		clear(){
+	/*
 	node*	tmp;
 	node*	pre;
 
@@ -167,8 +167,11 @@ void		clear(){
 		alloc.destroy(&tmp->value);
 		al.deallocate(tmp, 1);
 	}
-	head->next = tail;
-	tail->prev = head;
+	*/
+	while (begin() != end())
+		pop_front();
+	//head->next = tail;
+	//tail->prev = head;
 	sz = 0;
 }
 
@@ -435,5 +438,111 @@ void		merge(list& other, Compare comp){
 		}
 		else
 			tmp = tmp->next;
+	}
+}
+
+void		splice(const_iterator pos, list& other){
+	iterator	tmp;
+
+	tmp = other.begin();
+	while (tmp != other.end()){
+		move_node(tmp.getPointer(), pos.getPointer());
+		other.sz--;
+		sz++;
+		tmp = other.begin();
+	}
+}
+
+void		splice(const_iterator pos, list& other, const_iterator it){
+	iterator	tmp;
+	iterator	next;
+
+	tmp = it;
+	while (tmp != other.end()){
+		next = tmp++;
+		tmp--;
+		move_node(tmp.getPointer(), pos.getPointer());
+		other.sz--;
+		sz++;
+		tmp = next;
+	}
+}
+
+void		splice(const_iterator pos, list& other, const_iterator first, const_iterator last){
+	iterator	tmp;
+	iterator	next;
+
+	tmp = first;
+	while (tmp != last){
+		next = tmp++;
+		tmp--;
+		move_node(tmp.getPointer(), pos.getPointer());
+		other.sz--;
+		sz++;
+		tmp = next;
+	}
+}
+
+void		remove(const T& value){
+	iterator	i;
+	//iterator	j;
+
+	i = begin();
+	while (i != end()){
+		std::cout << "i = " << *i << ", " << &(*i) << std::endl;
+		if (*i == value){
+			std::cout << "i1 = " << *i << ", " << &(*i) << std::endl;
+			//j = i;
+			i = erase(i);
+			std::cout << "i2 = " << *i << ", " << &(*i) << std::endl;
+			//std::cout << "i3 = " << *i << std::endl;
+		}
+		else
+			i++;
+	}
+}
+
+template<class UnaryPredicate>
+void		remove_if(UnaryPredicate p){
+	for (iterator i = begin(); i != end(); i++){
+		if (p(*i) == true){
+			i = erase(i);
+			i--;
+		}
+	}
+}
+
+void		reverse(){
+	iterator	first;
+	iterator	last;
+
+	first = begin();
+	last = end()--;
+	while (first != last){
+		move_node(last.getPointer(), first.getPointer());
+		last = end()--;
+	}
+}
+
+void		unique(){
+	iterator	tmp;
+
+	for (iterator i = begin(); i != end(); i++){
+		tmp = i++;
+		i--;
+		while (*i == *tmp)
+			tmp = erase(tmp);
+	}
+}
+
+template<class BinaryPredicate>
+void		unique(BinaryPredicate p){
+	iterator	tmp;
+
+	for (iterator i = begin(); i != end(); i++){
+		tmp = i++;
+		i--;
+		while (p(*i, *tmp))
+			tmp = erase(tmp);
 	}
 }
