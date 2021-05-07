@@ -11,7 +11,7 @@ void		add_back(const T& value){
 	node*	tmp;
 
 	tmp = malloc();
-	tmp->value = value;
+	alloc.construct(&tmp->value, value);
 	if (head == 0) {
 		head = tmp;
 		tail = tmp;
@@ -94,10 +94,10 @@ list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 
 ~list() {
 	clear();
-	//al.deallocate(head, 1);
-	//al.deallocate(tail, 1);
-	al.destroy(head);
-	al.destroy(tail);
+	alloc.destroy(&head->value);
+	alloc.destroy(&tail->value);
+	al.deallocate(head, 1);
+	al.deallocate(tail, 1);
 }
 
 //assign
@@ -128,7 +128,7 @@ void	assign(T* first, T* last){
 		push_back(*i);
 }
 
-allocator_type	get_allocator() const { return this->al; }
+allocator_type	get_allocator() const { return this->alloc; }
 
 //iterator
 iterator			begin() { return iterator(head->next); }
@@ -164,8 +164,8 @@ void		clear(){
 	while (pre != tail){
 		tmp = pre;
 		pre = tmp->next;
-		//al.deallocate(tmp, 1);
-		al.destroy(tmp);
+		alloc.destroy(&tmp->value);
+		al.deallocate(tmp, 1);
 	}
 	head->next = tail;
 	tail->prev = head;
@@ -176,7 +176,7 @@ void		push_front(const T& value){
 	node*	tmp;
 
 	tmp = malloc();
-	tmp->value = value;
+	alloc.construct(&tmp->value, value);
 	tmp->next = head->next;
 	head->next->prev = tmp;
 	head->next = tmp;
@@ -192,6 +192,7 @@ void		pop_front(){
 		return ;
 	tmp->prev->next = tmp->next;
 	tmp->next->prev = tmp->prev;
+	alloc.destroy(&tmp->value);
 	al.deallocate(tmp, 1);
 	sz--;
 }
@@ -200,7 +201,7 @@ void		push_back(const T& value){
 	node*	tmp;
 
 	tmp = malloc();
-	tmp->value = value;
+	alloc.construct(&tmp->value, value);
 	tmp->prev = tail->prev;
 	tail->prev->next = tmp;
 	tmp->next = tail;
@@ -216,7 +217,7 @@ void		pop_back(){
 		return ;
 	tmp->prev->next = tail;
 	tail->prev = tmp->prev;
-	//al.destroy(tmp);
+	alloc.destroy(&tmp->value);
 	al.deallocate(tmp, 1);
 	sz--;
 }
@@ -225,7 +226,7 @@ iterator	insert(iterator pos, const T& value){
 	node*	tmp;
 
 	tmp = malloc();
-	tmp->value = value;
+	alloc.construct(&tmp->value, value);
 	tmp->prev = pos.getPointer()->prev;
 	pos.getPointer()->prev->next = tmp;
 	tmp->next = pos.getPointer();
@@ -241,7 +242,7 @@ void		insert(iterator pos, size_type count, const T& value){
 	pre = pos.getPointer();
 	for (size_type i = 0; i < count; i++){
 		tmp = malloc();
-		tmp->value = value;
+		alloc.construct(&tmp->value, value);
 		tmp->prev = pre->prev;
 		pre->prev->next = tmp;
 		tmp->next = pre;
@@ -259,7 +260,7 @@ void		insert(iterator pos, InputIt first, InputIt last){
 	pre = pos.getPointer();
 	for (InputIt i = first; i < last; i++){
 		tmp = malloc();
-		tmp->value = i;
+		alloc.construct(&tmp->value, i);
 		tmp->prev = pre->prev;
 		pre->prev->next = tmp;
 		tmp->next = pre;
@@ -279,6 +280,7 @@ iterator	erase(iterator pos){
 	tmp->prev->next = tmp->next;
 	tmp->next->prev = tmp->prev;
 	it = iterator(tmp->next);
+	alloc.destroy(&tmp->value);
 	al.deallocate(tmp, 1);
 	sz--;
 	return (it);
@@ -288,14 +290,13 @@ iterator	erase(iterator first, iterator last){
 	node*	tmp;
 	node*	next;
 
-	next = last.getPointer();
-	for (iterator i = first; i != last; i++){
-		if (i == end())
-			return (end());
-		tmp = i.getPointer();
+	next = first.getPointer();
+	while (next != last.getPointer()){
+		tmp = next;
 		tmp->prev->next = tmp->next;
 		tmp->next->prev = tmp->prev;
 		next = tmp->next;
+		alloc.destroy(&tmp->value);
 		al.deallocate(tmp, 1);
 		sz--;
 	}
@@ -339,4 +340,100 @@ void		swap(list& other){
 	this->head = head;
 	this->tail = tail;
 	this->sz = cnt;
+}
+
+//operations
+void		move_node(node* src, node* dst){
+	src->prev->next = src->next;
+	src->next->prev = src->prev;
+	
+	src->prev = dst->prev;
+	src->next = dst;
+
+	src->prev->next = src;
+	dst->prev = src;
+}
+
+void		sort(){
+	node*	tmp;
+
+	for (node* i = head->next; i != tail; i = i->next){
+		for (node* j = i->next; j != tail; j = j->next){
+			if (i->value > j->value){
+				tmp = j->next;
+				move_node(j, i);
+				move_node(i, tmp);
+				tmp = i;
+				i = j;
+				j = i;
+			}
+		}
+	}
+}
+
+template<class Compare>
+void		sort(Compare cmp){
+	node*	tmp;
+
+	for (node* i = head->next; i != tail; i = i->next){
+		for (node* j = i->next; j != tail; j = j->next){
+			if (cmp(i->value, j->value) > 0){
+				tmp = j->next;
+				move_node(j, i);
+				move_node(i, tmp);
+				tmp = i;
+				i = j;
+				j = i;
+			}
+		}
+	}
+}
+
+void		merge(list& other){
+	node*	i;
+	node*	tmp;
+
+	if (this == &other)
+		return ;
+	else if (get_allocator() != other.get_allocator())
+		return ;
+	sort();
+	other.sort();
+	tmp = head->next;
+	i = other.head->next;
+	while (i != other.tail){
+		if (tmp->value > i->value || tmp == tail){
+			move_node(i, tmp);
+			other.sz--;
+			sz++;
+			i = other.head->next;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+template <class Compare>
+void		merge(list& other, Compare comp){
+	node*	i;
+	node*	tmp;
+
+	if (this == &other)
+		return ;
+	else if (get_allocator() != other.get_allocator())
+		return ;
+	sort();
+	other.sort();
+	tmp = head->next;
+	i = other.head->next;
+	while (i != other.tail){
+		if (comp(tmp->value, i->value) > 0 || tmp == tail){
+			move_node(i, tmp);
+			other.sz--;
+			sz++;
+			i = other.head->next;
+		}
+		else
+			tmp = tmp->next;
+	}
 }

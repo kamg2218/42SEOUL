@@ -41,12 +41,12 @@ class	Iterator : public std::iterator<Category, T> {
 			return *this;
 		}
 		Iterator&		operator--(){
-			this->ptr = this->prt->prev;
+			this->ptr = this->ptr->prev;
 			return *this;
 		}
 		Iterator&		operator--(int zero){
 			zero = zero;
-			this->ptr = this->prt->prev;
+			this->ptr = this->ptr->prev;
 			return *this;
 		}
 		reference	operator*() const { return getValue(); }
@@ -58,7 +58,7 @@ class	Iterator : public std::iterator<Category, T> {
 
 template<class T>
 bool	operator==(Iterator<T> const &a, Iterator<T> const &b){
-	if (a.getValue() == b.getValue())
+	if (a.getPointer() == b.getPointer())
 		return true;
 	else
 		return false;
@@ -66,7 +66,7 @@ bool	operator==(Iterator<T> const &a, Iterator<T> const &b){
 
 template<class T>
 bool	operator!=(Iterator<T> const &a, Iterator<T> const &b){
-	if (a.getValue() != b.getValue())
+	if (a.getPointer() != b.getPointer())
 		return true;
 	else
 		return false;

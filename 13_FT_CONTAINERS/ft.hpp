@@ -17,7 +17,7 @@ namespace ft
 		node<T>*							head;
 		node<T>*							tail;
 		size_t								sz;
-
+		Allocator							alloc;
 		typename Allocator::template rebind<node<T> >::other	al;
 		typedef node<T>						node;
 		typedef	T 							value_type;

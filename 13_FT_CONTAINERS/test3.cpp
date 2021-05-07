@@ -101,7 +101,37 @@ int		main()
 		++l_it;
 	}
 	std::cout << std::endl;
+	
+	std::cout << "--------sort---------\n";
+	new_lst.sort();
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
 
+	std::cout << "--------merge---------\n";
+	lst.push_back(100);
+	lst.push_back(300);
+	lst.push_back(200);
+	l_it = lst.begin();
+	for (size_t i = 0; i < lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	new_lst.merge(lst);
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+	std::cout << std::endl;
+	
+	if (lst.empty())
+		std::cout << "lst is empty\n";
+	std::cout << "-----------------\n";
 	new_lst.pop_back();
 	new_lst.pop_front();
 	new_lst.push_back(100);
@@ -113,14 +143,24 @@ int		main()
 		++l_it;
 	}
 	std::cout << std::endl;
-
+/*
+	std::cout << "--------erase---------\n";
 	new_lst.erase(new_lst.begin(), new_lst.end());
 	l_it = new_lst.begin();
 	for (size_t i = 0; i < new_lst.size(); i++) {
 		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
 		++l_it;
 	}
-	if (new_lst.empty())
+	std::cout << std::endl;
+*/	
+	std::cout << "--------sort---------\n";
+	new_lst.sort();
+	l_it = new_lst.begin();
+	for (size_t i = 0; i < new_lst.size(); i++) {
+		std::cout << *l_it << " -> " << &(*l_it) << std::endl;
+		++l_it;
+	}
+/*	if (new_lst.empty())
 		std::cout << "It's empty\n";
 	std::cout << std::endl;
 
@@ -148,6 +188,7 @@ int		main()
 		++l_it;
 	}
 	std::cout << std::endl;
+	*/
 /*
 	std::list<int>				new_lst2;
 	std::list<int>::iterator	new_it2;

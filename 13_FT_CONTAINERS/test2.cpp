@@ -44,7 +44,7 @@ int			main(void)
 	std::cout << "lst4 made" << std::endl;
 	
 	std::cout << "arr[5]\n";
-	int		arr[5] = {1, 2, 3, 4, 5};
+	int		arr[5] = {5, 4, 3, 2, 1};
 	std::list<int>	lst5(arr, arr+5);
 	std::cout << std::endl;
 
@@ -59,6 +59,11 @@ int			main(void)
 	std::cout << "begin = " << &(*lst5.begin()) << std::endl;
 	std::cout << "end = " << &(*lst5.end()) << std::endl;
 	std::cout << "back = " << &lst5.back() << std::endl;
+
+	print(lst5);
+	std::cout << std::endl;
+	lst5.sort();
+	print(lst5);
 
 	std::cout << "num, size\n";
 	std::list<int>	lst6;
@@ -142,6 +147,7 @@ int			main(void)
 	ft_print(ft_lst3);
 	std::cout << std::endl;
 */
+	/*
 	std::cout << "-----------------\n";
 	
 	std::list<int>	lst_2(7, 5);
@@ -167,5 +173,6 @@ int			main(void)
 	std::cout << std::endl;
 	
 	print(lst_3);
+*/
 	return 0;
 }
