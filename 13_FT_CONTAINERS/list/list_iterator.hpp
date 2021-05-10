@@ -1,5 +1,5 @@
-#ifndef ITERATOR_HPP
-# define ITERATOR_HPP
+#ifndef LIST_ITERATOR_HPP
+# define LIST_ITERATOR_HPP
 
 #include <iterator>
 	
@@ -11,7 +11,7 @@ struct node {
 };
 
 template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	Iterator : public std::iterator<Category, T> {
+class	ListIterator : public std::iterator<Category, T> {
 	protected:
 		node<T>*			ptr;
 	public:
@@ -21,43 +21,40 @@ class	Iterator : public std::iterator<Category, T> {
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	
-		Iterator() : ptr(0) {}
-		Iterator(node<T>* const p) : ptr(p) {}
-		Iterator(Iterator const &it) { *this = it; }
-		Iterator&	operator=(Iterator const &it){
+		ListIterator() : ptr(0) {}
+		ListIterator(node<T>* const p) : ptr(p) {}
+		ListIterator(ListIterator const &it) { *this = it; }
+		ListIterator&	operator=(ListIterator const &it){
 			if (&it == this)
 				return *this;
 			this->ptr = it.ptr;
 			return *this;
 		}
-		~Iterator() {}
-		Iterator&		operator++(){
+		~ListIterator() {}
+		ListIterator&		operator++(){
 			this->ptr = this->ptr->next;
 			return *this;
 		}
-		Iterator&		operator++(int zero){
-			zero = zero;
+		ListIterator		operator++(int){
 			this->ptr = this->ptr->next;
-			return *this;
+			return (ListIterator(this->ptr));
 		}
-		Iterator&		operator--(){
+		ListIterator&		operator--(){
 			this->ptr = this->ptr->prev;
 			return *this;
 		}
-		Iterator&		operator--(int zero){
-			zero = zero;
+		ListIterator		operator--(int){
 			this->ptr = this->ptr->prev;
-			return *this;
+			return ListIterator(this->ptr);
 		}
 		reference	operator*() const { return getValue(); }
-		reference	operator->() const { return getValue(); }
+		node<T>*	operator->() const { return ptr; }
 		reference	getValue() const { return ptr->value; }
 		node<T>*	getPointer() const { return ptr; }
-		//#include "itr.hpp"
 };
 
 template<class T>
-bool	operator==(Iterator<T> const &a, Iterator<T> const &b){
+bool	operator==(ListIterator<T> const &a, ListIterator<T> const &b){
 	if (a.getPointer() == b.getPointer())
 		return true;
 	else
@@ -65,7 +62,7 @@ bool	operator==(Iterator<T> const &a, Iterator<T> const &b){
 }
 
 template<class T>
-bool	operator!=(Iterator<T> const &a, Iterator<T> const &b){
+bool	operator!=(ListIterator<T> const &a, ListIterator<T> const &b){
 	if (a.getPointer() != b.getPointer())
 		return true;
 	else

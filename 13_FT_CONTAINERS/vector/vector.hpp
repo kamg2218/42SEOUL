@@ -1,28 +1,3 @@
-node*		malloc(){
-	node*	tmp;
-
-	tmp = al.allocate(1);
-	tmp->prev = 0;
-	tmp->next = 0;
-	return tmp;
-}
-
-void		add_back(const T& value){
-	node*	tmp;
-
-	tmp = malloc();
-	alloc.construct(&tmp->value, value);
-	if (head == 0) {
-		head = tmp;
-		tail = tmp;
-	}
-	else {
-		tmp->prev = tail;
-		tail->next = tmp;
-		tail = tmp;
-	}
-}
-
 //constructor
 list() : sz(0), head(0), tail(0) {
 	add_back(0);
