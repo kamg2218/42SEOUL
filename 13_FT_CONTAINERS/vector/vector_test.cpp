@@ -1,314 +1,214 @@
-#include <list>
+#include <vector>
 #include "../ft.hpp"
 
-void	std_print(std::list<int>& lst){
-	std::cout << "---- std::list<int> -----------------------------------" << std::endl;
-	for (std::list<int>::iterator it = lst.begin(); it != lst.end();)
+void	std_print(std::vector<int>& v){
+	std::cout << "---- std::vector<int> -----------------------------------" << std::endl;
+	std::cout << "size = " << v.size() << ", cap = " << v.capacity() << std::endl;
+	std::cout << "front = " << v.front() << ", back = " << v.back() << std::endl;
+	std::cout << "begin() = " << &(*v.begin()) << ", end() = " << &(*v.end()) << std::endl;
+	for (std::vector<int>::iterator it = v.begin(); it != v.end();){
+		//std::cout << "it = " << &(*it) << std::endl;
 		std::cout << *it << ": " << &(*it++) << std::endl;
+		//std::cout << "it = " << &(*it) << std::endl;
+	}
 }
 
-void	ft_print(ft::list<int>& lst){
-	std::cout << "---- ft::list<int> ------------------------------------" << std::endl;
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end();)
-		std::cout << *it << ": " << &(*it++) << std::endl;
+void	ft_print(ft::vector<int>& v){
+	std::cout << "---- ft::vector<int> ------------------------------------" << std::endl;
+	std::cout << "size = " << v.size() << ", cap = " << v.capacity() << std::endl;
+	std::cout << "front = " << v.front() << ", back = " << v.back() << std::endl;
+	std::cout << "begin() = " << &(*v.begin()) << ", end() = " << &(*v.end()) << std::endl;
+	for (ft::vector<int>::iterator it = v.begin(); it != v.end(); it++){
+		//std::cout << "it = " << &(*it) << std::endl;
+		std::cout << *it << ": " << &(*it) << std::endl;
+		//std::cout << "it = " << &(*it) << std::endl;
+	}
 }
 
 int		main()
 {
-	ft::list<int>::iterator ft_it;
-	ft::list<int> ft_lst(3, 5);
-	std::list<int>::iterator std_it;
-	std::list<int> std_lst(3, 5);
+	ft::vector<int>::iterator ft_it;
+	ft::vector<int> ft_v(3, 5);
+	std::vector<int>::iterator std_it;
+	std::vector<int> std_v(3, 5);
 	
-	std::cout << "---- lst(3, 5) ------------------------------------" << std::endl;
-	std_print(std_lst);
-	std::cout << "std_size = " << std_lst.size() << std::endl;
-	std::cout << "std_front = " << std_lst.front() << std::endl;
-	std::cout << "std_back = " << std_lst.back() << std::endl;
+	std::cout << "---- v(3, 5) ------------------------------------" << std::endl;
+	std_print(std_v);
+	std::cout << "std_size = " << std_v.size() << std::endl;
+	std::cout << "std_front = " << std_v.front() << std::endl;
+	std::cout << "std_back = " << std_v.back() << std::endl;
 
-	ft_print(ft_lst);
-	std::cout << "ft_size = " << ft_lst.size() << std::endl;
-	std::cout << "ft_front = " << ft_lst.front() << std::endl;
-	std::cout << "ft_back = " << ft_lst.back() << std::endl;
+	ft_print(ft_v);
+	std::cout << "ft_size = " << ft_v.size() << std::endl;
+	std::cout << "ft_front = " << ft_v.front() << std::endl;
+	std::cout << "ft_back = " << ft_v.back() << std::endl;
 	
 	std::cout << "---- empty() ------------------------------------" << std::endl;
-	if (!std_lst.empty())
-		std::cout << "std_lst is not empty" << std::endl;
+	if (!std_v.empty())
+		std::cout << "std_v is not empty" << std::endl;
 	else
 		std::cout << "It's empty\n";
 
-	if (!ft_lst.empty())
-		std::cout << "ft_lst is not empty" << std::endl;
+	if (!ft_v.empty())
+		std::cout << "ft_v is not empty" << std::endl;
 	else
 		std::cout << "It's empty\n";
 
 	std::cout << "---- push_back() --------------------------------" << std::endl;
-	std_lst.push_back(1);
-	std_lst.push_back(2);
-	std_lst.push_back(3);
-	std_print(std_lst);
-	std::cout << "std_lst size = " << std_lst.size() << std::endl;
+	std_v.push_back(1);
+	std_v.push_back(2);
+	std_v.push_back(3);
+	std_print(std_v);
+	std::cout << "std_v size = " << std_v.size() << std::endl;
 
-	ft_lst.push_back(1);
-	ft_lst.push_back(2);
-	ft_lst.push_back(3);
-	ft_print(ft_lst);
-	std::cout << "ft_lst size = " << ft_lst.size() << std::endl;
-
-	std::cout << "---- push_front() --------------------------------" << std::endl;
-	std_lst.push_front(1);
-	std_lst.push_front(2);
-	std_lst.push_front(3);
-	std_print(std_lst);
-	std::cout << "std_lst size = " << std_lst.size() << std::endl;
-
-	ft_lst.push_front(1);
-	ft_lst.push_front(2);
-	ft_lst.push_front(3);
-	ft_print(ft_lst);
-	std::cout << "ft_lst size = " << ft_lst.size() << std::endl;
+	ft_v.push_back(1);
+	ft_v.push_back(2);
+	ft_v.push_back(3);
+	ft_print(ft_v);
+	std::cout << "ft_v size = " << ft_v.size() << std::endl;
 
 	std::cout << "---- pop_back() --------------------------------" << std::endl;
-	std_lst.pop_back();
-	std_lst.pop_back();
-	std_print(std_lst);
-	std::cout << "std_lst size = " << std_lst.size() << std::endl;
+	std_v.pop_back();
+	std_v.pop_back();
+	std_print(std_v);
+	std::cout << "std_v size = " << std_v.size() << std::endl;
 
-	ft_lst.pop_back();
-	ft_lst.pop_back();
-	ft_print(ft_lst);
-	std::cout << "ft_lst size = " << ft_lst.size() << std::endl;
-
-	std::cout << "---- pop_front() --------------------------------" << std::endl;
-	std_lst.pop_front();
-	std_lst.pop_front();
-	std_print(std_lst);
-	std::cout << "std_lst size = " << std_lst.size() << std::endl;
-
-	ft_lst.pop_front();
-	ft_lst.pop_front();
-	ft_print(ft_lst);
-	std::cout << "ft_lst size = " << ft_lst.size() << std::endl;
+	ft_v.pop_back();
+	ft_v.pop_back();
+	ft_print(ft_v);
+	std::cout << "ft_v size = " << ft_v.size() << std::endl;
 
 	std::cout << "---- clear() --------------------------------" << std::endl;
-	std_lst.clear();
-	std::cout << "size = " << std_lst.size() << std::endl;
+	std_v.clear();
+	std::cout << "size = " << std_v.size() << std::endl;
 	
-	if (std_lst.empty())
-		std::cout << "std_lst is empty\n";
+	if (std_v.empty())
+		std::cout << "std_v is empty\n";
 	else
-		std::cout << "std_lst is not empty\n";
+		std::cout << "std_v is not empty\n";
 	
-	ft_lst.clear();
-	std::cout << "size = " << ft_lst.size() << std::endl;
+	ft_v.clear();
+	std::cout << "size = " << ft_v.size() << std::endl;
 	
-	if (ft_lst.empty())
-		std::cout << "ft_lst is empty\n";
+	if (ft_v.empty())
+		std::cout << "ft_v is empty\n";
 	else
-		std::cout << "ft_lst is not empty\n";
+		std::cout << "ft_v is not empty\n";
 	
 	std::cout << "---- assign(int, int) --------------------------" << std::endl;
-	std_lst.assign(3, 5);
-	std_print(std_lst);
+	std_v.assign(3, 5);
+	std_print(std_v);
 	
-	ft_lst.assign(3, 5);
-	ft_print(ft_lst);
+	ft_v.assign(3, 5);
+	ft_print(ft_v);
 
 	std::cout << "---- assign(iterator, iterator) ----------------" << std::endl;
-	std::list<int>	std_lst2((unsigned int)3, 6);
+	std::vector<int>	std_v2((unsigned int)3, 6);
 
-	std_print(std_lst2);
-	std_lst.assign(std_lst2.begin(), std_lst2.end());
-	std_print(std_lst);
+	std_print(std_v2);
+	std_v.assign(std_v2.begin(), std_v2.end());
+	std_print(std_v);
 
-	ft::list<int>	ft_lst2((unsigned int)3, 6);
+	ft::vector<int>		ft_v2((unsigned int)3, 6);
 
-	ft_print(ft_lst2);
-	ft_lst.assign(ft_lst2.begin(), ft_lst2.end());
-	ft_print(ft_lst);
+	ft_print(ft_v2);
+	ft_v.assign(ft_v2.begin(), ft_v2.end());
+	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, int) ----------------------" << std::endl;
-	std_it = std_lst.begin();
-	std_lst.insert(std_it, 100);
-	std_it++;
-	std_lst.insert(std_it, 100);
-	std_print(std_lst);
+	std_it = std_v.begin();
+	std_v.insert(std_it, 100);
+	std_it = std_v.begin();
+	std_v.insert(std_it, 150);
+	std_print(std_v);
 
-	ft_it = ft_lst.begin();
-	ft_lst.insert(ft_it, 100);
-	ft_it++;
-	ft_lst.insert(ft_it, 100);
-	ft_print(ft_lst);
+	ft_it = ft_v.begin();
+	ft_v.insert(ft_it, 100);
+	ft_it = ft_v.begin();
+	ft_v.insert(ft_it, 150);
+	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, count, value) ------------" << std::endl;
-	std_it = std_lst.begin();
-	std_lst.insert(std_it, 2, 200);
-	std_it++;
-	std_lst.insert(std_it, 2, 200);
-	std_print(std_lst);
+	std_it = std_v.begin();
+	std_v.insert(std_it, 2, 200);
+	std_it = std_v.end();
+	std_v.insert(std_it, 2, 250);
+	std_print(std_v);
 
-	ft_it = ft_lst.begin();
-	ft_lst.insert(ft_it, 2, 200);
-	ft_it++;
-	ft_lst.insert(ft_it, 2, 200);
-	ft_print(ft_lst);
+	ft_it = ft_v.begin();
+	ft_v.insert(ft_it, 2, 200);
+	ft_it = ft_v.end();
+	ft_v.insert(ft_it, 2, 250);
+	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, iterator, iterator) ------" << std::endl;
-	std_it = ++std_lst.begin();
-	std_lst.insert(std_it, std_lst2.begin(), std_lst2.end());
-	std_print(std_lst);
+	std_it = ++std_v.begin();
+	std_v.insert(std_it, std_v2.begin(), std_v2.end());
+	std_print(std_v);
 
-	ft_it = ++ft_lst.begin();
-	ft_lst.insert(ft_it, ft_lst2.begin(), ft_lst2.end());
-	ft_print(ft_lst);
+	ft_it = ++ft_v.begin();
+	ft_v.insert(ft_it, ft_v2.begin(), ft_v2.end());
+	ft_print(ft_v);
 
 	std::cout << "---- erase(iterator) ----------------------------" << std::endl;
-	std_lst.erase(std_it);
-	//std_lst.erase(std_it);
-	std_print(std_lst);
+	std_v.erase(std_it);
+	//std_v.erase(std_it);
+	std_print(std_v);
 	
-	ft_lst.erase(ft_it);
-	//ft_lst.erase(ft_it);
-	ft_print(ft_lst);
+	ft_v.erase(ft_it);
+	//ft_v.erase(ft_it);
+	ft_print(ft_v);
 	
 	std::cout << "---- erase(iterator, iterator) -------------------" << std::endl;
-	std_it = std_lst.end();
+	std_it = std_v.end();
 	std_it--;
 	std_it--;
-	std_lst.erase(std_it, std_lst.end());
-	std_print(std_lst);
+	std_v.erase(std_it, std_v.end());
+	std_print(std_v);
 	
-	ft_it = ft_lst.end();
+	ft_it = ft_v.end();
 	ft_it--;
 	ft_it--;
-	ft_lst.erase(ft_it, ft_lst.end());
-	ft_print(ft_lst);
+	ft_v.erase(ft_it, ft_v.end());
+	ft_print(ft_v);
 	
 	std::cout << "---- resize(count) -------------------------------" << std::endl;
-	std_lst.resize(std_lst.size() - 2);
-	std_print(std_lst);
+	std_v.resize(std_v.size() - 2);
+	std_print(std_v);
 
-	ft_lst.resize(ft_lst.size() - 2);
-	ft_print(ft_lst);
+	ft_v.resize(ft_v.size() - 2);
+	ft_print(ft_v);
 
 	std::cout << "---- resize(count, value) ------------------------" << std::endl;
-	std_lst2.resize(6, 30);
-	std_print(std_lst2);
+	std_v2.resize(6, 30);
+	std_print(std_v2);
 
-	ft_lst2.resize(6, 30);
-	ft_print(ft_lst2);
+	ft_v2.resize(6, 30);
+	ft_print(ft_v2);
 
 	std::cout << "---- swap() --------------------------------------" << std::endl;
-	std_print(std_lst);
-	std_print(std_lst2);
-	std_lst.swap(std_lst2);
-	std_print(std_lst);
-	std_print(std_lst2);
-	std_lst.swap(std_lst2);
+	std_print(std_v);
+	std_print(std_v2);
+	std_v.swap(std_v2);
+	std_print(std_v);
+	std_print(std_v2);
+	std_v.swap(std_v2);
 
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-	ft_lst.swap(ft_lst2);
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-	ft_lst.swap(ft_lst2);
-
-	std::cout << "---- remove() ------------------------------------" << std::endl;
-	std_lst.remove(100);
-	std_print(std_lst);
-
-	ft_lst.remove(100);
-	ft_print(ft_lst);
-
+	ft_print(ft_v);
+	ft_print(ft_v2);
+	ft_v.swap(ft_v2);
+	ft_print(ft_v);
+	ft_print(ft_v2);
+	ft_v.swap(ft_v2);
 /*
-	std::cout << "---- remove_if() ------------------------------------" << std::endl;
-	std_lst.remove_if(p);
-	std_print(std_lst);
-
-	ft_lst.remove_if(p);
-	ft_print(ft_lst);
-*/
-
-	std::cout << "---- merge() -------------------------------------" << std::endl;
-	std_print(std_lst);
-	std_print(std_lst2);
-	std_lst.merge(std_lst2);
-	std_print(std_lst);
-	std_print(std_lst2);
-
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-	ft_lst.merge(ft_lst2);
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-
-/*
-	std::cout << "---- splice(iterator, list) ----------------------" << std::endl;
-	std_lst2.push_back(1);
-	std_print(std_lst);
-	std_print(std_lst2);
-	std_lst.splice(std_lst.end(), std_lst2);
-	std_print(std_lst);
-
-	ft_lst2.push_back(1);
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-	ft_lst.splice(ft_lst.end(), ft_lst2);
-	ft_print(ft_lst);
-*/
-
-	std::cout << "---- splice(iterator, list, iterator) ------------" << std::endl;
-	std_lst2.push_back(1);
-	std_print(std_lst);
-	std_print(std_lst2);
-	std_lst.splice(std_lst.end(), std_lst2, std_lst2.begin());
-	std_print(std_lst);
-
-	ft_lst2.push_back(1);
-	ft_print(ft_lst);
-	ft_print(ft_lst2);
-	ft_lst.splice(ft_lst.end(), ft_lst2, ft_lst2.begin());
-	ft_print(ft_lst);
-
-/*	
-	std::cout << "---- splice(iterator, list, iterator, iterator) --" << std::endl;
-	std_lst2.push_back(1);
-	std_lst.splice(std_lst.end(), std_lst2, std_lst2.begin(), std_lst2.end());
-	std_print(std_lst);
-
-	ft_lst2.push_back(1);
-	ft_lst.splice(ft_lst.end(), ft_lst2, ft_lst2.begin(), ft_lst2.end());
-	ft_print(ft_lst);
-*/
-	std::cout << "---- sort() --------------------------------------" << std::endl;
-	std_lst.sort();
-	std_print(std_lst);
-
-	ft_lst.sort();
-	ft_print(ft_lst);
-
-	std::cout << "---- reverse() -----------------------------------" << std::endl;
-	std_lst.reverse();
-	std_print(std_lst);
-
-	ft_lst.reverse();
-	ft_print(ft_lst);
-
-	std::cout << "---- unique() ------------------------------------" << std::endl;
-	std_lst.unique();
-	std_print(std_lst);
-
-	ft_lst.unique();
-	ft_print(ft_lst);
-
 	std::cout << "---- compare -------------------------------------" << std::endl;
-	if (ft_lst > ft_lst2)
-		std::cout << "ft_lst is bigger\n";
-	else if (ft_lst < ft_lst2)
-		std::cout << "ft_lst is smaller\n";
+	if (ft_v > ft_v2)
+		std::cout << "ft_v is bigger\n";
+	else if (ft_v < ft_v2)
+		std::cout << "ft_v is smaller\n";
 	else
-		std::cout << "ft_lst and ft_lst2 is same\n";
-	std::cout << "--------------------------------------------------" << std::endl;
+		std::cout << "ft_v and ft_v2 is same\n";
+*/	std::cout << "--------------------------------------------------" << std::endl;
 
 	return 0;
 }

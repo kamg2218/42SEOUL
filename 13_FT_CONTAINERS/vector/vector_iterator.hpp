@@ -29,7 +29,7 @@ class	VectorIterator : public std::iterator<Category, T> {
 			return *this;
 		}
 		VectorIterator		operator++(int){
-			ptr++;
+			++ptr;
 			return VectorIterator(this->ptr);
 		}
 		VectorIterator&		operator--(){
@@ -37,7 +37,7 @@ class	VectorIterator : public std::iterator<Category, T> {
 			return *this;
 		}
 		VectorIterator		operator--(int){
-			ptr--;
+			--ptr;
 			return VectorIterator(this->ptr);
 		}
 		VectorIterator&		operator+=(difference_type n){
@@ -52,26 +52,27 @@ class	VectorIterator : public std::iterator<Category, T> {
 		reference	operator*() const { return getValue(); }
 		pointer		operator->() const { return ptr; }
 		reference	getValue() const { return *ptr; }
+		pointer		getPointer() const { return ptr; }
 };
 
 template<class T>
-VectorIterator<T>	operator+(VectorIterator<T> vi, difference_type n){
-	return VectorIterator<T>(vi.ptr + n);
+VectorIterator<T>	operator+(VectorIterator<T> vi, ptrdiff_t n){
+	return VectorIterator<T>(vi.getPointer() + n);
 }
 
 template<class T>
-VectorIterator<T>	operator+(difference_type n, VectorIterator<T> vi){
-	return VectorIterator<T>(vi.ptr + n);
+VectorIterator<T>	operator+(ptrdiff_t n, VectorIterator<T> vi){
+	return VectorIterator<T>(vi.getPointer() + n);
 }
 
 template<class T>
-VectorIterator<T>	operator-(VectorIterator<T> vi, difference_type n){
-	return VectorIterator<T>(vi.ptr - n);
+VectorIterator<T>	operator-(VectorIterator<T> vi, ptrdiff_t n){
+	return VectorIterator<T>(vi.getPointer() - n);
 }
 
 template<class T>
-difference_type		operator-(VectorIterator<T> v, VectorIterator<T> i){
-	return (v.ptr - i.ptr);
+ptrdiff_t	operator-(VectorIterator<T> v, VectorIterator<T> i){
+	return (v.getPointer() - i.getPointer());
 }
 
 template<class T>

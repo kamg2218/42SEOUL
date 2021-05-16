@@ -52,25 +52,26 @@ class	VectorReverseIterator : public std::iterator<Category, T> {
 		reference	operator*() const { return getValue(); }
 		pointer		operator->() const { return ptr; }
 		reference	getValue() const { return *ptr; }
+		pointer		getPointer() const { return ptr; }
 };
 
 template<class T>
-VectorReverseIterator<T>	operator+(VectorReverseIterator<T> vi, difference_type n){
+VectorReverseIterator<T>	operator+(VectorReverseIterator<T> vi, ptrdiff_t n){
 	return VectorReverseIterator<T>(vi.ptr - n);
 }
 
 template<class T>
-VectorReverseIterator<T>	operator+(difference_type n, VectorReverseIterator<T> vi){
+VectorReverseIterator<T>	operator+(ptrdiff_t n, VectorReverseIterator<T> vi){
 	return VectorReverseIterator<T>(vi.ptr - n);
 }
 
 template<class T>
-VectorReverseIterator<T>	operator-(VectorReverseIterator<T> vi, difference_type n){
+VectorReverseIterator<T>	operator-(VectorReverseIterator<T> vi, ptrdiff_t n){
 	return VectorReverseIterator<T>(vi.ptr + n);
 }
 
 template<class T>
-difference_type		operator-(VectorReverseIterator<T> v, VectorReverseIterator<T> i){
+ptrdiff_t	operator-(VectorReverseIterator<T> v, VectorReverseIterator<T> i){
 	return (i.ptr - v.ptr);
 }
 

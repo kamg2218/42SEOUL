@@ -9,6 +9,8 @@
 #include <limits>
 #include "./list/list_iterator.hpp"
 #include "./list/list_reverse_iterator.hpp"
+#include "./vector/vector_iterator.hpp"
+#include "./vector/vector_reverse_iterator.hpp"
 
 namespace ft
 {
@@ -18,8 +20,7 @@ namespace ft
 		node<T>*							head;
 		node<T>*							tail;
 		size_t								sz;
-		Allocator							alloc;
-		typename Allocator::template rebind<node<T> >::other	al;
+		typedef typename Allocator::template rebind<node<T> >::other	al;
 		typedef node<T>						node;
 		typedef	T 							value_type;
 		typedef Allocator					allocator_type;
@@ -36,13 +37,13 @@ namespace ft
 		#include "./list/list.hpp"
 	};
 	#include "./list/non_member.hpp"
-	/*
+	
 	template <class T, class Allocator = std::allocator<T> >
 	class	vector {
 	public:
 		T*									head;
-		size_t								sz;
-		Allocator							alloc;
+		T*									tail;
+		T* 									cap;
 		typedef	T 							value_type;
 		typedef Allocator					allocator_type;
 		typedef size_t						size_type;
@@ -51,14 +52,14 @@ namespace ft
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
-		typedef Iterator<T>					iterator;
-		typedef const iterator				const_iterator;
-		typedef ReverseIterator<T>			reverse_iterator;
-		typedef const ReverseIterator<T>	const_reverse_iterator;
+		typedef VectorIterator<T>					iterator;
+		typedef const iterator						const_iterator;
+		typedef VectorReverseIterator<T>			reverse_iterator;
+		typedef const reverse_iterator				const_reverse_iterator;
 		#include "./vector/vector.hpp"
 	};
 	#include "./vector/non_member.hpp"
-	*/
+	
 }
 
 

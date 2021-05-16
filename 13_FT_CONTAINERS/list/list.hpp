@@ -1,7 +1,8 @@
 node*		malloc(){
 	node*	tmp;
+	al		re_al;
 
-	tmp = al.allocate(1);
+	tmp = re_al.allocate(1);
 	tmp->prev = 0;
 	tmp->next = 0;
 	return tmp;
@@ -9,9 +10,10 @@ node*		malloc(){
 
 void		add_back(const T& value){
 	node*	tmp;
+	al		re_al;
 
 	tmp = malloc();
-	alloc.construct(&tmp->value, value);
+	re_al.construct(&tmp->value, value);
 	if (head == 0) {
 		head = tmp;
 		tail = tmp;
@@ -47,11 +49,9 @@ list&	operator=(list const &lst) {
 }
 
 explicit list(const Allocator& alloc) : sz(0), head(0), tail(0) { 
-	this->alloc = alloc;
 }
 	
 explicit list(size_type count, const T& value = T(), const Allocator& alloc = Allocator()) : sz(0), head(0), tail(0) {
-	al = alloc;
 	add_back(0);
 	for (size_type i = 0; i < count; i++)
 		add_back(value);
@@ -61,7 +61,6 @@ explicit list(size_type count, const T& value = T(), const Allocator& alloc = Al
 
 template<class InputIt>
 list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) : sz(0), head(0), tail(0) {
-	al = alloc;
 	add_back(0);
 	for (InputIt i = 0; i < first; i++)
 		add_back(last);
@@ -71,7 +70,6 @@ list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) : sz(0),
 
 template<>
 list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	al = alloc;
 	add_back(0);
 	for (iterator i = first; i != last; i++){
 		sz++;
@@ -82,7 +80,6 @@ list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), ta
 
 template<>
 list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	al = alloc;
 	add_back(0);
 	for (T* i = first; i != last; i++) {
 		sz++;
@@ -92,11 +89,14 @@ list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 }
 
 ~list() {
+	allocator_type	alloc;
+	al				re_al;
+
 	clear();
 	alloc.destroy(&head->value);
 	alloc.destroy(&tail->value);
-	al.deallocate(head, 1);
-	al.deallocate(tail, 1);
+	re_al.deallocate(head, 1);
+	re_al.deallocate(tail, 1);
 }
 
 //assign
@@ -127,7 +127,7 @@ void	assign(T* first, T* last){
 		push_back(*i);
 }
 
-allocator_type	get_allocator() const { return this->alloc; }
+allocator_type	get_allocator() const { allocator_type alloc; return alloc; }
 
 //iterator
 iterator			begin() { return iterator(head->next); }
@@ -159,6 +159,7 @@ void		clear(){
 
 void		push_front(const T& value){
 	node*	tmp;
+	allocator_type	alloc;
 
 	tmp = malloc();
 	alloc.construct(&tmp->value, value);
@@ -171,6 +172,8 @@ void		push_front(const T& value){
 
 void		pop_front(){
 	node*	tmp;
+	allocator_type	alloc;
+	al				re_al;
 
 	tmp = head->next;
 	if (tmp == tail)
@@ -178,12 +181,13 @@ void		pop_front(){
 	tmp->prev->next = tmp->next;
 	tmp->next->prev = tmp->prev;
 	alloc.destroy(&tmp->value);
-	al.deallocate(tmp, 1);
+	re_al.deallocate(tmp, 1);
 	sz--;
 }
 
 void		push_back(const T& value){
 	node*	tmp;
+	allocator_type	alloc;
 
 	tmp = malloc();
 	alloc.construct(&tmp->value, value);
@@ -196,6 +200,8 @@ void		push_back(const T& value){
 
 void		pop_back(){
 	node*	tmp;
+	allocator_type	alloc;
+	al				re_al;
 
 	tmp = tail->prev;
 	if (tmp == head)
@@ -203,12 +209,13 @@ void		pop_back(){
 	tmp->prev->next = tail;
 	tail->prev = tmp->prev;
 	alloc.destroy(&tmp->value);
-	al.deallocate(tmp, 1);
+	re_al.deallocate(tmp, 1);
 	sz--;
 }
 
 iterator	insert(iterator pos, const T& value){
 	node*	tmp;
+	allocator_type	alloc;
 
 	tmp = malloc();
 	alloc.construct(&tmp->value, value);
@@ -223,6 +230,7 @@ iterator	insert(iterator pos, const T& value){
 void		insert(iterator pos, size_type count, const T& value){
 	node*		pre;
 	node*		tmp;
+	allocator_type	alloc;
 
 	pre = pos.getPointer();
 	for (size_type i = 0; i < count; i++){
@@ -241,6 +249,7 @@ template<class InputIt>
 void		insert(iterator pos, InputIt first, InputIt last){
 	node*		pre;
 	node*		tmp;
+	allocator_type	alloc;
 
 	pre = pos.getPointer();
 	for (InputIt i = 0; i < first; i++){
@@ -259,6 +268,7 @@ template<>
 void		insert(iterator pos, iterator first, iterator last){
 	node*		pre;
 	node*		tmp;
+	allocator_type	alloc;
 
 	pre = pos.getPointer();
 	for (iterator i = first; i != last; i++){
@@ -276,6 +286,8 @@ void		insert(iterator pos, iterator first, iterator last){
 iterator	erase(iterator pos){
 	node*		tmp;
 	iterator	it;
+	allocator_type	alloc;
+	al				re_al;
 
 	if (pos == end())
 		return end();
@@ -284,7 +296,7 @@ iterator	erase(iterator pos){
 	tmp->next->prev = tmp->prev;
 	it = iterator(tmp->next);
 	alloc.destroy(&tmp->value);
-	al.deallocate(tmp, 1);
+	re_al.deallocate(tmp, 1);
 	sz--;
 	return (it);
 }
@@ -292,6 +304,8 @@ iterator	erase(iterator pos){
 iterator	erase(iterator first, iterator last){
 	node*	tmp;
 	node*	next;
+	allocator_type	alloc;
+	al				re_al;
 
 	next = first.getPointer();
 	while (next != last.getPointer()){
@@ -300,7 +314,7 @@ iterator	erase(iterator first, iterator last){
 		tmp->next->prev = tmp->prev;
 		next = tmp->next;
 		alloc.destroy(&tmp->value);
-		al.deallocate(tmp, 1);
+		re_al.deallocate(tmp, 1);
 		sz--;
 	}
 	return (iterator(next));
@@ -450,8 +464,6 @@ void		splice(const_iterator pos, list& other){
 }
 
 void		splice(const_iterator pos, list& other, const_iterator it){
-	//if (it == other.end())
-	//	return ;
 	move_node(it.getPointer(), pos.getPointer());
 	other.sz--;
 	sz++;
