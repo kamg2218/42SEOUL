@@ -43,6 +43,38 @@ int		main()
 	std::cout << "ft_front = " << ft_v.front() << std::endl;
 	std::cout << "ft_back = " << ft_v.back() << std::endl;
 	
+	std::cout << "---- at() ---------------------------------------" << std::endl;
+	try{
+		std::cout << "std_v.at(0) = " << std_v.at(0) << std::endl;
+		std::cout << "std_v.at(2) = " << std_v.at(2) << std::endl;
+		std::cout << "std_v.at(-1) = " << std_v.at(-1) << std::endl;
+		std::cout << "std_v.at(100) = " << std_v.at(100) << std::endl;
+	}
+	catch (std::out_of_range& e){
+		std::cerr << "Out of Range error: " << e.what() << std::endl;
+	}
+	try{
+		std::cout << "ft_v.at(0) = " << ft_v.at(0) << std::endl;
+		std::cout << "ft_v.at(2) = " << ft_v.at(2) << std::endl;
+		std::cout << "ft_v.at(-1) = " << ft_v.at(-1) << std::endl;
+		std::cout << "ft_v.at(100) = " << ft_v.at(100) << std::endl;
+	}
+	catch (std::out_of_range& e){
+		std::cerr << "Out of Range error: " << e.what() << std::endl;
+	}
+
+	std::cout << "---- operator[] ---------------------------------" << std::endl;
+	
+	std::cout << "std_v[0] = " << std_v[0] << std::endl;
+	std::cout << "std_v[2] = " << std_v[2] << std::endl;
+	std::cout << "std_v[-1] = " << std_v[-1] << std::endl;
+	std::cout << "std_v[100] = " << std_v[100] << std::endl;
+		
+	std::cout << "ft_v[0] = " << ft_v[0] << std::endl;
+	std::cout << "ft_v[2] = " << ft_v[2] << std::endl;
+	std::cout << "ft_v[-1] = " << ft_v[-1] << std::endl;
+	std::cout << "ft_v[100] = " << ft_v[100] << std::endl;
+	
 	std::cout << "---- empty() ------------------------------------" << std::endl;
 	if (!std_v.empty())
 		std::cout << "std_v is not empty" << std::endl;
@@ -96,10 +128,10 @@ int		main()
 		std::cout << "ft_v is not empty\n";
 	
 	std::cout << "---- assign(int, int) --------------------------" << std::endl;
-	std_v.assign(3, 5);
+	std_v.assign(7, 5);
 	std_print(std_v);
 	
-	ft_v.assign(3, 5);
+	ft_v.assign(7, 5);
 	ft_print(ft_v);
 
 	std::cout << "---- assign(iterator, iterator) ----------------" << std::endl;
@@ -200,7 +232,7 @@ int		main()
 	ft_print(ft_v);
 	ft_print(ft_v2);
 	ft_v.swap(ft_v2);
-/*
+
 	std::cout << "---- compare -------------------------------------" << std::endl;
 	if (ft_v > ft_v2)
 		std::cout << "ft_v is bigger\n";
@@ -208,7 +240,7 @@ int		main()
 		std::cout << "ft_v is smaller\n";
 	else
 		std::cout << "ft_v and ft_v2 is same\n";
-*/	std::cout << "--------------------------------------------------" << std::endl;
-
+	std::cout << "--------------------------------------------------" << std::endl;
+	
 	return 0;
 }

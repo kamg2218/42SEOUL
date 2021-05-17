@@ -87,14 +87,9 @@ void	assign(InputIt first, InputIt last){
 
 template<>
 void	assign(iterator first, iterator last){
-	//size_type	j = 0;
-
 	clear();
 	if (capacity() < last - first)
 		reserve(last - first);
-	//for (iterator i = first; i != last; i++)
-	//	head[j++] = *i;
-	//tail += last - first;
 	for (iterator i = first; i != last; i++)
 		push_back(*i);
 }
@@ -122,6 +117,20 @@ reverse_iterator		rend() { return reverse_iterator(head - 1); }
 const_reverse_iterator	rend() const { return const_reverse_iterator(head - 1); }
 
 //access
+reference	at(size_type pos){
+	if (pos < 0 || pos >= size())
+		throw std::out_of_range("vector");
+	return head[pos];
+}
+
+const_reference	at(size_type pos) const{
+	if (pos < 0 || pos >= size())
+		throw std::out_of_range("vector");
+	return head[pos];
+}
+
+reference operator[](size_type pos) { return head[pos]; }
+const_reference operator[](size_type pos) const { return head[pos]; }
 reference	front() { return *head; }
 const_reference	front() const { return *head; }
 reference	back() { return *(tail - 1); }
@@ -137,6 +146,10 @@ void		reserve(size_type new_cap){
 	pointer			tmp;
 	allocator_type	al;
 
+	if (capacity() >= new_cap)
+		return ;
+	else if (max_size() < new_cap)
+		throw std::length_error("vector");
 	tmp = al.allocate(new_cap);
 	for (size_type i = 0; i < size(); i++)
 		tmp[i] = head[i];

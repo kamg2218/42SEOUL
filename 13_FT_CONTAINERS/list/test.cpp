@@ -26,5 +26,14 @@ int		main(){
 	std::cout << &(*std_v.end()) << std::endl;
 	std::cout << &(*std_v.rend()) << std::endl;
 	std::cout << &(std_v) << std::endl;
+
+	ft::vector<int>		ft_v;
+
+	std::cout << "ft_v = " << sizeof(ft_v) << std::endl;
+	std::cout << &(*ft_v.end()) << std::endl;
+	std::cout << &(*ft_v.rend()) << std::endl;
+	std::cout << &(ft_v) << std::endl;
+
+
 	return 0;
 }
