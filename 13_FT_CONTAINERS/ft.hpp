@@ -64,6 +64,20 @@ namespace ft
 		#include "./vector/vector.hpp"
 	};
 	//#include "./vector/non_member.hpp"
+	
+	template <class T, class Container = std::deque<T> >
+	class	stack {
+	protected:
+		Container									c;
+		typedef typename Container					container_type;
+		typedef typename Container::value_type		value_type;
+		typedef typename Container::size_type		size_type;
+		typedef typename Container::reference		reference;
+		typedef typename Container::const_reference	const_reference;
+	public:
+		#include "./stack/stack.hpp"
+	};
+	//#include "./stack/non_member.hpp"
 	#include "./non_member.hpp"
 	
 }
