@@ -4,7 +4,7 @@
 #include <iterator>
 	
 template<class T, class Category = std::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	VectorReverseIterator : public std::iterator<Category, T> {
+class	VectorReverseIterator {
 	protected:
 		T*					ptr;
 	public:

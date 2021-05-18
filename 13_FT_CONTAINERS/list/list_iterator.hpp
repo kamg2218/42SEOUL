@@ -11,7 +11,7 @@ struct node {
 };
 
 template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListIterator : public std::iterator<Category, T> {
+class	ListIterator {
 	protected:
 		node<T>*			ptr;
 	public:

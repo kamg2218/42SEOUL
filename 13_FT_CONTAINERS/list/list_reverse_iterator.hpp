@@ -4,7 +4,7 @@
 #include "list_iterator.hpp"
 
 template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListReverseIterator : public std::iterator<Category, T> {
+class	ListReverseIterator {
 	protected:
 		node<T>*				ptr;
 	public:
