@@ -8,6 +8,7 @@
 #include <iterator>
 #include <limits>
 #include <stdexcept>
+#include <deque>
 #include "./list/list_iterator.hpp"
 #include "./list/list_reverse_iterator.hpp"
 #include "./vector/vector_iterator.hpp"
@@ -24,6 +25,7 @@ namespace ft
 	protected:
 		typedef typename Allocator::template rebind<node<T> >::other	al;
 		typedef node<T>						node;
+	public:
 		typedef	T 							value_type;
 		typedef Allocator					allocator_type;
 		typedef size_t						size_type;
@@ -32,7 +34,6 @@ namespace ft
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
-	public:
 		typedef ListIterator<T>				iterator;
 		typedef const iterator				const_iterator;
 		typedef ListReverseIterator<T>		reverse_iterator;
@@ -47,7 +48,8 @@ namespace ft
 		T*									head;
 		T*									tail;
 		T* 									cap;
-	protected:
+	//protected:
+	public:
 		typedef	T 							value_type;
 		typedef Allocator					allocator_type;
 		typedef size_t						size_type;
@@ -56,7 +58,6 @@ namespace ft
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
-	public:
 		typedef VectorIterator<T>					iterator;
 		typedef const iterator						const_iterator;
 		typedef VectorReverseIterator<T>			reverse_iterator;
@@ -69,17 +70,30 @@ namespace ft
 	class	stack {
 	protected:
 		Container									c;
-		typedef typename Container					container_type;
+	public:
+		typedef Container							container_type;
 		typedef typename Container::value_type		value_type;
 		typedef typename Container::size_type		size_type;
 		typedef typename Container::reference		reference;
 		typedef typename Container::const_reference	const_reference;
-	public:
 		#include "./stack/stack.hpp"
 	};
 	//#include "./stack/non_member.hpp"
-	#include "./non_member.hpp"
 	
+	template <class T, class Container = std::deque<T> >
+	class	queue {
+	protected:
+		Container									c;
+	public:
+		typedef Container							container_type;
+		typedef typename Container::value_type		value_type;
+		typedef typename Container::size_type		size_type;
+		typedef typename Container::reference		reference;
+		typedef typename Container::const_reference	const_reference;
+		#include "./queue/queue.hpp"
+	};
+	//#include "./queue/non_member.hpp"
+	#include "./non_member.hpp"
 }
 
 #endif

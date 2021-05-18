@@ -9,11 +9,11 @@ node*		malloc(){
 }
 
 void		add_back(const T& value){
-	node*	tmp;
-	al		re_al;
+	node*			tmp;
+	allocator_type	alloc;
 
 	tmp = malloc();
-	re_al.construct(&tmp->value, value);
+	alloc.construct(&tmp->value, value);
 	if (head == 0) {
 		head = tmp;
 		tail = tmp;
