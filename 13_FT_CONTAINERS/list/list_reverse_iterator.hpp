@@ -1,9 +1,9 @@
 #ifndef LIST_REVERSE_ITERATOR_HPP
 # define LIST_REVERSE_ITERATOR_HPP
 
-#include "list_iterator.hpp"
+#include "../ft.hpp"
 
-template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ListReverseIterator {
 	protected:
 		node<T>*				ptr;

@@ -1,7 +1,6 @@
 #ifndef NON_MEMBER_HPP
 # define NON_MEMBER_HPP
 
-#include <algorithm>
 #include "../ft.hpp"
 
 template<class T, class Container>

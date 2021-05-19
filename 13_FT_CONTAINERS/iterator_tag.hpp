@@ -1,5 +1,5 @@
-#ifndef ITERATOR_TAG
-# define ITERATOR_TAG
+#ifndef ITERATOR_TAG_HPP
+# define ITERATOR_TAG_HPP
 
 struct input_iterator_tag {};
 struct output_iterator_tag {};

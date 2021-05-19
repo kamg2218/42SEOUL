@@ -1,16 +1,9 @@
 #ifndef LIST_ITERATOR_HPP
 # define LIST_ITERATOR_HPP
 
-#include <iterator>
-	
-template <class T>
-struct node {
-	T			value;
-	node<T>		*prev;
-	node<T>		*next;
-};
+#include "../ft.hpp"
 
-template<class T, class Category = std::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ListIterator {
 	protected:
 		node<T>*			ptr;

@@ -5,18 +5,37 @@
 #include <algorithm>
 #include <memory>
 #include <typeinfo>
-#include <iterator>
 #include <limits>
 #include <stdexcept>
 #include <deque>
-#include "./list/list_iterator.hpp"
-#include "./list/list_reverse_iterator.hpp"
-#include "./vector/vector_iterator.hpp"
-#include "./vector/vector_reverse_iterator.hpp"
+
+template <class T>
+struct node {
+	T			value;
+	node<T>		*prev;
+	node<T>		*next;
+};
 
 namespace ft
 {
 	#include "iterator_tag.hpp"
+	#include "./list/list_iterator.hpp"
+	#include "./list/list_reverse_iterator.hpp"
+	#include "./vector/vector_iterator.hpp"
+	#include "./vector/vector_reverse_iterator.hpp"
+
+	template<class InputIt1, class InputIt2>
+	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){
+		InputIt1 i = first1;
+		InputIt2 j = first2;
+		for (; i != last1 && j != last2; i++, j++){
+			if (*i < *j)
+				continue;
+			else
+				return false;
+		}
+		return true;
+	}
 
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
@@ -50,7 +69,6 @@ namespace ft
 		T*									head;
 		T*									tail;
 		T* 									cap;
-	//protected:
 	public:
 		typedef	T 							value_type;
 		typedef Allocator					allocator_type;
@@ -95,6 +113,7 @@ namespace ft
 		#include "./queue/queue.hpp"
 	};
 	//#include "./queue/non_member.hpp"
+	
 	#include "./non_member.hpp"
 }
 
