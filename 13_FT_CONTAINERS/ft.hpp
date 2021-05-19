@@ -16,6 +16,8 @@
 
 namespace ft
 {
+	#include "iterator_tag.hpp"
+
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
 	private:
