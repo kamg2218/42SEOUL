@@ -9,13 +9,21 @@
 #include <stdexcept>
 #include <utility>		//std::pair
 #include <functional>	//std::less
-#include <deque>
+#include <deque>		//ft::stack
 
 template <class T>
 struct node {
 	T			value;
 	node<T>		*prev;
 	node<T>		*next;
+};
+
+template <class T>
+struct RBTNode {
+	T			value;
+	RBTNode<T>	*parent;
+	RBTNode<T>	*left;
+	RBTNode<T>	*right;
 };
 
 namespace ft
@@ -118,7 +126,10 @@ namespace ft
 	
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
-	protected:
+	private:
+		RBTNode<std::pair<const Key, T> >			*head;
+		RBTNode<std::pair<const Key, T> >			tail;
+		std::size_t									sz;
 	public:
 		typedef Key									key_type;
 		typedef T									mapped_type;
