@@ -1,29 +1,12 @@
-node*		malloc(){
-	node*	tmp;
-	al		re_al;
-
-	tmp = re_al.allocate(1);
-	tmp->prev = 0;
-	tmp->next = 0;
-	return tmp;
-}
-
-void		add_back(const T& value){
-	node*			tmp;
-	allocator_type	alloc;
-
-	tmp = malloc();
-	alloc.construct(&tmp->value, value);
-	if (head == 0) {
-		head = tmp;
-		tail = tmp;
-	}
-	else {
-		tmp->prev = tail;
-		tail->next = tmp;
-		tail = tmp;
-	}
-}
+class value_compare{
+	protected:
+		Compare		comp;
+		value_compare(Compare c) { comp = c; }
+	public:
+		bool	operator()( const value_type& lhs, const value_type& rhs) const{
+			return comp(lhs.first, rhs.first);
+		}
+};
 
 //constructor
 list() : sz(0), head(0), tail(0) {

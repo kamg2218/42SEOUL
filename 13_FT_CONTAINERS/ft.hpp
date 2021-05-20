@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <algorithm>
-#include <memory>
+#include <memory>		//std::allocator
 #include <typeinfo>
 #include <limits>
 #include <stdexcept>
+#include <utility>		//std::pair
+#include <functional>	//std::less
 #include <deque>
 
 template <class T>
@@ -113,6 +115,29 @@ namespace ft
 		#include "./queue/queue.hpp"
 	};
 	//#include "./queue/non_member.hpp"
+	
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
+	class	map {
+	protected:
+	public:
+		typedef Key									key_type;
+		typedef T									mapped_type;
+		typedef typename std::pair<const Key, T>	value_type;
+		typedef typename std::size_t				size_type;
+		typedef typename std::ptrdiff_t				difference_type;
+		typedef Compare								key_compare;
+		typedef typename Allocator					allocator_type;
+		typedef typename Allocator::reference		reference;
+		typedef typename Allocator::const_reference	const_reference;
+		typedef typename Allocator::pointer			pointer;
+		typedef typename Allocator::const_pointer	const_pointer;
+		typedef MapIterator<T>						iterator;
+		typedef const iterator						const_iterator;
+		typedef MapReverseIterator<T>				reverse_iterator;
+		typedef const reverse_iterator				const_reverse_iterator;
+		#include "./map/map.hpp"
+	};
+	//#include "./map/non_member.hpp"
 	
 	#include "./non_member.hpp"
 }
