@@ -84,322 +84,283 @@ void		clear(){
 	//sz = 0;
 }
 
-std::pair<iterator, bool>	insert(const value_type& value){
+RBTNode*	make_node(const value_type& value){
 	RBTNode*		tmp;
 	allocator_type	alloc;
 
-	if (find(value.first) != end())
-		return std::pair<iterator(value), false>;
 	tmp = alloc.allocate(1);
 	tmp->parent = 0;
 	tmp->left = 0;
 	tmp->right = 0;
+	tmp->color = RED;
 	alloc.construct(&tmp->value, value);
 	sz++;
+	return tmp;
+}
+
+void rotateRight(RBTNode** node, RBTNode* parent)
+{
+	RBTNode* leftChild = parent->left;
+
+	parent->left = leftChild->right;
+	if (leftChild->right != NULL)
+		leftChild->right->parent = parent;
+	leftChild->parent = parent->parent;
+	if (parent->parent == NULL)
+		(*node) = leftChild;
+	else
+	{
+		if (parent == parent->parent->left)
+			parent->parent->left = leftChild;
+		else
+			parent->parent->right = leftChild;
+	}
+	leftChild->right = parent;
+	parent->parent = leftChild;
+}
+
+void rotateLeft(RBTNode** node, RBTNode* parent)
+{
+	RBTNode* rightChild = parent->right;
+
+	parent->right = rightChild->left;
+	if (rightChild->left != NULL)
+		rightChild->left->parent = parent;
+	rightChild->parent = parent->parent;
+	if (parent->parent == NULL)
+		(*node) = rightChild;
+	else
+	{
+		if (parent == parent->parent->right)
+			parent->parent->right = rightChild;
+		else
+			parent->parent->left = rightChild;
+	}
+	rightChild->left = parent;
+	parent->parent = rightChild;
+}
+
+void	rebuild(RBTNode** node, RBTNode* src){
+	RBTNode*	tmp;
+
+	while (src != *node && src->parent->color == RED){
+		if (src->parent == src->parent->parent->left){
+			tmp = src->parent->parent->right;
+			if (tmp && tmp->color == RED){
+				src->parent->color = BLACK;
+				tmp->color = BLACK;
+				src->parent->parent->color = RED;
+			}
+			else{
+				if (src == src->parent->right){
+					src = src->parent;
+					rotateLeft(head, src);
+				}
+				src->parent->color = BLACK;
+				src->parent->parent->color = RED;
+				rotateRight(head, src->parent->parent);
+			}
+		}
+		else{
+			tmp = src->parent->parent->left;
+			if (tmp && tmp->color == RED){
+				src->parent->color = BLACK;
+				tmp->color = BLACK;
+				src->parent->parent->color = RED;
+			}
+			else{
+				if (src == src->parent->left){
+					src = src->parent;
+					rotateRight(head, src);
+				}
+				src->parent->color = BLACK;
+				src->parent->parent->color = RED;
+				rotateLeft(head, src->parent->parent);
+			}
+		}
+	}
+	(*node)->color = BLACK;
+}
+
+void		add_node(RBTNode** node, RBTNode* dst){
+	RBTNode*	tmp;
+
+	tmp = *node;
+	if (tmp == 0){
+		dst->color = BLACK;
+		*head = dst;
+		return ;
+	}
+	while (tmp){
+		if (dst->value.first < tmp->value.first){
+			if (tmp->left == NULL)
+				break ;
+			tmp = tmp->left;
+		}
+		else{
+			if (tmp->right == NULL)
+				break ;
+			tmp = tmp->right;
+		}
+	}
+	if (dst->value.first < tmp->value.first)
+		tmp->left = dst;
+	else
+		tmp->right = dst;
+	dst->parent = tmp;
+	sz++;
+	tail->right = head;
+	tail->left = dst;
+	rebuild(&head, dst);
+}
+
+std::pair<iterator, bool>	insert(const value_type& value){
+	iterator		it;
+	RBTNode*		tmp;
+
+	it = find(value.first)
+	if (it != end())
+		return std::pair<it, false>;
+	tmp = make_node(value);
+	add_node(&head, tmp);
 	return std::pair<iterator(tmp), true>;
+}
+
+RBTNode*	check_hint(iterator hint, RBTNode* node){
+	RBTNode*		tmp;
+	key_compare		comp;
+
+	if (comp(head->value.first, *hint.first)){
+		if (comp(value.first, head->value.first))
+			return head;
+		else{
+			tmp = hint.getPointer();
+			while (comp(value.first, tmp->value.first))
+				tmp = tmp->parent;
+			return tmp;
+		}
+	}
+	else{
+		if (comp(head->value.first, value.first))
+			return head;
+		else{
+			tmp = hint.getPointer();
+			while (comp(tmp->value.first, value.first))
+				tmp = tmp->parent;
+			return tmp;
+		}
+	}
 }
 
 iterator	insert(iterator hint, const value_type& value){
 	RBTNode*		tmp;
-	allocator_type	alloc;
+	RBTNode*		node;
+	iterator		it;
 
-	if (find(value.first))
+	it = find(value.first)
+	if (it != end())
+		return it;
+	node = make_node(value);
+	tmp = check_hint(hint, node);
+	add_node(&tmp, node);
+	return iterator(node);
 }
-/*
-template<class InputIt>
-void		insert(iterator pos, InputIt first, InputIt last){
-	node*		pre;
-	node*		tmp;
-	allocator_type	alloc;
 
-	pre = pos.getPointer();
-	for (InputIt i = 0; i < first; i++){
-		tmp = malloc();
-		alloc.construct(&tmp->value, last);
-		tmp->prev = pre->prev;
-		pre->prev->next = tmp;
-		tmp->next = pre;
-		pre->prev = tmp;
-		pre = tmp->next;
-		sz++;
+template<class InputIt>
+void		insert(InputIt first, InputIt last){
+	for (InputIt i = first; i != last; i++){
+		if (find(i->first) != end())
+			continue ;
+		add_node(&head, make_node(*i));
 	}
 }
 
 template<>
-void		insert(iterator pos, iterator first, iterator last){
-	node*		pre;
-	node*		tmp;
-	allocator_type	alloc;
-
-	pre = pos.getPointer();
+void		insert(iterator first, iterator last){
 	for (iterator i = first; i != last; i++){
-		tmp = malloc();
-		alloc.construct(&tmp->value, *i);
-		tmp->prev = pre->prev;
-		pre->prev->next = tmp;
-		tmp->next = pre;
-		pre->prev = tmp;
-		pre = tmp->next;
-		sz++;
+		if (find(*i.first) != end())
+			continue ;
+		add_node(&head, make_node(*i));
 	}
 }
 
 iterator	erase(iterator pos){
-	node*		tmp;
+	RBTNode*	tmp;
 	iterator	it;
-	allocator_type	alloc;
-	al				re_al;
 
-	if (pos == end())
-		return end();
+	it = pos;
+	it++;
 	tmp = pos.getPointer();
-	tmp->prev->next = tmp->next;
-	tmp->next->prev = tmp->prev;
-	it = iterator(tmp->next);
-	alloc.destroy(&tmp->value);
-	re_al.deallocate(tmp, 1);
-	sz--;
+
 	return (it);
 }
 
-iterator	erase(iterator first, iterator last){
-	node*	tmp;
-	node*	next;
-	allocator_type	alloc;
-	al				re_al;
-
-	next = first.getPointer();
-	while (next != last.getPointer()){
-		tmp = next;
-		tmp->prev->next = tmp->next;
-		tmp->next->prev = tmp->prev;
-		next = tmp->next;
-		alloc.destroy(&tmp->value);
-		re_al.deallocate(tmp, 1);
-		sz--;
-	}
-	return (iterator(next));
+void		erase(iterator first, iterator last){
 }
 
-void		resize(size_type count, T value = T()){
-	iterator	it;
-
-	if (this->sz == count)
-		return ;
-	else if (count < sz){
-		it = this->begin();
-		for (size_type i = 0; i < count; i++)
-			it++;
-		while (sz > count)
-			it = erase(it);
-	}
-	else{
-		it = this->begin();
-		for (size_type i = 0; i < sz; i++)
-			it++;
-		while (sz < count)
-			push_back(value);
-	}
+size_type	erase(const key_type& key){
 }
 
-void		swap(list& other){
+void		swap(map& other){
 	size_type	cnt;
-	node*	head;
-	node*	tail;
+	RBTNode*	tmp1;
+	RBTNode		tmp2;
 
 	if (&other == this)
 		return ;
-	head = other.head;
-	tail = other.tail;
+	tmp1 = other.head;
+	tmp2 = other.tail;
 	cnt = other.sz;
 	other.head = this->head;
 	other.tail = this->tail;
 	other.sz = this->sz;
-	this->head = head;
-	this->tail = tail;
+	this->head = tmp1;
+	this->tail = tmp2;
 	this->sz = cnt;
 }
 
-//operations
-void		move_node(node* src, node* dst){
-	src->prev->next = src->next;
-	src->next->prev = src->prev;
-	
-	src->prev = dst->prev;
-	src->next = dst;
-
-	src->prev->next = src;
-	dst->prev = src;
+//lookup
+size_type	count(const Key& key){
+	if (find(key) != end())
+		return 1;
+	return 0;
 }
 
-void		sort(){
-	node*	tmp;
+iterator	find(const Key& key){
+	RBTNode*	tmp;
 
-	for (node* i = head->next; i != tail; i = i->next){
-		for (node* j = i->next; j != tail; j = j->next){
-			if (i->value > j->value){
-				tmp = j->next;
-				move_node(j, i);
-				move_node(i, tmp);
-				tmp = i;
-				i = j;
-				j = i;
-			}
-		}
-	}
-}
-
-template<class Compare>
-void		sort(Compare cmp){
-	node*	tmp;
-
-	for (node* i = head->next; i != tail; i = i->next){
-		for (node* j = i->next; j != tail; j = j->next){
-			if (cmp(i->value, j->value) > 0){
-				tmp = j->next;
-				move_node(j, i);
-				move_node(i, tmp);
-				tmp = i;
-				i = j;
-				j = i;
-			}
-		}
-	}
-}
-
-void		merge(list& other){
-	node*	i;
-	node*	tmp;
-
-	if (this == &other)
-		return ;
-	else if (get_allocator() != other.get_allocator())
-		return ;
-	tmp = head->next;
-	i = other.head->next;
-	while (i != other.tail){
-		if (tmp->value > i->value || tmp == tail){
-			move_node(i, tmp);
-			other.sz--;
-			sz++;
-			i = other.head->next;
-		}
+	tmp = head;
+	while (tmp && tmp->value.first != key){
+		if (comp(key, tmp->value.first))
+			tmp = tmp->left;
 		else
-			tmp = tmp->next;
+			tmp = tmp->right;
 	}
+	if (tmp)
+		return iterator(tmp);
+	return (end());
 }
 
-template <class Compare>
-void		merge(list& other, Compare comp){
-	node*	i;
-	node*	tmp;
+const_iterator	find(const Key& key) const {
+	RBTNode*	tmp;
 
-	if (this == &other)
-		return ;
-	sort();
-	other.sort();
-	tmp = head->next;
-	i = other.head->next;
-	while (i != other.tail){
-		if (comp(tmp->value, i->value) > 0 || tmp == tail){
-			move_node(i, tmp);
-			other.sz--;
-			sz++;
-			i = other.head->next;
-		}
+	tmp = head;
+	while (tmp && tmp->value.first != key){
+		if (comp(key, tmp->value.first))
+			tmp = tmp->left;
 		else
-			tmp = tmp->next;
+			tmp = tmp->right;
+	}
+	if (tmp)
+		return const_iterator(tmp);
+	return (end());
+}
+
+std::pair<iterator, iterator>	equal_range(const Key& key){
+	RBTNode*	tmp;
+
+	tmp = head;
+	while (tmp && tmp->value.first != key){
+		if ()
 	}
 }
-
-void		splice(const_iterator pos, list& other){
-	iterator	tmp;
-
-	tmp = other.begin();
-	while (tmp != other.end()){
-		move_node(tmp.getPointer(), pos.getPointer());
-		other.sz--;
-		sz++;
-		tmp = other.begin();
-	}
-}
-
-void		splice(const_iterator pos, list& other, const_iterator it){
-	move_node(it.getPointer(), pos.getPointer());
-	other.sz--;
-	sz++;
-}
-
-void		splice(const_iterator pos, list& other, const_iterator first, const_iterator last){
-	iterator	tmp;
-	iterator	next;
-
-	tmp = first;
-	while (tmp != last){
-		next = tmp++;
-		tmp--;
-		move_node(tmp.getPointer(), pos.getPointer());
-		other.sz--;
-		sz++;
-		tmp = next;
-	}
-}
-
-void		remove(const T& value){
-	iterator	i;
-
-	i = begin();
-	while (i != end()){
-		if (*i == value){
-			i = erase(i);
-		}
-		else
-			i++;
-	}
-}
-
-template<class UnaryPredicate>
-void		remove_if(UnaryPredicate p){
-	for (iterator i = begin(); i != end(); i++){
-		if (p(*i) == true){
-			i = erase(i);
-			i--;
-		}
-	}
-}
-
-void		reverse(){
-	iterator	first;
-	iterator	last;
-
-	first = begin();
-	last = end()--;
-	while (first != last){
-		move_node(last.getPointer(), first.getPointer());
-		last = end()--;
-	}
-}
-
-void		unique(){
-	iterator	tmp;
-
-	for (iterator i = begin(); i != end(); i++){
-		tmp = i++;
-		i--;
-		while (*i == *tmp)
-			tmp = erase(tmp);
-	}
-}
-
-template<class BinaryPredicate>
-void		unique(BinaryPredicate p){
-	iterator	tmp;
-
-	for (iterator i = begin(); i != end(); i++){
-		tmp = i++;
-		i--;
-		while (p(*i, *tmp))
-			tmp = erase(tmp);
-	}
-}
-*/

@@ -48,5 +48,15 @@ int		main(){
 	for (std::map<int, int>::iterator it = std_m.begin(); it != std_m.end(); it++)
 		std::cout << "it = " << it->first << ", " << it->second << ", " << &(*it) << std::endl;
 
+	std::pair<int, int>		p[2];
+	p[0] = std::make_pair(20, 15);
+	p[1] = std::make_pair(23, 18);
+
+	std_m.insert(p, p + 2);
+	std::cout << "size = " << std_m.size() << std::endl;
+	for (std::map<int, int>::iterator it = std_m.begin(); it != std_m.end(); it++)
+		std::cout << "it = " << it->first << ", " << it->second << ", " << &(*it) << std::endl;
+
+
 	return 0;
 }

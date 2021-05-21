@@ -1,12 +1,12 @@
-#ifndef LIST_ITERATOR_HPP
-# define LIST_ITERATOR_HPP
+#ifndef MAP_ITERATOR_HPP
+# define MAP_ITERATOR_HPP
 
 #include "../ft.hpp"
 
-template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListIterator {
+template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = RBTNode<Key, T>*, class Reference = RBTNode<Key, T>&>
+class	MapIterator {
 	protected:
-		node<T>*			ptr;
+		std::pair<Key, T>			*ptr;
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;

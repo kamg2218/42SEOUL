@@ -177,7 +177,6 @@ void	bfs(RBTNode **head){
 
 	tmp[0] = *head;
 	while (bfs_size(tmp) > 0){
-		std::cout << "!";
 		for (int i = 0; i < bfs_size(tmp); i++){
 			a = tmp[i];
 			std::cout << "[" << a->data << ", " << a->color << "] ";
@@ -188,6 +187,7 @@ void	bfs(RBTNode **head){
 			del_tmp(tmp, i);
 			i--;
 		}
+		std::cout << std::endl;
 	}
 	std::cout << std::endl;
 }
