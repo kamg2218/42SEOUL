@@ -100,7 +100,10 @@ std::pair<iterator, bool>	insert(const value_type& value){
 }
 
 iterator	insert(iterator hint, const value_type& value){
-	
+	RBTNode*		tmp;
+	allocator_type	alloc;
+
+	if (find(value.first))
 }
 /*
 template<class InputIt>
