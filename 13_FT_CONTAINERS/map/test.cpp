@@ -150,12 +150,56 @@ void	insert(RBTNode** head, RBTNode*	node){
 	rebuild(head, node);
 }
 
+int		bfs_size(RBTNode** tmp){
+	int		len;
+
+	len = 0;
+	while (tmp[len])
+		len++;
+	return len;
+}
+
+int		move_tmp(RBTNode** tmp, int location, RBTNode* node){
+	for (int i = bfs_size(tmp); i > location; i--)
+		tmp[i] = tmp[i - 1];
+	tmp[location] = node;
+	return 1;
+}
+
+void	del_tmp(RBTNode **tmp, int location){
+	for (int i = location; i < bfs_size(tmp); i++)
+		tmp[i] = tmp[i + 1];
+}
+
+void	bfs(RBTNode **head){
+	RBTNode*	tmp[100] = {0, };
+	RBTNode*	a;
+
+	tmp[0] = *head;
+	while (bfs_size(tmp) > 0){
+		std::cout << "!";
+		for (int i = 0; i < bfs_size(tmp); i++){
+			a = tmp[i];
+			std::cout << "[" << a->data << ", " << a->color << "] ";
+			if (a->left)
+				i += move_tmp(tmp, i, a->left);
+			if (a->right)
+				i += move_tmp(tmp, i, a->right);
+			del_tmp(tmp, i);
+			i--;
+		}
+	}
+	std::cout << std::endl;
+}
+
 int		main(){
 	int			data;
 	RBTNode*	head = 0;
 
 	while (std::cin >> data){
 		insert(&head, new_node(data));
+		bfs(&head);
+		std::cout << std::endl;
 	}
 	traverse(head);
 	return 0;
