@@ -346,13 +346,7 @@ void	two_node(RBTNode **head, RBTNode *node){
 	while (tmp->left)
 		tmp = tmp->left;
 	node->data = tmp->data;
-	if (tmp == node->right)
-		node->right = tmp->right;
-	else
-		tmp->parent->left = tmp->right;
-	if (tmp->right)
-		tmp->right->parent = tmp->parent;
-	delete tmp;
+	one_node(head, tmp);
 }
 
 void	del(RBTNode **head, int data){
