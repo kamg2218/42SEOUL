@@ -320,6 +320,7 @@ void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
 void	one_node(RBTNode **head, RBTNode *node){
 	RBTNode *child;
 
+	child = NULL;
 	if (node->right)
 		child = node->right;
 	else if (node->left)
@@ -345,7 +346,7 @@ void	two_node(RBTNode **head, RBTNode *node){
 	tmp = node->right;
 	while (tmp->left)
 		tmp = tmp->left;
-	node->data = tmp->data;
+	node->data = tmp->data; //노드 바꾸기
 	one_node(head, tmp);
 }
 

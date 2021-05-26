@@ -33,70 +33,99 @@ void	rotateLeft(RBTNode **head, RBTNode *node){
 	RBTNode *tmp;
 	RBTNode *grand;
 
-	tmp = node->left;
 	grand = node->parent;
-	if (tmp)
+	tmp = node->right;
+	if (node->parent->left == node){
 		tmp->parent = grand;
-	grand->right = tmp;
-	node->parent = grand->parent;
-	if (grand->parent && grand->parent->right == grand)
-		grand->parent->right = node;
-	else if (grand->parent)
-		grand->parent->left = node;
-	else
-		*head = node;
-	node->left = grand;
+		grand->left = tmp;
+		node->right = tmp->left;
+		if (tmp->left)
+			tmp->left->parent = node;
+		node->parent = tmp;
+		tmp->left = node;
+	}
+	else{
+		node->parent = grand->parent;
+		if (grand->parent)
+			grand->parent->right = node;
+		grand->right = node->left;
+		if (node->left)
+			node->left->parent = grand;
+		node->left = grand;
+		grand->parent = node;
+		if (*head == grand)
+			*head = node;
+	}
 }
 
 void	rotateRight(RBTNode **head, RBTNode *node){
 	RBTNode *tmp;
 	RBTNode *grand;
-	
-	tmp = node->right;
+
 	grand = node->parent;
-	if (tmp)
+	tmp = node->left;
+	if (node->parent->right == node){
 		tmp->parent = grand;
-	grand->left = tmp;
-	node->parent = grand->parent;
-	if (grand->parent && grand->parent->right == grand)
-		grand->parent->right = node;
-	else if (grand->parent)
-		grand->parent->left = node;
-	else
-		*head = node;
-	node->right = grand;
+		grand->right = tmp;
+		node->left = tmp->right;
+		if (tmp->right)
+			tmp->right->parent = node;
+		node->parent = tmp;
+		tmp->right = node;
+	}
+	else{
+		node->parent = grand->parent;
+		if (grand->parent)
+			grand->parent->left = node;
+		grand->left = node->right;
+		if (node->right)
+			node->right->parent = grand;
+		node->right = grand;
+		grand->parent = node;
+		if (*head == grand)
+			*head = node;
+	}
 }
 
 void	rebuild(RBTNode **head, RBTNode *node){
 	RBTNode *tmp;
 	RBTNode *uncle;
 
-	if (node->parent->color == BLACK)
+	tmp = NULL;
+	if (node->parent && node->parent->color == BLACK)
 		return ;
-	if (node->parent->parent)
+	if (node->parent && node->parent->parent)
 		tmp = node->parent->parent;
 	if (tmp == NULL)
 		uncle = NULL;
 	else if (tmp->left == node->parent)
-		uncle = node->parent->right;
+		uncle = tmp->right;
 	else
-		uncle = node->parent->left;
+		uncle = tmp->left;
 	if (uncle && uncle->color == RED){
 		node->parent->color = BLACK;
 		uncle->color = BLACK;
 		tmp->color = RED;
 		if (*head == tmp)
 			(*head)->color = BLACK;
-		else if (tmp->color == RED)
+		else if ((*head)->color == RED)
 			rebuild(head, tmp);
 	}
 	else{
-		node->parent->color = tmp->color;
+		if (node->parent->right == node && node->parent == tmp->left){
+			rotateLeft(head, node->parent);
+			node = node->left;
+		}
+		else if (node->parent->left == node && node->parent == tmp->right){
+			rotateRight(head, node->parent);
+			node = node->right;
+		}
+		node->parent->color = BLACK;
 		tmp->color = RED;
 		if (node->parent->right == node)
 			rotateLeft(head, node->parent);
-		rotateRight(head, tmp);
-		//rebuild(head, node);
+		else
+			rotateRight(head, node->parent);
 	}
 }
 
