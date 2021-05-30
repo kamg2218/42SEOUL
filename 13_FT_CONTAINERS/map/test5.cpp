@@ -32,96 +32,108 @@ void	traverse(RBTNode* head){
 		traverse(head->right);
 }
 
-void rotateRight(RBTNode** root, RBTNode* parent)
-{
-	RBTNode* leftChild = parent->left;
+void	rotateLeft(RBTNode **head, RBTNode *node){
+	RBTNode *tmp;
+	RBTNode *grand;
 
-	parent->left = leftChild->right;
-	
-	if (leftChild->right != NULL)
-		leftChild->right->parent = parent;
-
-	leftChild->parent = parent->parent;
-
-	if (parent->parent == NULL)
-		(*root) = leftChild;
-	else
-	{
-		if (parent == parent->parent->left)
-			parent->parent->left = leftChild;
-		else
-			parent->parent->right = leftChild;
+	cout << "rotateLeft\n";
+	grand = node->parent;
+	tmp = node->right;
+	if (node->parent->left == node){
+		tmp->parent = grand;
+		grand->left = tmp;
+		node->right = tmp->left;
+		if (tmp->left)
+			tmp->left->parent = node;
+		node->parent = tmp;
+		tmp->left = node;
 	}
-	leftChild->right = parent;
-	parent->parent = leftChild;
-
+	else{
+		node->parent = grand->parent;
+		if (grand->parent)
+			grand->parent->right = node;
+		grand->right = node->left;
+		if (node->left)
+			node->left->parent = grand;
+		node->left = grand;
+		grand->parent = node;
+		if (*head == grand)
+			*head = node;
+	}
 }
 
-void rotateLeft(RBTNode** root, RBTNode* parent)
-{
-	RBTNode* rightChild = parent->right;
+void	rotateRight(RBTNode **head, RBTNode *node){
+	RBTNode *tmp;
+	RBTNode *grand;
 
-	parent->right = rightChild->left;
-
-	if (rightChild->left != NULL)
-		rightChild->left->parent = parent;
-
-	rightChild->parent = parent->parent;
-
-	if (parent->parent == NULL)
-		(*root) = rightChild;
-	else
-	{
-		if (parent == parent->parent->right)
-			parent->parent->right = rightChild;
-		else
-			parent->parent->left = rightChild;
+	cout << "rotateRight\n";
+	if (node->parent == NULL)
+		return ;
+	grand = node->parent;
+	tmp = node->left;
+	if (node->parent->right == node){
+		tmp->parent = grand;
+		grand->right = tmp;
+		node->left = tmp->right;
+		if (tmp->right)
+			tmp->right->parent = node;
+		node->parent = tmp;
+		tmp->right = node;
 	}
-	rightChild->left = parent;
-	parent->parent = rightChild;
-
+	else{
+		node->parent = grand->parent;
+		if (grand->parent)
+			grand->parent->left = node;
+		grand->left = node->right;
+		if (node->right)
+			node->right->parent = grand;
+		node->right = grand;
+		grand->parent = node;
+		if (*head == grand)
+			*head = node;
+	}
 }
 
-void	rebuild(RBTNode** head, RBTNode* src){
-	RBTNode*	tmp;
+void	rebuild(RBTNode **head, RBTNode *node){
+	RBTNode *tmp;
+	RBTNode *uncle;
 
-	while (src != *head && src->parent->color == RED){
-		if (src->parent == src->parent->parent->left){
-			tmp = src->parent->parent->right;
-			if (tmp && tmp->color == RED){
-				src->parent->color = BLACK;
-				tmp->color = BLACK;
-				src->parent->parent->color = RED;
-			}
-			else{
-				if (src == src->parent->right){
-					src = src->parent;
-					rotateLeft(head, src);
-				}
-				src->parent->color = BLACK;
-				src->parent->parent->color = RED;
-				rotateRight(head, src->parent->parent);
-			}
-		}
-		else{
-			tmp = src->parent->parent->left;
-			if (tmp && tmp->color == RED){
-				src->parent->color = BLACK;
-				tmp->color = BLACK;
-				src->parent->parent->color = RED;
-			}
-			else{
-				if (src == src->parent->left){
-					src = src->parent;
-					rotateRight(head, src);
-				}
-				src->parent->color = BLACK;
-				src->parent->parent->color = RED;
-				rotateLeft(head, src->parent->parent);
-			}
-		}
+	tmp = NULL;
+	if (node->parent && node->parent->color == BLACK)
+		return ;
+	if (node->parent && node->parent->parent)
+		tmp = node->parent->parent;
+	if (tmp == NULL)
+		uncle = NULL;
+	else if (tmp->left == node->parent)
+		uncle = tmp->right;
+	else
+		uncle = tmp->left;
+	if (uncle && uncle->color == RED){
+		node->parent->color = BLACK;
+		uncle->color = BLACK;
+		tmp->color = RED;
+		if (*head == tmp)
+			(*head)->color = BLACK;
+		else if ((*head)->color == RED)
+			rebuild(head, tmp);
 	}
-	(*head)->color = BLACK;
+	else{
+		if (node->parent->right == node && node->parent == tmp->left){
+			rotateLeft(head, node->parent);
+			node = node->left;
+		}
+		else if (node->parent->left == node && node->parent == tmp->right){
+			rotateRight(head, node->parent);
+			node = node->right;
+		}
+		node->parent->color = BLACK;
+		tmp->color = RED;
+		if (node->parent->right == node)
+			rotateLeft(head, node->parent);
+		else
+			rotateRight(head, node->parent);
+	}
 }
 
 void	insert(RBTNode** head, RBTNode*	node){
@@ -205,6 +217,7 @@ void	del_one(RBTNode **head, RBTNode *node, RBTNode *child){
 		node->parent->right = child;
 	else
 		*head = child;
+	cout << "del_one\n";
 }
 
 void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
@@ -233,7 +246,7 @@ void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
 		else if (s_left && s_left->color == RED){
 			sibling->color = RED;
 			s_left->color = BLACK;
-			rotateRight(head, sibling);
+			rotateRight(head, node->parent);
 		}
 		else{
 			node->parent->color = BLACK;
@@ -249,20 +262,23 @@ void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
 			rotateLeft(head, node->parent);
 			del_left(head, node, child);
 		}
-		else if (s_right->color == RED){
+		else if (s_right && s_right->color == RED){
 			s_right->color = BLACK;
 			if (s_left->color == RED)
 				s_left->color = BLACK;
 			rotateLeft(head, node->parent);
 		}
-		else if (s_left->color == BLACK){
+		else if (s_left && s_left->color == BLACK){
 			sibling->color = RED;
 			del(head, node->parent->data);
 		}
 		else{
-			sibling->color = RED;
-			s_left->color = BLACK;
-			rotateRight(head, sibling);
+			cout << "else\n";
+			if (sibling)
+				sibling->color = RED;
+			if (s_left)
+				s_left->color = BLACK;
+			rotateRight(head, node->parent);
 		}
 	}
 }
@@ -297,7 +313,8 @@ void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
 		else if (s_left && s_left->color == RED){
 			sibling->color = RED;
 			s_left->color = BLACK;
-			rotateRight(head, sibling);
+			node->parent->color = BLACK;
+			rotateRight(head, node->parent);
 		}
 	}
 	//parent->color == BLACK	
@@ -351,6 +368,7 @@ void	one_node(RBTNode **head, RBTNode *node){
 		del_one(head, node, child);
 	}
 	delete node;
+	cout << "one_node\n";
 }
 
 void	two_node(RBTNode **head, RBTNode *node){
@@ -403,8 +421,10 @@ int		main(){
 		if (data == 0)
 			break ;
 		del(&head, data);
-		bfs(&head);
+		if (head)
+			bfs(&head);
 	}
-	traverse(head);
+	if (head)
+		traverse(head);
 	return 0;
 }

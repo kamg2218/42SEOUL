@@ -10,7 +10,7 @@ int		main(){
 	std::vector<std::pair<int, int> > v;
 	v.push_back(std::make_pair(2, 10));
 	v.push_back(std::make_pair(3, 30));
-	v.push_back(std::make_pair(1, 20));
+	v.push_back(std::make_pair(2, 20));
 	std::map<int, int>	std_m(v.begin(), v.end());
 	
 	/*
@@ -57,6 +57,14 @@ int		main(){
 	for (std::map<int, int>::iterator it = std_m.begin(); it != std_m.end(); it++)
 		std::cout << "it = " << it->first << ", " << it->second << ", " << &(*it) << std::endl;
 
+	std::map<int, int>::iterator	it1;
+	std::map<int, int>::iterator	it2;
 
+	it1 = std_m.begin();
+	it2 = it1++;
+	if (it1 == it2)
+		std::cout << it1->second << ", " << it2->second << " it's same.\n";
+	else
+		std::cout << it1->second << ", " << it2->second << " it's not same.\n";
 	return 0;
 }

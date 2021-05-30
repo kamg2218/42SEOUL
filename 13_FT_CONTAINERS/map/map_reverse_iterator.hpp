@@ -3,61 +3,63 @@
 
 #include "../ft.hpp"
 
-template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListReverseIterator {
+template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
+class	MapReverseIterator {
 	protected:
-		node<T>*				ptr;
+		RBTNode<Key, T>					*ptr;
 	public:
-		typedef Category	iterator_category;
-		typedef T			value_type;
-		typedef Distance	difference_type;
-		typedef Pointer		pointer;
-		typedef Reference	reference;
+		typedef Category				iterator_category;
+		typedef std::pair<Key, T>		value_type;
+		typedef Distance				difference_type;
+		typedef Pointer					pointer;
+		typedef Reference				reference;
 
-		ListReverseIterator() : ptr(0) {}
-		ListReverseIterator(node<T>* const p) : ptr(p) {}
-		ListReverseIterator(ListReverseIterator const &rit) { *this = rit; }
-		ListReverseIterator&	operator=(ListReverseIterator const &rit){
-			if (&rit == this)
+		MapReverseIterator() : ptr(0) {}
+		MapReverseIterator(RBTNode<Key, T>* const p) : ptr(p) {}
+		MapReverseIterator(MapReverseIterator const &it) { *this = it; }
+		MapReverseIterator&	operator=(MapReverseIterator const &it){
+			if (&it == this)
 				return *this;
-			this->ptr = rit.ptr;
+			this->ptr = it.ptr;
 			return *this;
 		}
-		~ListReverseIterator() {}
-		ListReverseIterator&		operator++(){
-			this->ptr = this->ptr->prev;
+		~MapReverseIterator() {}
+		MapReverseIterator&		operator++(){
+			this->ptr = lower_bound(ptr->value.first);
 			return *this;
 		}
-		ListReverseIterator&		operator++(int){
-			this->ptr = this->ptr->prev;
+		MapReverseIterator		operator++(int){
+			this->ptr = lower_bound(ptr->value.first);
+			return (MapReverseIterator(this->ptr));
+		}
+		MapReverseIterator&		operator--(){
+			this->ptr = upper_bound(ptr->value.first);
 			return *this;
 		}
-		ListReverseIterator&		operator--(){
-			this->ptr = this->ptr->next;
-			return *this;
+		MapReverseIterator		operator--(int){
+			this->ptr = upper_bound(ptr->value.first);
+			return MapReverseIterator(this->ptr);
 		}
-		ListReverseIterator&		operator--(int){
-			this->ptr = this->ptr->next;
-			return *this;
-		}
-		reference	operator*() const { return ptr->value; }
-		node<T>*	operator->() const { return ptr; }
+		reference	operator*() const { return getValue(); }
+		pointer		operator->() const { return getPointer(); }
 		reference	getValue() const { return ptr->value; }
-		node<T>*	getPointer() const { return ptr; }
+		pointer		getPointer() const { return &(ptr->value); }
 };
 
-template<class T>
-bool	operator==(ListReverseIterator<T> const &a, ListReverseIterator<T> const &b){
-	if (a.getPoniter() == b.getPointer())
+template<class Key, class T>
+bool	operator==(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
+	if (a.getValue().first == b.getValue().first)
 		return true;
-	return false;
+	else
+		return false;
 }
 
-template<class T>
-bool	operator!=(ListReverseIterator<T> const &a, ListReverseIterator<T> const &b){
-	if (a.getPinter() != b.getPointer())
+template<class Key, class T>
+bool	operator!=(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
+	if (a.getValue().first != b.getValue().first)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 #endif

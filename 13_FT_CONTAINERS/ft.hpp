@@ -18,12 +18,14 @@ struct node {
 	node<T>		*next;
 };
 
-template <class T>
+enum Color { RED, BLACK };
+template <class Key, class T>
 struct RBTNode {
-	T			value;
-	RBTNode<T>	*parent;
-	RBTNode<T>	*left;
-	RBTNode<T>	*right;
+	enum Color	color;
+	std::pair<Key, T>	value;
+	RBTNode<Key, T>		*parent;
+	RBTNode<Key, T>		*left;
+	RBTNode<Key, T>		*right;
 };
 
 namespace ft
@@ -33,6 +35,8 @@ namespace ft
 	#include "./list/list_reverse_iterator.hpp"
 	#include "./vector/vector_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
+	#include "./map/map_iterator.hpp"
+	#include "./map/map_reverse_iterator.hpp"
 
 	template<class InputIt1, class InputIt2>
 	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){
@@ -127,9 +131,9 @@ namespace ft
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
 	private:
-		RBTNode<std::pair<const Key, T> >			*head;
-		RBTNode<std::pair<const Key, T> >			tail;
-		std::size_t									sz;
+		RBTNode<Key, T>								*head;
+		RBTNode<Key, T>								tail;
+		size_t										sz;
 	public:
 		typedef Key									key_type;
 		typedef T									mapped_type;
@@ -142,11 +146,13 @@ namespace ft
 		typedef typename Allocator::const_reference	const_reference;
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::const_pointer	const_pointer;
-		typedef MapIterator<T>						iterator;
+		typedef MapIterator<Key, T>					iterator;
 		typedef const iterator						const_iterator;
-		typedef MapReverseIterator<T>				reverse_iterator;
+		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
 		#include "./map/map.hpp"
+		//#include "./map/map_insert.hpp"
+		//#include "./map/map_delete.hpp"
 	};
 	//#include "./map/non_member.hpp"
 	
