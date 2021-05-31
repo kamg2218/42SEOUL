@@ -1,5 +1,5 @@
-#ifndef LIST_REVERSE_ITERATOR_HPP
-# define LIST_REVERSE_ITERATOR_HPP
+#ifndef MAP_REVERSE_ITERATOR_HPP
+# define MAP_REVERSE_ITERATOR_HPP
 
 #include "../ft.hpp"
 
@@ -24,20 +24,102 @@ class	MapReverseIterator {
 			return *this;
 		}
 		~MapReverseIterator() {}
+		RBTNode<Key, T>*	upper(RBTNode<Key, T>* head){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	node;
+			RBTNode<Key, T>*	rst;
+			//key_compare			cmp;
+
+			size = 8;
+			realloc(&tmp, 0, size);
+			tmp[0] = head;
+			rst = head;
+			while (size_bfs(tmp) > 0){
+				if (bfs_size(tmp) > size - 4){
+					realloc(&tmp, size, size * 2);
+					size *= 2;
+				}
+				for (size_t i = 0; i < bfs_size(tmp); i++){
+					node = tmp[i];
+					if (cmp(ptr->value.first, node->value.first)){
+						if (rst == head || (node->value.first < rst->value.first))
+							rst = node;
+					}
+					if (node->left->right != head)
+						i += move_bfs(tmp, i, node->left);
+					if (node->right->right != head)
+						i += move_bfs(tmp, i, node->right);
+					del_bfs(tmp, i);
+					i--;
+				}
+			}
+			delete [] tmp;
+			if (rst == head){
+				while (rst->right != head)
+					rst = rst->right;
+			}
+			return rst;
+		}
+		RBTNode<Key, T>*	lower(RBTNode<Key, T>* head){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	node;
+			RBTNode<Key, T>*	rst;
+			//key_compare			cmp;
+
+			size = 8;
+			realloc(&tmp, 0, size);
+			tmp[0] = head;
+			rst = head;
+			while (size_bfs(tmp) > 0){
+				if (bfs_size(tmp) > size - 4){
+					realloc(&tmp, size, size * 2);
+					size *= 2;
+				}
+				for (size_t i = 0; i < bfs_size(tmp); i++){
+					node = tmp[i];
+					if ((ptr->value.first > node->value.first)){
+						if (rst == head || (node->value.first > rst->value.first))
+							rst = node;
+					}
+					if (node->left->right != head)
+						i += move_bfs(tmp, i, node->left);
+					if (node->right->right != head)
+						i += move_bfs(tmp, i, node->right);
+					del_bfs(tmp, i);
+					i--;
+				}
+			}
+			delete [] tmp;
+			if (rst == head){
+				while (rst->right != head)
+					rst = rst->right;
+			}
+			return rst;
+		}
+		RBTNode<Key, T>*	find_head(){
+			RBTNode<Key, T>* tmp;
+
+			tmp = ptr;
+			while (tmp->parent)
+				tmp = tmp->parent;
+			return tmp;
+		}
 		MapReverseIterator&		operator++(){
-			this->ptr = lower_bound(ptr->value.first);
+			this->ptr = lower(find_head());
 			return *this;
 		}
 		MapReverseIterator		operator++(int){
-			this->ptr = lower_bound(ptr->value.first);
+			this->ptr = lower(find_head());
 			return (MapReverseIterator(this->ptr));
 		}
 		MapReverseIterator&		operator--(){
-			this->ptr = upper_bound(ptr->value.first);
+			this->ptr = upper(find_head());
 			return *this;
 		}
 		MapReverseIterator		operator--(int){
-			this->ptr = upper_bound(ptr->value.first);
+			this->ptr = upper(find_head());
 			return MapReverseIterator(this->ptr);
 		}
 		reference	operator*() const { return getValue(); }

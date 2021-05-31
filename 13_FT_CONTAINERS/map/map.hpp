@@ -307,7 +307,7 @@ std::pair<iterator, iterator>	equal_range(const Key& key){
 	return std::make_pair(it, end());
 }
 
-std::pair<const_iterator, const_iterator>	equal_range const (const Key& key){
+std::pair<const_iterator, const_iterator>	equal_range (const Key& key) const {
 	const_iterator	it;
 
 	it = find(key);
@@ -317,19 +317,21 @@ std::pair<const_iterator, const_iterator>	equal_range const (const Key& key){
 }
 
 iterator	lower_bound(const Key& key){
-	int					cnt;
+	size_type			size;
 	iterator			it;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 	key_compare			cmp;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 8;
+	realloc(&tmp, 0, size);
 	tmp[0] = head;
 	it = end();
 	while (size_bfs(tmp) > 0){
+		if (bfs_size(tmp) > size - 4){
+			realloc(&tmp, size, size * 2);
+			size *= 2;
+		}
 		for (size_type i = 0; i < bfs_size(tmp); i++){
 			node = tmp[i];
 			if (!(cmp(key, node->value.first))){
@@ -345,23 +347,25 @@ iterator	lower_bound(const Key& key){
 		}
 	}
 	delete [] tmp;
-	return (it);
+	return it;
 }
 
 const_iterator	lower_bound(const Key& key) const {
-	int					cnt;
+	size_type			size;
 	const_iterator		it;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 	key_compare			cmp;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 8;
+	realloc(&tmp, 0, size);
 	tmp[0] = head;
 	it = end();
 	while (size_bfs(tmp) > 0){
+		if (bfs_size(tmp) > size - 4){
+			realloc(&tmp, size, size * 2);
+			size *= 2;
+		}
 		for (size_type i = 0; i < bfs_size(tmp); i++){
 			node = tmp[i];
 			if (!(cmp(key, node->value.first))){
@@ -377,23 +381,25 @@ const_iterator	lower_bound(const Key& key) const {
 		}
 	}
 	delete [] tmp;
-	return (it);
+	return it;
 }
 
 iterator	upper_bound(const Key& key){
-	int					cnt;
+	size_type			size;
 	iterator			it;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 	key_compare			cmp;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 8;
+	realloc(&tmp, 0, size);
 	tmp[0] = head;
 	it = end();
 	while (size_bfs(tmp) > 0){
+		if (bfs_size(tmp) > size - 4){
+			realloc(&tmp, size, size * 2);
+			size *= 2;
+		}
 		for (size_type i = 0; i < bfs_size(tmp); i++){
 			node = tmp[i];
 			if (cmp(key, node->value.first)){
@@ -409,23 +415,25 @@ iterator	upper_bound(const Key& key){
 		}
 	}
 	delete [] tmp;
-	return (it);
+	return it;
 }
 
 const_iterator	upper_bound(const Key& key) const {
-	int					cnt;
+	size_type			size;
 	const_iterator		it;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 	key_compare			cmp;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 8;
+	realloc(&tmp, 0, size);
 	tmp[0] = head;
 	it = end();
 	while (size_bfs(tmp) > 0){
+		if (bfs_size(tmp) > size - 4){
+			realloc(&tmp, size, size * 2);
+			size *= 2;
+		}
 		for (size_type i = 0; i < bfs_size(tmp); i++){
 			node = tmp[i];
 			if (cmp(key, node->value.first)){
@@ -441,7 +449,7 @@ const_iterator	upper_bound(const Key& key) const {
 		}
 	}
 	delete [] tmp;
-	return (it);
+	return it;
 }
 
 key_compare		key_comp() const {
@@ -449,7 +457,7 @@ key_compare		key_comp() const {
 	return comp;
 }
 
-ft::map::value_compare		value_comp() const {
+typename ft::map<Key, T>::value_compare		value_comp() const {
 	value_compare	comp(key_compare);
 	return comp;
 }

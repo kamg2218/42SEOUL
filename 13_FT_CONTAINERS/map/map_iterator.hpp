@@ -29,7 +29,7 @@ class	MapIterator {
 			RBTNode<Key, T>**	tmp;
 			RBTNode<Key, T>*	node;
 			RBTNode<Key, T>*	rst;
-			key_compare			cmp;
+			//key_compare			cmp;
 
 			size = 8;
 			realloc(&tmp, 0, size);
@@ -43,7 +43,7 @@ class	MapIterator {
 				for (size_t i = 0; i < bfs_size(tmp); i++){
 					node = tmp[i];
 					if (cmp(ptr->value.first, node->value.first)){
-						if (rst == head || cmp(node->value.first, rst->value.first))
+						if (rst == head || (node->value.first < rst->value.first))
 							rst = node;
 					}
 					if (node->left->right != head)

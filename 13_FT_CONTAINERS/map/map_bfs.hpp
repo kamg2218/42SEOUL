@@ -1,6 +1,3 @@
-#include "../ft.hpp"
-
-template<class Key, class T>
 int			size_bfs(RBTNode<Key, T>** tmp){
 	int		len;
 
@@ -10,7 +7,6 @@ int			size_bfs(RBTNode<Key, T>** tmp){
 	return len;
 }
 
-template<class Key, class T>
 int			move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node){
 	for (int i = size_bfs(tmp); i > location; i--)
 		tmp[i] = tmp[i - 1];
@@ -18,13 +14,11 @@ int			move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node){
 	return 1;
 }
 
-template<class Key, class T>
 void		del_bfs(RBTNode<Key, T>** tmp, int location){
 	for (int i = location; i < bfs_size(tmp); i++)
 		tmp[i] = tmp[i + 1];
 }
 
-template<class Key, class T>
 void	realloc(RBTNode<Key, T>*** node, size_t from, size_t to){
 	RBTNode<Key, T>**	tmp;
 
@@ -40,7 +34,6 @@ void	realloc(RBTNode<Key, T>*** node, size_t from, size_t to){
 	*node = tmp;
 }
 
-template<class Key, class T>
 size_t		bfs(RBTNode<Key, T> **head){
 	size_t				size = 8;
 	size_t				cnt = 0;

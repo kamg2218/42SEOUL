@@ -35,24 +35,9 @@ namespace ft
 	#include "./list/list_reverse_iterator.hpp"
 	#include "./vector/vector_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
-	//#include "./map/map_iterator.hpp"
-	//#include "./map/map_reverse_iterator.hpp"
-	//#include "./map/map_bfs.hpp"
-	#include "./stack/stack1.hpp"
+	#include "./map/map_iterator.hpp"
+	#include "./map/map_reverse_iterator.hpp"
 
-	template<class InputIt1, class InputIt2>
-	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){
-		InputIt1 i = first1;
-		InputIt2 j = first2;
-		for (; i != last1 && j != last2; i++, j++){
-			if (*i < *j)
-				continue;
-			else
-				return false;
-		}
-		return true;
-	}
-/*
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
 	private:
@@ -101,8 +86,7 @@ namespace ft
 		#include "./vector/vector.hpp"
 	};
 	//#include "./vector/non_member.hpp"
-*/
-	/*
+
 	template <class T, class Container = std::deque<T> >
 	class	stack {
 	protected:
@@ -113,6 +97,7 @@ namespace ft
 		typedef typename Container::size_type		size_type;
 		typedef typename Container::reference		reference;
 		typedef typename Container::const_reference	const_reference;
+		/*
 		explicit stack(const Container& cont = Container());
 		stack(const stack& other);
 		stack&		operator=(stack const &st);
@@ -124,10 +109,10 @@ namespace ft
 		void		push(const value_type& value);
 		void		pop();
 		void		swap(stack& other);
+		*/
+		#include "./stack/stack.hpp"
 	};
-	#include "./stack/stack.hpp"
 	//#include "./stack/non_member.hpp"
-	
 	template <class T, class Container = std::deque<T> >
 	class	queue {
 	protected:
@@ -141,8 +126,6 @@ namespace ft
 		#include "./queue/queue.hpp"
 	};
 	//#include "./queue/non_member.hpp"
-*/
-/*
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
 	private:
@@ -157,7 +140,7 @@ namespace ft
 		typedef typename std::size_t				size_type;
 		typedef typename std::ptrdiff_t				difference_type;
 		typedef Compare								key_compare;
-		typedef typename Allocator					allocator_type;
+		typedef Allocator							allocator_type;
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef typename Allocator::pointer			pointer;
@@ -166,12 +149,24 @@ namespace ft
 		typedef const iterator						const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
+		#include "./map/map_bfs.hpp"
 		#include "./map/map.hpp"
 		//#include "./map/map_insert.hpp"
 		//#include "./map/map_delete.hpp"
 	};
 	//#include "./map/non_member.hpp"
-*/	
+	template<class InputIt1, class InputIt2>
+	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){
+		InputIt1 i = first1;
+		InputIt2 j = first2;
+		for (; i != last1 && j != last2; i++, j++){
+			if (*i < *j)
+				continue;
+			else
+				return false;
+		}
+		return true;
+	}
 	#include "./non_member.hpp"
 }
 
