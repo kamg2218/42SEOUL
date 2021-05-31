@@ -186,13 +186,35 @@ void	del_tmp(RBTNode **tmp, int location){
 		tmp[i] = tmp[i + 1];
 }
 
+void	realloc(RBTNode*** node, size_t from, size_t to){
+	RBTNode**	tmp;
+
+	tmp = new RBTNode*[to];
+	for (size_t i = 0; i < to; i++){
+		if (i < from)
+			tmp[i] = *node[i];
+		else
+			tmp[i] = 0;
+	}
+	delete [] *node;
+	*node = tmp;
+}
+
 void	bfs(RBTNode **head){
-	RBTNode*	tmp[100] = {0, };
+	size_t		size = 8;
+	size_t		cnt = 0;
+	RBTNode**	tmp = 0;
 	RBTNode*	a;
 
+	realloc(&tmp, 0, 8);
 	tmp[0] = *head;
 	while (bfs_size(tmp) > 0){
+		cnt++;
 		for (int i = 0; i < bfs_size(tmp); i++){
+			if (bfs_size(tmp) >= size - 4){
+				realloc(&tmp, size, size * 2);
+				size *= 2;
+			}
 			a = tmp[i];
 			std::cout << "[" << a->data << ", " << a->color << "] ";
 			if (a->left)
@@ -402,6 +424,19 @@ void	del(RBTNode **head, int data){
 		return one_node(head, tmp);
 }
 
+int				count_deep(RBTNode* node){
+	int					cnt1;
+	int					cnt2;
+	RBTNode*			tmp;
+
+	cnt1 = cnt2 = 1;
+	if (node->left)
+		cnt1 += count_deep(node->left);
+	if (node->right)
+		cnt2 += count_deep(node->right);
+	return cnt1 > cnt2 ? cnt1 : cnt2;
+}
+
 int		main(){
 	int			data;
 	RBTNode*	head = 0;
@@ -415,6 +450,9 @@ int		main(){
 		bfs(&head);
 		std::cout << std::endl;
 	}
+	std::cout << "deep = " << count_deep(head) << std::endl;
+	std::cout << "deep = " << count_deep(head->left) << std::endl;
+	/*
 	data = 1;
 	while (data && head){
 		cin >> data;
@@ -423,7 +461,7 @@ int		main(){
 		del(&head, data);
 		if (head)
 			bfs(&head);
-	}
+	}*/
 	if (head)
 		traverse(head);
 	return 0;

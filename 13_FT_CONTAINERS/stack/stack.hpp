@@ -1,27 +1,38 @@
 //constructor
-explicit stack(const Container& cont = Container()) {}
+template <class T, class Container = std::deque<T> >
+ft::stack<T>(const Container& cont = Container()) { }
 
-stack(const stack& other) { *this = other; }
+template <class T, class Container = std::deque<T> >
+ft::stack<T>(const ft::stack<T>& other) { *this = other; }
 
-stack&		operator=(stack const &st) {
+template <class T, class Container = std::deque<T> >
+ft::stack<T>&		operator=(ft::stack<T> const &st) {
 	if (&st == this)
 		return *this;
 	this->c = st.c;
 	return *this;
 }
 
-~stack() {}
+template <class T, class Container = std::deque<T> >
+~ft::stack<T>() {}
 
-const Container	getContainer() const { return c; }
+template <class T, class Container = std::deque<T> >
+const Container	ft::stack<T>::getContainer() const { return c; }
 
 //access
-reference	top() { return c.back(); }
+template <class T, class Container = std::deque<T> >
+reference	ft::stack<T>::top() { return c.back(); }
 
 //capacity
-bool		empty() const { if (c.empty()) return true; else return false;}
-size_type	size() const { return c.size(); }
+template <class T, class Container = std::deque<T> >
+bool		ft::stack<T>::empty() const { if (c.empty()) return true; else return false;}
+template <class T, class Container = std::deque<T> >
+size_type	ft::stack<T>::size() const { return c.size(); }
 
 //modifiers
-void		push(const value_type& value) { c.push_back(value); }
-void		pop() { c.pop_back(); }
-void		swap(stack& other) { c.swap(other.c); }
+template <class T, class Container = std::deque<T> >
+void		ft::stack<T>::push(const value_type& value) { c.push_back(value); }
+template <class T, class Container = std::deque<T> >
+void		ft::stack<T>::pop() { c.pop_back(); }
+template <class T, class Container = std::deque<T> >
+void		ft::stack<T>::swap(stack& other) { c.swap(other.c); }

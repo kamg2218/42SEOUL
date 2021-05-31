@@ -74,7 +74,7 @@ size_type	max_size() const { return std::numeric_limits<difference_type>::max();
 //modifiers
 void		clear_node(RBTNode<Key, T>**	node){
 	RBTNode<Key, T>*	tmp;
-	allocator_type		alloc;
+	al					alloc;
 
 	tmp = *node;
 	if (tmp->left != tail)
@@ -96,10 +96,10 @@ void		clear(){ clear_node(&head); }
 
 RBTNode<Key, T>*	make_node(const value_type& value){
 	RBTNode<Key, T>*	tmp;
-	allocator_type		alloc;
+	al					alloc;
 
 	tmp = alloc.allocate(1);
-	tmp->parent = tail;
+	tmp->parent = 0;
 	tmp->left = tail;
 	tmp->right = tail;
 	tmp->color = RED;
@@ -230,48 +230,23 @@ size_type	count(const Key& key){
 	return 0;
 }
 
-int			size_bfs(RBTNode<Key, T>** tmp){
-	int		len;
-
-	len = 0;
-	while (tmp[len])
-		len++;
-	return len;
-}
-
-int			move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node){
-	for (int i = size_bfs(tmp); i > location; i--)
-		tmp[i] = tmp[i - 1];
-	tmp[location] = node;
-	return 1;
-}
-
-void		del_bfs(RBTNode<Key, T>** tmp, int location){
-	for (int i = location; i < bfs_size(tmp); i++)
-		tmp[i] = tmp[i + 1];
-}
-
-RBTNode<Key, T>**		make_bfs(int cnt){
-	RBTNode<Key, T>**	tmp;
-
-	tmp = new RBTNode<Key, T>*[cnt];
-	for (size_type i = 0; i < cnt; i++)
-		tmp[i] = 0;
-	return tmp;
-}
-
 iterator	find(const Key& key){
-	int						cnt;
+	size_t				size;
+	size_t				cnt;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 4;
+	cnt = 0;
+	realloc(&tmp, 0, 8);
 	tmp[0] = head;
 	while (size_bfs(tmp) > 0){
+		cnt++;
 		for (size_type i = 0; i < bfs_size(tmp); i++){
+			if (bfs_size(tmp) >= size - 4){
+				realloc(&tmp, size, size * 2);
+				size *= 2;
+			}
 			node = tmp[i];
 			if (node->value.first == key){
 				delete [] tmp;
@@ -290,17 +265,22 @@ iterator	find(const Key& key){
 }
 
 const_iterator	find(const Key& key) const {
-	int						cnt;
+	size_t				size;
+	size_t				cnt;
 	RBTNode<Key, T>**	tmp;
 	RBTNode<Key, T>*	node;
 
-	cnt = 1;
-	while (cnt <= sz)
-		cnt = (cnt + 1) * 2 - 1;
-	tmp = make_bfs(cnt);
+	size = 4;
+	cnt = 0;
+	realloc(&tmp, 0, 8);
 	tmp[0] = head;
 	while (size_bfs(tmp) > 0){
+		cnt++;
 		for (size_type i = 0; i < bfs_size(tmp); i++){
+			if (bfs_size(tmp) >= size - 4){
+				realloc(&tmp, size, size * 2);
+				size *= 2;
+			}
 			node = tmp[i];
 			if (node->value.first == key){
 				delete [] tmp;

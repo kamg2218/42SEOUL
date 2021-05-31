@@ -88,7 +88,7 @@ int		main()
 	if (ft_st.size())
 		std::cout << "ft_st top = " << ft_st.top() << std::endl;
 	std::cout << "ft_st size = " << ft_st.size() << std::endl;
-
+/*
 	std::cout << "---- compare -------------------------------------" << std::endl;
 	if (ft_st > ft_st2)
 		std::cout << "ft_st is bigger\n";
@@ -108,6 +108,6 @@ int		main()
 	else
 		std::cout << "ft_st and ft_st2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
-	
+*/
 	return 0;
 }

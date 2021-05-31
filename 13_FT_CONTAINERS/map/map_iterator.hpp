@@ -24,56 +24,103 @@ class	MapIterator {
 			return *this;
 		}
 		~MapIterator() {}
-		/*
-		iterator	upper_bound(const Key& key){
-			size_t					cnt;
-			iterator				it;
-			RBTNode<value_type>**	tmp;
-			RBTNode<value_type>*	node;
-			key_compare				cmp;
+		RBTNode<Key, T>*	upper(RBTNode<Key, T>* head){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	node;
+			RBTNode<Key, T>*	rst;
+			key_compare			cmp;
 
-			cnt = 1;
-			while (cnt <= sz)
-				cnt = (cnt + 1) * 2 - 1;
-			tmp = make_bfs(cnt);
+			size = 8;
+			realloc(&tmp, 0, size);
 			tmp[0] = head;
-			it = end();
+			rst = head;
 			while (size_bfs(tmp) > 0){
+				if (bfs_size(tmp) > size - 4){
+					realloc(&tmp, size, size * 2);
+					size *= 2;
+				}
 				for (size_t i = 0; i < bfs_size(tmp); i++){
 					node = tmp[i];
-					if (cmp(key, node->value.first)){
-						if (it == end() || cmp(node->value.first, (*it).first))
-							it = iterator(node);
+					if (cmp(ptr->value.first, node->value.first)){
+						if (rst == head || cmp(node->value.first, rst->value.first))
+							rst = node;
 					}
-					if (node->left != tail)
+					if (node->left->right != head)
 						i += move_bfs(tmp, i, node->left);
-					if (node->right != tail)
+					if (node->right->right != head)
 						i += move_bfs(tmp, i, node->right);
 					del_bfs(tmp, i);
 					i--;
 				}
 			}
 			delete [] tmp;
-			return (it);
+			if (rst == head){
+				while (rst->right != head)
+					rst = rst->right;
+			}
+			return rst;
 		}
-		*/
-		iterator		upper_bound(){
+		RBTNode<Key, T>*	lower(RBTNode<Key, T>* head){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	node;
+			RBTNode<Key, T>*	rst;
+			//key_compare			cmp;
+
+			size = 8;
+			realloc(&tmp, 0, size);
+			tmp[0] = head;
+			rst = head;
+			while (size_bfs(tmp) > 0){
+				if (bfs_size(tmp) > size - 4){
+					realloc(&tmp, size, size * 2);
+					size *= 2;
+				}
+				for (size_t i = 0; i < bfs_size(tmp); i++){
+					node = tmp[i];
+					if ((ptr->value.first > node->value.first)){
+						if (rst == head || (node->value.first > rst->value.first))
+							rst = node;
+					}
+					if (node->left->right != head)
+						i += move_bfs(tmp, i, node->left);
+					if (node->right->right != head)
+						i += move_bfs(tmp, i, node->right);
+					del_bfs(tmp, i);
+					i--;
+				}
+			}
+			delete [] tmp;
+			if (rst == head){
+				while (rst->right != head)
+					rst = rst->right;
+			}
+			return rst;
+		}
+		RBTNode<Key, T>*	find_head(){
+			RBTNode<Key, T>* tmp;
+
+			tmp = ptr;
+			while (tmp->parent)
+				tmp = tmp->parent;
+			return tmp;
+		}
 		
-		}
 		MapIterator&	operator++(){
-			this->ptr = upper_bound();
+			this->ptr = upper(find_head());
 			return *this;
 		}
 		MapIterator		operator++(int){
-			this->ptr = upper_bound(ptr->value.first);
+			this->ptr = upper(find_head());
 			return (MapIterator(this->ptr));
 		}
 		MapIterator&	operator--(){
-			this->ptr = lower_bound(ptr->value.first);
+			this->ptr = lower(find_head());
 			return *this;
 		}
 		MapIterator		operator--(int){
-			this->ptr = lower_bound(ptr->value.first);
+			this->ptr = lower(find_head());
 			return MapIterator(this->ptr);
 		}
 		reference	operator*() const { return getValue(); }

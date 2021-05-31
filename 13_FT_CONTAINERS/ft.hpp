@@ -35,8 +35,10 @@ namespace ft
 	#include "./list/list_reverse_iterator.hpp"
 	#include "./vector/vector_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
-	#include "./map/map_iterator.hpp"
-	#include "./map/map_reverse_iterator.hpp"
+	//#include "./map/map_iterator.hpp"
+	//#include "./map/map_reverse_iterator.hpp"
+	//#include "./map/map_bfs.hpp"
+	#include "./stack/stack1.hpp"
 
 	template<class InputIt1, class InputIt2>
 	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){
@@ -50,7 +52,7 @@ namespace ft
 		}
 		return true;
 	}
-
+/*
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
 	private:
@@ -99,7 +101,8 @@ namespace ft
 		#include "./vector/vector.hpp"
 	};
 	//#include "./vector/non_member.hpp"
-	
+*/
+	/*
 	template <class T, class Container = std::deque<T> >
 	class	stack {
 	protected:
@@ -110,8 +113,19 @@ namespace ft
 		typedef typename Container::size_type		size_type;
 		typedef typename Container::reference		reference;
 		typedef typename Container::const_reference	const_reference;
-		#include "./stack/stack.hpp"
+		explicit stack(const Container& cont = Container());
+		stack(const stack& other);
+		stack&		operator=(stack const &st);
+		~stack();
+		const Container	getContainer() const;
+		reference	top();
+		bool		empty() const;
+		size_type	size() const;
+		void		push(const value_type& value);
+		void		pop();
+		void		swap(stack& other);
 	};
+	#include "./stack/stack.hpp"
 	//#include "./stack/non_member.hpp"
 	
 	template <class T, class Container = std::deque<T> >
@@ -127,7 +141,8 @@ namespace ft
 		#include "./queue/queue.hpp"
 	};
 	//#include "./queue/non_member.hpp"
-	
+*/
+/*
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
 	private:
@@ -135,6 +150,7 @@ namespace ft
 		RBTNode<Key, T>								tail;
 		size_t										sz;
 	public:
+		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
 		typedef Key									key_type;
 		typedef T									mapped_type;
 		typedef typename std::pair<const Key, T>	value_type;
@@ -155,7 +171,7 @@ namespace ft
 		//#include "./map/map_delete.hpp"
 	};
 	//#include "./map/non_member.hpp"
-	
+*/	
 	#include "./non_member.hpp"
 }
 
