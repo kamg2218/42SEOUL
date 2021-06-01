@@ -102,7 +102,7 @@ class	MapIterator {
 			RBTNode<Key, T>* tmp;
 
 			tmp = ptr;
-			while (tmp->parent)
+			while (tmp->parent != tmp->parent->left)
 				tmp = tmp->parent;
 			return tmp;
 		}
@@ -126,12 +126,12 @@ class	MapIterator {
 		reference	operator*() const { return getValue(); }
 		pointer		operator->() const { return getPointer(); }
 		reference	getValue() const { return ptr->value; }
-		pointer		getPointer() const { return ptr; }
+		pointer		getPointer() const { return &(ptr->value); }
 };
 
 template<class Key, class T>
 bool	operator==(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
-	if (a.getValue().first == b.getValue().first)
+	if (a->first == b->first)
 		return true;
 	else
 		return false;
@@ -139,7 +139,7 @@ bool	operator==(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
 
 template<class Key, class T>
 bool	operator!=(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
-	if (a.getValue().first != b.getValue().first)
+	if (a->first != b->first)
 		return true;
 	else
 		return false;

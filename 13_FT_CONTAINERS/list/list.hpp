@@ -1,6 +1,9 @@
-node*		malloc(){
-	node*	tmp;
-	al		re_al;
+#include "../ft.hpp"
+
+template <class T, class Allocator>
+node<T>*		ft::list<T, Allocator>::malloc(){
+	node<T>*					tmp;
+	ft::list<T, Allocator>::al	re_al;
 
 	tmp = re_al.allocate(1);
 	tmp->prev = 0;
@@ -8,6 +11,7 @@ node*		malloc(){
 	return tmp;
 }
 
+template <class T, class Allocator>
 void		add_back(const T& value){
 	node*			tmp;
 	allocator_type	alloc;
@@ -26,13 +30,16 @@ void		add_back(const T& value){
 }
 
 //constructor
+template <class T, class Allocator>
 list() : sz(0), head(0), tail(0) {
 	add_back(0);
 	add_back(0);
 }
 
+template <class T, class Allocator>
 list(const list& other) { *this = other; }
 
+template <class T, class Allocator>
 list&	operator=(list const &lst) {
 	if (this == &lst)
 		return *this;
@@ -48,9 +55,11 @@ list&	operator=(list const &lst) {
 	return *this;
 }
 
+template <class T, class Allocator>
 explicit list(const Allocator& alloc) : sz(0), head(0), tail(0) { 
 }
 	
+template <class T, class Allocator>
 explicit list(size_type count, const T& value = T(), const Allocator& alloc = Allocator()) : sz(0), head(0), tail(0) {
 	add_back(0);
 	for (size_type i = 0; i < count; i++)
@@ -59,6 +68,7 @@ explicit list(size_type count, const T& value = T(), const Allocator& alloc = Al
 	sz = count;
 }
 
+template <class T, class Allocator>
 template<class InputIt>
 list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) : sz(0), head(0), tail(0) {
 	add_back(0);
@@ -68,6 +78,7 @@ list(InputIt first, InputIt last, const Allocator& alloc = Allocator()) : sz(0),
 	sz = first;
 }
 
+template <class T, class Allocator>
 template<>
 list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 	add_back(0);
@@ -78,6 +89,7 @@ list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), ta
 	add_back(0);
 }
 
+template <class T, class Allocator>
 template<>
 list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 	add_back(0);
@@ -88,6 +100,7 @@ list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 	add_back(0);
 }
 
+template <class T, class Allocator>
 ~list() {
 	allocator_type	alloc;
 	al				re_al;
@@ -100,6 +113,7 @@ list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
 }
 
 //assign
+template <class T, class Allocator>
 void	assign(size_type count, const T& value){
 	clear();
 	for (size_type i = 0; i < count; i++)
@@ -107,12 +121,14 @@ void	assign(size_type count, const T& value){
 }
 	
 template<class InputIt>
+template <class T, class Allocator>
 void	assign(InputIt first, InputIt last){
 	clear();
 	for (InputIt i = 0; i < first; i++)
 		push_back(last);
 }
 	
+template <class T, class Allocator>
 template<>
 void	assign(iterator first, iterator last){
 	clear();
@@ -120,6 +136,7 @@ void	assign(iterator first, iterator last){
 		push_back(*i);
 }
 
+template <class T, class Allocator>
 template<>
 void	assign(T* first, T* last){
 	clear();
@@ -127,36 +144,54 @@ void	assign(T* first, T* last){
 		push_back(*i);
 }
 
+template <class T, class Allocator>
 allocator_type	get_allocator() const { allocator_type alloc; return alloc; }
 
 //iterator
+template <class T, class Allocator>
 iterator			begin() { return iterator(head->next); }
+template <class T, class Allocator>
 const_iterator		begin() const { return const_iterator(head->next); }
+template <class T, class Allocator>
 iterator			end() { return iterator(tail); }
+template <class T, class Allocator>
 const_iterator		end() const { return const_iterator(tail); }
+template <class T, class Allocator>
 reverse_iterator		rbegin() { return reverse_iterator(tail->prev); }
+template <class T, class Allocator>
 const_reverse_iterator	rbegin() const { return const_reverse_iterator(tail->prev); }
+template <class T, class Allocator>
 reverse_iterator		rend() { return reverse_iterator(head); }
+template <class T, class Allocator>
 const_reverse_iterator	rend() const { return const_reverse_iterator(head); }
 		
 //access
+template <class T, class Allocator>
 reference	front() { return *(begin()); }
+template <class T, class Allocator>
 const_reference	front() const { return *(begin()); }
+template <class T, class Allocator>
 reference	back() { return tail->prev->value; } //if (sz > 0) return *(tail->prev->value); else return *(end()); }
+template <class T, class Allocator>
 const_reference	back() const { if (sz > 0) return tail->prev->value; else return *(end()); }
 		
 //capacity
+template <class T, class Allocator>
 bool		empty() const { if (begin() == end()) return true; else return false;}
+template <class T, class Allocator>
 size_type	size() const { return sz; } //std::distance(begin(), end())
+template <class T, class Allocator>
 size_type	max_size() const { return std::numeric_limits<difference_type>::max(); }
 
 //modifiers
+template <class T, class Allocator>
 void		clear(){
 	while (begin() != end())
 		pop_front();
 	sz = 0;
 }
 
+template <class T, class Allocator>
 void		push_front(const T& value){
 	node*	tmp;
 	allocator_type	alloc;
@@ -170,6 +205,7 @@ void		push_front(const T& value){
 	sz++;
 }
 
+template <class T, class Allocator>
 void		pop_front(){
 	node*	tmp;
 	allocator_type	alloc;
@@ -185,6 +221,7 @@ void		pop_front(){
 	sz--;
 }
 
+template <class T, class Allocator>
 void		push_back(const T& value){
 	node*	tmp;
 	allocator_type	alloc;
@@ -198,6 +235,7 @@ void		push_back(const T& value){
 	sz++;
 }
 
+template <class T, class Allocator>
 void		pop_back(){
 	node*	tmp;
 	allocator_type	alloc;
@@ -213,6 +251,7 @@ void		pop_back(){
 	sz--;
 }
 
+template <class T, class Allocator>
 iterator	insert(iterator pos, const T& value){
 	node*	tmp;
 	allocator_type	alloc;
@@ -227,6 +266,7 @@ iterator	insert(iterator pos, const T& value){
 	return tmp;
 }
 
+template <class T, class Allocator>
 void		insert(iterator pos, size_type count, const T& value){
 	node*		pre;
 	node*		tmp;
@@ -245,6 +285,7 @@ void		insert(iterator pos, size_type count, const T& value){
 	}
 }
 
+template <class T, class Allocator>
 template<class InputIt>
 void		insert(iterator pos, InputIt first, InputIt last){
 	node*		pre;
@@ -264,6 +305,7 @@ void		insert(iterator pos, InputIt first, InputIt last){
 	}
 }
 
+template <class T, class Allocator>
 template<>
 void		insert(iterator pos, iterator first, iterator last){
 	node*		pre;
@@ -283,6 +325,7 @@ void		insert(iterator pos, iterator first, iterator last){
 	}
 }
 
+template <class T, class Allocator>
 iterator	erase(iterator pos){
 	node*		tmp;
 	iterator	it;
@@ -301,6 +344,7 @@ iterator	erase(iterator pos){
 	return (it);
 }
 
+template <class T, class Allocator>
 iterator	erase(iterator first, iterator last){
 	node*	tmp;
 	node*	next;
@@ -320,6 +364,7 @@ iterator	erase(iterator first, iterator last){
 	return (iterator(next));
 }
 
+template <class T, class Allocator>
 void		resize(size_type count, T value = T()){
 	iterator	it;
 
@@ -341,6 +386,7 @@ void		resize(size_type count, T value = T()){
 	}
 }
 
+template <class T, class Allocator>
 void		swap(list& other){
 	size_type	cnt;
 	node*	head;
@@ -360,6 +406,7 @@ void		swap(list& other){
 }
 
 //operations
+template <class T, class Allocator>
 void		move_node(node* src, node* dst){
 	src->prev->next = src->next;
 	src->next->prev = src->prev;
@@ -371,6 +418,7 @@ void		move_node(node* src, node* dst){
 	dst->prev = src;
 }
 
+template <class T, class Allocator>
 void		sort(){
 	node*	tmp;
 
@@ -388,6 +436,7 @@ void		sort(){
 	}
 }
 
+template <class T, class Allocator>
 template<class Compare>
 void		sort(Compare cmp){
 	node*	tmp;
@@ -406,6 +455,7 @@ void		sort(Compare cmp){
 	}
 }
 
+template <class T, class Allocator>
 void		merge(list& other){
 	node*	i;
 	node*	tmp;
@@ -428,6 +478,7 @@ void		merge(list& other){
 	}
 }
 
+template <class T, class Allocator>
 template <class Compare>
 void		merge(list& other, Compare comp){
 	node*	i;
@@ -451,6 +502,7 @@ void		merge(list& other, Compare comp){
 	}
 }
 
+template <class T, class Allocator>
 void		splice(const_iterator pos, list& other){
 	iterator	tmp;
 
@@ -463,12 +515,14 @@ void		splice(const_iterator pos, list& other){
 	}
 }
 
+template <class T, class Allocator>
 void		splice(const_iterator pos, list& other, const_iterator it){
 	move_node(it.getPointer(), pos.getPointer());
 	other.sz--;
 	sz++;
 }
 
+template <class T, class Allocator>
 void		splice(const_iterator pos, list& other, const_iterator first, const_iterator last){
 	iterator	tmp;
 	iterator	next;
@@ -484,6 +538,7 @@ void		splice(const_iterator pos, list& other, const_iterator first, const_iterat
 	}
 }
 
+template <class T, class Allocator>
 void		remove(const T& value){
 	iterator	i;
 
@@ -497,6 +552,7 @@ void		remove(const T& value){
 	}
 }
 
+template <class T, class Allocator>
 template<class UnaryPredicate>
 void		remove_if(UnaryPredicate p){
 	for (iterator i = begin(); i != end(); i++){
@@ -507,6 +563,7 @@ void		remove_if(UnaryPredicate p){
 	}
 }
 
+template <class T, class Allocator>
 void		reverse(){
 	iterator	first;
 	iterator	last;
@@ -519,6 +576,7 @@ void		reverse(){
 	}
 }
 
+template <class T, class Allocator>
 void		unique(){
 	iterator	tmp;
 
@@ -530,6 +588,7 @@ void		unique(){
 	}
 }
 
+template <class T, class Allocator>
 template<class BinaryPredicate>
 void		unique(BinaryPredicate p){
 	iterator	tmp;

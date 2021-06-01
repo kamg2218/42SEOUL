@@ -1,5 +1,6 @@
 #include <stack>
 #include "../ft.hpp"
+#include "stack.hpp"
 
 int		main()
 {

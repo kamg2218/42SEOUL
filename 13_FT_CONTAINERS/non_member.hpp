@@ -5,7 +5,7 @@
 #include "ft.hpp"
 //#include "./list/non_member.hpp"
 //#include "./vector/non_member.hpp"
-/*
+
 //list
 template<class T, class Alloc>
 bool	operator==(const ft::list<T,Alloc>& lhs, const ft::list<T,Alloc>& rhs){
@@ -95,7 +95,7 @@ template <class T, class Alloc>
 void	swap(ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs){
 	lhs.swap(rhs);
 }
-*/
+
 //stack
 template<class T, class Container>
 bool	operator==(const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs){
@@ -131,7 +131,7 @@ template <class T, class Container>
 void	swap(ft::stack<T, Container>& lhs, ft::stack<T, Container>& rhs){
 	lhs.swap(rhs);
 }
-/*
+
 //queue
 template<class T, class Container>
 bool	operator==(const ft::queue<T,Container>& lhs, const ft::queue<T,Container>& rhs){
@@ -167,5 +167,5 @@ template <class T, class Container>
 void	swap(ft::queue<T, Container>& lhs, ft::queue<T, Container>& rhs){
 	lhs.swap(rhs);
 }
-*/
+
 #endif

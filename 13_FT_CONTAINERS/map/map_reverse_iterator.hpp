@@ -102,7 +102,7 @@ class	MapReverseIterator {
 			RBTNode<Key, T>* tmp;
 
 			tmp = ptr;
-			while (tmp->parent)
+			while (tmp->parent != tmp->parent->left)
 				tmp = tmp->parent;
 			return tmp;
 		}
@@ -130,7 +130,7 @@ class	MapReverseIterator {
 
 template<class Key, class T>
 bool	operator==(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
-	if (a.getValue().first == b.getValue().first)
+	if (a->first == b->first)
 		return true;
 	else
 		return false;
@@ -138,7 +138,7 @@ bool	operator==(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> 
 
 template<class Key, class T>
 bool	operator!=(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
-	if (a.getValue().first != b.getValue().first)
+	if (a->first != b->first)
 		return true;
 	else
 		return false;

@@ -1,32 +1,54 @@
 #include <map>
+#include <vector>
 #include "../ft.hpp"
 
 void	std_print(std::map<int, int>& m){
 	std::cout << "---- std::map<int> -----------------------------------" << std::endl;
 	for (std::map<int, int>::iterator it = m.begin(); it != m.end();)
-		std::cout << it->first << ", " << it->second << ": " << &(it++->value) << std::endl;
+		std::cout << it->first << ", " << it->second << std::endl;
 }
 
 void	ft_print(ft::map<int, int>& m){
 	std::cout << "---- ft::map<int> ------------------------------------" << std::endl;
 	for (ft::map<int, int>::iterator it = m.begin(); it != m.end();)
-		std::cout << it->first << ", " << it->second << ": " << &(it++->value) << std::endl;
+		std::cout << it->first << ", " << it->second << std::endl;
 }
 
 int		main()
 {
 	ft::map<int, int>::iterator ft_it;
-	ft::map<int, int> ft_m(std::make_pair(3, 5));
+	ft::map<int, int> ft_m;
 	std::map<int, int>::iterator std_it;
-	std::map<int, int> std_m(std::make_pair(3, 5));
+	std::map<int, int> std_m;
 	
-	std::cout << "---- m(3, 5) ------------------------------------" << std::endl;
+	std::cout << "---- m() ----------------------------------------" << std::endl;
 	std_print(std_m);
 	std::cout << "std_size = " << std_m.size() << std::endl;
 
 	ft_print(ft_m);
 	std::cout << "ft_size = " << ft_m.size() << std::endl;
 	
+	std::cout << "---- m(iterator, iterator) ----------------------------------------" << std::endl;
+	std::vector<std::pair<int, int> > v;
+	v.push_back(std::make_pair(11, 12));
+	v.push_back(std::make_pair(13, 14));
+	v.push_back(std::make_pair(15, 16));
+
+	ft::vector<std::pair<int, int> > ft_v;
+	ft_v.push_back(std::make_pair(11, 12));
+	ft_v.push_back(std::make_pair(13, 14));
+	ft_v.push_back(std::make_pair(15, 16));
+	
+	std::map<int, int>	std_mi(v.begin(), v.end());
+	ft::map<int, int>	ft_mi(ft_v.begin(), ft_v.end());
+	
+	std_print(std_mi);
+	std::cout << "std_size = " << std_m.size() << std::endl;
+
+	ft_print(ft_mi);
+	std::cout << "ft_size = " << ft_m.size() << std::endl;
+	
+/*
 	std::cout << "---- m[3] = 50 ----------------------------------" << std::endl;
 	std_m[3] = 50;
 	std_m[5] = 100;
@@ -70,6 +92,7 @@ int		main()
 		std::cout << "ft_m is not empty" << std::endl;
 	else
 		std::cout << "It's empty\n";
+*/
 /*
 	std::cout << "---- clear() --------------------------------" << std::endl;
 	std_m.clear();

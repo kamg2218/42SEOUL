@@ -23,7 +23,7 @@ struct	sockaddr_in{
       sizeof(unsigned short int) - sizeof(struct in_addr)];
 };
 */
-
+/*
 void		create_server(){
 	int		s;
 	struct protoent		*proto;
@@ -40,7 +40,7 @@ void		create_server(){
 		std::cout << "Error\n";
 	listen(s, 42);
 }
-
+*/
 int			main(){
 	int			s;
 	sockaddr_in	sin;

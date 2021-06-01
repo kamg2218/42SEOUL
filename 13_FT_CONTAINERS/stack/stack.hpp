@@ -1,27 +1,39 @@
-//constructor
-stack(const Container& cont = Container()) { }
+#include "../ft.hpp"
 
-stack(const stack& other) { *this = other; }
+template <class T, class Container>
+ft::stack<T, Container>::stack(const Container& cont) { }
 
-stack&	operator=(stack const &st) {
+template <class T, class Container>
+ft::stack<T, Container>::stack(const ft::stack<T, Container>& other) { *this = other; }
+
+template <class T, class Container>
+ft::stack<T, Container>&		ft::stack<T, Container>::operator=(ft::stack<T, Container> const &st) {
 	if (&st == this)
 		return *this;
 	this->c = st.c;
 	return *this;
 }
 
-~stack() {}
+template <class T, class Container>
+ft::stack<T, Container>::~stack() {}
 
-const Container		getContainer() const { return c; }
+template <class T, class Container>
+const Container	ft::stack<T, Container>::getContainer() const { return c; }
 
-//access
-reference	top() { return c.back(); }
+template <class T, class Container>
+typename ft::stack<T, Container>::reference	ft::stack<T, Container>::top() { return this->c.back(); }
 
-//capacity
-bool		empty() const { if (c.empty()) return true; else return false;}
-size_type	size() const { return c.size(); }
+template <class T, class Container>
+bool		ft::stack<T, Container>::empty() const { if (c.empty()) return true; else return false;}
 
-//modifiers
-void		push(const value_type& value) { c.push_back(value); }
-void		pop() { c.pop_back(); }
-void		swap(stack& other) { c.swap(other.c); }
+template <class T, class Container>
+typename ft::stack<T, Container>::size_type	ft::stack<T, Container>::size() const { return this->c.size(); }
+
+template <class T, class Container>
+void		ft::stack<T, Container>::push(const value_type& value) { this->c.push_back(value); }
+
+template <class T, class Container>
+void		ft::stack<T, Container>::pop() { this->c.pop_back(); }
+
+template <class T, class Container>
+void		ft::stack<T, Container>::swap(ft::stack<T, Container>& other) { this->c.swap(other.c); }

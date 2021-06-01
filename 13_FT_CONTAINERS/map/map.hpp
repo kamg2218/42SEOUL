@@ -1,4 +1,5 @@
-#include "./map_insert.hpp"
+//#include "./map_bfs.hpp"
+//#include "./map_insert.hpp"
 #include "./map_delete.hpp"
 
 class value_compare{
@@ -15,9 +16,9 @@ class value_compare{
 };
 
 //constructor
-map() : head(0) {}
+map() : head(&tail) { tail.left = &tail; tail.right = &tail; }
 
-explicit map(const Compare& comp, const Allocator& alloc = Allocator()) : head(0) {}
+explicit map(const Compare& comp, const Allocator& alloc = Allocator()) : head(&tail) { tail.left = &tail; tail.right = &tail; }
 
 map(const map& other) { *this = other; }
 
@@ -31,13 +32,17 @@ map&	operator=(map const &m) {
 }
 
 template<class InputIt>
-map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(0) {
+map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(&tail) {
+	tail.left = &tail;
+	tail.right = &tail;
 	for (InputIt i = first; i != last; i++)
 		insert(*i);
 }
 
 template<>
-map(iterator first, iterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(0) {
+map(iterator first, iterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(&tail) {
+	tail.left = &tail;
+	tail.right = &tail;
 	for (iterator i = first; i != last; i++)
 		insert(i.getValue());
 }
@@ -49,12 +54,12 @@ allocator_type	get_allocator() const { allocator_type alloc; return alloc; }
 //iterator
 iterator			begin() { return iterator(tail.right); }
 const_iterator		begin() const { return const_iterator(tail.right); }
-iterator			end() { return iterator(tail); }
-const_iterator		end() const { return const_iterator(tail); }
+iterator			end() { return iterator(&tail); }
+const_iterator		end() const { return const_iterator(&tail); }
 reverse_iterator		rbegin() { return reverse_iterator(tail.prev); }
 const_reverse_iterator	rbegin() const { return const_reverse_iterator(tail.prev); }
-reverse_iterator		rend() { return reverse_iterator(tail); }
-const_reverse_iterator	rend() const { return const_reverse_iterator(tail); }
+reverse_iterator		rend() { return reverse_iterator(&tail); }
+const_reverse_iterator	rend() const { return const_reverse_iterator(&tail); }
 
 //access
 T&	operator[](const Key& key){
@@ -63,7 +68,7 @@ T&	operator[](const Key& key){
 	it = find(key);
 	if (it == end())
 		return (insert(std::make_pair(key, T())).first->second);
-	return (it);
+	return (it->second);
 }
 
 //capacity
@@ -77,17 +82,19 @@ void		clear_node(RBTNode<Key, T>**	node){
 	al					alloc;
 
 	tmp = *node;
-	if (tmp->left != tail)
-		clear_node(&tmp->left);
-	if (tmp->right != tail)
-		clear_node(&tmp->right);
-	if (tmp->parent != tail && tmp->parent->left != tail
+	if (tmp == &tail)
+		return ;
+	if (tmp->left != &tail)
+		clear_node(&(tmp->left));
+	if (tmp->right != &tail)
+		clear_node(&(tmp->right));
+	if (tmp->parent != &tail && tmp->parent->left != &tail
 			&& tmp->parent->left == tmp)
-		tmp->parent->left = 0;
-	else if (tmp->parent != tail)
-		tmp->parent->right = 0;
+		tmp->parent->left = &tail;
+	else if (tmp->parent != &tail)
+		tmp->parent->right = &tail;
 	else
-		head = NULL;
+		head = &tail;
 	alloc.deallocate(tmp, 1);
 	sz--;
 }
@@ -99,9 +106,9 @@ RBTNode<Key, T>*	make_node(const value_type& value){
 	al					alloc;
 
 	tmp = alloc.allocate(1);
-	tmp->parent = 0;
-	tmp->left = tail;
-	tmp->right = tail;
+	tmp->parent = &tail;
+	tmp->left = &tail;
+	tmp->right = &tail;
 	tmp->color = RED;
 	alloc.construct(&tmp->value, value);
 	sz++;
@@ -252,9 +259,9 @@ iterator	find(const Key& key){
 				delete [] tmp;
 				return iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -286,9 +293,9 @@ const_iterator	find(const Key& key) const {
 				delete [] tmp;
 				return const_iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -338,9 +345,9 @@ iterator	lower_bound(const Key& key){
 				if (it == end() || cmp((*it).first, node->value.first))
 					it = iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -372,9 +379,9 @@ const_iterator	lower_bound(const Key& key) const {
 				if (it == end() || cmp((*it).first, node->value.first))
 					it = const_iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -406,9 +413,9 @@ iterator	upper_bound(const Key& key){
 				if (it == end() || cmp(node->value.first, (*it).first))
 					it = iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -440,9 +447,9 @@ const_iterator	upper_bound(const Key& key) const {
 				if (it == end() || cmp(node->value.first, (*it).first))
 					it = const_iterator(node);
 			}
-			if (node->left != tail)
+			if (node->left != &tail)
 				i += move_bfs(tmp, i, node->left);
-			if (node->right != tail)
+			if (node->right != &tail)
 				i += move_bfs(tmp, i, node->right);
 			del_bfs(tmp, i);
 			i--;
@@ -461,4 +468,3 @@ typename ft::map<Key, T>::value_compare		value_comp() const {
 	value_compare	comp(key_compare);
 	return comp;
 }
-

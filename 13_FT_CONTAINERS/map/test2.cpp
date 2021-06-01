@@ -66,5 +66,11 @@ int		main(){
 		std::cout << it1->second << ", " << it2->second << " it's same.\n";
 	else
 		std::cout << it1->second << ", " << it2->second << " it's not same.\n";
+	std::pair<int, int>		np;
+
+	np = std::make_pair(1, 2);
+	std::cout << "np = " << np.first << ", " << np.second << std::endl;
+	np.second = 3;
+	std::cout << "np = " << np.first << ", " << np.second << std::endl;
 	return 0;
 }
