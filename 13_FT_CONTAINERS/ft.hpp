@@ -362,12 +362,6 @@ namespace ft
 		typedef const iterator						const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
-		//map_bfs
-		int			size_bfs(RBTNode<Key, T>** tmp);
-		int			move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node);
-		void		del_bfs(RBTNode<Key, T>** tmp, int location);
-		void		realloc(RBTNode<Key, T>*** node, size_t from, size_t to);
-		size_t		bfs(RBTNode<Key, T> **head);
 		//map_insert
 		void	rotateLeft(RBTNode<Key, T> *node);
 		void	rotateRight(RBTNode<Key, T> *node);
@@ -388,7 +382,7 @@ namespace ft
 		template<class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
-		map(iterator first, iterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(&tail) {
+		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail) {
 			tail.left = &tail;
 			tail.right = &tail;
 			for (iterator i = first; i != last; i++)

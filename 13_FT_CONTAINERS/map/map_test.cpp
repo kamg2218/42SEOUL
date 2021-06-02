@@ -1,17 +1,20 @@
 #include <map>
 #include <vector>
-#include "../ft.hpp"
 #include "map.hpp"
+//#include "map_bfs.hpp"
+#include "test_bfs.hpp"
+//#include "map_insert.hpp"
+//#include "map_delete.hpp"
 
 void	std_print(std::map<int, int>& m){
-	std::cout << "---- std::map<int> -----------------------------------" << std::endl;
-	for (std::map<int, int>::iterator it = m.begin(); it != m.end();)
+	std::cout << "---- std::map<int, int> -------------------------" << std::endl;
+	for (std::map<int, int>::iterator it = m.begin(); it != m.end(); it++)
 		std::cout << it->first << ", " << it->second << std::endl;
 }
 
 void	ft_print(ft::map<int, int>& m){
-	std::cout << "---- ft::map<int> ------------------------------------" << std::endl;
-	for (ft::map<int, int>::iterator it = m.begin(); it != m.end();)
+	std::cout << "---- ft::map<int, int> --------------------------" << std::endl;
+	for (ft::map<int, int>::iterator it = m.begin(); it != m.end(); ++it)
 		std::cout << it->first << ", " << it->second << std::endl;
 }
 
@@ -31,23 +34,25 @@ int		main()
 	
 	std::cout << "---- m(iterator, iterator) ----------------------------------------" << std::endl;
 	std::vector<std::pair<int, int> > v;
-	v.push_back(std::make_pair(11, 12));
-	v.push_back(std::make_pair(13, 14));
-	v.push_back(std::make_pair(15, 16));
+	v.push_back(std::make_pair(31, 12));
+	v.push_back(std::make_pair(15, 14));
+	v.push_back(std::make_pair(13, 16));
+	v.push_back(std::make_pair(17, 10));
+	v.push_back(std::make_pair(21, 1));
 
-	ft::vector<std::pair<int, int> > ft_v;
-	ft_v.push_back(std::make_pair(11, 12));
-	ft_v.push_back(std::make_pair(13, 14));
-	ft_v.push_back(std::make_pair(15, 16));
+//	ft::vector<std::pair<int, int> > ft_v;
+//	ft_v.push_back(std::make_pair(11, 12));
+//	ft_v.push_back(std::make_pair(13, 14));
+//	ft_v.push_back(std::make_pair(15, 16));
 	
 	std::map<int, int>	std_mi(v.begin(), v.end());
-	ft::map<int, int>	ft_mi(ft_v.begin(), ft_v.end());
+	ft::map<int, int>	ft_mi(v.begin(), v.end());
 	
 	std_print(std_mi);
-	std::cout << "std_size = " << std_m.size() << std::endl;
+	std::cout << "std_size = " << std_mi.size() << std::endl;
 
 	ft_print(ft_mi);
-	std::cout << "ft_size = " << ft_m.size() << std::endl;
+	std::cout << "ft_size = " << ft_mi.size() << std::endl;
 	
 /*
 	std::cout << "---- m[3] = 50 ----------------------------------" << std::endl;

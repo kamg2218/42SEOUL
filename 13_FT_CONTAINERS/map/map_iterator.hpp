@@ -2,11 +2,12 @@
 # define MAP_ITERATOR_HPP
 
 #include "../ft.hpp"
+#include "test_bfs.hpp"
 
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
 class	MapIterator {
 	protected:
-		RBTNode<Key, T>					*ptr;
+		ft::RBTNode<Key, T>				*ptr;
 	public:
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
@@ -15,7 +16,7 @@ class	MapIterator {
 		typedef Reference				reference;
 
 		MapIterator() : ptr(0) {}
-		MapIterator(RBTNode<Key, T>* const p) : ptr(p) {}
+		MapIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
 		MapIterator(MapIterator const &it) { *this = it; }
 		MapIterator&	operator=(MapIterator const &it){
 			if (&it == this)
@@ -24,85 +25,88 @@ class	MapIterator {
 			return *this;
 		}
 		~MapIterator() {}
-		RBTNode<Key, T>*	upper(RBTNode<Key, T>* head){
-			size_t				size;
-			RBTNode<Key, T>**	tmp;
-			RBTNode<Key, T>*	node;
-			RBTNode<Key, T>*	rst;
+		ft::RBTNode<Key, T>*	upper(ft::RBTNode<Key, T>* h){
+			size_t					size;
+			ft::RBTNode<Key, T>**	tmp;
+			ft::RBTNode<Key, T>*	n;
+			ft::RBTNode<Key, T>*	rst;
 			//key_compare			cmp;
 
+			std::cout << "upper = " << h->value.first << std::endl;
 			size = 8;
 			realloc(&tmp, 0, size);
-			tmp[0] = head;
-			rst = head;
+			tmp[0] = h;
+			rst = h;
 			while (size_bfs(tmp) > 0){
-				if (bfs_size(tmp) > size - 4){
+				if (size_bfs(tmp) > size - 4){
 					realloc(&tmp, size, size * 2);
 					size *= 2;
 				}
-				for (size_t i = 0; i < bfs_size(tmp); i++){
-					node = tmp[i];
-					if (cmp(ptr->value.first, node->value.first)){
-						if (rst == head || (node->value.first < rst->value.first))
-							rst = node;
+				for (size_t i = 0; i < size_bfs(tmp); i++){
+					n = tmp[i];
+					//if (cmp(ptr->value.first, n->value.first)){
+					if ((ptr->value.first < n->value.first)){
+						if (rst == h || (n->value.first < rst->value.first))
+							rst = n;
 					}
-					if (node->left->right != head)
-						i += move_bfs(tmp, i, node->left);
-					if (node->right->right != head)
-						i += move_bfs(tmp, i, node->right);
+					if (n->left->right != h)
+						i += move_bfs(tmp, i, n->left);
+					if (n->right->right != h)
+						i += move_bfs(tmp, i, n->right);
 					del_bfs(tmp, i);
 					i--;
 				}
 			}
 			delete [] tmp;
-			if (rst == head){
-				while (rst->right != head)
+			if (rst == h){
+				while (rst->right != h)
 					rst = rst->right;
 			}
 			return rst;
 		}
-		RBTNode<Key, T>*	lower(RBTNode<Key, T>* head){
-			size_t				size;
-			RBTNode<Key, T>**	tmp;
-			RBTNode<Key, T>*	node;
-			RBTNode<Key, T>*	rst;
+		ft::RBTNode<Key, T>*	lower(ft::RBTNode<Key, T>* h){
+			size_t					size;
+			ft::RBTNode<Key, T>**	tmp;
+			ft::RBTNode<Key, T>*	n;
+			ft::RBTNode<Key, T>*	rst;
 			//key_compare			cmp;
 
 			size = 8;
 			realloc(&tmp, 0, size);
-			tmp[0] = head;
-			rst = head;
+			tmp[0] = h;
+			rst = h;
 			while (size_bfs(tmp) > 0){
-				if (bfs_size(tmp) > size - 4){
+				if (size_bfs(tmp) > size - 4){
 					realloc(&tmp, size, size * 2);
 					size *= 2;
 				}
-				for (size_t i = 0; i < bfs_size(tmp); i++){
-					node = tmp[i];
-					if ((ptr->value.first > node->value.first)){
-						if (rst == head || (node->value.first > rst->value.first))
-							rst = node;
+				for (size_t i = 0; i < size_bfs(tmp); i++){
+					n = tmp[i];
+					if ((ptr->value.first > n->value.first)){
+						if (rst == h || (n->value.first > rst->value.first))
+							rst = n;
 					}
-					if (node->left->right != head)
-						i += move_bfs(tmp, i, node->left);
-					if (node->right->right != head)
-						i += move_bfs(tmp, i, node->right);
+					if (n->left->right != h)
+						i += move_bfs(tmp, i, n->left);
+					if (n->right->right != h)
+						i += move_bfs(tmp, i, n->right);
 					del_bfs(tmp, i);
 					i--;
 				}
 			}
 			delete [] tmp;
-			if (rst == head){
-				while (rst->right != head)
+			if (rst == h){
+				while (rst->right != h)
 					rst = rst->right;
 			}
 			return rst;
 		}
-		RBTNode<Key, T>*	find_head(){
-			RBTNode<Key, T>* tmp;
-
+		ft::RBTNode<Key, T>*	find_head(){
+			ft::RBTNode<Key, T>* tmp;
+			
+			std::cout << "find_head\n";
 			tmp = ptr;
-			while (tmp->parent != tmp->parent->left)
+			while (tmp->parent)
 				tmp = tmp->parent;
 			return tmp;
 		}

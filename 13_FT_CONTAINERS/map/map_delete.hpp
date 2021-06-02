@@ -1,4 +1,4 @@
-#include "./map_insert.hpp"
+#include "../ft.hpp"
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del_one(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){

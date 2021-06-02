@@ -2,11 +2,12 @@
 # define MAP_REVERSE_ITERATOR_HPP
 
 #include "../ft.hpp"
+#include "test_bfs.hpp"
 
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
 class	MapReverseIterator {
 	protected:
-		RBTNode<Key, T>					*ptr;
+		ft::RBTNode<Key, T>				*ptr;
 	public:
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
@@ -15,7 +16,7 @@ class	MapReverseIterator {
 		typedef Reference				reference;
 
 		MapReverseIterator() : ptr(0) {}
-		MapReverseIterator(RBTNode<Key, T>* const p) : ptr(p) {}
+		MapReverseIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
 		MapReverseIterator(MapReverseIterator const &it) { *this = it; }
 		MapReverseIterator&	operator=(MapReverseIterator const &it){
 			if (&it == this)
@@ -24,11 +25,11 @@ class	MapReverseIterator {
 			return *this;
 		}
 		~MapReverseIterator() {}
-		RBTNode<Key, T>*	upper(RBTNode<Key, T>* head){
-			size_t				size;
-			RBTNode<Key, T>**	tmp;
-			RBTNode<Key, T>*	node;
-			RBTNode<Key, T>*	rst;
+		ft::RBTNode<Key, T>*	upper(ft::RBTNode<Key, T>* head){
+			size_t					size;
+			ft::RBTNode<Key, T>**	tmp;
+			ft::RBTNode<Key, T>*	node;
+			ft::RBTNode<Key, T>*	rst;
 			//key_compare			cmp;
 
 			size = 8;
@@ -61,11 +62,11 @@ class	MapReverseIterator {
 			}
 			return rst;
 		}
-		RBTNode<Key, T>*	lower(RBTNode<Key, T>* head){
-			size_t				size;
-			RBTNode<Key, T>**	tmp;
-			RBTNode<Key, T>*	node;
-			RBTNode<Key, T>*	rst;
+		ft::RBTNode<Key, T>*	lower(ft::RBTNode<Key, T>* head){
+			size_t					size;
+			ft::RBTNode<Key, T>**	tmp;
+			ft::RBTNode<Key, T>*	node;
+			ft::RBTNode<Key, T>*	rst;
 			//key_compare			cmp;
 
 			size = 8;
@@ -73,7 +74,7 @@ class	MapReverseIterator {
 			tmp[0] = head;
 			rst = head;
 			while (size_bfs(tmp) > 0){
-				if (bfs_size(tmp) > size - 4){
+				if (size_bfs(tmp) > size - 4){
 					realloc(&tmp, size, size * 2);
 					size *= 2;
 				}
@@ -98,8 +99,8 @@ class	MapReverseIterator {
 			}
 			return rst;
 		}
-		RBTNode<Key, T>*	find_head(){
-			RBTNode<Key, T>* tmp;
+		ft::RBTNode<Key, T>*	find_head(){
+			ft::RBTNode<Key, T>* tmp;
 
 			tmp = ptr;
 			while (tmp->parent != tmp->parent->left)
