@@ -1,8 +1,9 @@
-#include "./map_bfs.hpp"
+#include "map_bfs.hpp"
 
-void	rotateLeft(RBTNode<Key, T> *node){
-	RBTNode<Key, T> *tmp;
-	RBTNode<Key, T> *grand;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *node){
+	ft::RBTNode<Key, T> *tmp;
+	ft::RBTNode<Key, T> *grand;
 
 	//cout << "rotateLeft\n";
 	grand = node->parent;
@@ -30,9 +31,10 @@ void	rotateLeft(RBTNode<Key, T> *node){
 	}
 }
 
-void	rotateRight(RBTNode<Key, T> *node){
-	RBTNode<Key, T> *tmp;
-	RBTNode<Key, T> *grand;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *node){
+	ft::RBTNode<Key, T> *tmp;
+	ft::RBTNode<Key, T> *grand;
 
 	//cout << "rotateRight\n";
 	if (node->parent == &tail)
@@ -62,9 +64,10 @@ void	rotateRight(RBTNode<Key, T> *node){
 	}
 }
 
-void	rebuild(RBTNode<Key, T> *node){
-	RBTNode<Key, T> *tmp;
-	RBTNode<Key, T> *uncle;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *node){
+	ft::RBTNode<Key, T> *tmp;
+	ft::RBTNode<Key, T> *uncle;
 
 	tmp = NULL;
 	if (node->parent != &tail && node->parent->color == BLACK)
@@ -104,9 +107,10 @@ void	rebuild(RBTNode<Key, T> *node){
 	}
 }
 
-void	add_node(RBTNode<Key, T>*	node){
-	RBTNode<Key, T>*	tmp;
-	key_compare			cmp;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>*	node){
+	ft::RBTNode<Key, T>*	tmp;
+	key_compare				cmp;
 
 	tmp = head;
 	if (tmp == &tail){

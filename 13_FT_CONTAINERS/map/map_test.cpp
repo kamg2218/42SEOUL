@@ -1,6 +1,7 @@
 #include <map>
 #include <vector>
 #include "../ft.hpp"
+#include "map.hpp"
 
 void	std_print(std::map<int, int>& m){
 	std::cout << "---- std::map<int> -----------------------------------" << std::endl;

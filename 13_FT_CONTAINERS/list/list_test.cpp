@@ -1,4 +1,5 @@
 #include <list>
+#include "list.hpp"
 #include "../ft.hpp"
 
 void	std_print(std::list<int>& lst){
@@ -16,8 +17,10 @@ void	ft_print(ft::list<int>& lst){
 int		main()
 {
 	ft::list<int>::iterator ft_it;
+	//ft::list<int> ft_lst;
 	ft::list<int> ft_lst(3, 5);
 	std::list<int>::iterator std_it;
+	//std::list<int> std_lst;
 	std::list<int> std_lst(3, 5);
 	
 	std::cout << "---- lst(3, 5) ------------------------------------" << std::endl;
@@ -113,7 +116,7 @@ int		main()
 	
 	ft_lst.assign(3, 5);
 	ft_print(ft_lst);
-
+	
 	std::cout << "---- assign(iterator, iterator) ----------------" << std::endl;
 	std::list<int>	std_lst2((unsigned int)3, 6);
 

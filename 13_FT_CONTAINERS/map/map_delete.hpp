@@ -1,8 +1,7 @@
 #include "./map_insert.hpp"
 
-//void	del(T value);
-
-void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::del_one(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
 	//cout << "del_one\n";
 	if (child != tail)
 		child->parent = node->parent;
@@ -14,11 +13,12 @@ void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
 		*head = child;
 }
 
-void	del_left(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
 	int		col;
-	RBTNode<Key, T> *sibling = 0;
-	RBTNode<Key, T> *s_left = 0;
-	RBTNode<Key, T> *s_right = 0;
+	ft::RBTNode<Key, T> *sibling = 0;
+	ft::RBTNode<Key, T> *s_left = 0;
+	ft::RBTNode<Key, T> *s_right = 0;
 
 	//cout << "del_left\n";
 	if (node->parent != tail)
@@ -77,11 +77,12 @@ void	del_left(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
 	}
 }
 
-void	del_right(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
 	int		col;
-	RBTNode<Key, T> *sibling = 0;
-	RBTNode<Key, T> *s_left = 0;
-	RBTNode<Key, T> *s_right = 0;
+	ft::RBTNode<Key, T> *sibling = 0;
+	ft::RBTNode<Key, T> *s_left = 0;
+	ft::RBTNode<Key, T> *s_right = 0;
 
 	//cout << "del_right\n";
 	if (node->parent != tail)
@@ -138,8 +139,9 @@ void	del_right(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
 	}
 }
 
-void	one_node(RBTNode<Key, T> *node){
-	RBTNode<Key, T> 	*child;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
+	ft::RBTNode<Key, T> 	*child;
 	allocator_type		alloc;
 
 	//cout << "one_node " << node->data << "\n";
@@ -165,8 +167,9 @@ void	one_node(RBTNode<Key, T> *node){
 	alloc.deallocate(node, 1);
 }
 
-void	del(RBTNode<Key, T> *node){
-	RBTNode<Key, T>	*tmp;
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
+	ft::RBTNode<Key, T>	*tmp;
 
 	if (node == tail)
 		return ;

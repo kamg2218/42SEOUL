@@ -1,5 +1,6 @@
 #include <vector>
 #include "../ft.hpp"
+#include "vector.hpp"
 
 void	std_print(std::vector<int>& v){
 	std::cout << "---- std::vector<int> -----------------------------------" << std::endl;

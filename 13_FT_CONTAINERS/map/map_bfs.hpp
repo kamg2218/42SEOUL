@@ -1,4 +1,7 @@
-int			size_bfs(RBTNode<Key, T>** tmp){
+#include "../ft.hpp"
+
+template <class Key, class T, class Compare, class Allocator>
+int		ft::map<Key, T, Compare, Allocator>::size_bfs(RBTNode<Key, T>** tmp){
 	int		len;
 
 	len = 0;
@@ -7,19 +10,22 @@ int			size_bfs(RBTNode<Key, T>** tmp){
 	return len;
 }
 
-int			move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node){
+template <class Key, class T, class Compare, class Allocator>
+int		ft::map<Key, T, Compare, Allocator>::move_bfs(RBTNode<Key, T>** tmp, int location, RBTNode<Key, T>* node){
 	for (int i = size_bfs(tmp); i > location; i--)
 		tmp[i] = tmp[i - 1];
 	tmp[location] = node;
 	return 1;
 }
 
-void		del_bfs(RBTNode<Key, T>** tmp, int location){
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::del_bfs(RBTNode<Key, T>** tmp, int location){
 	for (int i = location; i < bfs_size(tmp); i++)
 		tmp[i] = tmp[i + 1];
 }
 
-void	realloc(RBTNode<Key, T>*** node, size_t from, size_t to){
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::realloc(RBTNode<Key, T>*** node, size_t from, size_t to){
 	RBTNode<Key, T>**	tmp;
 
 	tmp = new RBTNode<Key, T>*[to];
@@ -34,7 +40,8 @@ void	realloc(RBTNode<Key, T>*** node, size_t from, size_t to){
 	*node = tmp;
 }
 
-size_t		bfs(RBTNode<Key, T> **head){
+template <class Key, class T, class Compare, class Allocator>
+size_t		ft::map<Key, T, Compare, Allocator>::bfs(RBTNode<Key, T> **head){
 	size_t				size = 8;
 	size_t				cnt = 0;
 	RBTNode<Key, T>**	tmp = 0;
