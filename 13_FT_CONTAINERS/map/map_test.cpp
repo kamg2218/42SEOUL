@@ -1,5 +1,7 @@
 #include <map>
 #include <vector>
+#include "../ft.hpp"
+#include "../vector/vector.hpp"
 #include "map.hpp"
 //#include "map_bfs.hpp"
 #include "test_bfs.hpp"
@@ -40,10 +42,10 @@ int		main()
 	v.push_back(std::make_pair(17, 10));
 	v.push_back(std::make_pair(21, 1));
 
-//	ft::vector<std::pair<int, int> > ft_v;
-//	ft_v.push_back(std::make_pair(11, 12));
-//	ft_v.push_back(std::make_pair(13, 14));
-//	ft_v.push_back(std::make_pair(15, 16));
+	//ft::vector<std::pair<int, int> > ft_v;
+	//ft_v.push_back(std::make_pair(11, 12));
+	//ft_v.push_back(std::make_pair(13, 14));
+	//ft_v.push_back(std::make_pair(15, 16));
 	
 	std::map<int, int>	std_mi(v.begin(), v.end());
 	ft::map<int, int>	ft_mi(v.begin(), v.end());
@@ -54,7 +56,6 @@ int		main()
 	ft_print(ft_mi);
 	std::cout << "ft_size = " << ft_mi.size() << std::endl;
 	
-/*
 	std::cout << "---- m[3] = 50 ----------------------------------" << std::endl;
 	std_m[3] = 50;
 	std_m[5] = 100;
@@ -66,9 +67,19 @@ int		main()
 	ft_print(ft_m);
 	std::cout << "ft_size = " << ft_m.size() << std::endl;
 	
+	std_mi[3] = 50;
+	std_mi[5] = 100;
+	std_print(std_mi);
+	std::cout << "std_i_size = " << std_mi.size() << std::endl;
+
+	ft_mi[3] = 50;
+	ft_mi[5] = 100;
+	ft_print(ft_mi);
+	std::cout << "ft_i_size = " << ft_mi.size() << std::endl;
+	
 	std::cout << "---- 3 to end -----------------------------------" << std::endl;
 	
-	std::map<int, int> std_m2(std_m.find(3), ft_m.end());
+	std::map<int, int> std_m2(std_m.find(3), std_m.end());
 	ft::map<int, int> ft_m2(ft_m.find(3), ft_m.end());
 	
 	std_print(std_m2);
@@ -79,15 +90,15 @@ int		main()
 	
 	std::cout << "---- copy ---------------------------------------" << std::endl;
 	
-	std::map<int, int> std_m3(std_m2);
-	ft::map<int, int> ft_m3(ft_m2);
+	std::map<int, int> std_m3(std_m);
+	ft::map<int, int> ft_m3(ft_m);
 	
 	std_print(std_m3);
 	std::cout << "std3_size = " << std_m3.size() << std::endl;
 
 	ft_print(ft_m3);
 	std::cout << "ft3_size = " << ft_m3.size() << std::endl;
-	
+/*	
 	std::cout << "---- empty() ------------------------------------" << std::endl;
 	if (!std_m.empty())
 		std::cout << "std_m is not empty" << std::endl;

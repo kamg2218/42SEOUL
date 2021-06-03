@@ -27,6 +27,7 @@ namespace ft
 		RBTNode<Key, T>		*parent;
 		RBTNode<Key, T>		*left;
 		RBTNode<Key, T>		*right;
+		RBTNode<Key, T>		*last;
 	};
 
 	#include "iterator_tag.hpp"
@@ -38,6 +39,7 @@ namespace ft
 	#include "./vector/vector_iterator.hpp"
 	#include "./vector/vector_const_reverse_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
+	#include "./map/map_const_iterator.hpp"
 	#include "./map/map_iterator.hpp"
 	#include "./map/map_reverse_iterator.hpp"
 
@@ -363,7 +365,7 @@ namespace ft
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef MapIterator<Key, T>					iterator;
-		typedef const iterator						const_iterator;
+		typedef MapConstIterator<Key, T>			const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
 		//map_insert
@@ -386,7 +388,7 @@ namespace ft
 		template<class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
-		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail) {
+		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
 			tail.left = &tail;
 			tail.right = &tail;
 			for (iterator i = first; i != last; i++)

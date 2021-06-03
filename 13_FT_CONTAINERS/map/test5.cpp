@@ -69,7 +69,7 @@ void	rotateRight(RBTNode **head, RBTNode *node){
 	cout << "rotateRight\n";
 	if (node->parent == NULL)
 		return ;
-	grand = node->parent;
+	grand = node->parent->parent;
 	tmp = node->left;
 	if (node->parent->right == node){
 		tmp->parent = grand;

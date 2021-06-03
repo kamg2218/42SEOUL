@@ -35,7 +35,7 @@ class	MapReverseIterator {
 			size = 8;
 			realloc(&tmp, 0, size);
 			tmp[0] = head;
-			rst = head;
+			rst = ptr;
 			while (size_bfs(tmp) > 0){
 				if (bfs_size(tmp) > size - 4){
 					realloc(&tmp, size, size * 2);
@@ -44,22 +44,20 @@ class	MapReverseIterator {
 				for (size_t i = 0; i < bfs_size(tmp); i++){
 					node = tmp[i];
 					if (cmp(ptr->value.first, node->value.first)){
-						if (rst == head || (node->value.first < rst->value.first))
+						if (rst == ptr || (node->value.first < rst->value.first))
 							rst = node;
 					}
-					if (node->left->right != head)
+					if (node->left != head)
 						i += move_bfs(tmp, i, node->left);
-					if (node->right->right != head)
+					if (node->right != head)
 						i += move_bfs(tmp, i, node->right);
 					del_bfs(tmp, i);
 					i--;
 				}
 			}
 			delete [] tmp;
-			if (rst == head){
-				while (rst->right != head)
-					rst = rst->right;
-			}
+			if (rst == ptr)
+				rst = node->last;
 			return rst;
 		}
 		ft::RBTNode<Key, T>*	lower(ft::RBTNode<Key, T>* head){
@@ -72,7 +70,7 @@ class	MapReverseIterator {
 			size = 8;
 			realloc(&tmp, 0, size);
 			tmp[0] = head;
-			rst = head;
+			rst = ptr;
 			while (size_bfs(tmp) > 0){
 				if (size_bfs(tmp) > size - 4){
 					realloc(&tmp, size, size * 2);
@@ -81,7 +79,7 @@ class	MapReverseIterator {
 				for (size_t i = 0; i < bfs_size(tmp); i++){
 					node = tmp[i];
 					if ((ptr->value.first > node->value.first)){
-						if (rst == head || (node->value.first > rst->value.first))
+						if (rst == ptr || (node->value.first > rst->value.first))
 							rst = node;
 					}
 					if (node->left->right != head)
@@ -93,17 +91,15 @@ class	MapReverseIterator {
 				}
 			}
 			delete [] tmp;
-			if (rst == head){
-				while (rst->right != head)
-					rst = rst->right;
-			}
+			if (rst == ptr)
+				rst = node->last;
 			return rst;
 		}
 		ft::RBTNode<Key, T>*	find_head(){
 			ft::RBTNode<Key, T>* tmp;
 
 			tmp = ptr;
-			while (tmp->parent != tmp->parent->left)
+			while (tmp->parent != tmp->last)
 				tmp = tmp->parent;
 			return tmp;
 		}

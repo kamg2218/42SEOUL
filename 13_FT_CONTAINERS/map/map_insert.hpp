@@ -1,110 +1,90 @@
 #include "../ft.hpp"
 
-template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *n){
-	ft::RBTNode<Key, T> *tmp;
-	ft::RBTNode<Key, T> *grand;
 
-	//cout << "rotateLeft\n";
-	grand = n->parent;
-	tmp = n->right;
-	if (n->parent->left == n){
-		tmp->parent = grand;
-		grand->left = tmp;
-		n->right = tmp->left;
-		if (tmp->left != &this->tail)
-			tmp->left->parent = n;
-		n->parent = tmp;
-		tmp->left = n;
-	}
-	else{
-		n->parent = grand->parent;
-		if (grand->parent != &this->tail)
-			grand->parent->right = n;
-		grand->right = n->left;
-		if (n->left != &this->tail)
-			n->left->parent = grand;
-		n->left = grand;
-		grand->parent = n;
-		if (head == grand)
-			head = n;
-	}
-}
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
-	ft::RBTNode<Key, T> *tmp;
-	ft::RBTNode<Key, T> *grand;
+	RBTNode<Key, T>*	leftChild = n->left;
 
-	//cout << "rotateRight\n";
-	if (n->parent == &this->tail)
-		return ;
-	grand = n->parent;
-	tmp = n->left;
-	if (n->parent->right == n){
-		tmp->parent = grand;
-		grand->right = tmp;
-		n->left = tmp->right;
-		if (tmp->right != &this->tail)
-			tmp->right->parent = n;
-		n->parent = tmp;
-		tmp->right = n;
+	n->left = leftChild->right;
+	if (leftChild->right != leftChild->last)
+		leftChild->right->parent = n;
+	leftChild->parent = n->parent;
+	if (n->parent == n->last)
+		this->head = leftChild;
+	else
+	{
+		if (n == n->parent->left)
+			n->parent->left = leftChild;
+		else
+			n->parent->right = leftChild;
 	}
-	else{
-		n->parent = grand->parent;
-		if (grand->parent != &this->tail)
-			grand->parent->left = n;
-		grand->left = n->right;
-		if (n->right != &this->tail)
-			n->right->parent = grand;
-		n->right = grand;
-		grand->parent = n;
-		if (head == grand)
-			head = n;
+	leftChild->right = n;
+	n->parent = leftChild;
+}
+
+template <class Key, class T, class Compare, class Allocator>
+void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *n){
+	ft::RBTNode<Key, T>*	rightChild = n->right;
+
+	n->right = rightChild->left;
+	if (rightChild->left != rightChild->last)
+		rightChild->left->parent = n;
+	rightChild->parent = n->parent;
+	if (n->parent == n->last)
+		this->head = rightChild;
+	else
+	{
+		if (n == n->parent->right)
+			n->parent->right = rightChild;
+		else
+			n->parent->left = rightChild;
 	}
+	rightChild->left = n;
+	n->parent = rightChild;
 }
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
-	ft::RBTNode<Key, T> *tmp;
-	ft::RBTNode<Key, T> *uncle;
+	RBTNode<Key, T>*	tmp;
 
-	tmp = NULL;
-	if (n->parent != &this->tail && n->parent->color == BLACK)
-		return ;
-	if (n->parent != &this->tail && n->parent->parent != &this->tail)
-		tmp = n->parent->parent;
-	if (tmp == &this->tail)
-		uncle = NULL;
-	else if (tmp->left == n->parent)
-		uncle = tmp->right;
-	else
-		uncle = tmp->left;
-	if (uncle != &this->tail && uncle->color == RED){
-		n->parent->color = BLACK;
-		uncle->color = BLACK;
-		tmp->color = RED;
-		if (this->head == tmp)
-			this->head->color = BLACK;
-		else if (this->head->color == RED)
-			rebuild(tmp);
-	}
-	else{
-		if (n->parent->right == n && n->parent == tmp->left){
-			rotateLeft(n->parent);
-			n = n->left;
+	while (n != this->head && n->parent->color == RED){
+		if (n->parent == n->parent->parent->left){
+			tmp = n->parent->parent->right;
+			if (tmp && tmp->color == RED){
+				n->parent->color = BLACK;
+				tmp->color = BLACK;
+				n->parent->parent->color = RED;
+			}
+			else{
+				if (n == n->parent->right){
+					n = n->parent;
+					rotateLeft(n);
+				}
+				n->parent->color = BLACK;
+				n->parent->parent->color = RED;
+				rotateRight(n->parent->parent);
+			}
 		}
-		else if (n->parent->left == n && n->parent == tmp->right){
-			rotateRight(n->parent);
-			n = n->right;
+		else{
+			tmp = n->parent->parent->left;
+			if (tmp && tmp->color == RED){
+				n->parent->color = BLACK;
+				tmp->color = BLACK;
+				n->parent->parent->color = RED;
+			}
+			else{
+				if (n == n->parent->left){
+					n = n->parent;
+					rotateRight(n);
+				}
+				n->parent->color = BLACK;
+				n->parent->parent->color = RED;
+				rotateLeft(n->parent->parent);
+			}
 		}
-		n->parent->color = BLACK;
-		tmp->color = RED;
-		if (n->parent->right == n)
-			rotateLeft(n->parent);
-		else
-			rotateRight(n->parent);
 	}
+	(*head)->color = BLACK;
 }
 
 template <class Key, class T, class Compare, class Allocator>
@@ -138,7 +118,8 @@ void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>*	n){
 		rebuild(n);
 	}
 	sz++;
-	this->tail.right = this->head;
+	if (this->tail.right == &this->tail || cmp(n->value.first, this->tail.right->value.first))
+		this->tail.right = this->head;
 	if (this->tail.left == &this->tail || cmp(this->tail.left->value.first, n->value.first))
 		this->tail.left = n;
 }
