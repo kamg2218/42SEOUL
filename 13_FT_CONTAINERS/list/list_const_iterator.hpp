@@ -6,7 +6,7 @@
 template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ListConstIterator {
 	protected:
-		ft::node<T>*			ptr;
+		node<T>*			ptr;
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -41,7 +41,7 @@ class	ListConstIterator {
 			return ListConstIterator(this->ptr);
 		}
 		const reference	operator*() const { return getValue(); }
-		const node<T>*	operator->() const { return this->ptr; }
+		const node<T>*	operator->() const { return getPointer(); }
 		reference	getValue() const { return this->ptr->value; }
 		node<T>*	getPointer() const { return this->ptr; }
 };

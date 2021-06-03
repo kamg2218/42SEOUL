@@ -3,11 +3,14 @@
 
 #include "../ft.hpp"
 #include "test_bfs.hpp"
-
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
+class MapConstIterator;
+#include "map_iterator.hpp"
+
+template<class Key, class T, class Category, class Distance, class Pointer, class Reference>
 class	MapConstIterator {
 	protected:
-		ft::RBTNode<Key, T>				*ptr;
+		RBTNode<Key, T>				*ptr;
 	public:
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
@@ -16,7 +19,7 @@ class	MapConstIterator {
 		typedef Reference				reference;
 
 		MapConstIterator() : ptr(0) {}
-		MapConstIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
+		MapConstIterator(RBTNode<Key, T>* const p) : ptr(p) {}
 		MapConstIterator(MapConstIterator const &it) { *this = it; }
 		MapConstIterator&	operator=(MapConstIterator const &it){
 			if (&it == this)
@@ -122,10 +125,10 @@ class	MapConstIterator {
 			this->ptr = lower(find_head());
 			return MapConstIterator(this->ptr);
 		}
-		reference			operator*() const { return getValue(); }
-		pointer				operator->() const { return getPointer(); }
-		const reference		getValue() const { return ptr->value; }
-		const pointer		getPointer() const { return &(ptr->value); }
+		const reference		operator*() const { return getValue(); }
+		const pointer		operator->() const { return &getValue(); }
+		reference			getValue() const { return ptr->value; }
+		RBTNode<Key,T>*		getPointer() const { return ptr; }
 };
 
 template<class Key, class T>

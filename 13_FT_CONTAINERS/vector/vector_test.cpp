@@ -242,6 +242,5 @@ int		main()
 	else
 		std::cout << "ft_v and ft_v2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
-	
 	return 0;
 }

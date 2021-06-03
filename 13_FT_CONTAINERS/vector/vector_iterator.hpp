@@ -2,10 +2,15 @@
 # define VECTOR_ITERATOR_HPP
 
 #include "../ft.hpp"
-//#include "vector_const_iterator.hpp"
 
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	VectorIterator : public VectorConstIterator<T> {
+class	VectorIterator;
+#include "vector_const_iterator.hpp"
+
+template<class T, class Category, class Distance, class Pointer, class Reference>
+class	VectorIterator {
+	protected:
+		T*					ptr;
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -13,8 +18,8 @@ class	VectorIterator : public VectorConstIterator<T> {
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	
-		VectorIterator() : VectorConstIterator<T>(0) {}
-		VectorIterator(T* const p) : VectorConstIterator<T>(p) {}
+		VectorIterator() : ptr(0) {}//VectorConstIterator<T>(0) {}
+		VectorIterator(T* const p) : ptr(p) {}//VectorConstIterator<T>(p) {}
 		VectorIterator(VectorIterator const &it) { *this = it; }
 		VectorIterator&	operator=(VectorIterator const &it){
 			if (&it == this)

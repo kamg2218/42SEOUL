@@ -365,14 +365,15 @@ namespace ft
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef MapIterator<Key, T>					iterator;
-		typedef MapConstIterator<Key, T>			const_iterator;
+		typedef const iterator						const_iterator;
+		//typedef MapConstIterator<Key, T>			const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
 		//map_insert
 		void	rotateLeft(RBTNode<Key, T> *node);
 		void	rotateRight(RBTNode<Key, T> *node);
 		void	rebuild(RBTNode<Key, T> *node);
-		void	add_node(RBTNode<Key, T>*	node);
+		void	add_node(RBTNode<Key, T>* h, RBTNode<Key, T>* node);
 		//map_delete
 		void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
 		void	del_left(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
@@ -389,8 +390,11 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
+			allocator_type	all;
+
 			tail.left = &tail;
 			tail.right = &tail;
+			all.construct(&this->tail.value, std::make_pair(0, 0));
 			for (iterator i = first; i != last; i++)
 				insert(i.getValue());
 		}
@@ -421,7 +425,7 @@ namespace ft
 			for (iterator i = first; i != last; i++){
 				if (find(i->first) != end())
 					continue ;
-				add_node(make_node(i.getValue()));
+				add_node(head, make_node(i.getValue()));
 			}
 		}
 		iterator	erase(iterator pos);

@@ -2,9 +2,14 @@
 # define VECTOR_REVERSE_ITERATOR_HPP
 
 #include "../ft.hpp"
-
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	VectorReverseIterator : public VectorConstReverseIterator<T>{
+class	VectorReverseIterator;
+#include "vector_const_reverse_iterator.hpp"
+
+template<class T, class Category, class Distance, class Pointer, class Reference>
+class	VectorReverseIterator {
+	protected:
+		node<T>				*ptr;
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -12,8 +17,8 @@ class	VectorReverseIterator : public VectorConstReverseIterator<T>{
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	
-		VectorReverseIterator() : VectorConstReverseIterator<T>(0) {}
-		VectorReverseIterator(T* const p) : VectorConstReverseIterator<T>(p) {}
+		VectorReverseIterator() : ptr(0) {}
+		VectorReverseIterator(T* const p) : ptr(p) {}
 		VectorReverseIterator(VectorReverseIterator const &it) { *this = it; }
 		VectorReverseIterator&	operator=(VectorReverseIterator const &it){
 			if (&it == this)

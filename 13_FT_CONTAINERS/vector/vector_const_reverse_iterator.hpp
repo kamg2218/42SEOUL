@@ -2,8 +2,11 @@
 # define VECTOR_CONST_REVERSE_ITERATOR_HPP
 
 #include "../ft.hpp"
-
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+class	VectorConstReverseIterator;
+#include "vector_reverse_iterator.hpp"
+
+template<class T, class Category, class Distance, class Pointer, class Reference>
 class	VectorConstReverseIterator {
 	protected:
 		T*					ptr;

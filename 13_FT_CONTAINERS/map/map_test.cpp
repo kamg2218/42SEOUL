@@ -10,13 +10,15 @@
 
 void	std_print(std::map<int, int>& m){
 	std::cout << "---- std::map<int, int> -------------------------" << std::endl;
-	for (std::map<int, int>::iterator it = m.begin(); it != m.end(); it++)
+	std::map<int, int>::iterator	it;
+	for (it = m.begin(); it != m.end(); it++)
 		std::cout << it->first << ", " << it->second << std::endl;
 }
 
 void	ft_print(ft::map<int, int>& m){
 	std::cout << "---- ft::map<int, int> --------------------------" << std::endl;
-	for (ft::map<int, int>::iterator it = m.begin(); it != m.end(); ++it)
+	ft::map<int, int>::iterator		it;
+	for (it = m.begin(); it != m.end(); ++it)
 		std::cout << it->first << ", " << it->second << std::endl;
 }
 
@@ -87,6 +89,9 @@ int		main()
 
 	ft_print(ft_m2);
 	std::cout << "ft2_size = " << ft_m2.size() << std::endl;
+
+//	std::cout << "begin = " << ft_m2.begin()->first << std::endl;
+//	std::cout << "end = " << ft_m2.end()->first << std::endl;
 	
 	std::cout << "---- copy ---------------------------------------" << std::endl;
 	
@@ -98,7 +103,7 @@ int		main()
 
 	ft_print(ft_m3);
 	std::cout << "ft3_size = " << ft_m3.size() << std::endl;
-/*	
+
 	std::cout << "---- empty() ------------------------------------" << std::endl;
 	if (!std_m.empty())
 		std::cout << "std_m is not empty" << std::endl;
@@ -109,8 +114,7 @@ int		main()
 		std::cout << "ft_m is not empty" << std::endl;
 	else
 		std::cout << "It's empty\n";
-*/
-/*
+
 	std::cout << "---- clear() --------------------------------" << std::endl;
 	std_m.clear();
 	std::cout << "size = " << std_m.size() << std::endl;
@@ -133,19 +137,19 @@ int		main()
 	std::pair<std::map<int, int>::iterator, bool> std_p;
 	
 	std_p = std_m.insert(std::make_pair(1, 2));
-	std::cout << "std_p : " << std_p.first << ", " << std_p.second << std::endl;
+	std::cout << "std_p : " << std_p.first->first << ", " << std_p.second << std::endl;
 	std_p = std_m.insert(std::make_pair(3, 4));
-	std::cout << "std_p : " << std_p.first << ", " << std_p.second << std::endl;
+	std::cout << "std_p : " << std_p.first->first << ", " << std_p.second << std::endl;
 	std_p = std_m.insert(std::make_pair(3, 4));
-	std::cout << "std_p : " << std_p.first << ", " << std_p.second << std::endl;
+	std::cout << "std_p : " << std_p.first->first << ", " << std_p.second << std::endl;
 	std_print(std_m);
 
 	ft_p = ft_m.insert(std::make_pair(1, 2));
-	std::cout << "ft_p : " << ft_p.first << ", " << ft_p.second << std::endl;
+	std::cout << "ft_p : " << ft_p.first->first << ", " << ft_p.second << std::endl;
 	ft_p = ft_m.insert(std::make_pair(3, 4));
-	std::cout << "ft_p : " << ft_p.first << ", " << ft_p.second << std::endl;
+	std::cout << "ft_p : " << ft_p.first->first << ", " << ft_p.second << std::endl;
 	ft_p = ft_m.insert(std::make_pair(3, 4));
-	std::cout << "ft_p : " << ft_p.first << ", " << ft_p.second << std::endl;
+	std::cout << "ft_p : " << ft_p.first->first << ", " << ft_p.second << std::endl;
 	ft_print(ft_m);
 
 	std::cout << "---- insert(iterator, value_type) ---------------" << std::endl;
@@ -160,7 +164,7 @@ int		main()
 	ft_m.insert(ft_m.end(), std::make_pair(7, 8));
 	ft_m.insert(++ft_it, std::make_pair(9, 10));
 	ft_print(ft_m);
-
+/*
 	std::cout << "---- insert(iterator, iterator) -----------------" << std::endl;
 	std_it = std_m2.begin();
 	std_it++;
