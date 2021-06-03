@@ -4,9 +4,7 @@
 #include "../ft.hpp"
 
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	VectorReverseIterator {
-	protected:
-		T*					ptr;
+class	VectorReverseIterator : public VectorConstReverseIterator<T>{
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -14,8 +12,8 @@ class	VectorReverseIterator {
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	
-		VectorReverseIterator() : ptr(0) {}
-		VectorReverseIterator(T* const p) : ptr(p) {}
+		VectorReverseIterator() : VectorConstReverseIterator<T>(0) {}
+		VectorReverseIterator(T* const p) : VectorConstReverseIterator<T>(p) {}
 		VectorReverseIterator(VectorReverseIterator const &it) { *this = it; }
 		VectorReverseIterator&	operator=(VectorReverseIterator const &it){
 			if (&it == this)
@@ -23,36 +21,42 @@ class	VectorReverseIterator {
 			this->ptr = it.ptr;
 			return *this;
 		}
+		VectorReverseIterator&	operator=(VectorConstReverseIterator<T> const &it){
+			if (&it == this)
+				return *this;
+			this->ptr = it.getPointer();
+			return *this;
+		}
 		~VectorReverseIterator() {}
 		VectorReverseIterator&		operator++(){
-			--ptr;
+			--this->ptr;
 			return *this;
 		}
 		VectorReverseIterator		operator++(int){
-			ptr--;
+			this->ptr--;
 			return VectorReverseIterator(this->ptr);
 		}
 		VectorReverseIterator&		operator--(){
-			++ptr;
+			++this->ptr;
 			return *this;
 		}
 		VectorReverseIterator		operator--(int){
-			ptr++;
+			this->ptr++;
 			return VectorReverseIterator(this->ptr);
 		}
 		VectorReverseIterator&		operator+=(difference_type n){
-			ptr -= n;
+			this->ptr -= n;
 			return *this;
 		}
 		VectorReverseIterator&		operator-=(difference_type n){
-			ptr += n;
+			this->ptr += n;
 			return *this;
 		}
-		reference	operator[](difference_type n) const { return *(ptr - n); }
+		reference	operator[](difference_type n) const { return *(this->ptr - n); }
 		reference	operator*() const { return getValue(); }
-		pointer		operator->() const { return ptr; }
-		reference	getValue() const { return *ptr; }
-		pointer		getPointer() const { return ptr; }
+		pointer		operator->() const { return getPointer(); }
+		reference	getValue() const { return *this->ptr; }
+		pointer		getPointer() const { return this->ptr; }
 };
 
 template<class T>

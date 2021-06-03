@@ -4,9 +4,7 @@
 #include "../ft.hpp"
 
 template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListReverseIterator {
-	protected:
-		node<T>*				ptr;
+class	ListReverseIterator : public ListConstReverseIterator<T>{
 	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
@@ -14,13 +12,19 @@ class	ListReverseIterator {
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 
-		ListReverseIterator() : ptr(0) {}
-		ListReverseIterator(node<T>* const p) : ptr(p) {}
+		ListReverseIterator() : ListConstReverseIterator<T>(0) {}
+		ListReverseIterator(node<T>* const p) : ListConstReverseIterator<T>(p) {}
 		ListReverseIterator(ListReverseIterator const &rit) { *this = rit; }
 		ListReverseIterator&	operator=(ListReverseIterator const &rit){
 			if (&rit == this)
 				return *this;
 			this->ptr = rit.ptr;
+			return *this;
+		}
+		ListReverseIterator&	operator=(ListConstReverseIterator<T> const &rit){
+			if (&rit == this)
+				return *this;
+			this->ptr = rit.getPointer();
 			return *this;
 		}
 		~ListReverseIterator() {}
@@ -40,10 +44,10 @@ class	ListReverseIterator {
 			this->ptr = this->ptr->next;
 			return *this;
 		}
-		reference	operator*() const { return ptr->value; }
-		node<T>*	operator->() const { return ptr; }
-		reference	getValue() const { return ptr->value; }
-		node<T>*	getPointer() const { return ptr; }
+		reference	operator*() const { return getValue(); }
+		node<T>*	operator->() const { return getPointer(); }
+		reference	getValue() const { return this->ptr->value; }
+		node<T>*	getPointer() const { return this->ptr; }
 };
 
 template<class T>

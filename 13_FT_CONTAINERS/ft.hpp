@@ -30,9 +30,13 @@ namespace ft
 	};
 
 	#include "iterator_tag.hpp"
+	#include "./list/list_const_iterator.hpp"
 	#include "./list/list_iterator.hpp"
+	#include "./list/list_const_reverse_iterator.hpp"
 	#include "./list/list_reverse_iterator.hpp"
+	#include "./vector/vector_const_iterator.hpp"
 	#include "./vector/vector_iterator.hpp"
+	#include "./vector/vector_const_reverse_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
 	#include "./map/map_iterator.hpp"
 	#include "./map/map_reverse_iterator.hpp"
@@ -53,7 +57,7 @@ namespace ft
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef VectorIterator<T>					iterator;
-		typedef const iterator						const_iterator;
+		typedef VectorConstIterator<T>				const_iterator;
 		typedef VectorReverseIterator<T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
 		
@@ -163,20 +167,20 @@ namespace ft
 		size_t								sz;
 	protected:
 		typedef typename Allocator::template rebind<node<T> >::other	al;
-		typedef node<T>						node;
+		typedef node<T>								node;
 	public:
-		typedef	T 							value_type;
-		typedef Allocator					allocator_type;
-		typedef size_t						size_type;
-		typedef ptrdiff_t					difference_type;
+		typedef	T 									value_type;
+		typedef Allocator							allocator_type;
+		typedef size_t								size_type;
+		typedef ptrdiff_t							difference_type;
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
-		typedef ListIterator<T>				iterator;
-		typedef const iterator				const_iterator;
-		typedef ListReverseIterator<T>		reverse_iterator;
-		typedef const reverse_iterator		const_reverse_iterator;
+		typedef ListIterator<T>						iterator;
+		typedef ListConstIterator<T>				const_iterator;
+		typedef ListReverseIterator<T>				reverse_iterator;
+		typedef ListConstReverseIterator<T>			const_reverse_iterator;
 		//#include "./list/list.hpp"
 		node*		malloc();
 		void		add_back(const T& value);
