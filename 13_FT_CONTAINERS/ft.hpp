@@ -59,6 +59,7 @@ namespace ft
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef VectorIterator<T>					iterator;
+		//typedef const iterator						const_iterator;
 		typedef VectorConstIterator<T>				const_iterator;
 		typedef VectorReverseIterator<T>			reverse_iterator;
 		typedef const reverse_iterator				const_reverse_iterator;
@@ -180,6 +181,7 @@ namespace ft
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef ListIterator<T>						iterator;
+		//typedef const iterator						const_iterator;
 		typedef ListConstIterator<T>				const_iterator;
 		typedef ListReverseIterator<T>				reverse_iterator;
 		typedef ListConstReverseIterator<T>			const_reverse_iterator;

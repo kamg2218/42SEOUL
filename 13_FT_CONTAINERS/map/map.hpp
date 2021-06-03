@@ -75,15 +75,7 @@ ft::map<Key, T, Compare, Allocator>::map(InputIt first, InputIt last, const Comp
 		traverse(&head);
 	}
 }
-/*
-template<>
-map(iterator first, iterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator()) : head(&tail) {
-	tail.left = &tail;
-	tail.right = &tail;
-	for (iterator i = first; i != last; i++)
-		insert(i.getValue());
-}
-*/
+
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::~map() { clear(); }
 

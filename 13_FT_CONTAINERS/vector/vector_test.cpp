@@ -242,5 +242,17 @@ int		main()
 	else
 		std::cout << "ft_v and ft_v2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
+	ft::vector<int>::iterator ft_cit;
+	std::vector<int>::iterator std_cit;
+	
+	std_cit = std_v.begin();
+	std::cout << "std_cit = " << *std_cit << std::endl;
+	std_cit++;
+	std::cout << "std_cit = " << *std_cit << std::endl;
+
+	ft_cit = ft_v.begin();
+	std::cout << "ft_cit = " << *ft_cit << std::endl;
+	ft_cit++;
+	std::cout << "ft_cit = " << *ft_cit << std::endl;
 	return 0;
 }
