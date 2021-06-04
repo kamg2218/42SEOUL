@@ -392,11 +392,11 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
-			allocator_type	all;
-
+			std::cout << "template<>\n";
 			tail.left = &tail;
 			tail.right = &tail;
-			all.construct(&this->tail.value, std::make_pair(0, 0));
+			tail.last = &tail;
+			tail.value = std::make_pair(0, 0);
 			for (iterator i = first; i != last; i++)
 				insert(i.getValue());
 		}

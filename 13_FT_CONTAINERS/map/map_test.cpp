@@ -18,8 +18,10 @@ void	std_print(std::map<int, int>& m){
 void	ft_print(ft::map<int, int>& m){
 	std::cout << "---- ft::map<int, int> --------------------------" << std::endl;
 	ft::map<int, int>::iterator		it;
+	
 	for (it = m.begin(); it != m.end(); ++it)
 		std::cout << it->first << ", " << it->second << std::endl;
+	std::cout << "begin = " << m.begin()->first << std::endl;
 }
 
 int		main()
@@ -151,7 +153,8 @@ int		main()
 	ft_p = ft_m.insert(std::make_pair(3, 4));
 	std::cout << "ft_p : " << ft_p.first->first << ", " << ft_p.second << std::endl;
 	ft_print(ft_m);
-
+	std::cout << "--------------------------------------------------" << std::endl;
+/*
 	std::cout << "---- insert(iterator, value_type) ---------------" << std::endl;
 	std_it = std_m.begin();
 	std_m.insert(std_it, std::make_pair(5, 6));
@@ -164,7 +167,7 @@ int		main()
 	ft_m.insert(ft_m.end(), std::make_pair(7, 8));
 	ft_m.insert(++ft_it, std::make_pair(9, 10));
 	ft_print(ft_m);
-/*
+
 	std::cout << "---- insert(iterator, iterator) -----------------" << std::endl;
 	std_it = std_m2.begin();
 	std_it++;
