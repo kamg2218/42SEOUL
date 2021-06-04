@@ -27,6 +27,12 @@ class	MapConstIterator {
 			this->ptr = it.ptr;
 			return *this;
 		}
+		MapConstIterator&	operator=(MapIterator<Key, T> const &it){
+			if (it.getPointer() == this->ptr)
+				return *this;
+			this->ptr = it.getPointer();
+			return *this;
+		}
 		~MapConstIterator() {}
 		ft::RBTNode<Key, T>*	upper(ft::RBTNode<Key, T>* h){
 			size_t					size;

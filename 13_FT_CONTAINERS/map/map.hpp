@@ -125,15 +125,15 @@ void	ft::map<Key, T, Compare, Allocator>::clear_node(RBTNode<Key, T>**	node){
 	al					alloc;
 
 	tmp = *node;
-	if (tmp == tmp->last)
+	if (tmp == &tail)
 		return ;
-	if (tmp->left != tmp->last)
+	if (tmp->left != &tail)
 		clear_node(&(tmp->left));
-	if (tmp->right != tmp->last)
+	if (tmp->right != &tail)
 		clear_node(&(tmp->right));
-	if (tmp->parent != tmp->last && tmp->parent->left == tmp)
+	if (tmp->parent != &tail && tmp->parent->left == tmp)
 		tmp->parent->left = &tail;
-	else if (tmp->parent != tmp->last)
+	else if (tmp->parent != &tail)
 		tmp->parent->right = &tail;
 	else
 		head = &tail;
@@ -192,22 +192,22 @@ ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::check_hint(iterator hi
 	ft::RBTNode<Key, T>*	tmp;
 	key_compare				comp;
 
-	if (comp(head->value.second, hint->second)){
-		if (comp(node->value.second, head->value.second))
+	if (comp(head->value.first, hint->first)){
+		if (comp(node->value.first, head->value.first))
 			return head;
 		else{
 			tmp = hint.getPointer();
-			while (comp(node->value.second, tmp->value.second))
+			while (comp(node->value.first, tmp->value.first))
 				tmp = tmp->parent;	
 			return tmp;
 		}
 	}
 	else{
-		if (comp(head->value.second, node->value.second))
+		if (comp(head->value.first, node->value.first))
 			return head;
 		else{
 			tmp = hint.getPointer();
-			while (comp(tmp->value.second, node->value.second))
+			while (comp(tmp->value.first, node->value.first))
 				tmp = tmp->parent;
 			return tmp;
 		}
@@ -243,6 +243,7 @@ template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, Allocator>::erase(iterator pos){
 	iterator	it;
 
+	std::cout << "erase iterator\n";
 	it = pos;
 	it++;
 	del(pos.getPointer());
@@ -251,8 +252,19 @@ typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, 
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::erase(iterator first, iterator last){
-	for (iterator it = first; it != last; it++)
+	Key			k;
+	iterator	it;
+
+	//std::cout << "erase iterator, iterator\n";
+	it = first;
+	//std::cout << "it = " << it->first << std::endl;
+	while (it != last){
+		k = it->first;
+		std::cout << "k = " << k << std::endl;
 		erase(it);
+		it = upper_bound(k);
+		std::cout << "it = " << it->first << std::endl;
+	}
 }
 
 template <class Key, class T, class Compare, class Allocator>
@@ -380,6 +392,7 @@ std::pair<typename ft::map<Key, T, Compare, Allocator>::const_iterator, typename
 	const_iterator	it;
 
 	it = find(key);
+	std::cout << "pass\n";
 	if (it != end())
 		return std::make_pair(it, ++it);
 	return std::make_pair(it, end());
@@ -543,10 +556,10 @@ void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
 	RBTNode<Key, T>*	leftChild = n->left;
 
 	n->left = leftChild->right;
-	if (leftChild->right != leftChild->last)
+	if (leftChild->right != &tail)
 		leftChild->right->parent = n;
 	leftChild->parent = n->parent;
-	if (n->parent == n->last)
+	if (n->parent == &tail)
 		this->head = leftChild;
 	else
 	{
@@ -564,10 +577,10 @@ void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *n){
 	ft::RBTNode<Key, T>*	rightChild = n->right;
 
 	n->right = rightChild->left;
-	if (rightChild->left != rightChild->last)
+	if (rightChild->left != &tail)
 		rightChild->left->parent = n;
 	rightChild->parent = n->parent;
-	if (n->parent == n->last)
+	if (n->parent == &tail)
 		this->head = rightChild;
 	else
 	{
@@ -589,7 +602,7 @@ void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
 		std::cout << "n = " << n->value.first << std::endl;
 		if (n->parent == n->parent->parent->left){
 			tmp = n->parent->parent->right;
-			if (tmp != tmp->last && tmp->color == RED){
+			if (tmp != &tail && tmp->color == RED){
 				n->parent->color = BLACK;
 				tmp->color = BLACK;
 				n->parent->parent->color = RED;
@@ -606,7 +619,7 @@ void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
 		}
 		else{
 			tmp = n->parent->parent->left;
-			if (tmp != tmp->last && tmp->color == RED){
+			if (tmp != &tail && tmp->color == RED){
 				n->parent->color = BLACK;
 				tmp->color = BLACK;
 				n->parent->parent->color = RED;
@@ -632,19 +645,19 @@ void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>* h, ft::R
 
 	std::cout << "add_node = " << node->value.first << std::endl;
 	tmp = h;
-	if (tmp == tmp->last){
+	if (tmp == &tail){
 		node->color = BLACK;
 		this->head = node;
 	}
 	else{
-		while (tmp != tmp->last){
+		while (tmp != &tail){
 			if (cmp(node->value.first, tmp->value.first)){
-				if (tmp->left == tmp->last)
+				if (tmp->left == &tail)
 					break ;
 				tmp = tmp->left;
 			}
 			else{
-				if (tmp->right == tmp->last)
+				if (tmp->right == &tail)
 					break ;
 				tmp = tmp->right;
 			}
@@ -660,35 +673,35 @@ void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>* h, ft::R
 		tail.right = node;
 	if (tail.left == &tail || cmp(tail.left->value.first, node->value.first))
 		tail.left = node;
-	traverse(&head);
-	std::cout << "begin = " << begin()->first << std::endl;
-	std::cout << "end = " << end()->first << std::endl;
-	std::cout << "right = " << tail.right->value.first << std::endl;
-	std::cout << "left = " << tail.left->value.first << std::endl;
+	//traverse(&head);
+	//std::cout << "begin = " << begin()->first << std::endl;
+	//std::cout << "end = " << end()->first << std::endl;
+	//std::cout << "right = " << tail.right->value.first << std::endl;
+	//std::cout << "left = " << tail.left->value.first << std::endl;
 }
 
 //map_delete
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del_one(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
-	//cout << "del_one\n";
-	if (child != child->last)
+	std::cout << "del_one1\n";
+	if (child != &tail)
 		child->parent = node->parent;
-	if (node->parent != node->last && node->parent->left == node)
+	if (node->parent != &tail && node->parent->left == node)
 		node->parent->left = child;
-	else if (node->parent != node->last)
+	else if (node->parent != &tail)
 		node->parent->right = child;
 	else
-		*head = child;
+		head = child;
 }
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
 	int		col;
-	ft::RBTNode<Key, T> *sibling = 0;
-	ft::RBTNode<Key, T> *s_left = 0;
-	ft::RBTNode<Key, T> *s_right = 0;
+	RBTNode<Key, T> *sibling = &tail;
+	RBTNode<Key, T> *s_left = &tail;
+	RBTNode<Key, T> *s_right = &tail;
 
-	//cout << "del_left\n";
+	std::cout << "del_left\n";
 	if (node->parent != &tail)
 		sibling = node->parent->right;
 	if (sibling != &tail)
@@ -697,20 +710,24 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 		s_right = sibling->right;
 	//parent->color == RED
 	if (node->parent->color == RED){
+		std::cout << "node->parent is red\n";
 		if (s_right != &tail && s_right->color == RED){
+			std::cout << "s_right\n";
 			node->parent->color = BLACK;
 			sibling->color = RED;
 			s_right->color = BLACK;
-			if (s_left->color == RED)
+			if (s_left != &tail && s_left->color == RED)
 				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
 		else if (s_left != &tail && s_left->color == RED){
+			std::cout << "s_left\n";
 			sibling->color = RED;
 			s_left->color = BLACK;
-			rotateRight(node->parent);
+			rotateRight(sibling);
 		}
 		else{
+			std::cout << "else\n";
 			node->parent->color = BLACK;
 			if (sibling != &tail)
 				sibling->color = RED;
@@ -718,7 +735,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 	}
 	//parent->color == BLACK
 	else{
-		if (sibling->color == RED){
+		if (sibling != &tail && sibling->color == RED){
 			node->parent->color = RED;
 			sibling->color = BLACK;
 			rotateLeft(node->parent);
@@ -726,21 +743,20 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 		}
 		else if (s_right != &tail && s_right->color == RED){
 			s_right->color = BLACK;
-			if (s_left->color == RED)
+			if (s_left != &tail && s_left->color == RED)
 				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
 		else if (s_left != &tail && s_left->color == BLACK){
 			sibling->color = RED;
-			del(node->parent->data);
+			del(node->parent);
 		}
 		else{
-			//cout << "else\n";
 			if (sibling != &tail)
 				sibling->color = RED;
 			if (s_left != &tail)
 				s_left->color = BLACK;
-			rotateRight(node->parent);
+			rotateRight(sibling);
 		}
 	}
 }
@@ -748,11 +764,11 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
 	int		col;
-	ft::RBTNode<Key, T> *sibling = 0;
-	ft::RBTNode<Key, T> *s_left = 0;
-	ft::RBTNode<Key, T> *s_right = 0;
+	RBTNode<Key, T> *sibling = &tail;
+	RBTNode<Key, T> *s_left = &tail;
+	RBTNode<Key, T> *s_right = &tail;
 
-	//cout << "del_right\n";
+	std::cout << "del_right\n";
 	if (node->parent != &tail)
 		sibling = node->parent->left;
 	if (sibling != &tail)
@@ -765,7 +781,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, f
 			node->parent->color = BLACK;
 			sibling->color = RED;
 			s_right->color = BLACK;
-			if (s_left->color == RED)
+			if (s_left != &tail && s_left->color == RED)
 				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
@@ -776,11 +792,10 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, f
 		else if (s_left != &tail && s_left->color == RED){
 			sibling->color = RED;
 			s_left->color = BLACK;
-			node->parent->color = BLACK;
-			rotateRight(node->parent);
+			rotateRight(sibling);
 		}
 	}
-	//parent->color == BLACK	
+	//parent->color == BLACK
 	else{
 		if (sibling != &tail && sibling->color == RED){
 			node->parent->color = RED;
@@ -790,13 +805,13 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, f
 		}
 		else if (s_right != &tail && s_right->color == RED){
 			s_right->color = BLACK;
-			if (s_left->color == RED)
+			if (s_left != &tail && s_left->color == RED)
 				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
 		else if (s_left != &tail && s_left->color == BLACK){
 			sibling->color = RED;
-			del(node->parent->data);
+			del(node->parent);
 		}
 		else{
 			sibling->color = RED;
@@ -809,243 +824,59 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, f
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
-	ft::RBTNode<Key, T> 	*child;
-	allocator_type		alloc;
+	RBTNode<Key, T>	*child;
+	al				alloc;
 
-	//cout << "one_node " << node->data << "\n";
-	child = NULL;
-	if (node->right != &this->tail)
+	std::cout << "one_node " << node->value.first << "\n";
+	child = &tail;
+	if (node->right != &tail)
 		child = node->right;
-	else if (node->left != &this->tail)
+	else if (node->left != &tail)
 		child = node->left;
 	if (node->color == RED)
 		del_one(node, child);
 	else{
-		//cout << "node is black\n";
-		if (child != &this->tail && child->color == RED)
+		std::cout << "node is black\n";
+		if (child != &tail && child->color == RED)
 			child->color = BLACK;
-		else if (node->parent != &this->tail && node->parent->left == node)
+		else if (node->parent != &tail && node->parent->left == node)
 			del_left(node, child);
-		else if (node->parent != &this->tail)
+		else if (node->parent != &tail)
 			del_right(node, child);
 		else
-			this->head = &this->tail;
+			head = &tail;
 		del_one(node, child);
 	}
-	if (this->tail.left == node)
-		tail.left = lower_bound(node->value.first).getPointer();
-	if (this->tail.right == node)
-		tail.right = upper_bound(node->value.first).getPointer();
 	alloc.deallocate(node, 1);
+	//delete node;
 }
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
-	ft::RBTNode<Key, T>	*tmp;
-
+	Key				k;
+	RBTNode<Key, T> *tmp;
+	
+	std::cout << "del = " << node->value.first << std::endl;
+	traverse(&head);
 	if (node == &tail)
 		return ;
-	else if (node->left != &tail && node->right != &tail){
+	k = node->value.first;
+	if (node->left != &tail && node->right != &tail){
 		tmp = node->right;
 		while (tmp->left != &tail)
 			tmp = tmp->left;
-		node->value = tmp->value; //노드 바꾸기
+		node->value = tmp->value;
 		one_node(tmp);
 	}
 	else
 		one_node(node);
-}
-
-void	del_one(RBTNode **head, RBTNode *node, RBTNode *child){
-	cout << "del_one\n";
-	if (child)
-		child->parent = node->parent;
-	if (node->parent && node->parent->left == node)
-		node->parent->left = child;
-	else if (node->parent)
-		node->parent->right = child;
-	else
-		*head = child;
-}
-
-void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
-	int		col;
-	RBTNode *sibling = 0;
-	RBTNode *s_left = 0;
-	RBTNode *s_right = 0;
-
-	cout << "del_left\n";
-	if (node->parent)
-		sibling = node->parent->right;
-	if (sibling)
-		s_left = sibling->left;
-	if (sibling)
-		s_right = sibling->right;
-	//parent->color == RED
-	if (node->parent->color == RED){
-		std::cout << "node->parent is red\n";
-		if (s_right && s_right->color == RED){
-			std::cout << "s_right\n";
-			node->parent->color = BLACK;
-			sibling->color = RED;
-			s_right->color = BLACK;
-			if (s_left && s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left && s_left->color == RED){
-			std::cout << "s_left\n";
-			sibling->color = RED;
-			s_left->color = BLACK;
-			rotateRight(head, sibling);
-		}
-		else{
-			std::cout << "else\n";
-			node->parent->color = BLACK;
-			if (sibling)
-				sibling->color = RED;
-		}
-	}
-	//parent->color == BLACK
-	else{
-		if (sibling->color == RED){
-			node->parent->color = RED;
-			sibling->color = BLACK;
-			rotateLeft(head, node->parent);
-			del_left(head, node, child);
-		}
-		else if (s_right->color == RED){
-			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left->color == BLACK){
-			sibling->color = RED;
-			del(head, node->parent->data);
-		}
-		else{
-			sibling->color = RED;
-			s_left->color = BLACK;
-			rotateRight(head, sibling);
-		}
-	}
-}
-
-void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
-	int		col;
-	RBTNode *sibling = 0;
-	RBTNode *s_left = 0;
-	RBTNode *s_right = 0;
-
-	cout << "del_right\n";
-	if (node->parent)
-		sibling = node->parent->left;
-	if (sibling)
-		s_left = sibling->left;
-	if (sibling)
-		s_right = sibling->right;
-	//parent->color == RED
-	if (node->parent && node->parent->color == RED){
-		if (s_right && s_right->color == RED){
-			node->parent->color = BLACK;
-			sibling->color = RED;
-			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left && s_left->color == BLACK){
-			node->parent->color = BLACK;
-			sibling->color = RED;
-		}
-		else if (s_left && s_left->color == RED){
-			sibling->color = RED;
-			s_left->color = BLACK;
-			rotateRight(head, sibling);
-		}
-	}
-	//parent->color == BLACK
-	else{
-		if (sibling && sibling->color == RED){
-			node->parent->color = RED;
-			sibling->color = BLACK;
-			rotateRight(head, node->parent);
-			del_right(head, node, child);
-		}
-		else if (s_right && s_right->color == RED){
-			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left && s_left->color == BLACK){
-			sibling->color = RED;
-			del(head, node->parent->data);
-		}
-		else{
-			sibling->color = RED;
-			if (s_left)
-				s_left->color = BLACK;
-			rotateRight(head, node->parent);
-		}
-	}
-}
-
-void	one_node(RBTNode **head, RBTNode *node){
-	RBTNode *child;
-
-	cout << "one_node " << node->data << "\n";
-	child = NULL;
-	if (node->right)
-		child = node->right;
-	else if (node->left)
-		child = node->left;
-	if (node->color == RED)
-		del_one(head, node, child);
-	else{
-		cout << "node is black\n";
-		if (child && child->color == RED)
-			child->color = BLACK;
-		else if (node->parent && node->parent->left == node){
-			del_left(head, node, child);
-		}
-		else if (node->parent)
-			del_right(head, node, child);
-		else
-			*head = NULL;
-		del_one(head, node, child);
-	}
-	delete node;
-}
-
-void	two_node(RBTNode **head, RBTNode *node){
-	RBTNode *tmp;
-
-	cout << "two_node\n";
-	tmp = node->right;
-	while (tmp->left)
-		tmp = tmp->left;
-	node->data = tmp->data; //노드 바꾸기
-	one_node(head, tmp);
-}
-
-void	del(RBTNode **head, int data){
-	RBTNode	*tmp;
-
-	tmp = *head;
-	while (tmp){
-		if (tmp->data < data)
-			tmp = tmp->right;
-		else if (tmp->data > data)
-			tmp = tmp->left;
-		else
-			break ;
-	}
-	if (tmp == NULL)
-		return ;
-	else if (tmp->left && tmp->right)
-		return two_node(head, tmp);
-	else
-		return one_node(head, tmp);
+	sz--;
+	std::cout << "k = " << k << std::endl;
+	if (tail.left->value.first == k)
+		tail.left = lower_bound(k).getPointer();
+	std::cout << "tail.left = " << tail.left->value.first << std::endl;
+	if (tail.right->value.first == k)
+		tail.right = upper_bound(k).getPointer();
+	std::cout << "tail.right = " << tail.right->value.first << std::endl;
+	traverse(&head);
 }

@@ -72,5 +72,14 @@ int		main(){
 	std::cout << "np = " << np.first << ", " << np.second << std::endl;
 	np.second = 3;
 	std::cout << "np = " << np.first << ", " << np.second << std::endl;
+	
+	std::map<int, int>		std_m2;
+	std_m2.insert(std::make_pair(4, 10));
+	if (std_m2 == std_m)
+		std::cout << "m and m2 are same\n";
+	else if (std_m > std_m2)
+		std::cout << "m is bigger than m2\n";
+	else
+		std::cout << "m is smaller than m2\n";
 	return 0;
 }

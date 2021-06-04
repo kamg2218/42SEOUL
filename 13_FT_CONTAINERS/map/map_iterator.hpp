@@ -28,7 +28,7 @@ class	MapIterator {
 			return *this;
 		}
 		MapIterator&	operator=(MapConstIterator<Key, T> const &it){
-			if (&it == this)
+			if (it.getPointer() == this->ptr)
 				return *this;
 			this->ptr = it.getPointer();
 			return *this;
@@ -77,6 +77,7 @@ class	MapIterator {
 			ft::RBTNode<Key, T>*	rst;
 			//key_compare			cmp;
 
+			//std::cout << "lower = " << h->value.first << std::endl;
 			size = 8;
 			realloc(&tmp, 0, size);
 			tmp[0] = h;
@@ -92,9 +93,9 @@ class	MapIterator {
 						if (rst == ptr || (n->value.first > rst->value.first))
 							rst = n;
 					}
-					if (n->left->right != n->last)
+					if (n->left != n->last)
 						i += move_bfs(tmp, i, n->left);
-					if (n->right->right != n->last)
+					if (n->right != n->last)
 						i += move_bfs(tmp, i, n->right);
 					del_bfs(tmp, i);
 					i--;
@@ -110,24 +111,32 @@ class	MapIterator {
 
 			//std::cout << "find_head\n";
 			tmp = ptr;
-			while (tmp->parent != tmp->last)
+			while (tmp && tmp->parent != tmp->last)
 				tmp = tmp->parent;
 			return tmp;
 		}
 		MapIterator&	operator++(){
-			this->ptr = this->upper(this->find_head());
+			if (this->ptr)
+				this->ptr = this->upper(this->find_head());
 			return *this;
 		}
 		MapIterator		operator++(int){
-			this->ptr = this->upper(this->find_head());
+			if (this->ptr)
+				this->ptr = this->upper(this->find_head());
 			return (MapIterator(this->ptr));
 		}
 		MapIterator&	operator--(){
-			this->ptr = this->lower(this->find_head());
+			if (this->ptr && this->ptr == this->ptr->last)
+				this->ptr = this->ptr->left;
+			else if (this->ptr)
+				this->ptr = this->lower(this->find_head());
 			return *this;
 		}
 		MapIterator		operator--(int){
-			this->ptr = this->lower(this->find_head());
+			if (this->ptr && this->ptr == this->ptr->last)
+				this->ptr = this->ptr->left;
+			else if (this->ptr)
+				this->ptr = this->lower(this->find_head());
 			return MapIterator(this->ptr);
 		}
 		reference			operator*() const { return getValue(); }

@@ -186,7 +186,7 @@ int		main()
 
 	ft_m.insert(arr, arr + 1);
 	ft_print(ft_m);
-/*
+
 	std::cout << "---- erase(key_type) ----------------------------" << std::endl;
 	std::cout << "std_erase = " << std_m.erase(3) << std::endl;
 	std::cout << "std_erase = " << std_m.erase(10) << std::endl;
@@ -221,7 +221,7 @@ int		main()
 	ft_it--;
 	ft_m.erase(ft_it, ft_m.end());
 	ft_print(ft_m);
-	
+
 	std::cout << "---- swap() --------------------------------------" << std::endl;
 	std_print(std_m);
 	std_print(std_m2);
@@ -238,10 +238,16 @@ int		main()
 	ft_m.swap(ft_m2);
 
 	std::cout << "---- count --------------------------------------" << std::endl;
+	std_m.insert(std::make_pair(5, 6));
+	std_m.insert(std::make_pair(7, 8));
+	ft_m.insert(std::make_pair(5, 6));
+	ft_m.insert(std::make_pair(7, 8));
 	
+	std::cout << "std_m.count(1) = " << std_m.count(1) << std::endl;
 	std::cout << "std_m.count(5) = " << std_m.count(5) << std::endl;
 	std::cout << "std_m.count(20) = " << std_m.count(20) << std::endl;
 
+	std::cout << "ft_m.count(1) = " << ft_m.count(1) << std::endl;
 	std::cout << "ft_m.count(5) = " << ft_m.count(5) << std::endl;
 	std::cout << "ft_m.count(20) = " << ft_m.count(20) << std::endl;
 	
@@ -276,29 +282,30 @@ int		main()
 	std::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> ft_itit;
 
 	std_itit = std_m.equal_range(7);
-	std::cout << "std_equal_range(7) : " << std_itit.first->second << ", " << std_itit->second->second << std::endl;
+	std::cout << "std_equal_range(7) : " << std_itit.first->first << ", " << std_itit.second->first << std::endl;
 	std_itit = std_m.equal_range(200);
-	std::cout << "std_equal_range(200) : " << std_itit.first->second << ", " << std_itit->second->second << std::endl;
+	std::cout << "std_equal_range(200) : " << std_itit.first->first << ", " << std_itit.second->first << std::endl;
 
 	ft_itit = ft_m.equal_range(7);
-	std::cout << "ft_equal_range(7) : " << ft_itit.first->second << ", " << ft_itit->second->second << std::endl;
+	std::cout << "ft_equal_range(7) : " << ft_itit.first->first << ", " << ft_itit.second->first << std::endl;
 	ft_itit = ft_m.equal_range(200);
-	std::cout << "ft_equal_range(200) : " << ft_itit.first->second << ", " << ft_itit->second->second << std::endl;
+	std::cout << "ft_equal_range(200) : " << ft_itit.first->first << ", " << ft_itit.second->first << std::endl;
 
 	std::cout << "---- equal_range --------------------------------" << std::endl;
-	std::pair<std::map<int, int>::const_iterator, std::map<int, int>::const_iterator> std_itit;
-	std::pair<ft::map<int, int>::const_iterator, ft::map<int, int>::const_iterator> ft_itit;
+	std::pair<std::map<int, int>::const_iterator, std::map<int, int>::const_iterator> std_citit;
+	std::pair<ft::map<int, int>::const_iterator, ft::map<int, int>::const_iterator> ft_citit;
 
-	std_itit = std_m.equal_range(7);
-	std::cout << "std_equal_range(7) : " << std_itit.first->second << ", " << std_itit->second->second << std::endl;
-	std_itit = std_m.equal_range(200);
-	std::cout << "std_equal_range(200) : " << std_itit.first->second << ", " << std_itit->second->second << std::endl;
+	std_citit = std_m.equal_range(7);
+	std::cout << "std_equal_range(7) : " << std_citit.first->first << ", " << std_citit.second->first << std::endl;
+	std_citit = std_m.equal_range(200);
+	std::cout << "std_equal_range(200) : " << std_citit.first->first << ", " << std_citit.second->first << std::endl;
 
-	ft_itit = ft_m.equal_range(7);
-	std::cout << "ft_equal_range(7) : " << ft_itit.first->second << ", " << ft_itit->second->second << std::endl;
-	ft_itit = ft_m.equal_range(200);
-	std::cout << "ft_equal_range(200) : " << ft_itit.first->second << ", " << ft_itit->second->second << std::endl;
 
+	ft_citit = ft_m.equal_range(7);
+	std::cout << "ft_equal_range(7) : " << ft_citit.first->first << ", " << ft_citit.second->first << std::endl;
+	//ft_citit = ft_m.equal_range(200);
+	//std::cout << "ft_equal_range(200) : " << ft_citit.first->first << ", " << ft_citit.second->first << std::endl;
+/*
 	std::cout << "---- lower_bound --------------------------------" << std::endl;
 	
 	std_it = std_m.lower_bound(15);
