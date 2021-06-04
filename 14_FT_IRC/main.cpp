@@ -67,8 +67,22 @@ int			main(){
 	}
 	std::cout << "Listened\n";
 	int		ret;
+	fd_set	rfds;
+	struct timeval	tv;
+
+	FD_ZERO(&rfds);
+	FD_SET(0, &rfds);
+	tv.tv_sec = 5;
+	tv.tv_usec = 0;
 	while (true){
-		ret = select(42, NULL, NULL, NULL, 0);
+		ret = select(42, &rfds, NULL, NULL, &tv);
+		if (ret == -2)
+			std::cout << "Select Error\n";
+		else if (ret)
+			std::cout << "Data is available now.\n";
+		else
+			std::cout << "No data within five seconds.\n";
+		FD_CLR(0, &rfds);
 	}
 	return 0;
 }
