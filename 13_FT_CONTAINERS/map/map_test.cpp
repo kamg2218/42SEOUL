@@ -153,8 +153,7 @@ int		main()
 	ft_p = ft_m.insert(std::make_pair(3, 4));
 	std::cout << "ft_p : " << ft_p.first->first << ", " << ft_p.second << std::endl;
 	ft_print(ft_m);
-	std::cout << "--------------------------------------------------" << std::endl;
-/*
+
 	std::cout << "---- insert(iterator, value_type) ---------------" << std::endl;
 	std_it = std_m.begin();
 	std_m.insert(std_it, std::make_pair(5, 6));
@@ -180,14 +179,14 @@ int		main()
 	ft_print(ft_m);
 
 	std::cout << "---- insert(pointer, pointer) -------------------" << std::endl;
-	int		arr[100][2] = {{9, 10}, {11, 12}};
+	std::pair<int, int>	arr[2] = {std::make_pair(9, 10), std::make_pair(11, 12)};
 
-	std_m.insert(arr[0], arr[1]);
+	std_m.insert(arr, arr + 1);
 	std_print(std_m);
 
-	ft_m.insert(arr[0], arr[1]);
+	ft_m.insert(arr, arr + 1);
 	ft_print(ft_m);
-
+/*
 	std::cout << "---- erase(key_type) ----------------------------" << std::endl;
 	std::cout << "std_erase = " << std_m.erase(3) << std::endl;
 	std::cout << "std_erase = " << std_m.erase(10) << std::endl;

@@ -18,7 +18,7 @@ class ft::map<Key, T, Compare, Allocator>::value_compare{
 //constructor
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::map() : head(&tail), sz(0) {
-	std::cout << "default constructor\n";
+	//std::cout << "default constructor\n";
 	tail.left = &tail;
 	tail.right = &tail;
 	tail.last = &tail;
@@ -27,7 +27,7 @@ ft::map<Key, T, Compare, Allocator>::map() : head(&tail), sz(0) {
 
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::map(const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
-	std::cout << "constructor1\n";
+	//std::cout << "constructor1\n";
 	tail.left = &tail;
 	tail.right = &tail;
 	tail.last = &tail;
@@ -36,7 +36,7 @@ ft::map<Key, T, Compare, Allocator>::map(const Compare& comp, const Allocator& a
 
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::map(const ft::map<Key, T, Compare, Allocator>& other) : head(&tail), sz(0) {
-	std::cout << "constructor2\n";
+	//std::cout << "constructor2\n";
 	tail.left = &tail;
 	tail.right = &tail;
 	tail.last = &tail;
@@ -64,7 +64,7 @@ ft::map<Key, T, Compare, Allocator>&	ft::map<Key, T, Compare, Allocator>::operat
 template <class Key, class T, class Compare, class Allocator>
 template<class InputIt>
 ft::map<Key, T, Compare, Allocator>::map(InputIt first, InputIt last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
-	std::cout << "constructor3\n";
+	//std::cout << "constructor3\n";
 	tail.left = &tail;
 	tail.right = &tail;
 	tail.last = &tail;
@@ -143,7 +143,9 @@ void	ft::map<Key, T, Compare, Allocator>::clear_node(RBTNode<Key, T>**	node){
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::clear(){
-	clear_node(&head); 
+	clear_node(&head);
+	tail.left = &tail;
+	tail.right = &tail;
 	std::cout << "clear\n";
 }
 
@@ -172,12 +174,16 @@ std::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, bool>	ft::map<
 	it = find(value.first);
 	if (it != end()){
 		std::pair<iterator, bool>	n(it, false);
+		//std::cout << "right = " << tail.right->value.first << std::endl;
+		//std::cout << "left = " << tail.left->value.first << std::endl;
 		return n;
 	}
-	std::cout << "find = " << it->first << std::endl;
+	//std::cout << "find = " << it->first << std::endl;
 	tmp = make_node(value);
 	add_node(head, tmp);
 	std::pair<iterator, bool>	n(tmp, true);
+	//std::cout << "right = " << tail.right->value.first << std::endl;
+	//std::cout << "left = " << tail.left->value.first << std::endl;
 	return n;
 }
 //tail 확인 필요
@@ -229,7 +235,7 @@ void	ft::map<Key, T, Compare, Allocator>::insert(InputIt first, InputIt last){
 	for (InputIt i = first; i != last; i++){
 		if (find(i->first) != end())
 			continue ;
-		add_node(head, make_node(i.getValue()));
+		add_node(head, make_node(*i));
 	}
 }
 
@@ -848,4 +854,198 @@ void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
 	}
 	else
 		one_node(node);
+}
+
+void	del_one(RBTNode **head, RBTNode *node, RBTNode *child){
+	cout << "del_one\n";
+	if (child)
+		child->parent = node->parent;
+	if (node->parent && node->parent->left == node)
+		node->parent->left = child;
+	else if (node->parent)
+		node->parent->right = child;
+	else
+		*head = child;
+}
+
+void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
+	int		col;
+	RBTNode *sibling = 0;
+	RBTNode *s_left = 0;
+	RBTNode *s_right = 0;
+
+	cout << "del_left\n";
+	if (node->parent)
+		sibling = node->parent->right;
+	if (sibling)
+		s_left = sibling->left;
+	if (sibling)
+		s_right = sibling->right;
+	//parent->color == RED
+	if (node->parent->color == RED){
+		std::cout << "node->parent is red\n";
+		if (s_right && s_right->color == RED){
+			std::cout << "s_right\n";
+			node->parent->color = BLACK;
+			sibling->color = RED;
+			s_right->color = BLACK;
+			if (s_left && s_left->color == RED)
+				s_left->color = BLACK;
+			rotateLeft(head, node->parent);
+		}
+		else if (s_left && s_left->color == RED){
+			std::cout << "s_left\n";
+			sibling->color = RED;
+			s_left->color = BLACK;
+			rotateRight(head, sibling);
+		}
+		else{
+			std::cout << "else\n";
+			node->parent->color = BLACK;
+			if (sibling)
+				sibling->color = RED;
+		}
+	}
+	//parent->color == BLACK
+	else{
+		if (sibling->color == RED){
+			node->parent->color = RED;
+			sibling->color = BLACK;
+			rotateLeft(head, node->parent);
+			del_left(head, node, child);
+		}
+		else if (s_right->color == RED){
+			s_right->color = BLACK;
+			if (s_left->color == RED)
+				s_left->color = BLACK;
+			rotateLeft(head, node->parent);
+		}
+		else if (s_left->color == BLACK){
+			sibling->color = RED;
+			del(head, node->parent->data);
+		}
+		else{
+			sibling->color = RED;
+			s_left->color = BLACK;
+			rotateRight(head, sibling);
+		}
+	}
+}
+
+void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
+	int		col;
+	RBTNode *sibling = 0;
+	RBTNode *s_left = 0;
+	RBTNode *s_right = 0;
+
+	cout << "del_right\n";
+	if (node->parent)
+		sibling = node->parent->left;
+	if (sibling)
+		s_left = sibling->left;
+	if (sibling)
+		s_right = sibling->right;
+	//parent->color == RED
+	if (node->parent && node->parent->color == RED){
+		if (s_right && s_right->color == RED){
+			node->parent->color = BLACK;
+			sibling->color = RED;
+			s_right->color = BLACK;
+			if (s_left->color == RED)
+				s_left->color = BLACK;
+			rotateLeft(head, node->parent);
+		}
+		else if (s_left && s_left->color == BLACK){
+			node->parent->color = BLACK;
+			sibling->color = RED;
+		}
+		else if (s_left && s_left->color == RED){
+			sibling->color = RED;
+			s_left->color = BLACK;
+			rotateRight(head, sibling);
+		}
+	}
+	//parent->color == BLACK
+	else{
+		if (sibling && sibling->color == RED){
+			node->parent->color = RED;
+			sibling->color = BLACK;
+			rotateRight(head, node->parent);
+			del_right(head, node, child);
+		}
+		else if (s_right && s_right->color == RED){
+			s_right->color = BLACK;
+			if (s_left->color == RED)
+				s_left->color = BLACK;
+			rotateLeft(head, node->parent);
+		}
+		else if (s_left && s_left->color == BLACK){
+			sibling->color = RED;
+			del(head, node->parent->data);
+		}
+		else{
+			sibling->color = RED;
+			if (s_left)
+				s_left->color = BLACK;
+			rotateRight(head, node->parent);
+		}
+	}
+}
+
+void	one_node(RBTNode **head, RBTNode *node){
+	RBTNode *child;
+
+	cout << "one_node " << node->data << "\n";
+	child = NULL;
+	if (node->right)
+		child = node->right;
+	else if (node->left)
+		child = node->left;
+	if (node->color == RED)
+		del_one(head, node, child);
+	else{
+		cout << "node is black\n";
+		if (child && child->color == RED)
+			child->color = BLACK;
+		else if (node->parent && node->parent->left == node){
+			del_left(head, node, child);
+		}
+		else if (node->parent)
+			del_right(head, node, child);
+		else
+			*head = NULL;
+		del_one(head, node, child);
+	}
+	delete node;
+}
+
+void	two_node(RBTNode **head, RBTNode *node){
+	RBTNode *tmp;
+
+	cout << "two_node\n";
+	tmp = node->right;
+	while (tmp->left)
+		tmp = tmp->left;
+	node->data = tmp->data; //노드 바꾸기
+	one_node(head, tmp);
+}
+
+void	del(RBTNode **head, int data){
+	RBTNode	*tmp;
+
+	tmp = *head;
+	while (tmp){
+		if (tmp->data < data)
+			tmp = tmp->right;
+		else if (tmp->data > data)
+			tmp = tmp->left;
+		else
+			break ;
+	}
+	if (tmp == NULL)
+		return ;
+	else if (tmp->left && tmp->right)
+		return two_node(head, tmp);
+	else
+		return one_node(head, tmp);
 }

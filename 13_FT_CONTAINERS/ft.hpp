@@ -392,7 +392,7 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
-			std::cout << "template<>\n";
+			//std::cout << "template<>\n";
 			tail.left = &tail;
 			tail.right = &tail;
 			tail.last = &tail;
