@@ -49,7 +49,7 @@ int			main(){
 	proto = getprotobyname("tcp");
 	if (!proto)
 		std::cout << "Error\n";
-	s = socket(PF_INET, SOCK_STREAM, proto->p_proto);
+	s = socket(AF_INET, SOCK_STREAM, proto->p_proto);
 	if (s == -1){
 		std::cout << "Socket Error" << std::endl;
 		exit(0);
@@ -68,21 +68,36 @@ int			main(){
 	std::cout << "Listened\n";
 	int		ret;
 	fd_set	rfds;
+	fd_set	wfds;
 	struct timeval	tv;
 
 	FD_ZERO(&rfds);
+	FD_ZERO(&wfds);
 	FD_SET(0, &rfds);
+	FD_SET(0, &wfds);
 	tv.tv_sec = 5;
 	tv.tv_usec = 0;
+	int		i = 0;
 	while (true){
-		ret = select(42, &rfds, NULL, NULL, &tv);
+		FD_CLR(0, &rfds);
+		FD_CLR(0, &wfds);
+		ret = select(42, &rfds, &wfds, NULL, &tv);
 		if (ret == -2)
 			std::cout << "Select Error\n";
-		else if (ret)
+		else if (ret){
 			std::cout << "Data is available now.\n";
+			if (rfds.fds_bits[0] != 0)
+				std::cout << "rfds = " << rfds.fds_bits[0] << std::endl;
+			if (wfds.fds_bits[0] != 0)
+				std::cout << "wfds = " << wfds.fds_bits[0] << std::endl;
+		}
 		else
 			std::cout << "No data within five seconds.\n";
-		FD_CLR(0, &rfds);
+		if (i == 3)
+			rfds.fds_bits[0] = 'A';
+		else if (i == 4)
+			rfds.fds_bits[0] = 0;
+		i++;
 	}
 	return 0;
 }
