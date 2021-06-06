@@ -1,7 +1,5 @@
 #include "../ft.hpp"
 
-
-
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
 	RBTNode<Key, T>*	leftChild = n->left;

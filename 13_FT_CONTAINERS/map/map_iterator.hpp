@@ -1,23 +1,22 @@
 #ifndef MAP_ITERATOR_HPP
 # define MAP_ITERATOR_HPP
 
-#include "../ft.hpp"
-#include "test_bfs.hpp"
+//#include "../ft.hpp"
+#include "map_bfs.hpp"
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
 class	MapIterator;
 #include "map_const_iterator.hpp"
 
 template<class Key, class T, class Category, class Distance, class Pointer, class Reference>
 class	MapIterator {
-	protected:
-		ft::RBTNode<Key, T>				*ptr;
-	public:
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
 		typedef Distance				difference_type;
 		typedef Pointer					pointer;
 		typedef Reference				reference;
-
+	protected:
+		ft::RBTNode<Key, T>				*ptr;
+	public:
 		MapIterator() : ptr(0) {}
 		MapIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
 		MapIterator(MapIterator const &it) { *this = it; }
@@ -150,32 +149,28 @@ template<class Key, class T>
 bool	operator==(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return true;
-	else
-		return false;
+	return false;
 }
 
 template<class Key, class T>
 bool	operator==(MapIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return true;
-	else
-		return false;
+	return false;
 }
 
 template<class Key, class T>
 bool	operator!=(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return false;
-	else
-		return true;
+	return true;
 }
 
 template<class Key, class T>
 bool	operator!=(MapIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return false;
-	else
-		return true;
+	return true;
 }
 
 #endif

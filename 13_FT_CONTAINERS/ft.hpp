@@ -31,38 +31,38 @@ namespace ft
 	};
 
 	#include "iterator_tag.hpp"
-	#include "./list/list_const_iterator.hpp"
 	#include "./list/list_iterator.hpp"
-	#include "./list/list_const_reverse_iterator.hpp"
+	#include "./list/list_const_iterator.hpp"
 	#include "./list/list_reverse_iterator.hpp"
-	#include "./vector/vector_const_iterator.hpp"
+	#include "./list/list_const_reverse_iterator.hpp"
 	#include "./vector/vector_iterator.hpp"
-	#include "./vector/vector_const_reverse_iterator.hpp"
+	#include "./vector/vector_const_iterator.hpp"
 	#include "./vector/vector_reverse_iterator.hpp"
-	#include "./map/map_const_iterator.hpp"
+	#include "./vector/vector_const_reverse_iterator.hpp"
 	#include "./map/map_iterator.hpp"
+	#include "./map/map_const_iterator.hpp"
 	#include "./map/map_reverse_iterator.hpp"
+	#include "./map/map_const_reverse_iterator.hpp"
 
 	template <class T, class Allocator = std::allocator<T> >
 	class	vector {
 	private:
-		T*									head;
-		T*									tail;
-		T* 									cap;
+		T*											head;
+		T*											tail;
+		T* 											cap;
 	public:
-		typedef	T 							value_type;
-		typedef Allocator					allocator_type;
-		typedef size_t						size_type;
-		typedef ptrdiff_t					difference_type;
+		typedef	T 									value_type;
+		typedef Allocator							allocator_type;
+		typedef size_t								size_type;
+		typedef ptrdiff_t							difference_type;
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef VectorIterator<T>					iterator;
-		//typedef const iterator						const_iterator;
 		typedef VectorConstIterator<T>				const_iterator;
 		typedef VectorReverseIterator<T>			reverse_iterator;
-		typedef const reverse_iterator				const_reverse_iterator;
+		typedef VectorConstReverseIterator<T>		const_reverse_iterator;
 		
 		vector();
 		vector(const vector& other);
@@ -367,10 +367,9 @@ namespace ft
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef MapIterator<Key, T>					iterator;
-		//typedef const iterator						const_iterator;
 		typedef MapConstIterator<Key, T>			const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
-		typedef const reverse_iterator				const_reverse_iterator;
+		typedef MapConstReverseIterator<Key, T>		const_reverse_iterator;
 		//map_insert
 		void	rotateLeft(RBTNode<Key, T> *node);
 		void	rotateRight(RBTNode<Key, T> *node);

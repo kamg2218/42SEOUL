@@ -2,19 +2,24 @@
 # define LIST_REVERSE_ITERATOR_HPP
 
 #include "../ft.hpp"
-
 template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class	ListReverseIterator : public ListConstReverseIterator<T>{
-	public:
+class	ListReverseIterator;
+#include "list_const_reverse_iterator.hpp"
+
+template<class T, class Category, class Distance, class Pointer, class Reference>
+class	ListReverseIterator {
 		typedef Category	iterator_category;
 		typedef T			value_type;
 		typedef Distance	difference_type;
 		typedef Pointer		pointer;
 		typedef Reference	reference;
-
-		ListReverseIterator() : ListConstReverseIterator<T>(0) {}
-		ListReverseIterator(node<T>* const p) : ListConstReverseIterator<T>(p) {}
+	protected:
+		node<T>*			ptr;
+	public:
+		ListReverseIterator() : ptr(0) {}
+		ListReverseIterator(node<T>* const p) : ptr(p) {}
 		ListReverseIterator(ListReverseIterator const &rit) { *this = rit; }
+		ListReverseIterator(ListConstReverseIterator<T> const &rit) { *this = rit; }
 		ListReverseIterator&	operator=(ListReverseIterator const &rit){
 			if (&rit == this)
 				return *this;
@@ -22,7 +27,7 @@ class	ListReverseIterator : public ListConstReverseIterator<T>{
 			return *this;
 		}
 		ListReverseIterator&	operator=(ListConstReverseIterator<T> const &rit){
-			if (&rit == this)
+			if (rit.getPointer() == this->ptr)
 				return *this;
 			this->ptr = rit.getPointer();
 			return *this;
@@ -52,14 +57,28 @@ class	ListReverseIterator : public ListConstReverseIterator<T>{
 
 template<class T>
 bool	operator==(ListReverseIterator<T> const &a, ListReverseIterator<T> const &b){
-	if (a.getPoniter() == b.getPointer())
+	if (a.getValue() == b.getValue())
+		return true;
+	return false;
+}
+
+template<class T>
+bool	operator==(ListReverseIterator<T> const &a, ListConstReverseIterator<T> const &b){
+	if (a.getValue() == b.getValue())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator!=(ListReverseIterator<T> const &a, ListReverseIterator<T> const &b){
-	if (a.getPinter() != b.getPointer())
+	if (a.getValue() != b.getValue())
+		return true;
+	return false;
+}
+
+template<class T>
+bool	operator!=(ListReverseIterator<T> const &a, ListConstReverseIterator<T> const &b){
+	if (a.getValue() != b.getValue())
 		return true;
 	return false;
 }

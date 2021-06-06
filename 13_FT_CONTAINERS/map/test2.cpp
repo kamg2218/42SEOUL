@@ -1,7 +1,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
-//#include "../ft.hpp"
+#include "../ft.hpp"
+#include "map.hpp"
 
 int		main(){
 	//ft::map<int>	ft_m;
@@ -12,6 +13,7 @@ int		main(){
 	v.push_back(std::make_pair(3, 30));
 	v.push_back(std::make_pair(2, 20));
 	std::map<int, int>	std_m(v.begin(), v.end());
+	ft::map<int, int>	ft_m(v.begin(), v.end());
 	
 	/*
 	std::cout << "ft_lst = " << sizeof(ft_lst) << ", ft_it = " << sizeof(ft_it) << std::endl;
@@ -20,6 +22,7 @@ int		main(){
 	std::cout << &(ft_lst) << std::endl;
 	*/
 	std::cout << "std_m = " << sizeof(std_m) << std::endl;
+	std::cout << "ft_m = " << sizeof(ft_m) << std::endl;
 	std::cout << &(*std_m.end()) << std::endl;
 	std::cout << &(std_m) << std::endl;
 

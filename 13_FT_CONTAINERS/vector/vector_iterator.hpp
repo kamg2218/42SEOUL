@@ -9,18 +9,18 @@ class	VectorIterator;
 
 template<class T, class Category, class Distance, class Pointer, class Reference>
 class	VectorIterator {
-	protected:
-		T*					ptr;
-	public:
 		typedef Category	iterator_category;
 		typedef T			value_type;
 		typedef Distance	difference_type;
 		typedef Pointer		pointer;
 		typedef Reference	reference;
-	
-		VectorIterator() : ptr(0) {}//VectorConstIterator<T>(0) {}
-		VectorIterator(T* const p) : ptr(p) {}//VectorConstIterator<T>(p) {}
+	protected:
+		T*					ptr;
+	public:
+		VectorIterator() : ptr(0) {}
+		VectorIterator(T* const p) : ptr(p) {}
 		VectorIterator(VectorIterator const &it) { *this = it; }
+		VectorIterator(VectorConstIterator<T> const &it) { *this = it; }
 		VectorIterator&	operator=(VectorIterator const &it){
 			if (&it == this)
 				return *this;
@@ -28,7 +28,7 @@ class	VectorIterator {
 			return *this;
 		}
 		VectorIterator&	operator=(VectorConstIterator<T> const &it){
-			if (&it == this)
+			if (it.getPointer() == this->ptr)
 				return *this;
 			this->ptr = it.getPointer();
 			return *this;
@@ -89,48 +89,84 @@ template<class T>
 bool	operator==(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() == b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator==(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() == b.getValue())
+		return true;
+	return false;
 }
 
 template<class T>
 bool	operator!=(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() != b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator!=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() != b.getValue())
+		return true;
+	return false;
 }
 
 template<class T>
 bool	operator<(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() < b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator<(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() < b.getValue())
+		return true;
+	return false;
 }
 
 template<class T>
 bool	operator>(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() > b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator>(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() > b.getValue())
+		return true;
+	return false;
 }
 
 template<class T>
 bool	operator<=(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() <= b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator<=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() <= b.getValue())
+		return true;
+	return false;
 }
 
 template<class T>
 bool	operator>=(VectorIterator<T> const &a, VectorIterator<T> const &b){
 	if (a.getValue() >= b.getValue())
 		return true;
-	else
-		return false;
+	return false;
+}
+
+template<class T>
+bool	operator>=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
+	if (a.getValue() >= b.getValue())
+		return true;
+	return false;
 }
 
 #endif

@@ -1,14 +1,14 @@
-#ifndef MAP_REVERSE_ITERATOR_HPP
-# define MAP_REVERSE_ITERATOR_HPP
+#ifndef MAP_CONST_REVERSE_ITERATOR_HPP
+# define MAP_CONST_REVERSE_ITERATOR_HPP
 
 //#include "../ft.hpp"
 #include "map_bfs.hpp"
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
-class	MapReverseIterator;
-#include "map_const_reverse_iterator.hpp"
+class	MapConstReverseIterator;
+#include "map_reverse_iterator.hpp"
 
 template<class Key, class T, class Category, class Distance, class Pointer, class Reference>
-class	MapReverseIterator {
+class	MapConstReverseIterator {
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
 		typedef Distance				difference_type;
@@ -17,23 +17,23 @@ class	MapReverseIterator {
 	protected:
 		ft::RBTNode<Key, T>				*ptr;
 	public:
-		MapReverseIterator() : ptr(0) {}
-		MapReverseIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
-		MapReverseIterator(MapReverseIterator const &it) { *this = it; }
-		MapReverseIterator(MapConstReverseIterator<Key, T> const &it) { *this = it; }
-		MapReverseIterator&	operator=(MapReverseIterator const &it){
+		MapConstReverseIterator() : ptr(0) {}
+		MapConstReverseIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
+		MapConstReverseIterator(MapConstReverseIterator const &it) { *this = it; }
+		MapConstReverseIterator(MapReverseIterator<Key, T> const &it) { *this = it; }
+		MapConstReverseIterator&	operator=(MapConstReverseIterator const &it){
 			if (&it == this)
 				return *this;
 			this->ptr = it.ptr;
 			return *this;
 		}
-		MapReverseIterator&	operator=(MapConstReverseIterator<Key, T> const &it){
+		MapConstReverseIterator&	operator=(MapReverseIterator<Key, T> const &it){
 			if (it.getPointer() == this->ptr)
 				return *this;
 			this->ptr = it.ptr;
 			return *this;
 		}
-		~MapReverseIterator() {}
+		~MapConstReverseIterator() {}
 		ft::RBTNode<Key, T>*	upper(ft::RBTNode<Key, T>* head){
 			size_t					size;
 			ft::RBTNode<Key, T>**	tmp;
@@ -110,55 +110,55 @@ class	MapReverseIterator {
 				tmp = tmp->parent;
 			return tmp;
 		}
-		MapReverseIterator&		operator++(){
+		MapConstReverseIterator&		operator++(){
 			if (this->ptr)
 				this->ptr = lower(find_head());
 			return *this;
 		}
-		MapReverseIterator		operator++(int){
+		MapConstReverseIterator			operator++(int){
 			if (this->ptr)
 				this->ptr = lower(find_head());
-			return (MapReverseIterator(this->ptr));
+			return (MapConstReverseIterator(this->ptr));
 		}
-		MapReverseIterator&		operator--(){
+		MapConstReverseIterator&		operator--(){
 			if (this->ptr)
 				this->ptr = upper(find_head());
 			return *this;
 		}
-		MapReverseIterator		operator--(int){
+		MapConstReverseIterator			operator--(int){
 			if (this->ptr)
 				this->ptr = upper(find_head());
-			return MapReverseIterator(this->ptr);
+			return MapConstReverseIterator(this->ptr);
 		}
-		reference			operator*() const { return getValue(); }
-		pointer				operator->() const { return &getValue(); }
+		const reference		operator*() const { return getValue(); }
+		const pointer		operator->() const { return &getValue(); }
 		reference			getValue() const { return ptr->value; }
 		ft::RBTNode<Key,T>*	getPointer() const { return ptr; }
 };
 
 template<class Key, class T>
-bool	operator==(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
+bool	operator==(MapConstReverseIterator<Key, T> const &a, MapConstReverseIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return true;
 	return false;
 }
 
 template<class Key, class T>
-bool	operator==(MapReverseIterator<Key, T> const &a, MapConstReverseIterator<Key, T> const &b){
+bool	operator==(MapConstReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return true;
 	return false;
 }
 
 template<class Key, class T>
-bool	operator!=(MapReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
+bool	operator!=(MapConstReverseIterator<Key, T> const &a, MapConstReverseIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return false;
 	return true;
 }
 
 template<class Key, class T>
-bool	operator!=(MapReverseIterator<Key, T> const &a, MapConstReverseIterator<Key, T> const &b){
+bool	operator!=(MapConstReverseIterator<Key, T> const &a, MapReverseIterator<Key, T> const &b){
 	if (a->first == b->first && a->second == b->second)
 		return false;
 	return true;
