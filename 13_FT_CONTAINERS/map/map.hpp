@@ -87,9 +87,9 @@ typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare,
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::begin() const { return const_iterator(this->tail.right); }
 template <class Key, class T, class Compare, class Allocator>
-typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare, Allocator>::end() { return iterator(&this->tail); }
+typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare, Allocator>::end() { return iterator(&tail); }
 template <class Key, class T, class Compare, class Allocator>
-typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::end() const { return const_iterator(&this->tail); }
+typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::end() const { return const_iterator(&tail); }
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::reverse_iterator		ft::map<Key, T, Compare, Allocator>::rbegin() { return reverse_iterator(this->tail.prev); }
 template <class Key, class T, class Compare, class Allocator>
@@ -244,6 +244,7 @@ typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, 
 	iterator	it;
 
 	std::cout << "erase iterator\n";
+	std::cout << "head color = " << head->color << std::endl;
 	it = pos;
 	it++;
 	del(pos.getPointer());
@@ -392,7 +393,6 @@ std::pair<typename ft::map<Key, T, Compare, Allocator>::const_iterator, typename
 	const_iterator	it;
 
 	it = find(key);
-	std::cout << "pass\n";
 	if (it != end())
 		return std::make_pair(it, ++it);
 	return std::make_pair(it, end());
@@ -406,6 +406,7 @@ typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare,
 	ft::RBTNode<Key, T>*	node;
 	key_compare				cmp;
 
+	//traverse(&head);
 	size = 8;
 	realloc(&tmp, 0, size);
 	tmp[0] = head;
@@ -417,8 +418,8 @@ typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare,
 		}
 		for (size_type i = 0; i < size_bfs(tmp); i++){
 			node = tmp[i];
-			if (!(cmp(key, node->value.first))){
-				if (it == end() || cmp((*it).first, node->value.first))
+			if (!(cmp(node->value.first, key))){
+				if (it == end() || cmp(node->value.first, it->first))
 					it = iterator(node);
 			}
 			if (node->left != &tail)
@@ -430,6 +431,7 @@ typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare,
 		}
 	}
 	delete [] tmp;
+
 	return it;
 }
 
@@ -452,8 +454,8 @@ typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Com
 		}
 		for (size_type i = 0; i < size_bfs(tmp); i++){
 			node = tmp[i];
-			if (!(cmp(key, node->value.first))){
-				if (it == end() || cmp((*it).first, node->value.first))
+			if (!(cmp(node->value.first, key))){
+				if (it == end() || cmp(node->value.first, it->first))
 					it = const_iterator(node);
 			}
 			if (node->left != &tail)
@@ -523,7 +525,7 @@ typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Com
 		for (size_type i = 0; i < size_bfs(tmp); i++){
 			node = tmp[i];
 			if (cmp(key, node->value.first)){
-				if (it == end() || cmp(node->value.first, (*it).first))
+				if (it == end() || cmp(node->value.first, it->first))
 					it = const_iterator(node);
 			}
 			if (node->left != &tail)
@@ -848,7 +850,7 @@ void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
 		del_one(node, child);
 	}
 	alloc.deallocate(node, 1);
-	//delete node;
+	head->color = BLACK;
 }
 
 template <class Key, class T, class Compare, class Allocator>

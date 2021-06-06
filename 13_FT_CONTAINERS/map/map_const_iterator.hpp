@@ -10,7 +10,7 @@ class MapConstIterator;
 template<class Key, class T, class Category, class Distance, class Pointer, class Reference>
 class	MapConstIterator {
 	protected:
-		RBTNode<Key, T>				*ptr;
+		ft::RBTNode<Key, T>				*ptr;
 	public:
 		typedef Category				iterator_category;
 		typedef std::pair<Key, T>		value_type;
@@ -19,8 +19,9 @@ class	MapConstIterator {
 		typedef Reference				reference;
 
 		MapConstIterator() : ptr(0) {}
-		MapConstIterator(RBTNode<Key, T>* const p) : ptr(p) {}
+		MapConstIterator(ft::RBTNode<Key, T>* p) : ptr(p) {}
 		MapConstIterator(MapConstIterator const &it) { *this = it; }
+		MapConstIterator(MapIterator<Key, T> const &it) { *this = it; }
 		MapConstIterator&	operator=(MapConstIterator const &it){
 			if (&it == this)
 				return *this;
@@ -131,15 +132,23 @@ class	MapConstIterator {
 			this->ptr = lower(find_head());
 			return MapConstIterator(this->ptr);
 		}
-		const reference		operator*() const { return getValue(); }
-		const pointer		operator->() const { return &getValue(); }
-		reference			getValue() const { return ptr->value; }
-		RBTNode<Key,T>*		getPointer() const { return ptr; }
+		const reference			operator*() const { return getValue(); }
+		const pointer			operator->() const { return &getValue(); }
+		reference				getValue() const { return ptr->value; }
+		ft::RBTNode<Key,T>*		getPointer() const { return ptr; }
 };
 
 template<class Key, class T>
 bool	operator==(MapConstIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
-	if (a->first == b->first)
+	if (a->first == b->first && a->second == b->second)
+		return true;
+	else
+		return false;
+}
+
+template<class Key, class T>
+bool	operator==(MapConstIterator<Key, T> const &a, MapIterator<Key, T> const &b){
+	if (a->first == b->first && a->second == b->second)
 		return true;
 	else
 		return false;
@@ -147,10 +156,18 @@ bool	operator==(MapConstIterator<Key, T> const &a, MapConstIterator<Key, T> cons
 
 template<class Key, class T>
 bool	operator!=(MapConstIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
-	if (a->first != b->first)
-		return true;
-	else
+	if (a->first == b->first && a->second == b->second)
 		return false;
+	else
+		return true;
+}
+
+template<class Key, class T>
+bool	operator!=(MapConstIterator<Key, T> const &a, MapIterator<Key, T> const &b){
+	if (a->first == b->first && a->second == b->second)
+		return false;
+	else
+		return true;
 }
 
 #endif

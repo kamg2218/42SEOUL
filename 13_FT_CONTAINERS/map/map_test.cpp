@@ -247,9 +247,9 @@ int		main()
 	std::cout << "std_m.count(5) = " << std_m.count(5) << std::endl;
 	std::cout << "std_m.count(20) = " << std_m.count(20) << std::endl;
 
-	std::cout << "ft_m.count(1) = " << ft_m.count(1) << std::endl;
-	std::cout << "ft_m.count(5) = " << ft_m.count(5) << std::endl;
-	std::cout << "ft_m.count(20) = " << ft_m.count(20) << std::endl;
+//	std::cout << "ft_m.count(1) = " << ft_m.count(1) << std::endl;
+//	std::cout << "ft_m.count(5) = " << ft_m.count(5) << std::endl;
+//	std::cout << "ft_m.count(20) = " << ft_m.count(20) << std::endl;
 	
 	std::cout << "---- find ---------------------------------------" << std::endl;
 	
@@ -303,21 +303,25 @@ int		main()
 
 	ft_citit = ft_m.equal_range(7);
 	std::cout << "ft_equal_range(7) : " << ft_citit.first->first << ", " << ft_citit.second->first << std::endl;
-	//ft_citit = ft_m.equal_range(200);
-	//std::cout << "ft_equal_range(200) : " << ft_citit.first->first << ", " << ft_citit.second->first << std::endl;
-/*
+	ft_citit = ft_m.equal_range(200);
+	std::cout << "ft_equal_range(200) : " << ft_citit.first->first << ", " << ft_citit.second->first << std::endl;
+
 	std::cout << "---- lower_bound --------------------------------" << std::endl;
-	
+
 	std_it = std_m.lower_bound(15);
 	std::cout << "std_lower_bound(15) : " << std_it->first << ", " << std_it->second << std::endl;
 	std_it = std_m.lower_bound(1);
 	std::cout << "std_lower_bound(1) : " << std_it->first << ", " << std_it->second << std::endl;
+	std_it = std_m.lower_bound(6);
+	std::cout << "std_lower_bound(6) : " << std_it->first << ", " << std_it->second << std::endl;
 
 	ft_it = ft_m.lower_bound(15);
 	std::cout << "ft_lower_bound(15) : " << ft_it->first << ", " << ft_it->second << std::endl;
 	ft_it = ft_m.lower_bound(1);
 	std::cout << "ft_lower_bound(1) : " << ft_it->first << ", " << ft_it->second << std::endl;
-	
+	ft_it = ft_m.lower_bound(6);
+	std::cout << "ft_lower_bound(6) : " << ft_it->first << ", " << ft_it->second << std::endl;
+
 	std::cout << "---- upper_bound --------------------------------" << std::endl;
 	
 	std_it = std_m.upper_bound(15);
@@ -331,13 +335,22 @@ int		main()
 	std::cout << "ft_upper_bound(1) : " << ft_it->first << ", " << ft_it->second << std::endl;
 	
 	std::cout << "---- compare -------------------------------------" << std::endl;
+
+	if (std_m > std_m2)
+		std::cout << "std_m is bigger\n";
+	else if (std_m < std_m2)
+		std::cout << "std_m is smaller\n";
+	else
+		std::cout << "std_m and std_m2 is same\n";
+	
 	if (ft_m > ft_m2)
 		std::cout << "ft_m is bigger\n";
 	else if (ft_m < ft_m2)
 		std::cout << "ft_m is smaller\n";
 	else
 		std::cout << "ft_m and ft_m2 is same\n";
+	
 	std::cout << "--------------------------------------------------" << std::endl;
-*/
+
 	return 0;
 }
