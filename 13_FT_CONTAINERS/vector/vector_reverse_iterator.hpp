@@ -1,7 +1,6 @@
 #ifndef VECTOR_REVERSE_ITERATOR_HPP
 # define VECTOR_REVERSE_ITERATOR_HPP
 
-#include "../ft.hpp"
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	VectorReverseIterator;
 #include "vector_const_reverse_iterator.hpp"

@@ -1,7 +1,6 @@
 #ifndef MAP_ITERATOR_HPP
 # define MAP_ITERATOR_HPP
 
-//#include "../ft.hpp"
 #include "map_bfs.hpp"
 template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
 class	MapIterator;

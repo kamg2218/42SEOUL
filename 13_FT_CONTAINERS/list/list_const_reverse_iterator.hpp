@@ -1,7 +1,6 @@
 #ifndef LIST_CONST_REVERSE_ITERATOR_HPP
 # define LIST_CONST_REVERSE_ITERATOR_HPP
 
-#include "../ft.hpp"
 template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ListConstReverseIterator;
 #include "list_reverse_iterator.hpp"

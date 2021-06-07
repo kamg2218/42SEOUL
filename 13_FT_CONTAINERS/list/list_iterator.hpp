@@ -1,7 +1,6 @@
 #ifndef LIST_ITERATOR_HPP
 # define LIST_ITERATOR_HPP
 
-#include "../ft.hpp"
 template<class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	ListIterator;
 #include "list_const_iterator.hpp"
