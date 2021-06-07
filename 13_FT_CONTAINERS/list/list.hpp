@@ -3,41 +3,19 @@
 template <class T, class Allocator>
 ft::node<T>*		ft::list<T, Allocator>::malloc(){
 	ft::node<T>		*tmp;
-	al				re_al;
 
-	tmp = re_al.allocate(1);
-	tmp->prev = 0;
-	tmp->next = 0;
+	tmp = al.allocate(1);
+	tmp->prev = head;
+	tmp->next = head;
 	return tmp;
-}
-
-template <class T, class Allocator>
-void		ft::list<T, Allocator>::add_back(const T& value){
-	ft::node<T>*		tmp;
-	allocator_type		alloc;
-
-	tmp = malloc();
-	alloc.construct(&tmp->value, value);
-	if (this->head == 0) {
-		this->head = tmp;
-		this->tail = tmp;
-	}
-	else {
-		tmp->prev = this->tail;
-		this->tail->next = tmp;
-		this->tail = tmp;
-	}
 }
 
 //constructor
 template <class T, class Allocator>
-ft::list<T, Allocator>::list() : sz(0), head(0), tail(0) {
-	add_back(0);
-	add_back(0);
-}
+ft::list<T, Allocator>::list() : sz(0), head(0) { push_back(0); }
 
 template <class T, class Allocator>
-ft::list<T, Allocator>::list(const ft::list<T, Allocator>& other) { *this = other; }
+ft::list<T, Allocator>::list(const ft::list<T, Allocator>& other) : sz(0), head(0) { push_back(0); *this = other; }
 
 template <class T, class Allocator>
 ft::list<T, Allocator>&	ft::list<T, Allocator>::operator=(ft::list<T, Allocator> const &lst) {
@@ -45,70 +23,40 @@ ft::list<T, Allocator>&	ft::list<T, Allocator>::operator=(ft::list<T, Allocator>
 		return *this;
 	iterator	l_it = lst.begin();
 	clear();
-	this->sz = lst.sz;
-	add_back(0);
 	for (size_type i = 0; i < lst.sz; i++){
-		add_back(*l_it);
+		push_back(*l_it);
 		l_it++;
 	}
-	add_back(0);
 	return *this;
 }
 
 template <class T, class Allocator>
-ft::list<T, Allocator>::list(const Allocator& alloc) : sz(0), head(0), tail(0) { }
+ft::list<T, Allocator>::list(const Allocator& alloc) : sz(0), head(0) { push_back(0); }
 
 template <class T, class Allocator>
-ft::list<T, Allocator>::list(size_type count, const T& value, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	add_back(0);
+ft::list<T, Allocator>::list(size_type count, const T& value, const Allocator& alloc) : sz(0), head(0) {
+	push_back(0);
 	for (size_type i = 0; i < count; i++)
-		add_back(value);
-	add_back(0);
+		push_back(value);
 	this->sz = count;
 }
 
 template <class T, class Allocator>
 template <class InputIt>
-ft::list<T, Allocator>::list(InputIt first, InputIt last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	add_back(0);
+ft::list<T, Allocator>::list(InputIt first, InputIt last, const Allocator& alloc) : sz(0), head(0) {
+	push_back(0);
 	for (InputIt i = 0; i < first; i++)
-		add_back(last);
-	add_back(0);
+		push_back(last);
 	this->sz = first;
 }
-/*
-template <class T, class Allocator>
-template <>
-ft::list<T, Allocator>::list(iterator first, iterator last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	add_back(0);
-	for (iterator i = first; i != last; i++){
-		this->sz++;
-		add_back(*i);
-	}
-	add_back(0);
-}
 
-template <class T, class Allocator>
-template <>
-ft::list<T, Allocator>::list(T* first, T* last, const Allocator& alloc) : sz(0), head(0), tail(0) {
-	add_back(0);
-	for (T* i = first; i != last; i++) {
-		this->sz++;
-		add_back(*i);
-	}
-	add_back(0);
-}
-*/
 template <class T, class Allocator>
 ft::list<T, Allocator>::~list() {
 	allocator_type	alloc;
-	al				re_al;
 
 	clear();
 	alloc.destroy(&this->head->value);
-	alloc.destroy(&this->tail->value);
-	re_al.deallocate(this->head, 1);
-	re_al.deallocate(this->tail, 1);
+	al.deallocate(this->head, 1);
 }
 
 //assign
@@ -126,43 +74,27 @@ void	ft::list<T, Allocator>::assign(InputIt first, InputIt last){
 	for (InputIt i = 0; i < first; i++)
 		push_back(last);
 }
-/*	
-template <class T, class Allocator>
-template<>
-void	ft::list<T, Allocator>::assign(typename ft::list<T, Allocator>::iterator first, typename ft::list<T, Allocator>::iterator last){
-	ft::list<T, Allocator>::clear();
-	for (typename ft::list<T, Allocator>::iterator i = first; i != last; i++)
-		ft::list<T, Allocator>::push_back(*i);
-}
 
-template <class T, class Allocator>
-template<>
-void	ft::list<T, Allocator>::assign(T* first, T* last){
-	ft::list<T, Allocator>::clear();
-	for (T* i = first; i != last; i++)
-		ft::list<T, Allocator>::push_back(*i);
-}
-*/
 template <class T, class Allocator>
 typename ft::list<T, Allocator>::allocator_type	ft::list<T, Allocator>::get_allocator() const { allocator_type alloc; return alloc; }
 
 //iterator
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::begin() { return iterator(this->head->next); }
+typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::begin() { return iterator(head->next); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_iterator		ft::list<T, Allocator>::begin() const { return const_iterator(this->head->next); }
+typename ft::list<T, Allocator>::const_iterator		ft::list<T, Allocator>::begin() const { return const_iterator(head->next); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::end() { return iterator(this->tail); }
+typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::end() { return iterator(head); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_iterator		ft::list<T, Allocator>::end() const { return const_iterator(this->tail); }
+typename ft::list<T, Allocator>::const_iterator		ft::list<T, Allocator>::end() const { return const_iterator(head); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::reverse_iterator	ft::list<T, Allocator>::rbegin() { return reverse_iterator(this->tail->prev); }
+typename ft::list<T, Allocator>::reverse_iterator	ft::list<T, Allocator>::rbegin() { return reverse_iterator(head->prev); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_reverse_iterator	ft::list<T, Allocator>::rbegin() const { return const_reverse_iterator(this->tail->prev); }
+typename ft::list<T, Allocator>::const_reverse_iterator	ft::list<T, Allocator>::rbegin() const { return const_reverse_iterator(head->prev); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::reverse_iterator	ft::list<T, Allocator>::rend() { return reverse_iterator(this->head); }
+typename ft::list<T, Allocator>::reverse_iterator	ft::list<T, Allocator>::rend() { return reverse_iterator(head); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_reverse_iterator	ft::list<T, Allocator>::rend() const { return const_reverse_iterator(this->head); }
+typename ft::list<T, Allocator>::const_reverse_iterator	ft::list<T, Allocator>::rend() const { return const_reverse_iterator(head); }
 
 //access
 template <class T, class Allocator>
@@ -170,9 +102,9 @@ typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::front() { ret
 template <class T, class Allocator>
 typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::front() const { return *(begin()); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::back() { return this->tail->prev->value; }
+typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::back() { return *(end()); }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::back() const { if (this->sz > 0) return this->tail->prev->value; else return *(end()); }
+typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::back() const { return *(end()); }
 
 //capacity
 template <class T, class Allocator>
@@ -208,15 +140,14 @@ template <class T, class Allocator>
 void		ft::list<T, Allocator>::pop_front(){
 	ft::node<T>*	tmp;
 	allocator_type	alloc;
-	al				re_al;
 
 	tmp = this->head->next;
-	if (tmp == this->tail)
+	if (tmp == head)
 		return ;
 	tmp->prev->next = tmp->next;
 	tmp->next->prev = tmp->prev;
 	alloc.destroy(&tmp->value);
-	re_al.deallocate(tmp, 1);
+	al.deallocate(tmp, 1);
 	this->sz--;
 }
 
@@ -227,10 +158,20 @@ void		ft::list<T, Allocator>::push_back(const T& value){
 
 	tmp = malloc();
 	alloc.construct(&tmp->value, value);
-	tmp->prev = this->tail->prev;
-	this->tail->prev->next = tmp;
-	tmp->next = this->tail;
-	this->tail->prev = tmp;
+	if (head == 0){
+		head = tmp;
+		tmp->prev = head;
+		tmp->next = head;
+	}
+	else if (head->next == head){
+		head->prev = tmp;
+		head->next = tmp;
+	}
+	else {
+		tmp->prev = head->prev;
+		head->prev->next = tmp;
+		head->prev = tmp;
+	}
 	this->sz++;
 }
 
@@ -238,15 +179,14 @@ template <class T, class Allocator>
 void		ft::list<T, Allocator>::pop_back(){
 	ft::node<T>*	tmp;
 	allocator_type	alloc;
-	al				re_al;
 
-	tmp = this->tail->prev;
+	tmp = this->head->prev;
 	if (tmp == this->head)
 		return ;
-	tmp->prev->next = this->tail;
-	this->tail->prev = tmp->prev;
+	tmp->prev->next = this->head;
+	this->head->prev = tmp->prev;
 	alloc.destroy(&tmp->value);
-	re_al.deallocate(tmp, 1);
+	al.deallocate(tmp, 1);
 	this->sz--;
 }
 
@@ -304,33 +244,11 @@ void	ft::list<T, Allocator>::insert(iterator pos, InputIt first, InputIt last){
 	}
 }
 
-/*
-template <class T, class Allocator>
-template<>
-void	ft::list<T, Allocator>::insert(iterator pos, iterator first, iterator last){
-	ft::node<T>*		pre;
-	ft::node<T>*		tmp;
-	allocator_type	alloc;
-
-	pre = pos.getPointer();
-	for (iterator i = first; i != last; i++){
-		tmp = malloc();
-		alloc.construct(&tmp->value, *i);
-		tmp->prev = pre->prev;
-		pre->prev->next = tmp;
-		tmp->next = pre;
-		pre->prev = tmp;
-		pre = tmp->next;
-		this->sz++;
-	}
-}
-*/
 template <class T, class Allocator>
 typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::erase(iterator pos){
 	ft::node<T>*		tmp;
 	iterator			it;
 	allocator_type		alloc;
-	al					re_al;
 
 	if (pos == end())
 		return end();
@@ -339,7 +257,7 @@ typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::erase(iterator
 	tmp->next->prev = tmp->prev;
 	it = iterator(tmp->next);
 	alloc.destroy(&tmp->value);
-	re_al.deallocate(tmp, 1);
+	al.deallocate(tmp, 1);
 	this->sz--;
 	return (it);
 }
@@ -349,7 +267,6 @@ typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::erase(iterator
 	ft::node<T>*	tmp;
 	ft::node<T>*	next;
 	allocator_type	alloc;
-	al				re_al;
 
 	next = first.getPointer();
 	while (next != last.getPointer()){
@@ -358,7 +275,7 @@ typename ft::list<T, Allocator>::iterator	ft::list<T, Allocator>::erase(iterator
 		tmp->next->prev = tmp->prev;
 		next = tmp->next;
 		alloc.destroy(&tmp->value);
-		re_al.deallocate(tmp, 1);
+		al.deallocate(tmp, 1);
 		this->sz--;
 	}
 	return iterator(next);
@@ -390,18 +307,14 @@ template <class T, class Allocator>
 void		ft::list<T, Allocator>::swap(ft::list<T, Allocator>& other){
 	size_type		cnt;
 	ft::node<T>*	h;
-	ft::node<T>*	t;
 
 	if (&other == this)
 		return ;
 	h = other.head;
-	t = other.tail;
 	cnt = other.sz;
 	other.head = this->head;
-	other.tail = this->tail;
 	other.sz = this->sz;
 	this->head = h;
-	this->tail = t;
 	this->sz = cnt;
 }
 
@@ -420,8 +333,8 @@ template <class T, class Allocator>
 void		ft::list<T, Allocator>::sort(){
 	ft::node<T>*	tmp;
 
-	for (ft::node<T>* i = this->head->next; i != this->tail; i = i->next){
-		for (ft::node<T>* j = i->next; j != this->tail; j = j->next){
+	for (ft::node<T>* i = head->next; i != head; i = i->next){
+		for (ft::node<T>* j = i->next; j != head; j = j->next){
 			if (i->value > j->value){
 				tmp = j->next;
 				move_node(j, i);
@@ -439,8 +352,8 @@ template<class Compare>
 void	ft::list<T, Allocator>::sort(Compare cmp){
 	ft::node<T>*	tmp;
 
-	for (ft::node<T>* i = this->head->next; i != this->tail; i = i->next){
-		for (ft::node<T>* j = i->next; j != this->tail; j = j->next){
+	for (ft::node<T>* i = head->next; i != head; i = i->next){
+		for (ft::node<T>* j = i->next; j != head; j = j->next){
 			if (cmp(i->value, j->value) > 0){
 				tmp = j->next;
 				move_node(j, i);
@@ -464,8 +377,8 @@ void	ft::list<T, Allocator>::merge(ft::list<T, Allocator>& other){
 		return ;
 	tmp = this->head->next;
 	i = other.head->next;
-	while (i != other.tail){
-		if (tmp->value > i->value || tmp == this->tail){
+	while (i != other.head){
+		if (tmp->value > i->value || tmp == head){
 			move_node(i, tmp);
 			other.sz--;
 			this->sz++;
@@ -489,7 +402,7 @@ void	ft::list<T, Allocator>::merge(ft::list<T, Allocator>& other, Compare comp){
 	tmp = this->head->next;
 	i = other.head->next;
 	while (i != other.tail){
-		if (comp(tmp->value, i->value) > 0 || tmp == this->tail){
+		if (comp(tmp->value, i->value) > 0 || tmp == head){
 			move_node(i, tmp);
 			other.sz--;
 			this->sz++;

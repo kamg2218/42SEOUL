@@ -1,5 +1,5 @@
 #include <list>
-#include "test_list.hpp"
+#include "list.hpp"
 #include "../ft.hpp"
 
 void	std_print(std::list<int>& lst){
@@ -259,7 +259,7 @@ int		main()
 	ft_lst.splice(ft_lst.end(), ft_lst2);
 	ft_print(ft_lst);
 */
-
+/*
 	std::cout << "---- splice(iterator, list, iterator) ------------" << std::endl;
 	std_lst2.push_back(1);
 	std_print(std_lst);
@@ -272,8 +272,8 @@ int		main()
 	ft_print(ft_lst2);
 	ft_lst.splice(ft_lst.end(), ft_lst2, ft_lst2.begin());
 	ft_print(ft_lst);
-
-/*	
+*/
+	
 	std::cout << "---- splice(iterator, list, iterator, iterator) --" << std::endl;
 	std_lst2.push_back(1);
 	std_lst.splice(std_lst.end(), std_lst2, std_lst2.begin(), std_lst2.end());
@@ -282,7 +282,7 @@ int		main()
 	ft_lst2.push_back(1);
 	ft_lst.splice(ft_lst.end(), ft_lst2, ft_lst2.begin(), ft_lst2.end());
 	ft_print(ft_lst);
-*/
+
 	std::cout << "---- sort() --------------------------------------" << std::endl;
 	std_lst.sort();
 	std_print(std_lst);

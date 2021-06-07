@@ -165,11 +165,10 @@ namespace ft
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
 	private:
-		node<T>*						head;
-		//node*							tail;
-		size_t							sz;
+		node<T>*									head;
+		size_t										sz;
+		typename Allocator::template rebind<node<T> >::other	al;
 	public:
-		typedef typename Allocator::template rebind<node<T> >::other	al;
 		typedef node<T>								node;
 		typedef	T 									value_type;
 		typedef Allocator							allocator_type;
@@ -184,7 +183,6 @@ namespace ft
 		typedef ListReverseIterator<T>				reverse_iterator;
 		typedef ListConstReverseIterator<T>			const_reverse_iterator;
 		node*		malloc();
-		void		add_back(const T& value);
 		list();
 		list(const list& other);
 		list&	operator=(list const &lst);
@@ -193,22 +191,16 @@ namespace ft
 		template<class InputIt>
 		list(InputIt first, InputIt last, const Allocator& alloc = Allocator());
 		template<>
-		list(iterator first, iterator last, const Allocator& alloc){
-			add_back(0);
-			for (iterator i = first; i != last; i++){
-				this->sz++;
-				add_back(*i);
-			}
-			add_back(0);
+		list(iterator first, iterator last, const Allocator& alloc) : head(0), sz(0) {
+			push_back(0);
+			for (iterator i = first; i != last; i++)
+				push_back(*i);
 		}
 		template<>
-		list(T* first, T* last, const Allocator& alloc){
-			add_back(0);
-			for (T* i = first; i != last; i++) {
-				this->sz++;
-				add_back(*i);
-			}
-			add_back(0);
+		list(T* first, T* last, const Allocator& alloc) : head(0), sz(0) {
+			push_back(0);
+			for (T* i = first; i != last; i++)
+				push_back(*i);
 		}
 		~list();
 		void	assign(size_type count, const T& value);
@@ -266,7 +258,7 @@ namespace ft
 				tmp->next = pre;
 				pre->prev = tmp;
 				pre = tmp->next;
-				this->sz++;
+				sz++;
 			}
 		}
 		iterator	erase(iterator pos);
