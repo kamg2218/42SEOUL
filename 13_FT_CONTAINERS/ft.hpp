@@ -165,13 +165,12 @@ namespace ft
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
 	private:
-		node<T>*							head;
-		node<T>*							tail;
-		size_t								sz;
-	protected:
+		node<T>*						head;
+		//node*							tail;
+		size_t							sz;
+	public:
 		typedef typename Allocator::template rebind<node<T> >::other	al;
 		typedef node<T>								node;
-	public:
 		typedef	T 									value_type;
 		typedef Allocator							allocator_type;
 		typedef size_t								size_type;
@@ -181,11 +180,9 @@ namespace ft
 		typedef typename Allocator::const_pointer	const_pointer;
 		typedef typename Allocator::const_reference	const_reference;
 		typedef ListIterator<T>						iterator;
-		//typedef const iterator						const_iterator;
 		typedef ListConstIterator<T>				const_iterator;
 		typedef ListReverseIterator<T>				reverse_iterator;
 		typedef ListConstReverseIterator<T>			const_reverse_iterator;
-		//#include "./list/list.hpp"
 		node*		malloc();
 		void		add_back(const T& value);
 		list();
