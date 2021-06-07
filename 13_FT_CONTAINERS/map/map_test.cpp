@@ -21,7 +21,7 @@ void	ft_print(ft::map<int, int>& m){
 	
 	for (it = m.begin(); it != m.end(); ++it)
 		std::cout << it->first << ", " << it->second << std::endl;
-	std::cout << "begin = " << m.begin()->first << std::endl;
+	//std::cout << "begin = " << m.begin()->first << std::endl;
 }
 
 int		main()
@@ -186,7 +186,7 @@ int		main()
 
 	ft_m.insert(arr, arr + 1);
 	ft_print(ft_m);
-
+/*
 	std::cout << "---- erase(key_type) ----------------------------" << std::endl;
 	std::cout << "std_erase = " << std_m.erase(3) << std::endl;
 	std::cout << "std_erase = " << std_m.erase(10) << std::endl;
@@ -220,6 +220,14 @@ int		main()
 	ft_it--;
 	ft_it--;
 	ft_m.erase(ft_it, ft_m.end());
+	ft_print(ft_m);
+*/
+
+	std::cout << "---- erase(iterator, iterator) -------------------" << std::endl;
+	std_m.erase(std_m.begin(), std_m.end());
+	std_print(std_m);
+	
+	ft_m.erase(ft_m.begin(), ft_m.end());
 	ft_print(ft_m);
 
 	std::cout << "---- swap() --------------------------------------" << std::endl;

@@ -121,7 +121,7 @@ T&	ft::map<Key, T, Compare, Allocator>::operator[](const Key& key){
 template <class Key, class T, class Compare, class Allocator>
 bool	ft::map<Key, T, Compare, Allocator>::empty() const { if (!sz) return true; else return false;}
 template <class Key, class T, class Compare, class Allocator>
-typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::size() const { return sz; } //std::distance(begin(), end())
+typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::size() const { return sz; }
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::max_size() const { return std::numeric_limits<difference_type>::max(); }
 
@@ -179,17 +179,14 @@ std::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, bool>	ft::map<
 	it = find(value.first);
 	if (it != end()){
 		std::pair<iterator, bool>	n(it, false);
-		//std::cout << "right = " << tail.right->value.first << std::endl;
-		//std::cout << "left = " << tail.left->value.first << std::endl;
 		return n;
 	}
-	//std::cout << "find = " << it->first << std::endl;
 	tmp = make_node(value);
 	add_node(head, tmp);
 	std::pair<iterator, bool>	n(tmp, true);
 	//std::cout << "right = " << tail.right->value.first << std::endl;
 	//std::cout << "left = " << tail.left->value.first << std::endl;
-	sz++;
+	//sz++;
 	return n;
 }
 //tail 확인 필요
@@ -238,6 +235,7 @@ typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, 
 template <class Key, class T, class Compare, class Allocator>
 template<class InputIt>
 void	ft::map<Key, T, Compare, Allocator>::insert(InputIt first, InputIt last){
+	//std::cout << "!!insert\n";
 	for (InputIt i = first; i != last; i++){
 		if (find(i->first) != end())
 			continue ;
@@ -250,7 +248,6 @@ typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, 
 	iterator	it;
 
 	//std::cout << "erase iterator\n";
-	//std::cout << "head color = " << head->color << std::endl;
 	it = pos;
 	it++;
 	del(pos.getPointer());
@@ -263,14 +260,15 @@ void	ft::map<Key, T, Compare, Allocator>::erase(iterator first, iterator last){
 	iterator	it;
 
 	//std::cout << "erase iterator, iterator\n";
+	std::cout << "size = " << size() << std::endl;
 	it = first;
-	//std::cout << "it = " << it->first << std::endl;
 	while (it != last){
+		traverse(&head);
 		k = it->first;
 		std::cout << "k = " << k << std::endl;
 		erase(it);
 		it = upper_bound(k);
-		std::cout << "it = " << it->first << std::endl;
+		//std::cout << "it = " << it->first << std::endl;
 	}
 }
 
@@ -412,7 +410,6 @@ typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare,
 	ft::RBTNode<Key, T>*	node;
 	key_compare				cmp;
 
-	//traverse(&head);
 	size = 8;
 	realloc(&tmp, 0, size);
 	tmp[0] = head;
@@ -576,8 +573,10 @@ void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
 		else
 			n->parent->right = leftChild;
 	}
-	leftChild->right = n;
-	n->parent = leftChild;
+	if (leftChild != tail)
+		leftChild->right = n;
+	if (n->parent != tail)
+		n->parent = leftChild;
 }
 
 template <class Key, class T, class Compare, class Allocator>
@@ -607,13 +606,13 @@ void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
 
 	//std::cout << "rebuild = " << n->value.first << std::endl;
 	while (n != this->head && n->parent->color == RED){
-		//std::cout << "n = " << n->value.first << std::endl;
 		if (n->parent == n->parent->parent->left){
 			tmp = n->parent->parent->right;
 			if (tmp != tail && tmp->color == RED){
 				n->parent->color = BLACK;
 				tmp->color = BLACK;
 				n->parent->parent->color = RED;
+				n = n->parent->parent;
 			}
 			else{
 				if (n == n->parent->right){
@@ -631,6 +630,7 @@ void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
 				n->parent->color = BLACK;
 				tmp->color = BLACK;
 				n->parent->parent->color = RED;
+				n = n->parent->parent;
 			}
 			else{
 				if (n == n->parent->left){
@@ -681,11 +681,11 @@ void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>* h, ft::R
 		tail->right = node;
 	if (tail->left == tail || cmp(tail->left->value.first, node->value.first))
 		tail->left = node;
-	//traverse(&head);
+	sz++;
 	//std::cout << "begin = " << begin()->first << std::endl;
 	//std::cout << "end = " << end()->first << std::endl;
-	//std::cout << "right = " << tail.right->value.first << std::endl;
-	//std::cout << "left = " << tail.left->value.first << std::endl;
+	//std::cout << "right = " << tail->right->value.first << std::endl;
+	//std::cout << "left = " << tail->left->value.first << std::endl;
 }
 
 //map_delete
@@ -717,9 +717,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 	if (sibling != tail)
 		s_right = sibling->right;
 	if (node->parent->color == RED){
-		//std::cout << "node->parent is red\n";
 		if (s_right != tail && s_right->color == RED){
-			std::cout << "s_right\n";
 			node->parent->color = BLACK;
 			sibling->color = RED;
 			s_right->color = BLACK;
@@ -728,13 +726,11 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 			rotateLeft(node->parent);
 		}
 		else if (s_left != tail && s_left->color == RED){
-			std::cout << "s_left\n";
 			sibling->color = RED;
 			s_left->color = BLACK;
 			rotateRight(sibling);
 		}
 		else{
-			//std::cout << "else\n";
 			node->parent->color = BLACK;
 			if (sibling != tail)
 				sibling->color = RED;
@@ -749,17 +745,14 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node, ft
 		}
 		else if (s_right != tail && s_right->color == RED){
 			s_right->color = BLACK;
-			if (s_left != tail && s_left->color == RED)
-				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
 		else if (s_left != tail && s_left->color == BLACK){
 			sibling->color = RED;
 			del(node->parent);
 		}
-		else{
-			if (sibling != tail)
-				sibling->color = RED;
+		else if (sibling != tail){
+			sibling->color = RED;
 			if (s_left != tail)
 				s_left->color = BLACK;
 			rotateRight(sibling);
@@ -811,15 +804,13 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node, f
 		}
 		else if (s_right != tail && s_right->color == RED){
 			s_right->color = BLACK;
-			if (s_left != tail && s_left->color == RED)
-				s_left->color = BLACK;
 			rotateLeft(node->parent);
 		}
 		else if (s_left != tail && s_left->color == BLACK){
 			sibling->color = RED;
 			del(node->parent);
 		}
-		else{
+		else if (sibling != tail){
 			sibling->color = RED;
 			if (s_left != tail)
 				s_left->color = BLACK;
@@ -833,7 +824,7 @@ void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
 	RBTNode<Key, T>	*child;
 	al				alloc;
 
-	//std::cout << "one_node " << node->value.first << "\n";
+	std::cout << "one_node " << node->value.first << "\n";
 	child = tail;
 	if (node->right != tail)
 		child = node->right;
@@ -853,19 +844,22 @@ void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
 		del_one(node, child);
 	}
 	alloc.deallocate(node, 1);
-	head->color = BLACK;
+	if (head != tail)
+		head->color = BLACK;
 }
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
 	Key				k;
 	RBTNode<Key, T> *tmp;
+	iterator		it;
 	
-	//std::cout << "del = " << node->value.first << std::endl;
-	traverse(&head);
+	std::cout << "del = " << node->value.first << std::endl;
 	if (node == tail)
 		return ;
 	k = node->value.first;
+	if (tail->left->value.first == k)
+		it = iterator(find(k))--;
 	if (node->left != tail && node->right != tail){
 		tmp = node->right;
 		while (tmp->left != tail)
@@ -876,12 +870,9 @@ void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
 	else
 		one_node(node);
 	sz--;
-	//std::cout << "k = " << k << std::endl;
 	if (tail->left->value.first == k)
-		tail->left = lower_bound(k).getPointer();
-	//std::cout << "tail.left = " << tail.left->value.first << std::endl;
+		tail->left = it.getPointer();
 	if (tail->right->value.first == k)
 		tail->right = upper_bound(k).getPointer();
-	//std::cout << "tail.right = " << tail.right->value.first << std::endl;
-	traverse(&head);
+	//traverse(&head);
 }

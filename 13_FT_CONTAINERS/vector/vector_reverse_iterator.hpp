@@ -13,7 +13,7 @@ class	VectorReverseIterator {
 		typedef Pointer		pointer;
 		typedef Reference	reference;
 	protected:
-		node<T>				*ptr;
+		T*					ptr;
 	public:
 		VectorReverseIterator() : ptr(0) {}
 		VectorReverseIterator(T* const p) : ptr(p) {}

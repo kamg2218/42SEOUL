@@ -22,7 +22,7 @@ int		main(){
 	std::cout << &(*std_lst.end()) << std::endl;
 	std::cout << &(*std_lst.rend()) << std::endl;
 	std::cout << &(std_lst) << std::endl;
-/*
+
 	std::vector<int>	std_v;
 
 	std::cout << "std_v = " << sizeof(std_v) << std::endl;
@@ -57,6 +57,6 @@ int		main(){
 		std::cout << "ft_it and std_cit is same\n";
 	else
 		std::cout << "ft_it and std_cit is not same\n";
-*/
+
 	return 0;
 }

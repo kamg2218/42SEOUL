@@ -4,7 +4,7 @@ template <class T, class Allocator>
 ft::vector<T, Allocator>::vector() : head(0), tail(0), cap(0) {}
 
 template <class T, class Allocator>
-ft::vector<T, Allocator>::vector(const vector& other) { *this = other; }
+ft::vector<T, Allocator>::vector(const vector& other) : head(0), tail(0), cap(0) { *this = other; }
 
 template <class T, class Allocator>
 ft::vector<T, Allocator>&		ft::vector<T, Allocator>::operator=(ft::vector<T, Allocator> const &v) {
@@ -47,29 +47,7 @@ ft::vector<T, Allocator>::vector(InputIt first, InputIt last, const Allocator& a
 	for (InputIt i = 0; i < first; i++)
 		push_back(last);
 }
-/*
-template<>
-vector(iterator first, iterator last, const Allocator& alloc) : head(0), tail(0), cap(0) {
-	allocator_type	al;
 
-	head = al.allocate(last - first);
-	tail = head;
-	cap = head + (last - first);
-	for (iterator i = first; i != last; i++)
-		push_back(*i);
-}
-
-template<>
-vector(T* first, T* last, const Allocator& alloc) : head(0), tail(0), cap(0) {
-	allocator_type	al;
-
-	head = al.allocate(last - first);
-	tail = head;
-	cap = head + (last - first);
-	for (T*	i = first; i != last; i++)
-		push_back(*i);
-}
-*/
 template <class T, class Allocator>
 ft::vector<T, Allocator>::~vector() { clear(); }
 
@@ -94,26 +72,7 @@ void	ft::vector<T, Allocator>::assign(InputIt first, InputIt last){
 		head[i] = last;
 	tail += first;
 }
-/*
-template<>
-void	assign(iterator first, iterator last){
-	clear();
-	if (capacity() < last - first)
-		reserve(last - first);
-	for (iterator i = first; i != last; i++)
-		push_back(*i);
-}
 
-template<>
-void	assign(T* first, T* last){
-	clear();
-	if (capacity() < last - first)
-		reserve(last - first);
-	for (T* i = first; i != last; i++)
-		push_back(*i);
-	tail += last - first;
-}
-*/
 template <class T, class Allocator>
 typename ft::vector<T, Allocator>::allocator_type	ft::vector<T, Allocator>::get_allocator() const { allocator_type al; return al; }
 
@@ -262,22 +221,7 @@ void	ft::vector<T, Allocator>::insert(iterator pos, InputIt first, InputIt last)
 		head[i + cnt] = last;
 	tail += first;
 }
-/*
-template<>
-void		insert(iterator pos, iterator first, iterator last){
-	size_type	cnt;
 
-	cnt = pos - begin();
-	if (cap - tail < last - first)
-		reserve((cap - head) * 2);
-	for (size_type i = size(); i != cnt; i--)
-		head[i + last - first] = head[i];
-	head[cnt + last - first] = head[cnt];
-	for (iterator i = first; i != last; i++)
-		head[cnt++] = *i;
-	tail += last - first;
-}
-*/
 template <class T, class Allocator>
 typename ft::vector<T, Allocator>::iterator	ft::vector<T, Allocator>::erase(iterator pos){
 	pointer			ptr;
@@ -286,7 +230,7 @@ typename ft::vector<T, Allocator>::iterator	ft::vector<T, Allocator>::erase(iter
 	ptr = pos.getPointer();
 	for (pointer i = ptr; i != tail; i++)
 		*i = *(i + 1);
-	al.destroy(tail); //check!
+	al.destroy(tail);
 	tail--;
 	return (iterator(ptr));
 }

@@ -160,7 +160,6 @@ namespace ft
 		void		resize(size_type count, T value = T());
 		void		swap(vector& other);
 	};
-	//#include "./vector/non_member.hpp"
 
 	template <class T, class Allocator = std::allocator<T> >
 	class	list {
@@ -283,7 +282,6 @@ namespace ft
 		template<class BinaryPredicate>
 		void		unique(BinaryPredicate p);
 	};
-	//#include "./list/non_member.hpp"
 	
 	template <class T, class Container = std::deque<T> >
 	class	stack {
@@ -308,7 +306,6 @@ namespace ft
 		void			pop();
 		void			swap(stack& other);
 	};
-	//#include "./stack/non_member.hpp"
 	
 	template <class T, class Container = std::deque<T> >
 	class	queue {
@@ -334,13 +331,12 @@ namespace ft
 		void			pop();
 		void			swap(queue& other);
 	};
-	//#include "./queue/non_member.hpp"
 
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
 	private:
-		RBTNode<Key, T>								*head;
 		RBTNode<Key, T>								*tail;
+		RBTNode<Key, T>								*head;
 		size_t										sz;
 	public:
 		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
@@ -370,7 +366,7 @@ namespace ft
 		void	del_right(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
 		void	one_node(RBTNode<Key, T> *node);
 		void	del(RBTNode<Key, T> *node);
-		//#include "./map/map.hpp"
+		
 		class value_compare;
 		map();
 		explicit map(const Compare& comp, const Allocator& alloc = Allocator());
@@ -380,7 +376,7 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-			//std::cout << "template<>\n";
+			std::cout << "insert\n";
 			tail = make_node(std::make_pair(0, 0));
 			head = tail;
 			tail->left = tail;
@@ -435,7 +431,6 @@ namespace ft
 		key_compare		key_comp() const;
 		typename ft::map<Key, T>::value_compare		value_comp() const;
 	};
-	//#include "./map/non_member.hpp"
 
 	template<class InputIt1, class InputIt2>
 	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2){

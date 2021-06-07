@@ -11,6 +11,7 @@ typedef struct RBTNode{
 }RBTNode;
 
 void	del(RBTNode **head, int data);
+RBTNode*	two_node(RBTNode** head, RBTNode* node);
 
 RBTNode*	new_node(int data){
 	RBTNode*	tmp;
@@ -36,6 +37,9 @@ void rotateRight(RBTNode** root, RBTNode* parent)
 {
 	RBTNode* leftChild = parent->left;
 
+	std::cout << "rotateRight\n";
+	if (leftChild == NULL)
+		return ;
 	parent->left = leftChild->right;
 	
 	if (leftChild->right != NULL)
@@ -61,13 +65,14 @@ void rotateLeft(RBTNode** root, RBTNode* parent)
 {
 	RBTNode* rightChild = parent->right;
 
+	if (rightChild == NULL)
+		return ;
+	std::cout << "rotateLeft\n";
 	parent->right = rightChild->left;
 
 	if (rightChild->left != NULL)
 		rightChild->left->parent = parent;
-
 	rightChild->parent = parent->parent;
-
 	if (parent->parent == NULL)
 		(*root) = rightChild;
 	else
@@ -92,6 +97,7 @@ void	rebuild(RBTNode** head, RBTNode* src){
 				src->parent->color = BLACK;
 				tmp->color = BLACK;
 				src->parent->parent->color = RED;
+				src = src->parent->parent;
 			}
 			else{
 				if (src == src->parent->right){
@@ -109,6 +115,7 @@ void	rebuild(RBTNode** head, RBTNode* src){
 				src->parent->color = BLACK;
 				tmp->color = BLACK;
 				src->parent->parent->color = RED;
+				src = src->parent->parent;
 			}
 			else{
 				if (src == src->parent->left){
@@ -223,22 +230,21 @@ void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
 	//parent->color == RED
 	if (node->parent->color == RED){
 		std::cout << "node->parent is red\n";
-		if (s_right && s_right->color == RED){
+		if (s_right && s_right->color == RED){//1-2
 			std::cout << "s_right\n";
 			node->parent->color = BLACK;
 			sibling->color = RED;
 			s_right->color = BLACK;
-			if (s_left && s_left->color == RED)
-				s_left->color = BLACK;
 			rotateLeft(head, node->parent);
 		}
-		else if (s_left && s_left->color == RED){
+		else if (s_left && s_left->color == RED){ //1-3
 			std::cout << "s_left\n";
 			sibling->color = RED;
 			s_left->color = BLACK;
 			rotateRight(head, sibling);
+			rotateLeft(head, s_left);
 		}
-		else{
+		else{	//1-1
 			std::cout << "else\n";
 			node->parent->color = BLACK;
 			if (sibling)
@@ -247,26 +253,27 @@ void	del_left(RBTNode **head, RBTNode *node, RBTNode *child){
 	}
 	//parent->color == BLACK
 	else{
-		if (sibling->color == RED){
+		if (sibling && sibling->color == RED){ //2-4
 			node->parent->color = RED;
 			sibling->color = BLACK;
 			rotateLeft(head, node->parent);
 			del_left(head, node, child);
 		}
-		else if (s_right->color == RED){
+		else if (s_right && s_right->color == RED){ //2-2
 			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
 			rotateLeft(head, node->parent);
 		}
-		else if (s_left->color == BLACK){
+		else if (s_left && s_left->color == BLACK){ //2-1
 			sibling->color = RED;
-			del(head, node->parent->data);
+			two_node(head, node->parent);
 		}
-		else{
+		else if (sibling){	//2-3
 			sibling->color = RED;
-			s_left->color = BLACK;
+			if (s_left)
+				s_left->color = BLACK;
 			rotateRight(head, sibling);
+			if (s_left)
+				rotateLeft(head, s_left);
 		}
 	}
 }
@@ -286,22 +293,22 @@ void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
 		s_right = sibling->right;
 	//parent->color == RED
 	if (node->parent && node->parent->color == RED){
-		if (s_right && s_right->color == RED){
+		if (s_left && s_left->color == RED){
 			node->parent->color = BLACK;
-			sibling->color = RED;
-			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left && s_left->color == BLACK){
-			node->parent->color = BLACK;
-			sibling->color = RED;
-		}
-		else if (s_left && s_left->color == RED){
 			sibling->color = RED;
 			s_left->color = BLACK;
-			rotateRight(head, sibling);
+			rotateRight(head, node->parent);
+		}
+		else if (s_right && s_right->color == RED){
+			s_left->color = BLACK;
+			sibling->color = RED;
+			rotateLeft(head, sibling);
+			rotateRight(head, s_right);
+		}
+		else {
+			node->parent->color = BLACK;
+			if (sibling)
+				sibling->color = RED;
 		}
 	}
 	//parent->color == BLACK	
@@ -312,26 +319,25 @@ void	del_right(RBTNode **head, RBTNode *node, RBTNode *child){
 			rotateRight(head, node->parent);
 			del_right(head, node, child);
 		}
-		else if (s_right && s_right->color == RED){
-			s_right->color = BLACK;
-			if (s_left->color == RED)
-				s_left->color = BLACK;
-			rotateLeft(head, node->parent);
-		}
-		else if (s_left && s_left->color == BLACK){
-			sibling->color = RED;
-			del(head, node->parent->data);
-		}
-		else{
-			sibling->color = RED;
-			if (s_left)
-				s_left->color = BLACK;
+		else if (s_left && s_left->color == RED){
+			s_left->color = BLACK;
 			rotateRight(head, node->parent);
+		}
+		else if (s_right && s_right->color == BLACK){
+			sibling->color = RED;
+			two_node(head, node->parent);
+		}
+		else if (sibling){
+			sibling->color = RED;
+			if (s_right)
+				s_right->color = BLACK;
+			if (s_right)
+				rotateRight(head, s_right);
 		}
 	}
 }
 
-void	one_node(RBTNode **head, RBTNode *node){
+RBTNode*	one_node(RBTNode **head, RBTNode *node){
 	RBTNode *child;
 
 	cout << "one_node " << node->data << "\n";
@@ -346,19 +352,21 @@ void	one_node(RBTNode **head, RBTNode *node){
 		cout << "node is black\n";
 		if (child && child->color == RED)
 			child->color = BLACK;
-		else if (node->parent && node->parent->left == node){
+		else if (node->parent && node->parent->left == node)
 			del_left(head, node, child);
-		}
 		else if (node->parent)
 			del_right(head, node, child);
 		else
 			*head = NULL;
 		del_one(head, node, child);
 	}
-	delete node;
+	//delete node;
+	if (*head)
+		(*head)->color = BLACK;
+	return node;
 }
 
-void	two_node(RBTNode **head, RBTNode *node){
+RBTNode*	two_node(RBTNode **head, RBTNode *node){
 	RBTNode *tmp;
 
 	cout << "two_node\n";
@@ -366,7 +374,7 @@ void	two_node(RBTNode **head, RBTNode *node){
 	while (tmp->left)
 		tmp = tmp->left;
 	node->data = tmp->data; //노드 바꾸기
-	one_node(head, tmp);
+	return (one_node(head, tmp));
 }
 
 void	del(RBTNode **head, int data){
@@ -384,9 +392,10 @@ void	del(RBTNode **head, int data){
 	if (tmp == NULL)
 		return ;
 	else if (tmp->left && tmp->right)
-		return two_node(head, tmp);
+		tmp = two_node(head, tmp);
 	else
-		return one_node(head, tmp);
+		tmp = one_node(head, tmp);
+	delete tmp;
 }
 
 int		main(){
@@ -410,6 +419,7 @@ int		main(){
 		del(&head, data);
 		bfs(&head);
 	}
-	traverse(head);
+	if (head)
+		traverse(head);
 	return 0;
 }

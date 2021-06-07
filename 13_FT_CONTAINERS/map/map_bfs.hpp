@@ -25,6 +25,7 @@ void	traverse(ft::RBTNode<Key, T>** head){
 	std::cout << std::endl;
 }
 
+
 template <class Key, class T>
 int		size_bfs(ft::RBTNode<Key, T>** tmp){
 	int		len;
