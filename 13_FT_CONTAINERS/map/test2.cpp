@@ -24,7 +24,10 @@ int		main(){
 	std::cout << "std_m = " << sizeof(std_m) << std::endl;
 	std::cout << "ft_m = " << sizeof(ft_m) << std::endl;
 	std::cout << &(*std_m.end()) << std::endl;
+	std::cout << &(*std_m.begin()) << std::endl;
 	std::cout << &(std_m) << std::endl;
+	std::cout << &(*ft_m.end()) << std::endl;
+	std::cout << &(*ft_m.begin()) << std::endl;
 
 	//std_m.insert(std::make_pair(1, 10));
 	//std_m.insert(std::make_pair(1, 30));

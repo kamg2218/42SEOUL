@@ -351,7 +351,7 @@ namespace ft
 	class	map {
 	private:
 		RBTNode<Key, T>								*head;
-		RBTNode<Key, T>								tail;
+		RBTNode<Key, T>								*tail;
 		size_t										sz;
 	public:
 		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
@@ -390,12 +390,13 @@ namespace ft
 		template<class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
-		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(&tail), sz(0) {
+		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
 			//std::cout << "template<>\n";
-			tail.left = &tail;
-			tail.right = &tail;
-			tail.last = &tail;
-			tail.value = std::make_pair(0, 0);
+			tail = make_node(std::make_pair(0, 0));
+			head = tail;
+			tail->left = tail;
+			tail->right = tail;
+			tail->last = tail;
 			for (iterator i = first; i != last; i++)
 				insert(i.getValue());
 		}
