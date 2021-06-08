@@ -9,7 +9,7 @@
 #include <stdexcept>
 #include <utility>		//std::pair
 #include <functional>	//std::less
-#include <deque>		//ft::stack
+#include "./containers/pair.hpp"
 
 namespace ft
 {
@@ -30,19 +30,19 @@ namespace ft
 		RBTNode<Key, T>		*last;
 	};
 
-	#include "iterator_tag.hpp"
-	#include "./list/list_iterator.hpp"
-	#include "./list/list_const_iterator.hpp"
-	#include "./list/list_reverse_iterator.hpp"
-	#include "./list/list_const_reverse_iterator.hpp"
-	#include "./vector/vector_iterator.hpp"
-	#include "./vector/vector_const_iterator.hpp"
-	#include "./vector/vector_reverse_iterator.hpp"
-	#include "./vector/vector_const_reverse_iterator.hpp"
-	#include "./map/map_iterator.hpp"
-	#include "./map/map_const_iterator.hpp"
-	#include "./map/map_reverse_iterator.hpp"
-	#include "./map/map_const_reverse_iterator.hpp"
+	#include "./containers/iterator_tag.hpp"
+	#include "./containers/list/list_iterator.hpp"
+	#include "./containers/list/list_const_iterator.hpp"
+	#include "./containers/list/list_reverse_iterator.hpp"
+	#include "./containers/list/list_const_reverse_iterator.hpp"
+	#include "./containers/vector/vector_iterator.hpp"
+	#include "./containers/vector/vector_const_iterator.hpp"
+	#include "./containers/vector/vector_reverse_iterator.hpp"
+	#include "./containers/vector/vector_const_reverse_iterator.hpp"
+	#include "./containers/map/map_iterator.hpp"
+	#include "./containers/map/map_const_iterator.hpp"
+	#include "./containers/map/map_reverse_iterator.hpp"
+	#include "./containers/map/map_const_reverse_iterator.hpp"
 
 	template <class T, class Allocator = std::allocator<T> >
 	class	vector {
@@ -167,6 +167,9 @@ namespace ft
 		node<T>*									head;
 		size_t										sz;
 		typename Allocator::template rebind<node<T> >::other	al;
+	protected:
+		node<T>*	malloc();
+		void		move_node(node<T>* src, node<T>* dst);
 	public:
 		typedef node<T>								node;
 		typedef	T 									value_type;
@@ -181,7 +184,6 @@ namespace ft
 		typedef ListConstIterator<T>				const_iterator;
 		typedef ListReverseIterator<T>				reverse_iterator;
 		typedef ListConstReverseIterator<T>			const_reverse_iterator;
-		node*		malloc();
 		list();
 		list(const list& other);
 		list&	operator=(list const &lst);
@@ -217,29 +219,29 @@ namespace ft
 			for (T* i = first; i != last; i++)
 				push_back(*i);
 		}
-		allocator_type	get_allocator() const;
-		iterator			begin();
-		const_iterator		begin() const;
-		iterator			end();
-		const_iterator		end() const;
+		allocator_type			get_allocator() const;
+		iterator				begin();
+		const_iterator			begin() const;
+		iterator				end();
+		const_iterator			end() const;
 		reverse_iterator		rbegin();
 		const_reverse_iterator	rbegin() const;
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
-		reference	front();
-		const_reference	front() const;
-		reference	back();
-		const_reference	back() const;
-		bool		empty() const;
-		size_type	size() const;
-		size_type	max_size() const;
-		void		clear();
-		void		push_front(const T& value);
-		void		pop_front();
-		void		push_back(const T& value);
-		void		pop_back();
-		iterator	insert(iterator pos, const T& value);
-		void		insert(iterator pos, size_type count, const T& value);
+		reference				front();
+		const_reference			front() const;
+		reference				back();
+		const_reference			back() const;
+		bool					empty() const;
+		size_type				size() const;
+		size_type				max_size() const;
+		void					clear();
+		void					push_front(const T& value);
+		void					pop_front();
+		void					push_back(const T& value);
+		void					pop_back();
+		iterator				insert(iterator pos, const T& value);
+		void					insert(iterator pos, size_type count, const T& value);
 		template<class InputIt>
 		void		insert(iterator pos, InputIt first, InputIt last);
 		template<>
@@ -260,30 +262,29 @@ namespace ft
 				sz++;
 			}
 		}
-		iterator	erase(iterator pos);
-		iterator	erase(iterator first, iterator last);
-		void		resize(size_type count, T value = T());
-		void		swap(list& other);
-		void		move_node(node* src, node* dst);
-		void		sort();
+		iterator				erase(iterator pos);
+		iterator				erase(iterator first, iterator last);
+		void					resize(size_type count, T value = T());
+		void					swap(list& other);
+		void					sort();
 		template<class Compare>
-		void		sort(Compare cmp);
-		void		merge(list& other);
+		void					sort(Compare cmp);
+		void					merge(list& other);
 		template <class Compare>
-		void		merge(list& other, Compare comp);
-		void		splice(const_iterator pos, list& other);
-		void		splice(const_iterator pos, list& other, const_iterator it);
-		void		splice(const_iterator pos, list& other, const_iterator first, const_iterator last);
-		void		remove(const T& value);
+		void					merge(list& other, Compare comp);
+		void					splice(const_iterator pos, list& other);
+		void					splice(const_iterator pos, list& other, const_iterator it);
+		void					splice(const_iterator pos, list& other, const_iterator first, const_iterator last);
+		void					remove(const T& value);
 		template<class UnaryPredicate>
-		void		remove_if(UnaryPredicate p);
-		void		reverse();
-		void		unique();
+		void					remove_if(UnaryPredicate p);
+		void					reverse();
+		void					unique();
 		template<class BinaryPredicate>
-		void		unique(BinaryPredicate p);
+		void					unique(BinaryPredicate p);
 	};
 	
-	template <class T, class Container = std::deque<T> >
+	template <class T, class Container = ft::vector<T> >
 	class	stack {
 	protected:
 		Container									c;
@@ -307,7 +308,7 @@ namespace ft
 		void			swap(stack& other);
 	};
 	
-	template <class T, class Container = std::deque<T> >
+	template <class T, class Container = ft::list<T> >
 	class	queue {
 	protected:
 		Container									c;
@@ -332,7 +333,7 @@ namespace ft
 		void			swap(queue& other);
 	};
 
-	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
 	class	map {
 	private:
 		RBTNode<Key, T>								*tail;
@@ -342,7 +343,7 @@ namespace ft
 		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
 		typedef Key									key_type;
 		typedef T									mapped_type;
-		typedef typename std::pair<const Key, T>	value_type;
+		typedef typename ft::pair<const Key, T>		value_type;
 		typedef typename std::size_t				size_type;
 		typedef typename std::ptrdiff_t				difference_type;
 		typedef Compare								key_compare;
@@ -355,18 +356,6 @@ namespace ft
 		typedef MapConstIterator<Key, T>			const_iterator;
 		typedef MapReverseIterator<Key, T>			reverse_iterator;
 		typedef MapConstReverseIterator<Key, T>		const_reverse_iterator;
-		//map_insert
-		void	rotateLeft(RBTNode<Key, T> *node);
-		void	rotateRight(RBTNode<Key, T> *node);
-		void	rebuild(RBTNode<Key, T> *node);
-		void	add_node(RBTNode<Key, T>* h, RBTNode<Key, T>* node);
-		//map_delete
-		void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
-		void	del_left(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
-		void	del_right(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
-		void	one_node(RBTNode<Key, T> *node);
-		void	del(RBTNode<Key, T> *node);
-		
 		class value_compare;
 		map();
 		explicit map(const Compare& comp, const Allocator& alloc = Allocator());
@@ -376,8 +365,7 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-			std::cout << "insert\n";
-			tail = make_node(std::make_pair(0, 0));
+			tail = make_node(ft::make_pair(0, 0));
 			head = tail;
 			tail->left = tail;
 			tail->right = tail;
@@ -386,25 +374,22 @@ namespace ft
 				insert(i.getValue());
 		}
 		~map();
-		allocator_type	get_allocator() const;
-		iterator			begin();
-		const_iterator		begin() const;
-		iterator			end();
-		const_iterator		end() const;
-		reverse_iterator		rbegin();
-		const_reverse_iterator	rbegin() const;
-		reverse_iterator		rend();
-		const_reverse_iterator	rend() const;
+		allocator_type				get_allocator() const;
+		iterator					begin();
+		const_iterator				begin() const;
+		iterator					end();
+		const_iterator				end() const;
+		reverse_iterator			rbegin();
+		const_reverse_iterator		rbegin() const;
+		reverse_iterator			rend();
+		const_reverse_iterator		rend() const;
 		T&	operator[](const Key& key);
-		bool		empty() const;
-		size_type	size() const;
-		size_type	max_size() const;
-		void		clear_node(RBTNode<Key, T>** node);
-		void		clear();
-		RBTNode<Key, T>*	make_node(const value_type& value);
-		std::pair<iterator, bool>	insert(const value_type& value);
-		RBTNode<Key, T>*	check_hint(iterator hint, RBTNode<Key, T>* node);
-		iterator	insert(iterator hint, const value_type& value);
+		bool						empty() const;
+		size_type					size() const;
+		size_type					max_size() const;
+		void						clear();
+		ft::pair<iterator, bool>	insert(const value_type& value);
+		iterator					insert(iterator hint, const value_type& value);
 		template<class InputIt>
 		void		insert(InputIt first, InputIt last);
 		template<>
@@ -415,21 +400,36 @@ namespace ft
 				add_node(head, make_node(i.getValue()));
 			}
 		}
-		iterator	erase(iterator pos);
-		void		erase(iterator first, iterator last);
-		size_type	erase(const key_type& key);
-		void		swap(map& other);
-		size_type	count(const Key& key);
-		iterator	find(const Key& key);
-		const_iterator	find(const Key& key) const;
-		std::pair<iterator, iterator>	equal_range(const Key& key);
-		std::pair<const_iterator, const_iterator>	equal_range (const Key& key) const;
-		iterator	lower_bound(const Key& key);
-		const_iterator	lower_bound(const Key& key) const;
-		iterator	upper_bound(const Key& key);
-		const_iterator	upper_bound(const Key& key) const;
-		key_compare		key_comp() const;
+		iterator					erase(iterator pos);
+		void						erase(iterator first, iterator last);
+		size_type					erase(const key_type& key);
+		void						swap(map& other);
+		size_type					count(const Key& key);
+		iterator					find(const Key& key);
+		const_iterator				find(const Key& key) const;
+		ft::pair<iterator, iterator>	equal_range(const Key& key);
+		ft::pair<const_iterator, const_iterator>	equal_range (const Key& key) const;
+		iterator					lower_bound(const Key& key);
+		const_iterator				lower_bound(const Key& key) const;
+		iterator					upper_bound(const Key& key);
+		const_iterator				upper_bound(const Key& key) const;
+		key_compare					key_comp() const;
 		typename ft::map<Key, T>::value_compare		value_comp() const;
+	protected:
+		void				clear_node(RBTNode<Key, T>** node);
+		RBTNode<Key, T>*	make_node(const value_type& value);
+		RBTNode<Key, T>*	check_hint(iterator hint, RBTNode<Key, T>* node);
+		//map_insert
+		void	rebuild(RBTNode<Key, T> *node);
+		void	rotateLeft(RBTNode<Key, T> *node);
+		void	rotateRight(RBTNode<Key, T> *node);
+		void	add_node(RBTNode<Key, T>* h, RBTNode<Key, T>* node);
+		//map_delete
+		void	del(RBTNode<Key, T> *node);
+		void	del_left(RBTNode<Key, T> *node);
+		void	del_right(RBTNode<Key, T> *node);
+		void	one_node(RBTNode<Key, T> *node);
+		void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
 	};
 
 	template<class InputIt1, class InputIt2>
@@ -438,13 +438,13 @@ namespace ft
 		InputIt2 j = first2;
 		for (; i != last1 && j != last2; i++, j++){
 			if (*i < *j)
-				continue;
-			else
+				return true;
+			else if (*i > *j)
 				return false;
 		}
-		return true;
+		return false;
 	}
-	#include "./non_member.hpp"
+	#include "./containers/non_member.hpp"
 }
 
 #endif
