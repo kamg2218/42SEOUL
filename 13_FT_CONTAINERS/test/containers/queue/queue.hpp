@@ -3,7 +3,7 @@
 
 #include "../../utility.hpp"
 #include "../../pair.hpp"
-#include "../../list/list.hpp"
+#include "../list/list.hpp"
 
 namespace	ft {
 	template <class T, class Container = list<T> >
@@ -21,7 +21,6 @@ namespace	ft {
 		queue(const queue& other);
 		queue&			operator=(queue const &st);
 		~queue();
-		const Container	getContainer() const;
 		reference		front();
 		reference		back();
 		bool			empty() const;
@@ -29,6 +28,7 @@ namespace	ft {
 		void			push(const value_type& value);
 		void			pop();
 		void			swap(queue& other);
+		const Container	getContainer() const;
 	};
 
 	template<class T, class Container>

@@ -22,13 +22,13 @@ namespace	ft {
 		stack(const stack& other);
 		stack&		operator=(stack const &st);
 		~stack();
-		const Container	getContainer() const;
-		reference		top();
-		size_type		size() const;
-		bool			empty() const;
-		void			push(const value_type& value);
-		void			pop();
-		void			swap(stack& other);
+		reference			top();
+		size_type			size() const;
+		bool				empty() const;
+		void				push(const value_type& value);
+		void				pop();
+		void				swap(stack& other);
+		const Container		getContainer() const;
 	};
 
 	template<class T, class Container>
