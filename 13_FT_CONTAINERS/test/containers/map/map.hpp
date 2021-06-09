@@ -52,19 +52,9 @@ namespace	ft{
 		map();
 		explicit map(const Compare& comp, const Allocator& alloc = Allocator());
 		map(const map& other);
-		map&	operator=(map const &m);
+		map&	operator=(const map& other);
 		template<class InputIt>
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
-		template<>
-		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-			tail = make_node(make_pair(0, 0));
-			head = tail;
-			tail->left = tail;
-			tail->right = tail;
-			tail->last = tail;
-			for (iterator i = first; i != last; i++)
-				insert(i.getValue());
-		}
 		~map();
 		allocator_type				get_allocator() const;
 		iterator					begin();
@@ -84,15 +74,7 @@ namespace	ft{
 		iterator					insert(iterator hint, const value_type& value);
 		template<class InputIt>
 		void		insert(InputIt first, InputIt last);
-		template<>
-		void		insert(iterator first, iterator last){
-			for (iterator i = first; i != last; i++){
-				if (find(i->first) != end())
-					continue ;
-				add_node(head, make_node(i.getValue()));
-			}
-		}
-		iterator					erase(iterator pos);
+		void						erase(iterator pos);
 		void						erase(iterator first, iterator last);
 		size_type					erase(const key_type& key);
 		void						swap(map& other);
@@ -134,9 +116,7 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first != tmp->first)
-				return false;
-			else if (i->second != tmp->second)
+			if (i != tmp)
 				return false;
 		}
 		return true;
@@ -152,9 +132,7 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first != tmp->first)
-				return true;
-			else if (i->second != tmp->second)
+			if (i != tmp)
 				return true;
 		}
 		return false;
@@ -168,14 +146,18 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first > tmp->first)
+			if (i->first < tmp->first)
+				return true;
+			else if (i->first == tmp->first && i->second < tmp->second)
+				return true;
+			else if (i->first > tmp->first)
 				return false;
-			else if (i->first == tmp->first && i->second >= tmp->second)
+			else if (i->first == tmp->first && i->second > tmp->second)
 				return false;
 		}
-		if (i != lhs.end())
-			return false;
-		return true;
+		if (tmp != rhs.end())
+			return true;
+		return false;
 	}
 
 	template<class Key, class T, class Compare, class Alloc>
@@ -186,7 +168,11 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first > tmp->first)
+			if (i->first < tmp->first)
+				return true;
+			else if (i->first == tmp->first && i->second < tmp->second)
+				return true;
+			else if (i->first > tmp->first)
 				return false;
 			else if (i->first == tmp->first && i->second > tmp->second)
 				return false;
@@ -204,14 +190,18 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first < tmp->first)
+			if (i->first > tmp->first)
+				return true;
+			else if (i->first == tmp->first && i->second > tmp->second)
+				return true;
+			else if (i->first < tmp->first)
 				return false;
-			else if (i->first == tmp->first && i->second <= tmp->second)
+			else if (i->first == tmp->first && i->second < tmp->second)
 				return false;
 		}
-		if (tmp != rhs.end())
-			return false;
-		return true;
+		if (i != lhs.end())
+			return true;
+		return false;
 	}
 
 	template<class Key, class T, class Compare, class Alloc>
@@ -222,7 +212,11 @@ namespace	ft{
 		i = lhs.begin();
 		tmp = rhs.begin();
 		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
-			if (i->first < tmp->first)
+			if (i->first > tmp->first)
+				return true;
+			else if (i->first == tmp->first && i->second > tmp->second)
+				return true;
+			else if (i->first < tmp->first)
 				return false;
 			else if (i->first == tmp->first && i->second < tmp->second)
 				return false;
@@ -294,15 +288,15 @@ ft::map<Key, T, Compare, Allocator>::map(const map& other) : head(0), tail(0), s
 }
 
 template <class Key, class T, class Compare, class Allocator>
-ft::map<Key, T, Compare, Allocator>&	ft::map<Key, T, Compare, Allocator>::operator=(map const &m) {
+ft::map<Key, T, Compare, Allocator>&	ft::map<Key, T, Compare, Allocator>::operator=(const map& other) {
 	size_type	cnt;
 	iterator	it;
 
-	if (this == &m)
+	if (this == &other)
 		return *this;
 	clear();
-	cnt = m.size();
-	it = m.begin();
+	cnt = other.size();
+	it = other.begin();
 	for (size_type i = 0; i < cnt; i++){
 		insert(*it);
 		it++;
@@ -481,13 +475,8 @@ void	ft::map<Key, T, Compare, Allocator>::insert(InputIt first, InputIt last){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, Allocator>::erase(iterator pos){
-	iterator	it;
-
-	it = pos;
-	it++;
+void	ft::map<Key, T, Compare, Allocator>::erase(iterator pos){
 	del(pos.getPointer());
-	return (it);
 }
 
 template <class Key, class T, class Compare, class Allocator>

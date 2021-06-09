@@ -141,32 +141,22 @@ class	MapIterator {
 
 template<class Key, class T>
 bool	operator==(const MapIterator<Key, T> &a, const MapIterator<Key, T> &b){
-	//if (a->first == b->first && a->second == b->second)
 	return a.getValue() == b.getValue();
 }
 
 template<class Key, class T>
 bool	operator==(const MapIterator<Key, T> &a, const MapConstIterator<Key, T> &b){
 	return a.getValue() == b.getValue();
-	//if (a->first == b->first && a->second == b->second)
-	//	return true;
-	//return false;
 }
 
 template<class Key, class T>
 bool	operator!=(const MapIterator<Key, T> &a, const MapIterator<Key, T> &b){
 	return a.getValue() != b.getValue();
-	//if (a->first == b->first && a->second == b->second)
-	//	return false;
-	//return true;
 }
 
 template<class Key, class T>
 bool	operator!=(const MapIterator<Key, T> &a, const MapConstIterator<Key, T> &b){
 	return a.getValue() != b.getValue();
-	//if (a->first == b->first && a->second == b->second)
-	//	return false;
-	//return true;
 }
 
 #endif

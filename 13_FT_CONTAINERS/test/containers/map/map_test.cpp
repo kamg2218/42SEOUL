@@ -84,9 +84,11 @@ int		main()
 	std::map<int, int> std_m2(std_m.find(3), std_m.end());
 	ft::map<int, int> ft_m2(ft_m.find(3), ft_m.end());
 	
+	std_m2.insert(std::make_pair(6, 8));
 	std_print(std_m2);
 	std::cout << "std2_size = " << std_m2.size() << std::endl;
 
+	ft_m2.insert(ft::make_pair(6, 8));
 	ft_print(ft_m2);
 	std::cout << "ft2_size = " << ft_m2.size() << std::endl;
 	
@@ -346,6 +348,8 @@ int		main()
 	
 	std::cout << "---- compare -------------------------------------" << std::endl;
 
+	std_print(std_m);
+	std_print(std_m2);
 	if (std_m > std_m2)
 		std::cout << "std_m is bigger\n";
 	else if (std_m < std_m2)
@@ -353,6 +357,8 @@ int		main()
 	else
 		std::cout << "std_m and std_m2 is same\n";
 	
+	ft_print(ft_m);
+	ft_print(ft_m2);
 	if (ft_m > ft_m2)
 		std::cout << "ft_m is bigger\n";
 	else if (ft_m < ft_m2)
