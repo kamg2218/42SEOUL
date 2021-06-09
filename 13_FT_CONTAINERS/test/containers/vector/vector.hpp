@@ -49,13 +49,13 @@ namespace	ft{
 				push_back(*i);
 		}
 		template<>
-		vector(T* first, T* last, const Allocator& alloc) : head(0), tail(0), cap(0) {
+		vector(pointer first, pointer last, const Allocator& alloc) : head(0), tail(0), cap(0) {
 			allocator_type	al;
 
 			head = al.allocate(last - first);
 			tail = head;
 			cap = head + (last - first);
-			for (T*	i = first; i != last; i++)
+			for (pointer i = first; i != last; i++)
 				push_back(*i);
 		}
 		~vector();
@@ -71,7 +71,7 @@ namespace	ft{
 				push_back(*i);
 		}
 		template<>
-		void	assign(T* first, T* last){
+		void	assign(pointer first, pointer last){
 			clear();
 			if (capacity() < last - first)
 				reserve(last - first);
@@ -79,33 +79,33 @@ namespace	ft{
 				push_back(*i);
 			tail += last - first;
 		}
-		allocator_type	get_allocator() const;
-		iterator			begin();
-		const_iterator		begin() const;
-		iterator			end();
-		const_iterator		end() const;
+		allocator_type			get_allocator() const;
+		iterator				begin();
+		const_iterator			begin() const;
+		iterator				end();
+		const_iterator			end() const;
 		reverse_iterator		rbegin();
 		const_reverse_iterator	rbegin() const;
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
-		reference	at(size_type pos);
-		const_reference	at(size_type pos) const;
-		reference operator[](size_type pos);
-		const_reference operator[](size_type pos) const;
-		reference	front();
-		const_reference	front() const;
-		reference	back();
-		const_reference	back() const;
-		bool		empty() const;
-		size_type	size() const;
-		size_type	capacity() const;
-		size_type	max_size() const;
-		void		reserve(size_type new_cap);
-		void		clear();
-		void		push_back(const T& value);
-		void		pop_back();
-		iterator	insert(iterator pos, const T& value);
-		void		insert(iterator pos, size_type count, const T& value);
+		reference				at(size_type pos);
+		const_reference			at(size_type pos) const;
+		reference 				operator[](size_type pos);
+		const_reference 		operator[](size_type pos) const;
+		reference				front();
+		const_reference			front() const;
+		reference				back();
+		const_reference			back() const;
+		bool					empty() const;
+		size_type				size() const;
+		size_type				capacity() const;
+		size_type				max_size() const;
+		void					reserve(size_type new_cap);
+		void					clear();
+		void					push_back(const T& value);
+		void					pop_back();
+		iterator				insert(iterator pos, const T& value);
+		void					insert(iterator pos, size_type count, const T& value);
 		template<class InputIt>
 		void		insert(iterator pos, InputIt first, InputIt last);
 		template<>
@@ -113,12 +113,26 @@ namespace	ft{
 			size_type	cnt;
 
 			cnt = pos - begin();
-			if (cap - tail < last - first)
+			while (cap - tail < last - first)
 				reserve((cap - head) * 2);
 			for (size_type i = size(); i != cnt; i--)
 				head[i + last - first] = head[i];
 			head[cnt + last - first] = head[cnt];
 			for (iterator i = first; i != last; i++)
+				head[cnt++] = *i;
+			tail += last - first;
+		}
+		template<>
+		void		insert(iterator pos, pointer first, pointer last){
+			size_type	cnt;
+
+			cnt = pos - begin();
+			while (cap - tail < last - first)
+				reserve((cap - head) * 2);
+			for (size_type i = size(); i != cnt; i--)
+				head[i + last - first] = head[i];
+			head[cnt + last - first] = head[cnt];
+			for (pointer i = first; i != last; i++)
 				head[cnt++] = *i;
 			tail += last - first;
 		}
@@ -405,7 +419,7 @@ void	ft::vector<T, Allocator>::insert(iterator pos, InputIt first, InputIt last)
 	size_type	cnt;
 
 	cnt = pos - begin();
-	if (cap - tail < first)
+	while (cap - tail < first)
 		reserve((cap - head) * 2);
 	for (size_type i = size(); i != cnt; i--)
 		head[i + first - 1] = head[i - 1];

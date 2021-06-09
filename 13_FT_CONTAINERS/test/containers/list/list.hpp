@@ -29,11 +29,11 @@ namespace	ft{
 		node<T>*	malloc();
 		void		move_node(node<T>* src, node<T>* dst);
 	public:
-		typedef node<T>							node;
-		typedef	T 							value_type;
-		typedef Allocator						allocator_type;
-		typedef size_t							size_type;
-		typedef ptrdiff_t						difference_type;
+		typedef node<T>								node;
+		typedef	T 									value_type;
+		typedef Allocator							allocator_type;
+		typedef size_t								size_type;
+		typedef ptrdiff_t							difference_type;
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
@@ -72,9 +72,9 @@ namespace	ft{
 				push_back(*i);
 		}
 		template<>
-		void	assign(T* first, T* last){
+		void	assign(pointer first, pointer last){
 			clear();
-			for (T* i = first; i != last; i++)
+			for (pointer i = first; i != last; i++)
 				push_back(*i);
 		}
 		allocator_type			get_allocator() const;
@@ -110,6 +110,24 @@ namespace	ft{
 
 			pre = pos.getPointer();
 			for (iterator i = first; i != last; i++){
+				tmp = malloc();
+				alloc.construct(&tmp->value, *i);
+				tmp->prev = pre->prev;
+				pre->prev->next = tmp;
+				tmp->next = pre;
+				pre->prev = tmp;
+				pre = tmp->next;
+				sz++;
+			}
+		}
+		template<>
+		void		insert(iterator pos, pointer first, pointer last){
+			node*				pre;
+			node*				tmp;
+			allocator_type		alloc;
+
+			pre = pos.getPointer();
+			for (pointer i = first; i != last; i++){
 				tmp = malloc();
 				alloc.construct(&tmp->value, *i);
 				tmp->prev = pre->prev;

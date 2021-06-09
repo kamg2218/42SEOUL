@@ -17,10 +17,8 @@ void	ft_print(ft::list<int>& lst){
 int		main()
 {
 	ft::list<int>::iterator ft_it;
-	//ft::list<int> ft_lst;
 	ft::list<int> ft_lst(3, 5);
 	std::list<int>::iterator std_it;
-	//std::list<int> std_lst;
 	std::list<int> std_lst(3, 5);
 	
 	std::cout << "---- lst(3, 5) ------------------------------------" << std::endl;
@@ -130,6 +128,15 @@ int		main()
 	ft_lst.assign(ft_lst2.begin(), ft_lst2.end());
 	ft_print(ft_lst);
 
+	std::cout << "---- assign(pointer, pointer) ----------------" << std::endl;
+	int		arr[3] = {1, 2, 3};
+
+	std_lst.assign(arr, arr + 2);
+	std_print(std_lst);
+
+	ft_lst.assign(arr, arr + 2);
+	ft_print(ft_lst);
+
 	std::cout << "---- insert(iterator, int) ----------------------" << std::endl;
 	std_it = std_lst.begin();
 	std_lst.insert(std_it, 100);
@@ -154,6 +161,13 @@ int		main()
 	ft_lst.insert(ft_it, 2, 200);
 	ft_it++;
 	ft_lst.insert(ft_it, 2, 200);
+	ft_print(ft_lst);
+
+	std::cout << "---- insert(iterator, pointer, pointer) --------" << std::endl;
+	std_lst.insert(std_lst.begin(), arr, arr + 2);
+	std_print(std_lst);
+
+	ft_lst.insert(ft_lst.begin(), arr, arr + 2);
 	ft_print(ft_lst);
 
 	std::cout << "---- insert(iterator, iterator, iterator) ------" << std::endl;

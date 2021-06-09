@@ -7,10 +7,8 @@ void	std_print(std::vector<int>& v){
 	std::cout << "size = " << v.size() << ", cap = " << v.capacity() << std::endl;
 	std::cout << "front = " << v.front() << ", back = " << v.back() << std::endl;
 	std::cout << "begin() = " << &(*v.begin()) << ", end() = " << &(*v.end()) << std::endl;
-	for (std::vector<int>::iterator it = v.begin(); it != v.end();){
-		//std::cout << "it = " << &(*it) << std::endl;
-		std::cout << *it << ": " << &(*it++) << std::endl;
-		//std::cout << "it = " << &(*it) << std::endl;
+	for (std::vector<int>::iterator it = v.begin(); it != v.end(); it++){
+		std::cout << *it << ": " << &(*it) << std::endl;
 	}
 }
 
@@ -20,9 +18,7 @@ void	ft_print(ft::vector<int>& v){
 	std::cout << "front = " << v.front() << ", back = " << v.back() << std::endl;
 	std::cout << "begin() = " << &(*v.begin()) << ", end() = " << &(*v.end()) << std::endl;
 	for (ft::vector<int>::iterator it = v.begin(); it != v.end(); it++){
-		//std::cout << "it = " << &(*it) << std::endl;
 		std::cout << *it << ": " << &(*it) << std::endl;
-		//std::cout << "it = " << &(*it) << std::endl;
 	}
 }
 
@@ -135,6 +131,15 @@ int		main()
 	ft_v.assign(7, 5);
 	ft_print(ft_v);
 
+	std::cout << "---- assign(pointer, pointer) ----------------" << std::endl;
+	int		arr[2] = {2, 3};
+
+	std_v.assign(arr, arr + 2);
+	std_print(std_v);
+
+	ft_v.assign(arr, arr + 2);
+	ft_print(ft_v);
+	
 	std::cout << "---- assign(iterator, iterator) ----------------" << std::endl;
 	std::vector<int>	std_v2((unsigned int)3, 6);
 
@@ -181,6 +186,13 @@ int		main()
 
 	ft_it = ++ft_v.begin();
 	ft_v.insert(ft_it, ft_v2.begin(), ft_v2.end());
+	ft_print(ft_v);
+
+	std::cout << "---- insert(iterator, pointer, pointer) ------" << std::endl;
+	std_v.insert(std_v.end(), arr, arr + 2);
+	std_print(std_v);
+
+	ft_v.insert(ft_v.end(), arr, arr + 2);
 	ft_print(ft_v);
 
 	std::cout << "---- erase(iterator) ----------------------------" << std::endl;
