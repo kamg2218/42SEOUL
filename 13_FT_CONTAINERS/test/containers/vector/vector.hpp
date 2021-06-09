@@ -1,11 +1,11 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include "../utility.hpp"
-#include "../pair.hpp"
+#include "../../utility.hpp"
+#include "../../pair.hpp"
 
 namespace	ft{
-	#include "../iterator_tag.hpp"
+	#include "../../iterator_tag.hpp"
 	#include "vector_iterator.hpp"
 	#include "vector_const_iterator.hpp"
 	#include "vector_reverse_iterator.hpp"
@@ -127,7 +127,8 @@ namespace	ft{
 		void		resize(size_type count, T value = T());
 		void		swap(vector& other);
 	};
-	//#include "non_member.hpp"
+
+	//non_member.hpp
 	template<class T, class Alloc>
 	bool	operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
 		VectorConstIterator<T>		tmp;
@@ -485,68 +486,5 @@ void	ft::vector<T, Allocator>::swap(vector& other){
 	this->tail = _tail;
 	this->cap = _cap;
 }
-/*
-template<class T, class Alloc>
-bool	operator==(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	ft::VectorConstIterator<T>		tmp;
 
-	if (lhs.sz != rhs.sz)
-		return false;
-	tmp = rhs.begin();
-	for (ft::VectorConstIterator<T> i = lhs.begin(); i != lhs.end(); i++){
-		if (tmp == rhs.end())
-			break ;
-		if (*i != *tmp)
-			return false;
-		tmp++;
-	}
-	return true;
-}
-
-template<class T, class Alloc>
-bool	operator!=(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	ft::VectorConstIterator<T>		tmp;
-
-	if (lhs.sz != rhs.sz)
-		return true;
-	tmp = rhs.begin();
-	for (ft::VectorConstIterator<T> i = lhs.begin(); i != lhs.end(); i++){
-		if (tmp == rhs.end())
-			break ;
-		if (*i != *tmp)
-			return true;
-		tmp++;
-	}
-	return false;
-}
-
-template<class T, class Alloc>
-bool	operator<(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-}
-
-template<class T, class Alloc>
-bool	operator<=(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) || lhs == rhs)
-		return true;
-	return false;
-}
-
-template<class T, class Alloc>
-bool	operator>(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	return ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end());
-}
-
-template<class T, class Alloc>
-bool	operator>=(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-	if (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()) || lhs == rhs)
-		return true;
-	return false;
-}
-
-template <class T, class Alloc>
-void	swap(ft::vector<T, Alloc>& lhs, ft::vector<T, Alloc>& rhs){
-	lhs.swap(rhs);
-}
-*/
 #endif

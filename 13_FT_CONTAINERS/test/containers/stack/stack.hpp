@@ -1,8 +1,8 @@
 #ifndef STACK_HPP
 # define STACK_HPP
 
-#include "../utility.hpp"
-#include "../pair.hpp"
+#include "../../utility.hpp"
+#include "../../pair.hpp"
 #include "../vector/vector.hpp"
 #include "../list/list.hpp"
 

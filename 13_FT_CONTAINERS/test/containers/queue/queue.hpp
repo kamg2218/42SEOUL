@@ -1,9 +1,9 @@
 #ifndef QUEUE_HPP
 # define QUEUE_HPP
 
-#include "../utility.hpp"
-#include "../pair.hpp"
-#include "../list/list.hpp"
+#include "../../utility.hpp"
+#include "../../pair.hpp"
+#include "../../list/list.hpp"
 
 namespace	ft {
 	template <class T, class Container = list<T> >

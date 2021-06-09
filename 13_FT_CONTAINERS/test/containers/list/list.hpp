@@ -1,8 +1,8 @@
 #ifndef LIST_HPP
 # define LIST_HPP
 
-#include "../utility.hpp"
-#include "../pair.hpp"
+#include "../../utility.hpp"
+#include "../../pair.hpp"
 
 namespace	ft{
 	
@@ -13,7 +13,7 @@ namespace	ft{
 		node<T>		*next;
 	};
 
-	#include "../iterator_tag.hpp"
+	#include "../../iterator_tag.hpp"
 	#include "list_iterator.hpp"
 	#include "list_const_iterator.hpp"
 	#include "list_reverse_iterator.hpp"

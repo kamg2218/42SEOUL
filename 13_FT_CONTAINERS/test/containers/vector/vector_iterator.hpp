@@ -4,7 +4,6 @@
 template<class T, class Category = ft::random_access_iterator_tag, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class	VectorIterator;
 #include "vector_const_iterator.hpp"
-#include "../pair.hpp"
 
 template<class T, class Category, class Distance, class Pointer, class Reference>
 	class	VectorIterator {
