@@ -1,5 +1,254 @@
-#include "../../ft.hpp"
-#include "map_bfs.hpp"
+#ifndef MAP_HPP
+# define MAP_HPP
+
+#include "../utility.hpp"
+#include "../iterator_tag.hpp"
+#include "../pair.hpp"
+
+namespace	ft{
+	
+	enum Color { RED, BLACK };
+	
+	template <class Key, class T>
+	struct RBTNode {
+		enum Color	color;
+		pair<Key, T>		value;
+		RBTNode<Key, T>		*parent;
+		RBTNode<Key, T>		*left;
+		RBTNode<Key, T>		*right;
+		RBTNode<Key, T>		*last;
+	};
+
+	#include "map_bfs.hpp"
+	#include "map_iterator.hpp"
+	#include "map_const_iterator.hpp"
+	#include "map_reverse_iterator.hpp"
+	#include "map_const_reverse_iterator.hpp"
+
+	template <class Key, class T, class Compare = less<Key>, class Allocator = std::allocator<pair<const Key, T> > >
+	class	map {
+	private:
+		RBTNode<Key, T>								*tail;
+		RBTNode<Key, T>								*head;
+		size_t										sz;
+	public:
+		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
+		typedef Key									key_type;
+		typedef T									mapped_type;
+		typedef pair<Key, T>						value_type;
+		typedef typename std::size_t				size_type;
+		typedef typename std::ptrdiff_t				difference_type;
+		typedef Compare								key_compare;
+		typedef Allocator							allocator_type;
+		typedef typename Allocator::reference		reference;
+		typedef typename Allocator::const_reference	const_reference;
+		typedef typename Allocator::pointer			pointer;
+		typedef typename Allocator::const_pointer	const_pointer;
+		typedef MapIterator<Key, T>					iterator;
+		typedef MapConstIterator<Key, T>			const_iterator;
+		typedef MapReverseIterator<Key, T>			reverse_iterator;
+		typedef MapConstReverseIterator<Key, T>		const_reverse_iterator;
+		class value_compare;
+		map();
+		explicit map(const Compare& comp, const Allocator& alloc = Allocator());
+		map(const map& other);
+		map&	operator=(map const &m);
+		template<class InputIt>
+		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
+		template<>
+		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
+			tail = make_node(make_pair(0, 0));
+			head = tail;
+			tail->left = tail;
+			tail->right = tail;
+			tail->last = tail;
+			for (iterator i = first; i != last; i++)
+				insert(i.getValue());
+		}
+		~map();
+		allocator_type				get_allocator() const;
+		iterator					begin();
+		const_iterator				begin() const;
+		iterator					end();
+		const_iterator				end() const;
+		reverse_iterator			rbegin();
+		const_reverse_iterator		rbegin() const;
+		reverse_iterator			rend();
+		const_reverse_iterator		rend() const;
+		T&	operator[](const Key& key);
+		bool						empty() const;
+		size_type					size() const;
+		size_type					max_size() const;
+		void						clear();
+		pair<iterator, bool>		insert(const value_type& value);
+		iterator					insert(iterator hint, const value_type& value);
+		template<class InputIt>
+		void		insert(InputIt first, InputIt last);
+		template<>
+		void		insert(iterator first, iterator last){
+			for (iterator i = first; i != last; i++){
+				if (find(i->first) != end())
+					continue ;
+				add_node(head, make_node(i.getValue()));
+			}
+		}
+		iterator					erase(iterator pos);
+		void						erase(iterator first, iterator last);
+		size_type					erase(const key_type& key);
+		void						swap(map& other);
+		size_type					count(const Key& key);
+		iterator					find(const Key& key);
+		const_iterator				find(const Key& key) const;
+		pair<iterator, iterator>	equal_range(const Key& key);
+		pair<const_iterator, const_iterator>	equal_range (const Key& key) const;
+		iterator					lower_bound(const Key& key);
+		const_iterator				lower_bound(const Key& key) const;
+		iterator					upper_bound(const Key& key);
+		const_iterator				upper_bound(const Key& key) const;
+		key_compare					key_comp() const;
+		typename map<Key, T>::value_compare		value_comp() const;
+	protected:
+		void				clear_node(RBTNode<Key, T>** node);
+		RBTNode<Key, T>*	make_node(const value_type& value);
+		RBTNode<Key, T>*	check_hint(iterator hint, RBTNode<Key, T>* node);
+		//map_insert
+		void	rebuild(RBTNode<Key, T> *node);
+		void	rotateLeft(RBTNode<Key, T> *node);
+		void	rotateRight(RBTNode<Key, T> *node);
+		void	add_node(RBTNode<Key, T>* h, RBTNode<Key, T>* node);
+		//map_delete
+		void	del(RBTNode<Key, T> *node);
+		void	del_left(RBTNode<Key, T> *node);
+		void	del_right(RBTNode<Key, T> *node);
+		void	one_node(RBTNode<Key, T> *node);
+		void	del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child);
+	};
+	//non_member.hpp
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs){
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+
+		if (lhs.sz != rhs.sz)
+			return false;
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first != tmp->first)
+				return false;
+			else if (i->second != tmp->second)
+				return false;
+		}
+		return true;
+	}
+	
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator!=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs){
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+	
+		if (lhs.sz != rhs.sz)
+			return true;
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first != tmp->first)
+				return true;
+			else if (i->second != tmp->second)
+				return true;
+		}
+		return false;
+	}
+
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator<(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs) {
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first > tmp->first)
+				return false;
+			else if (i->first == tmp->first && i->second >= tmp->second)
+				return false;
+		}
+		if (i != lhs.end())
+			return false;
+		return true;
+	}
+
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator<=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs){
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first > tmp->first)
+				return false;
+			else if (i->first == tmp->first && i->second > tmp->second)
+				return false;
+		}
+		if (i != lhs.end())
+			return false;
+		return true;
+	}
+
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator>(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs){
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+	
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first < tmp->first)
+				return false;
+			else if (i->first == tmp->first && i->second <= tmp->second)
+				return false;
+		}
+		if (tmp != rhs.end())
+			return false;
+		return true;
+	}
+
+	template<class Key, class T, class Compare, class Alloc>
+	bool	operator>=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs){
+		MapIterator<Key, T>		i;
+		MapIterator<Key, T>		tmp;
+
+		i = lhs.begin();
+		tmp = rhs.begin();
+		for (; i != lhs.end() && tmp != rhs.end(); i++, tmp++){
+			if (i->first < tmp->first)
+				return false;
+			else if (i->first == tmp->first && i->second < tmp->second)
+				return false;
+		}
+		if (tmp != rhs.end())
+			return false;
+		return true;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	void	swap(map<Key, T, Compare, Alloc>& lhs, map<Key, T, Compare, Alloc>& rhs){
+		typename map<Key, T, Compare, Alloc>::size_type		size;
+		RBTNode<Key, T>	tmp_tail;
+		RBTNode<Key, T>	*tmp_head;
+
+		size = lhs.sz;
+		tmp_tail = lhs.tail;
+		tmp_head = lhs.head;
+		lhs.sz = rhs.sz;
+		lhs.tail = rhs.tail;
+		lhs.head = rhs.head;
+		rhs.sz = size;
+		rhs.tail = tmp_tail;
+		rhs.head = tmp_head;
+	}
+}
 
 template <class Key, class T, class Compare, class Allocator>
 class ft::map<Key, T, Compare, Allocator>::value_compare{
@@ -18,7 +267,7 @@ class ft::map<Key, T, Compare, Allocator>::value_compare{
 //constructor
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::map() : head(0), tail(0), sz(0) {
-	tail = make_node(std::make_pair(0, 0));
+	tail = make_node(make_pair(0, 0));
 	head = tail;
 	tail->left = tail;
 	tail->right = tail;
@@ -27,7 +276,7 @@ ft::map<Key, T, Compare, Allocator>::map() : head(0), tail(0), sz(0) {
 
 template <class Key, class T, class Compare, class Allocator>
 ft::map<Key, T, Compare, Allocator>::map(const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-	tail = make_node(std::make_pair(0, 0));
+	tail = make_node(make_pair(0, 0));
 	head = tail;
 	tail->left = tail;
 	tail->right = tail;
@@ -35,8 +284,8 @@ ft::map<Key, T, Compare, Allocator>::map(const Compare& comp, const Allocator& a
 }
 
 template <class Key, class T, class Compare, class Allocator>
-ft::map<Key, T, Compare, Allocator>::map(const ft::map<Key, T, Compare, Allocator>& other) : head(0), tail(0), sz(0) {
-	tail = make_node(std::make_pair(0, 0));
+ft::map<Key, T, Compare, Allocator>::map(const map& other) : head(0), tail(0), sz(0) {
+	tail = make_node(make_pair(0, 0));
 	head = tail;
 	tail->left = tail;
 	tail->right = tail;
@@ -64,7 +313,7 @@ ft::map<Key, T, Compare, Allocator>&	ft::map<Key, T, Compare, Allocator>::operat
 template <class Key, class T, class Compare, class Allocator>
 template<class InputIt>
 ft::map<Key, T, Compare, Allocator>::map(InputIt first, InputIt last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-	tail = make_node(std::make_pair(0, 0));
+	tail = make_node(make_pair(0, 0));
 	head = tail;
 	tail->left = tail;
 	tail->right = tail;
@@ -109,7 +358,7 @@ T&	ft::map<Key, T, Compare, Allocator>::operator[](const Key& key){
 	
 	it = find(key);
 	if (it == end())
-		return (insert(std::make_pair(key, T())).first->second);
+		return (insert(make_pair(key, T())).first->second);
 	return (it->second);
 }
 
@@ -124,7 +373,7 @@ typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare
 //modifiers
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::clear_node(RBTNode<Key, T>**	node){
-	ft::RBTNode<Key, T>*	tmp;
+	RBTNode<Key, T>*	tmp;
 	al					alloc;
 
 	tmp = *node;
@@ -153,8 +402,8 @@ void	ft::map<Key, T, Compare, Allocator>::clear(){
 
 template <class Key, class T, class Compare, class Allocator>
 ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::make_node(const value_type& value){
-	ft::RBTNode<Key, T>*	tmp;
-	al						alloc;
+	RBTNode<Key, T>*	tmp;
+	al					alloc;
 
 	tmp = alloc.allocate(1);
 	tmp->parent = tail;
@@ -167,25 +416,22 @@ ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::make_node(const value_
 }
 
 template <class Key, class T, class Compare, class Allocator>
-std::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, bool>	ft::map<Key, T, Compare, Allocator>::insert(const value_type& value){
-	iterator				it;
-	ft::RBTNode<Key, T>*	tmp;
+ft::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, bool>	ft::map<Key, T, Compare, Allocator>::insert(const value_type& value){
+	iterator			it;
+	RBTNode<Key, T>*	tmp;
 
 	it = find(value.first);
-	if (it != end()){
-		std::pair<iterator, bool>	n(it, false);
-		return n;
-	}
+	if (it != end())
+		return pair<iterator, bool>(it, false);
 	tmp = make_node(value);
 	add_node(head, tmp);
-	std::pair<iterator, bool>	n(tmp, true);
-	return n;
+	return pair<iterator, bool>(tmp, true);
 }
 
 template <class Key, class T, class Compare, class Allocator>
-ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::check_hint(iterator hint, ft::RBTNode<Key, T>* node){
-	ft::RBTNode<Key, T>*	tmp;
-	key_compare				comp;
+ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::check_hint(iterator hint, RBTNode<Key, T>* node){
+	RBTNode<Key, T>*	tmp;
+	key_compare			comp;
 
 	if (comp(head->value.first, hint->first)){
 		if (comp(node->value.first, head->value.first))
@@ -211,8 +457,8 @@ ft::RBTNode<Key, T>*	ft::map<Key, T, Compare, Allocator>::check_hint(iterator hi
 
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, Allocator>::insert(iterator hint, const value_type& value){
-	ft::RBTNode<Key, T>*	tmp;
-	ft::RBTNode<Key, T>*	node;
+	RBTNode<Key, T>*	tmp;
+	RBTNode<Key, T>*	node;
 	iterator			it;
 
 	it = find(value.first);
@@ -270,9 +516,9 @@ typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare
 
 template <class Key, class T, class Compare, class Allocator>
 void	ft::map<Key, T, Compare, Allocator>::swap(map& other){
-	size_type				cnt;
-	ft::RBTNode<Key, T>*	tmp1;
-	ft::RBTNode<Key, T>*	tmp2;
+	size_type			cnt;
+	RBTNode<Key, T>*	tmp1;
+	RBTNode<Key, T>*	tmp2;
 
 	if (&other == this)
 		return ;
@@ -296,10 +542,10 @@ typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare
 
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, Allocator>::find(const Key& key){
-	size_t					size;
-	size_t					cnt;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
+	size_t				size;
+	size_t				cnt;
+	RBTNode<Key, T>**	tmp;
+	RBTNode<Key, T>*	node;
 
 	if (head == tail)
 		return (end());
@@ -333,10 +579,10 @@ typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, 
 
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::find(const Key& key) const {
-	size_t					size;
-	size_t					cnt;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
+	size_t				size;
+	size_t				cnt;
+	RBTNode<Key, T>**	tmp;
+	RBTNode<Key, T>*	node;
 
 	size = 8;
 	cnt = 0;
@@ -367,32 +613,32 @@ typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Com
 }
 
 template <class Key, class T, class Compare, class Allocator>
-std::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, typename ft::map<Key, T, Compare, Allocator>::iterator>	ft::map<Key, T, Compare, Allocator>::equal_range(const Key& key){
+ft::pair<typename ft::map<Key, T, Compare, Allocator>::iterator, typename ft::map<Key, T, Compare, Allocator>::iterator>	ft::map<Key, T, Compare, Allocator>::equal_range(const Key& key){
 	iterator	it;
 
 	it = find(key);
 	if (it != end())
-		return std::make_pair(it, ++it);
-	return std::make_pair(it, end());
+		return make_pair(it, ++it);
+	return make_pair(it, end());
 }
 
 template <class Key, class T, class Compare, class Allocator>
-std::pair<typename ft::map<Key, T, Compare, Allocator>::const_iterator, typename ft::map<Key, T, Compare, Allocator>::const_iterator>	ft::map<Key, T, Compare, Allocator>::equal_range (const Key& key) const {
+ft::pair<typename ft::map<Key, T, Compare, Allocator>::const_iterator, typename ft::map<Key, T, Compare, Allocator>::const_iterator>	ft::map<Key, T, Compare, Allocator>::equal_range (const Key& key) const {
 	const_iterator	it;
 
 	it = find(key);
 	if (it != end())
-		return std::make_pair(it, ++it);
-	return std::make_pair(it, end());
+		return make_pair(it, ++it);
+	return make_pair(it, end());
 }
 
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::iterator		ft::map<Key, T, Compare, Allocator>::lower_bound(const Key& key){
-	size_type				size;
-	iterator				it;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
-	key_compare				cmp;
+	size_type			size;
+	iterator			it;
+	RBTNode<Key, T>**	tmp;
+	RBTNode<Key, T>*	node;
+	key_compare			cmp;
 
 	size = 8;
 	realloc(&tmp, 0, size);
@@ -426,8 +672,8 @@ template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::lower_bound(const Key& key) const {
 	size_type				size;
 	const_iterator			it;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
+	RBTNode<Key, T>**		tmp;
+	RBTNode<Key, T>*		node;
 	key_compare				cmp;
 
 	size = 8;
@@ -461,8 +707,8 @@ template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::iterator	ft::map<Key, T, Compare, Allocator>::upper_bound(const Key& key){
 	size_type				size;
 	iterator				it;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
+	RBTNode<Key, T>**		tmp;
+	RBTNode<Key, T>*		node;
 	key_compare				cmp;
 
 	size = 8;
@@ -496,8 +742,8 @@ template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::const_iterator	ft::map<Key, T, Compare, Allocator>::upper_bound(const Key& key) const {
 	size_type				size;
 	const_iterator			it;
-	ft::RBTNode<Key, T>**	tmp;
-	ft::RBTNode<Key, T>*	node;
+	RBTNode<Key, T>**		tmp;
+	RBTNode<Key, T>*		node;
 	key_compare				cmp;
 
 	size = 8;
@@ -541,7 +787,7 @@ typename ft::map<Key, T>::value_compare		ft::map<Key, T, Compare, Allocator>::va
 
 //map_insert
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
+void	ft::map<Key, T, Compare, Allocator>::rotateRight(RBTNode<Key, T> *n){
 	RBTNode<Key, T>*	leftChild = n->left;
 
 	n->left = leftChild->right;
@@ -562,8 +808,8 @@ void	ft::map<Key, T, Compare, Allocator>::rotateRight(ft::RBTNode<Key, T> *n){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *n){
-	ft::RBTNode<Key, T>*	rightChild = n->right;
+void	ft::map<Key, T, Compare, Allocator>::rotateLeft(RBTNode<Key, T> *n){
+	RBTNode<Key, T>*	rightChild = n->right;
 
 	n->right = rightChild->left;
 	if (rightChild->left != tail)
@@ -583,7 +829,7 @@ void	ft::map<Key, T, Compare, Allocator>::rotateLeft(ft::RBTNode<Key, T> *n){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
+void	ft::map<Key, T, Compare, Allocator>::rebuild(RBTNode<Key, T> *n){
 	RBTNode<Key, T>*	tmp;
 
 	while (n != this->head && n->parent->color == RED){
@@ -629,8 +875,8 @@ void	ft::map<Key, T, Compare, Allocator>::rebuild(ft::RBTNode<Key, T> *n){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>* h, ft::RBTNode<Key, T>*	node){
-	ft::RBTNode<Key, T>*	tmp;
+void	ft::map<Key, T, Compare, Allocator>::add_node(RBTNode<Key, T>* h, RBTNode<Key, T>*	node){
+	RBTNode<Key, T>*		tmp;
 	key_compare				cmp;
 
 	tmp = h;
@@ -667,7 +913,7 @@ void	ft::map<Key, T, Compare, Allocator>::add_node(ft::RBTNode<Key, T>* h, ft::R
 
 //map_delete
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::del_one(ft::RBTNode<Key, T> *node, ft::RBTNode<Key, T> *child){
+void	ft::map<Key, T, Compare, Allocator>::del_one(RBTNode<Key, T> *node, RBTNode<Key, T> *child){
 	if (child != tail)
 		child->parent = node->parent;
 	if (node->parent != tail && node->parent->left == node)
@@ -679,7 +925,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_one(ft::RBTNode<Key, T> *node, ft:
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node){
+void	ft::map<Key, T, Compare, Allocator>::del_left(RBTNode<Key, T> *node){
 	int		col;
 	RBTNode<Key, T> *sibling = tail;
 	RBTNode<Key, T> *s_left = tail;
@@ -725,7 +971,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_left(ft::RBTNode<Key, T> *node){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node){
+void	ft::map<Key, T, Compare, Allocator>::del_right(RBTNode<Key, T> *node){
 	int		col;
 	RBTNode<Key, T> *sibling = tail;
 	RBTNode<Key, T> *s_left = tail;
@@ -770,7 +1016,7 @@ void	ft::map<Key, T, Compare, Allocator>::del_right(ft::RBTNode<Key, T> *node){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
+void	ft::map<Key, T, Compare, Allocator>::one_node(RBTNode<Key, T> *node){
 	RBTNode<Key, T>	*child;
 
 	child = tail;
@@ -796,7 +1042,7 @@ void	ft::map<Key, T, Compare, Allocator>::one_node(ft::RBTNode<Key, T> *node){
 }
 
 template <class Key, class T, class Compare, class Allocator>
-void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
+void	ft::map<Key, T, Compare, Allocator>::del(RBTNode<Key, T> *node){
 	Key				k;
 	RBTNode<Key, T> *tmp;
 	iterator		it;
@@ -825,3 +1071,5 @@ void	ft::map<Key, T, Compare, Allocator>::del(ft::RBTNode<Key, T> *node){
 	if (tail->right->value.first == k)
 		tail->right = upper_bound(k).getPointer();
 }
+
+#endif

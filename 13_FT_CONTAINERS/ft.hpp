@@ -333,7 +333,7 @@ namespace ft
 		void			swap(queue& other);
 	};
 
-	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class	map {
 	private:
 		RBTNode<Key, T>								*tail;
@@ -343,7 +343,7 @@ namespace ft
 		typedef typename Allocator::template rebind<RBTNode<Key,T> >::other	al;
 		typedef Key									key_type;
 		typedef T									mapped_type;
-		typedef typename ft::pair<const Key, T>		value_type;
+		typedef typename std::pair<const Key, T>		value_type;
 		typedef typename std::size_t				size_type;
 		typedef typename std::ptrdiff_t				difference_type;
 		typedef Compare								key_compare;
@@ -365,7 +365,7 @@ namespace ft
 		map(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 		template<>
 		map(iterator first, iterator last, const Compare& comp, const Allocator& alloc) : head(0), tail(0), sz(0) {
-			tail = make_node(ft::make_pair(0, 0));
+			tail = make_node(std::make_pair(0, 0));
 			head = tail;
 			tail->left = tail;
 			tail->right = tail;
@@ -388,7 +388,7 @@ namespace ft
 		size_type					size() const;
 		size_type					max_size() const;
 		void						clear();
-		ft::pair<iterator, bool>	insert(const value_type& value);
+		std::pair<iterator, bool>	insert(const value_type& value);
 		iterator					insert(iterator hint, const value_type& value);
 		template<class InputIt>
 		void		insert(InputIt first, InputIt last);
@@ -407,8 +407,8 @@ namespace ft
 		size_type					count(const Key& key);
 		iterator					find(const Key& key);
 		const_iterator				find(const Key& key) const;
-		ft::pair<iterator, iterator>	equal_range(const Key& key);
-		ft::pair<const_iterator, const_iterator>	equal_range (const Key& key) const;
+		std::pair<iterator, iterator>	equal_range(const Key& key);
+		std::pair<const_iterator, const_iterator>	equal_range (const Key& key) const;
 		iterator					lower_bound(const Key& key);
 		const_iterator				lower_bound(const Key& key) const;
 		iterator					upper_bound(const Key& key);

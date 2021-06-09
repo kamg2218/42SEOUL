@@ -2,42 +2,42 @@
 # define MAP_ITERATOR_HPP
 
 #include "map_bfs.hpp"
-template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = std::pair<Key, T>*, class Reference = std::pair<Key, T>&>
+template<class Key, class T, class Category = ft::bidirectional_iterator_tag, class Distance = ptrdiff_t, class Pointer = pair<Key, T>*, class Reference = pair<Key, T>&>
 class	MapIterator;
 #include "map_const_iterator.hpp"
 
 template<class Key, class T, class Category, class Distance, class Pointer, class Reference>
 class	MapIterator {
 		typedef Category				iterator_category;
-		typedef std::pair<Key, T>		value_type;
+		typedef pair<Key, T>			value_type;
 		typedef Distance				difference_type;
 		typedef Pointer					pointer;
 		typedef Reference				reference;
 	protected:
-		ft::RBTNode<Key, T>				*ptr;
+		RBTNode<Key, T>					*ptr;
 	public:
 		MapIterator() : ptr(0) {}
-		MapIterator(ft::RBTNode<Key, T>* const p) : ptr(p) {}
-		MapIterator(MapIterator const &it) { *this = it; }
-		MapIterator(MapConstIterator<Key, T> const &it) { *this = it; }
-		MapIterator&	operator=(MapIterator const &it){
+		MapIterator(RBTNode<Key, T>* const p) : ptr(p) {}
+		MapIterator(const MapIterator &it) { *this = it; }
+		MapIterator(const MapConstIterator<Key, T> &it) { *this = it; }
+		MapIterator&	operator=(const MapIterator &it){
 			if (&it == this)
 				return *this;
 			this->ptr = it.ptr;
 			return *this;
 		}
-		MapIterator&	operator=(MapConstIterator<Key, T> const &it){
-			if (it.getPointer() == this->ptr)
+		MapIterator&	operator=(const MapConstIterator<Key, T> &it){
+			if (this->ptr == it.getPointer())
 				return *this;
 			this->ptr = it.getPointer();
 			return *this;
 		}
 		~MapIterator() {}
-		ft::RBTNode<Key, T>*	upper(ft::RBTNode<Key, T>* h){
-			size_t					size;
-			ft::RBTNode<Key, T>**	tmp;
-			ft::RBTNode<Key, T>*	n;
-			ft::RBTNode<Key, T>*	rst;
+		RBTNode<Key, T>*	upper(RBTNode<Key, T>* h){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	n;
+			RBTNode<Key, T>*	rst;
 
 			size = 8;
 			realloc(&tmp, 0, size);
@@ -67,11 +67,11 @@ class	MapIterator {
 				rst = n->last;
 			return rst;
 		}
-		ft::RBTNode<Key, T>*	lower(ft::RBTNode<Key, T>* h){
-			size_t					size;
-			ft::RBTNode<Key, T>**	tmp;
-			ft::RBTNode<Key, T>*	n;
-			ft::RBTNode<Key, T>*	rst;
+		RBTNode<Key, T>*	lower(RBTNode<Key, T>* h){
+			size_t				size;
+			RBTNode<Key, T>**	tmp;
+			RBTNode<Key, T>*	n;
+			RBTNode<Key, T>*	rst;
 
 			size = 8;
 			realloc(&tmp, 0, size);
@@ -101,8 +101,8 @@ class	MapIterator {
 				rst = n->last;
 			return rst;
 		}
-		ft::RBTNode<Key, T>*	find_head(){
-			ft::RBTNode<Key, T>* tmp;
+		RBTNode<Key, T>*	find_head(){
+			RBTNode<Key, T>* tmp;
 
 			tmp = ptr;
 			while (tmp && tmp->parent != tmp->last)
@@ -133,38 +133,40 @@ class	MapIterator {
 				this->ptr = this->lower(this->find_head());
 			return MapIterator(this->ptr);
 		}
-		reference				operator*() const { return getValue(); }
-		pointer					operator->() const { return &getValue(); }
-		reference				getValue() const { return this->ptr->value; }
-		ft::RBTNode<Key,T>*		getPointer() const { return this->ptr; }
+		reference				operator*() { return getValue(); }
+		pointer					operator->() { return &getValue(); }
+		reference				getValue() const { return ptr->value; }
+		RBTNode<Key,T>*			getPointer() const { return ptr; }
 };
 
 template<class Key, class T>
-bool	operator==(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
-	if (a->first == b->first && a->second == b->second)
-		return true;
-	return false;
+bool	operator==(const MapIterator<Key, T> &a, const MapIterator<Key, T> &b){
+	//if (a->first == b->first && a->second == b->second)
+	return a.getValue() == b.getValue();
 }
 
 template<class Key, class T>
-bool	operator==(MapIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
-	if (a->first == b->first && a->second == b->second)
-		return true;
-	return false;
+bool	operator==(const MapIterator<Key, T> &a, const MapConstIterator<Key, T> &b){
+	return a.getValue() == b.getValue();
+	//if (a->first == b->first && a->second == b->second)
+	//	return true;
+	//return false;
 }
 
 template<class Key, class T>
-bool	operator!=(MapIterator<Key, T> const &a, MapIterator<Key, T> const &b){
-	if (a->first == b->first && a->second == b->second)
-		return false;
-	return true;
+bool	operator!=(const MapIterator<Key, T> &a, const MapIterator<Key, T> &b){
+	return a.getValue() != b.getValue();
+	//if (a->first == b->first && a->second == b->second)
+	//	return false;
+	//return true;
 }
 
 template<class Key, class T>
-bool	operator!=(MapIterator<Key, T> const &a, MapConstIterator<Key, T> const &b){
-	if (a->first == b->first && a->second == b->second)
-		return false;
-	return true;
+bool	operator!=(const MapIterator<Key, T> &a, const MapConstIterator<Key, T> &b){
+	return a.getValue() != b.getValue();
+	//if (a->first == b->first && a->second == b->second)
+	//	return false;
+	//return true;
 }
 
 #endif
