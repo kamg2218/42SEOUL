@@ -332,6 +332,24 @@ int		main()
 		std::cout << "ft_lst is smaller\n";
 	else
 		std::cout << "ft_lst and ft_lst2 is same\n";
+	
+	std::cout << "---- compare -------------------------------------" << std::endl;
+	std_lst = std_lst2;
+	ft_lst = ft_lst2;
+	
+	if (std_lst > std_lst2)
+		std::cout << "std_lst is bigger\n";
+	else if (std_lst < std_lst2)
+		std::cout << "std_lst is smaller\n";
+	else
+		std::cout << "std_lst and std_lst2 is same\n";
+	
+	if (ft_lst > ft_lst2)
+		std::cout << "ft_lst is bigger\n";
+	else if (ft_lst < ft_lst2)
+		std::cout << "ft_lst is smaller\n";
+	else
+		std::cout << "ft_lst and ft_lst2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
 
 	//while (1) ;

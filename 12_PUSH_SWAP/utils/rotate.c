@@ -4,13 +4,15 @@ void		rotate(t_node **head, t_node **tail)
 {
 	t_node	*tmp;
 
-	if (*head == NULL || *tail == NULL)
+	if (head == NULL || *head == NULL || tail == NULL)
 		return ;
-	tmp = (t_node *)malloc(sizeof(t_node) * 1);
-	if (tmp == NULL)
+	if (*head == *tail)
 		return ;
-	tmp->content = top(head);
-	pop(head);
+	tmp = tail;
+	*tail = tail->prev;
+	*tail->next = NULL;
+	tmp->prev = NULL;
 	tmp->next = *head;
+	*head->prev = tmp;
 	*head = tmp;
 }

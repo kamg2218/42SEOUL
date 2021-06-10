@@ -585,12 +585,12 @@ void	ft::list<T, Allocator>::merge(list& other){
 
 	if (this == &other)
 		return ;
-	else if (get_allocator() != other.get_allocator())
-		return ;
+	sort();
+	other.sort();
 	tmp = this->head->next;
 	i = other.head->next;
 	while (i != other.head){
-		if (tmp->value > i->value || tmp == head){
+		if (i->value < tmp->value || tmp == head){
 			move_node(i, tmp);
 			other.sz--;
 			this->sz++;
@@ -614,7 +614,7 @@ void	ft::list<T, Allocator>::merge(list& other, Compare comp){
 	tmp = this->head->next;
 	i = other.head->next;
 	while (i != other.tail){
-		if (comp(tmp->value, i->value) > 0 || tmp == head){
+		if (comp(i->value, tmp->value) || tmp == head){
 			move_node(i, tmp);
 			other.sz--;
 			this->sz++;

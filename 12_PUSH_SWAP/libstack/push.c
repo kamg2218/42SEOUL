@@ -1,6 +1,6 @@
 #include "libstack.h"
 
-t_stack			*push(t_stack **head, void *content)
+t_stack			*push(t_stack **head, t_stack **tail, int content)
 {
 	t_stack		*n;
 	t_stack		*tmp;
@@ -13,12 +13,11 @@ t_stack			*push(t_stack **head, void *content)
 	if (*head == NULL)
 	{
 		*head = n;
+		*tail = n;
 		return (n);
 	}
-	tmp = *head;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = n;
-	n->next = NULL;
+	*tail->next = n;
+	n->prev = *tail;
+	*tail = n;
 	return (n);
 }

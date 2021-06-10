@@ -208,7 +208,7 @@ ft::vector<T, Allocator>&		ft::vector<T, Allocator>::operator=(const vector &v) 
 	al.deallocate(head, capacity());
 	head = al.allocate(v.capacity());
 	this->tail = this->head;
-	for (it = v.begin(); it != end(); it++)
+	for (it = v.begin(); it != v.end(); it++)
 		push_back(*it);
 	cap = head + v.capacity();
 	return *this;

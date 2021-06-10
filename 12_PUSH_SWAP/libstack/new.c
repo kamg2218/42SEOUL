@@ -8,6 +8,7 @@ t_stack		*new(int content)
 	if (n == NULL)
 		return (NULL);
 	n->content = content;
+	n->prev = NULL;
 	n->next = NULL;
 	return (n);
 }
