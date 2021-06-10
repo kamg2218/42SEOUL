@@ -36,26 +36,5 @@ int		main(){
 	std::cout << &(*ft_v.rend()) << std::endl;
 	std::cout << &(ft_v) << std::endl;
 
-	std_lst.push_back(1);
-	std_it = std_lst.begin();
-	std_cit = std_lst.begin();
-	if (std_it == std_cit)
-		std::cout << "std_it and std_cit is same\n";
-	else
-		std::cout << "std_it and std_cit is not same\n";
-	std_cit = std_lst.end();
-	if (std_it == std_cit)
-		std::cout << "std_it and std_cit is same\n";
-	else
-		std::cout << "std_it and std_cit is not same\n";
-
-	ft::list<int>::const_iterator	ft_cit;
-	ft_it = ft_lst.begin();
-	ft_cit = ft_lst.begin();
-	if (ft_it == ft_cit)
-		std::cout << "ft_it and std_cit is same\n";
-	else
-		std::cout << "ft_it and std_cit is not same\n";
-
 	return 0;
 }

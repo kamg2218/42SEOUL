@@ -179,21 +179,7 @@ namespace	ft{
 	}
 	
 	template<class T, class Alloc>
-	bool	operator!=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
-		ListConstIterator<T>		tmp;
-	
-		if (lhs.size() != rhs.size())
-			return true;
-		tmp = rhs.begin();
-		for (ListConstIterator<T> i = lhs.begin(); i != lhs.end(); i++){
-			if (tmp == rhs.end())
-				break ;
-			if (*i != *tmp)
-				return true;
-			tmp++;
-		}
-		return false;
-	}
+	bool	operator!=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){ return !(lhs == rhs); }
 
 	template<class T, class Alloc>
 	bool	operator<(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
@@ -337,7 +323,7 @@ bool	ft::list<T, Allocator>::empty() const { if (begin() == end()) return true; 
 template <class T, class Allocator>
 typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::size() const { return this->sz; }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::max_size() const { return std::numeric_limits<difference_type>::max(); }
+typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::max_size() const { return numeric_limits<difference_type>(); }
 
 //modifiers
 template <class T, class Allocator>

@@ -28,7 +28,7 @@ class	VectorConstIterator {
 		VectorConstIterator&	operator=(VectorIterator<T> const &it){
 			if (it.getPointer() == this->ptr)
 				return *this;
-			this->ptr = it.ptr;
+			this->ptr = it.getPointer();
 			return *this;
 		}
 		~VectorConstIterator() {}

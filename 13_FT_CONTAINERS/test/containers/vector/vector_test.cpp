@@ -252,17 +252,33 @@ int		main()
 	else if (std_v < std_v2)
 		std::cout << "std_v is smaller\n";
 	else
-		std::cout << "std_v and std_v2 is same\n";
+		std::cout << "std_v and std_v2 are same\n";
 	
 	if (ft_v > ft_v2)
 		std::cout << "ft_v is bigger\n";
 	else if (ft_v < ft_v2)
 		std::cout << "ft_v is smaller\n";
 	else
-		std::cout << "ft_v and ft_v2 is same\n";
+		std::cout << "ft_v and ft_v2 are same\n";
+	std::cout << "---- compare -------------------------------------" << std::endl;
+	std_v = std_v2;
+	if (std_v > std_v2)
+		std::cout << "std_v is bigger\n";
+	else if (std_v < std_v2)
+		std::cout << "std_v is smaller\n";
+	else
+		std::cout << "std_v and std_v2 are same\n";
+	
+	ft_v = ft_v2;
+	if (ft_v > ft_v2)
+		std::cout << "ft_v is bigger\n";
+	else if (ft_v < ft_v2)
+		std::cout << "ft_v is smaller\n";
+	else
+		std::cout << "ft_v and ft_v2 are same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
-	ft::vector<int>::iterator ft_cit;
-	std::vector<int>::iterator std_cit;
+	ft::vector<int>::const_iterator ft_cit;
+	std::vector<int>::const_iterator std_cit;
 	
 	std_cit = std_v.begin();
 	std::cout << "std_cit = " << *std_cit << std::endl;
@@ -273,5 +289,8 @@ int		main()
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
 	ft_cit++;
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
+	
+	//while (1);
+
 	return 0;
 }

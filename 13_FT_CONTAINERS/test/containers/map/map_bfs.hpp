@@ -2,29 +2,6 @@
 # define MAP_BFS_HPP
 
 #include "map.hpp"
-/*
-template <class Key, class T>
-void	traverse(RBTNode<Key, T>** head){
-	RBTNode<Key, T>*	tmp[100] = {0, };
-	RBTNode<Key, T>*	a;
-
-	tmp[0] = *head;
-	while (size_bfs(tmp) > 0){
-		for (int i = 0; i < size_bfs(tmp); i++){
-			a = tmp[i];
-			std::cout << "[" << a->value.first << ", " << a->value.second << "] ";
-			if (a->left != a->last)
-				i += move_bfs(tmp, i, a->left);
-			if (a->right != a->last)
-				i += move_bfs(tmp, i, a->right);
-			del_bfs(tmp, i);
-			i--;
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
-}
-*/
 
 template <class Key, class T>
 int		size_bfs(RBTNode<Key, T>** tmp){

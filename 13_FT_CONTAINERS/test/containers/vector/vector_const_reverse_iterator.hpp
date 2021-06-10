@@ -28,7 +28,7 @@ class	VectorConstReverseIterator {
 		VectorConstReverseIterator&	operator=(const VectorReverseIterator<T> &it){
 			if (it.getPointer() == this->ptr)
 				return *this;
-			this->ptr = it.ptr;
+			this->ptr = it.getPointer();
 			return *this;
 		}
 		~VectorConstReverseIterator() {}

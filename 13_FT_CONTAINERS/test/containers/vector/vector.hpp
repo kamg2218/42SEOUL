@@ -33,7 +33,7 @@ namespace	ft{
 
 		vector();
 		vector(const vector& other);
-		vector&		operator=(vector const &v);
+		vector&		operator=(const vector &v);
 		explicit vector(const Allocator& alloc);
 		explicit vector(size_type count, const T& value = T(), const Allocator& alloc = Allocator());
 		template<class InputIt>
@@ -151,8 +151,6 @@ namespace	ft{
 			return false;
 		tmp = rhs.begin();
 		for (VectorConstIterator<T> i = lhs.begin(); i != lhs.end(); i++){
-			if (tmp == rhs.end())
-				break ;
 			if (*i != *tmp)
 				return false;
 			tmp++;
@@ -161,21 +159,7 @@ namespace	ft{
 	}
 
 	template<class T, class Alloc>
-	bool	operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
-		VectorConstIterator<T>		tmp;
-	
-		if (lhs.size() != rhs.size())
-			return true;
-		tmp = rhs.begin();
-		for (VectorConstIterator<T> i = lhs.begin(); i != lhs.end(); i++){
-			if (tmp == rhs.end())
-				break ;
-			if (*i != *tmp)
-				return true;
-			tmp++;
-		}
-		return false;
-	}
+	bool	operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){ return !(lhs == rhs); }
 
 	template<class T, class Alloc>
 	bool	operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
@@ -214,16 +198,17 @@ template <class T, class Allocator>
 ft::vector<T, Allocator>::vector(const vector& other) : head(0), tail(0), cap(0) { *this = other; }
 
 template <class T, class Allocator>
-ft::vector<T, Allocator>&		ft::vector<T, Allocator>::operator=(vector const &v) {
-	iterator		it = v.begin();
-	allocator_type	al = v.get_allocator();
+ft::vector<T, Allocator>&		ft::vector<T, Allocator>::operator=(const vector &v) {
+	iterator		it;
+	allocator_type	al;
 	
 	if (this == &v)
 		return *this;
 	clear();
+	al.deallocate(head, capacity());
 	head = al.allocate(v.capacity());
-	tail = head;
-	for (; it != end(); it++)
+	this->tail = this->head;
+	for (it = v.begin(); it != end(); it++)
 		push_back(*it);
 	cap = head + v.capacity();
 	return *this;
@@ -256,7 +241,12 @@ ft::vector<T, Allocator>::vector(InputIt first, InputIt last, const Allocator& a
 }
 
 template <class T, class Allocator>
-ft::vector<T, Allocator>::~vector() { clear(); }
+ft::vector<T, Allocator>::~vector() {
+	allocator_type	al;
+
+	clear();
+	al.deallocate(head, capacity());
+}
 
 //assign
 template <class T, class Allocator>
@@ -337,7 +327,7 @@ typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::size() co
 template <class T, class Allocator>
 typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::capacity() const { return cap - head; }
 template <class T, class Allocator>
-typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::max_size() const { return std::numeric_limits<difference_type>::max(); }
+typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::max_size() const { return numeric_limits<difference_type>(); }
 
 template <class T, class Allocator>
 void	ft::vector<T, Allocator>::reserve(size_type new_cap){
@@ -352,7 +342,7 @@ void	ft::vector<T, Allocator>::reserve(size_type new_cap){
 	for (size_type i = 0; i < size(); i++)
 		tmp[i] = head[i];
 	tail = tmp + size();
-	al.deallocate(head, size());
+	al.deallocate(head, capacity());
 	head = tmp;
 	cap = tmp + new_cap;
 }

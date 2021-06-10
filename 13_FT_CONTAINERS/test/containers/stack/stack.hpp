@@ -20,7 +20,7 @@ namespace	ft {
 
 		explicit stack(const Container& cont = Container());
 		stack(const stack& other);
-		stack&		operator=(stack const &st);
+		stack&		operator=(const stack &st);
 		~stack();
 		reference			top();
 		size_type			size() const;
@@ -28,43 +28,14 @@ namespace	ft {
 		void				push(const value_type& value);
 		void				pop();
 		void				swap(stack& other);
-		const Container		getContainer() const;
+		friend bool			operator==(const stack& lhs, const stack& rhs){ return lhs.c == rhs.c; }
+		friend bool			operator!=(const stack& lhs, const stack& rhs){ return lhs.c != rhs.c; }
+		friend bool			operator<(const stack& lhs, const stack& rhs){ return lhs.c < rhs.c; }
+		friend bool			operator<=(const stack& lhs, const stack& rhs){ return lhs.c <= rhs.c; }
+		friend bool			operator>(const stack& lhs, const stack& rhs){ return lhs.c > rhs.c; }
+		friend bool			operator>=(const stack& lhs, const stack& rhs){ return lhs.c >= rhs.c; }
+		friend void			swap(stack& lhs, stack& rhs){ lhs.swap(rhs); }
 	};
-
-	template<class T, class Container>
-	bool	operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() == rhs.getContainer();
-	}
-
-	template<class T, class Container>
-	bool	operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() != rhs.getContainer();
-	}
-
-	template<class T, class Container>
-	bool	operator<(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() < rhs.getContainer();
-	}
-	
-	template<class T, class Container>
-	bool	operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() <= rhs.getContainer();
-	}
-
-	template<class T, class Container>
-	bool	operator>(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() > rhs.getContainer();
-	}
-
-	template<class T, class Container>
-	bool	operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs){
-		return lhs.getContainer() >= rhs.getContainer();
-	}
-	
-	template <class T, class Container>
-	void	swap(stack<T, Container>& lhs, stack<T, Container>& rhs){
-		lhs.swap(rhs);
-	}
 }
 
 template <class T, class Container>
@@ -74,8 +45,8 @@ template <class T, class Container>
 ft::stack<T, Container>::stack(const stack<T, Container>& other) { *this = other; }
 
 template <class T, class Container>
-ft::stack<T, Container>&		ft::stack<T, Container>::operator=(stack<T, Container> const &st) {
-	if (st == *this)
+ft::stack<T, Container>&		ft::stack<T, Container>::operator=(const stack<T, Container> &st) {
+	if (&st == this)
 		return *this;
 	this->c = st.c;
 	return *this;
@@ -83,9 +54,6 @@ ft::stack<T, Container>&		ft::stack<T, Container>::operator=(stack<T, Container>
 
 template <class T, class Container>
 ft::stack<T, Container>::~stack() {}
-
-template <class T, class Container>
-const Container	ft::stack<T, Container>::getContainer() const { return this->c; }
 
 template <class T, class Container>
 typename ft::stack<T, Container>::reference	ft::stack<T, Container>::top() { return this->c.back(); }
