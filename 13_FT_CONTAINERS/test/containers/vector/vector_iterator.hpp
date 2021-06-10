@@ -33,11 +33,11 @@ template<class T, class Category, class Distance, class Pointer, class Reference
 		}
 		~VectorIterator() {}
 		VectorIterator&		operator++(){
-			this->ptr += 1;
+			this->ptr++;;
 			return *this;
 		}
 		VectorIterator		operator++(int){
-			this->ptr += 1;
+			this->ptr++;
 			return VectorIterator(this->ptr);
 		}
 		VectorIterator&		operator--(){

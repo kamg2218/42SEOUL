@@ -56,9 +56,9 @@ namespace	ft{
 				push_back(*i);
 		}
 		template<>
-		list(T* first, T* last, const Allocator& alloc) : head(0), sz(0) {
+		list(pointer first, pointer last, const Allocator& alloc) : head(0), sz(0) {
 			push_back(0);
-			for (T* i = first; i != last; i++)
+			for (pointer i = first; i != last; i++)
 				push_back(*i);
 		}
 		~list();

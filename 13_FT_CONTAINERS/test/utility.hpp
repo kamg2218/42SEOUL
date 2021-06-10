@@ -14,7 +14,7 @@ namespace	ft{
 		for (; i != last1 && j != last2; i++, j++){
 			if (*i < *j)
 				return true;
-			else if (*i > *j)
+			else if (*j < *i)
 				return false;
 		}
 		if (j != last2)

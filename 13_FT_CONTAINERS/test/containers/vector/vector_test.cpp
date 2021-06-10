@@ -61,17 +61,23 @@ int		main()
 	}
 
 	std::cout << "---- operator[] ---------------------------------" << std::endl;
-	
-	std::cout << "std_v[0] = " << std_v[0] << std::endl;
-	std::cout << "std_v[2] = " << std_v[2] << std::endl;
-	std::cout << "std_v[-1] = " << std_v[-1] << std::endl;
-	std::cout << "std_v[100] = " << std_v[100] << std::endl;
-		
-	std::cout << "ft_v[0] = " << ft_v[0] << std::endl;
-	std::cout << "ft_v[2] = " << ft_v[2] << std::endl;
-	std::cout << "ft_v[-1] = " << ft_v[-1] << std::endl;
-	std::cout << "ft_v[100] = " << ft_v[100] << std::endl;
-	
+	try{
+		std::cout << "std_v[0] = " << std_v[0] << std::endl;
+		std::cout << "std_v[2] = " << std_v[2] << std::endl;
+		std::cout << "std_v[-1] = " << std_v[-1] << std::endl;
+		std::cout << "std_v[100] = " << std_v[100] << std::endl;
+	}catch (std::out_of_range& e){
+		std::cerr << "Out of Range error: " << e.what() << std::endl;
+	}
+	try{
+		std::cout << "ft_v[0] = " << ft_v[0] << std::endl;
+		std::cout << "ft_v[2] = " << ft_v[2] << std::endl;
+		std::cout << "ft_v[-1] = " << ft_v[-1] << std::endl;
+		std::cout << "ft_v[100] = " << ft_v[100] << std::endl;
+	}catch (std::out_of_range& e){
+		std::cerr << "Out of Range error: " << e.what() << std::endl;
+	}
+
 	std::cout << "---- empty() ------------------------------------" << std::endl;
 	if (!std_v.empty())
 		std::cout << "std_v is not empty" << std::endl;
@@ -125,6 +131,12 @@ int		main()
 		std::cout << "ft_v is not empty\n";
 	
 	std::cout << "---- assign(int, int) --------------------------" << std::endl;
+	std_v.assign(4, 5);
+	std_print(std_v);
+	
+	ft_v.assign(4, 5);
+	ft_print(ft_v);
+
 	std_v.assign(7, 5);
 	std_print(std_v);
 	
@@ -166,33 +178,53 @@ int		main()
 	ft_v.insert(ft_it, 150);
 	ft_print(ft_v);
 
+	std_v.insert(std_v.end(), 10);
+	std_v.insert(std_v.end(), 15);
+	std_print(std_v);
+
+	ft_v.insert(ft_v.end(), 10);
+	ft_v.insert(ft_v.end(), 15);
+	ft_print(ft_v);
+
 	std::cout << "---- insert(iterator, count, value) ------------" << std::endl;
 	std_it = std_v.begin();
-	std_v.insert(std_it, 2, 200);
+	std_v.insert(std_it, 5, 200);
+	std_print(std_v);
 	std_it = std_v.end();
-	std_v.insert(std_it, 2, 250);
+	std_v.insert(std_it, 5, 250);
 	std_print(std_v);
 
 	ft_it = ft_v.begin();
-	ft_v.insert(ft_it, 2, 200);
+	ft_v.insert(ft_it, 5, 200);
+	ft_print(ft_v);
 	ft_it = ft_v.end();
-	ft_v.insert(ft_it, 2, 250);
+	ft_v.insert(ft_it, 5, 250);
 	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, iterator, iterator) ------" << std::endl;
+	std::vector<int>	std_v3;
+
+	std_v3.push_back(1);
+	std_v3.push_back(2);
+	std_v3.push_back(4);
 	std_it = ++std_v.begin();
-	std_v.insert(std_it, std_v2.begin(), std_v2.end());
+	std_v.insert(std_it, std_v3.begin(), std_v3.end());
 	std_print(std_v);
 
+	ft::vector<int>	ft_v3;
+
+	ft_v3.push_back(1);
+	ft_v3.push_back(2);
+	ft_v3.push_back(4);
 	ft_it = ++ft_v.begin();
-	ft_v.insert(ft_it, ft_v2.begin(), ft_v2.end());
+	ft_v.insert(ft_it, ft_v3.begin(), ft_v3.end());
 	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, pointer, pointer) ------" << std::endl;
-	std_v.insert(std_v.end(), arr, arr + 2);
+	std_v.insert(std_v.begin(), arr, arr + 2);
 	std_print(std_v);
 
-	ft_v.insert(ft_v.end(), arr, arr + 2);
+	ft_v.insert(ft_v.begin(), arr, arr + 2);
 	ft_print(ft_v);
 
 	std::cout << "---- erase(iterator) ----------------------------" << std::endl;
@@ -217,18 +249,11 @@ int		main()
 	ft_v.erase(ft_it, ft_v.end());
 	ft_print(ft_v);
 	
-	std::cout << "---- resize(count) -------------------------------" << std::endl;
-	std_v.resize(std_v.size() - 2);
-	std_print(std_v);
-
-	ft_v.resize(ft_v.size() - 2);
-	ft_print(ft_v);
-
 	std::cout << "---- resize(count, value) ------------------------" << std::endl;
-	std_v2.resize(6, 30);
+	std_v2.resize((unsigned int)6, 30);
 	std_print(std_v2);
 
-	ft_v2.resize(6, 30);
+	ft_v2.resize((unsigned int)6, 30);
 	ft_print(ft_v2);
 
 	std::cout << "---- swap() --------------------------------------" << std::endl;
@@ -261,15 +286,17 @@ int		main()
 	else
 		std::cout << "ft_v and ft_v2 are same\n";
 	std::cout << "---- compare -------------------------------------" << std::endl;
-	std_v = std_v2;
+	std_v2 = std_v;
 	if (std_v > std_v2)
 		std::cout << "std_v is bigger\n";
 	else if (std_v < std_v2)
 		std::cout << "std_v is smaller\n";
 	else
 		std::cout << "std_v and std_v2 are same\n";
-	
-	ft_v = ft_v2;
+
+	ft_v2 = ft_v;
+	//ft_print(ft_v);
+	//ft_print(ft_v2);
 	if (ft_v > ft_v2)
 		std::cout << "ft_v is bigger\n";
 	else if (ft_v < ft_v2)
@@ -289,6 +316,8 @@ int		main()
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
 	ft_cit++;
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
+	
+	std::cout << "--------------------------------------------------" << std::endl;
 	
 	//while (1);
 

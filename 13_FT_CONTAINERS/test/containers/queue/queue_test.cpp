@@ -147,7 +147,7 @@ int		main()
 		std::cout << "ft_q and ft_q2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
 
-	while (1) ;
+	//while (1) ;
 
 	return 0;
 }

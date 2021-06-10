@@ -62,7 +62,7 @@ template <class T, class Container>
 typename ft::queue<T, Container>::reference	ft::queue<T, Container>::back() { return this->c.back(); }
 
 template <class T, class Container>
-bool		ft::queue<T, Container>::empty() const { if (this->c.empty()) return true; else return false;}
+bool		ft::queue<T, Container>::empty() const { return this->c.empty(); }
 
 template <class T, class Container>
 typename ft::queue<T, Container>::size_type	ft::queue<T, Container>::size() const { return this->c.size(); }

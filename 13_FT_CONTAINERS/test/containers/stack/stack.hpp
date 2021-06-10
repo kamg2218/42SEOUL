@@ -59,7 +59,7 @@ template <class T, class Container>
 typename ft::stack<T, Container>::reference	ft::stack<T, Container>::top() { return this->c.back(); }
 
 template <class T, class Container>
-bool		ft::stack<T, Container>::empty() const { if (c.empty()) return true; else return false;}
+bool		ft::stack<T, Container>::empty() const { return this->c.empty(); }
 
 template <class T, class Container>
 typename ft::stack<T, Container>::size_type	ft::stack<T, Container>::size() const { return this->c.size(); }
