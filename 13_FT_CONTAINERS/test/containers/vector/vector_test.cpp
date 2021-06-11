@@ -188,17 +188,17 @@ int		main()
 
 	std::cout << "---- insert(iterator, count, value) ------------" << std::endl;
 	std_it = std_v.begin();
-	std_v.insert(std_it, 5, 200);
+	std_v.insert(std_it, 10, 200);
 	std_print(std_v);
 	std_it = std_v.end();
-	std_v.insert(std_it, 5, 250);
+	std_v.insert(std_it, 10, 250);
 	std_print(std_v);
 
 	ft_it = ft_v.begin();
-	ft_v.insert(ft_it, 5, 200);
+	ft_v.insert(ft_it, 10, 200);
 	ft_print(ft_v);
 	ft_it = ft_v.end();
-	ft_v.insert(ft_it, 5, 250);
+	ft_v.insert(ft_it, 10, 250);
 	ft_print(ft_v);
 
 	std::cout << "---- insert(iterator, iterator, iterator) ------" << std::endl;
@@ -228,11 +228,11 @@ int		main()
 	ft_print(ft_v);
 
 	std::cout << "---- erase(iterator) ----------------------------" << std::endl;
-	std_v.erase(std_it);
+	std_v.erase(std_v.begin());
 	//std_v.erase(std_it);
 	std_print(std_v);
 	
-	ft_v.erase(ft_it);
+	ft_v.erase(ft_v.begin());
 	//ft_v.erase(ft_it);
 	ft_print(ft_v);
 	
@@ -250,9 +250,11 @@ int		main()
 	ft_print(ft_v);
 	
 	std::cout << "---- resize(count, value) ------------------------" << std::endl;
+	std_print(std_v2);
 	std_v2.resize((unsigned int)6, 30);
 	std_print(std_v2);
 
+	ft_print(ft_v2);
 	ft_v2.resize((unsigned int)6, 30);
 	ft_print(ft_v2);
 

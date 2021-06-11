@@ -1,7 +1,6 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <iostream>
 #include "../../utility.hpp"
 #include "../../pair.hpp"
 
@@ -110,6 +109,12 @@ namespace	ft{
 		void		insert(iterator pos, InputIt first, InputIt last);
 		template<>
 		void		insert(iterator pos, iterator first, iterator last){
+			size_type	cnt;
+			
+			cnt = pos.getPointer() - head;
+			if (cap - head < last - first)
+				reserve(tail - head + last - first);
+			pos = iterator(head + cnt);
 			for (iterator i = first; i != last; i++){
 				pos = insert(pos, *i);
 				pos++;
@@ -117,6 +122,12 @@ namespace	ft{
 		}
 		template<>
 		void		insert(iterator pos, pointer first, pointer last){
+			size_type	cnt;
+			
+			cnt = pos.getPointer() - head;
+			if (cap - head < last - first)
+				reserve(tail - head + last - first);
+			pos = iterator(head + cnt);
 			for (pointer i = first; i != last; i++){
 				pos = insert(pos, *i);
 				pos++;
@@ -315,17 +326,21 @@ typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::max_size(
 
 template <class T, class Allocator>
 void	ft::vector<T, Allocator>::reserve(size_type new_cap){
+	size_type		cnt;
 	pointer			tmp;
 	allocator_type	al;
 
+	cnt = size();
 	if (capacity() >= new_cap)
 		return ;
 	else if (max_size() < new_cap)
 		throw std::length_error("vector");
 	tmp = al.allocate(new_cap);
-	for (size_type i = 0; i < size(); i++)
+	tail = tmp;
+	for (size_type i = 0; i < cnt; i++){
 		tmp[i] = head[i];
-	tail = tmp + size();
+		tail++;
+	}
 	al.deallocate(head, capacity());
 	head = tmp;
 	cap = tmp + new_cap;
@@ -378,6 +393,12 @@ typename ft::vector<T, Allocator>::iterator	ft::vector<T, Allocator>::insert(ite
 
 template <class T, class Allocator>
 void	ft::vector<T, Allocator>::insert(iterator pos, size_type count, const T& value){
+	size_type	cnt;
+	
+	cnt = pos.getPointer() - head;
+	if (cap - head < count)
+		reserve(tail - head + count);
+	pos = iterator(head + cnt);
 	for (size_type i = 0; i < count; i++)
 		pos = insert(pos, value);
 }
@@ -385,6 +406,12 @@ void	ft::vector<T, Allocator>::insert(iterator pos, size_type count, const T& va
 template <class T, class Allocator>
 template<class InputIt>
 void	ft::vector<T, Allocator>::insert(iterator pos, InputIt first, InputIt last){
+	size_type	cnt;
+
+	cnt = pos.getPointer() - head;
+	if (cap - head < first)
+		reserve(tail - head + first);
+	pos = iterator(head + cnt);
 	for (InputIt i = 0; i < first; i++)
 		pos = insert(pos, last);
 }
@@ -395,7 +422,7 @@ typename ft::vector<T, Allocator>::iterator	ft::vector<T, Allocator>::erase(iter
 	allocator_type	al;
 
 	ptr = pos.getPointer();
-	for (pointer i = ptr; i != tail; i++)
+	for (pointer i = ptr; i < tail; i++)
 		*i = *(i + 1);
 	tail--;
 	al.destroy(tail);
