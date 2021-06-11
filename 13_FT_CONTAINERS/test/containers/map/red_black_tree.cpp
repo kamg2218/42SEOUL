@@ -337,7 +337,6 @@ RBTNode*	one_node(RBTNode **head, RBTNode *node){
 			*head = NULL;
 		del_one(head, node, child);
 	}
-	//delete node;
 	if (*head)
 		(*head)->color = BLACK;
 	return node;

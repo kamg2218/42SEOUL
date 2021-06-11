@@ -3,6 +3,7 @@
 #include "../vector/vector.hpp"
 #include "map.hpp"
 #include <iostream>
+#include <limits>
 
 void	std_print(std::map<int, int>& m){
 	std::cout << "---- std::map<int, int> -------------------------" << std::endl;

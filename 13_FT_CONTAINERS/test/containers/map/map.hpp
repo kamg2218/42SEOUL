@@ -362,7 +362,7 @@ bool	ft::map<Key, T, Compare, Allocator>::empty() const { if (!sz) return true; 
 template <class Key, class T, class Compare, class Allocator>
 typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::size() const { return sz; }
 template <class Key, class T, class Compare, class Allocator>
-typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::max_size() const { return numeric_limits<difference_type>(); }
+typename ft::map<Key, T, Compare, Allocator>::size_type		ft::map<Key, T, Compare, Allocator>::max_size() const { al	alloc; return alloc.max_size(); }
 
 //modifiers
 template <class Key, class T, class Compare, class Allocator>

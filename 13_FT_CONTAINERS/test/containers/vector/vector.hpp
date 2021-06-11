@@ -18,10 +18,10 @@ namespace	ft{
 		T*								tail;
 		T* 								cap;
 	public:
-		typedef	T 							value_type;
-		typedef Allocator						allocator_type;
-		typedef size_t							size_type;
-		typedef ptrdiff_t						difference_type;
+		typedef	T 									value_type;
+		typedef Allocator							allocator_type;
+		typedef size_t								size_type;
+		typedef ptrdiff_t							difference_type;
 		typedef typename Allocator::pointer			pointer;
 		typedef typename Allocator::reference		reference;
 		typedef typename Allocator::const_pointer	const_pointer;
@@ -322,7 +322,7 @@ typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::size() co
 template <class T, class Allocator>
 typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::capacity() const { return cap - head; }
 template <class T, class Allocator>
-typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::max_size() const { return numeric_limits<difference_type>(); }
+typename ft::vector<T, Allocator>::size_type	ft::vector<T, Allocator>::max_size() const { allocator_type	al; return al.max_size(); }
 
 template <class T, class Allocator>
 void	ft::vector<T, Allocator>::reserve(size_type new_cap){

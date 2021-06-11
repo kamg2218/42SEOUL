@@ -323,7 +323,7 @@ bool	ft::list<T, Allocator>::empty() const { if (begin() == end()) return true; 
 template <class T, class Allocator>
 typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::size() const { return this->sz; }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::max_size() const { return numeric_limits<difference_type>(); }
+typename ft::list<T, Allocator>::size_type	ft::list<T, Allocator>::max_size() const { return al.max_size(); }
 
 //modifiers
 template <class T, class Allocator>

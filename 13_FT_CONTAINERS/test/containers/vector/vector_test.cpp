@@ -320,7 +320,7 @@ int		main()
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
 	
 	std::cout << "--------------------------------------------------" << std::endl;
-	
+
 	//while (1);
 
 	return 0;
