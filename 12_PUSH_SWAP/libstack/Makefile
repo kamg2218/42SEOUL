@@ -6,7 +6,10 @@ SRC = size.c\
 	  top.c\
 	  clear.c\
 	  push.c\
-	  new.c
+	  new.c\
+	  swap.c\
+	  rotate.c\
+	  reverse_rotate.c
 
 OBJECTS = *.o
 CFLAGS = -Wall -Wextra -Werror

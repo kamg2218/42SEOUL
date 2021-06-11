@@ -11,12 +11,15 @@ typedef struct		s_stack
 	struct s_stack	*next;
 }					t_stack;
 
-int					top(t_stack **tail);
+int					top(t_stack **head);
 int					size(t_stack **head);
 int					empty(t_stack **head);
 void				clear(t_stack **head);
-void				pop(t_stack **head, t_stack **tail);
-t_stack				*push(t_stack **head, t_stack **tail, int content);
+void				swap(t_stack **head);
+void				pop(t_stack **head);
+void				rotate(t_stack **head);
+void				reverse_rotate(t_stack **head);
+t_stack				*push(t_stack **head, int content);
 t_stack				*new(int content);
 
 #endif

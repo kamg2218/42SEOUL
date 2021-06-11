@@ -1,6 +1,6 @@
 #include "libstack.h"
 
-t_stack			*push(t_stack **head, int content)
+t_stack			*push_back(t_stack **head, int content)
 {
 	t_stack		*n;
 

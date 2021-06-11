@@ -1,15 +1,17 @@
 #include "libstack.h"
 
-void			pop(t_stack **head, t_stack **tail)
+void			pop(t_stack **head)
 {
 	t_stack*	tmp;
 
-	if (head == NULL || *head == NULL || tail == NULL)
+	if (head == NULL || *head == NULL)
 		return ;
-	tmp = *tail;
-	*tail = tmp->prev;
-	*tail->next = NULL;
-	if (tmp == head)
+	tmp = (*head)->prev;
+	if (tmp == *head)
 		*head = NULL;
+	else {
+		tmp->prev->next = *head;
+		(*head)->prev = tmp->prev;
+	}
 	free(tmp);
 }

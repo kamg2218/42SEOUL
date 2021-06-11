@@ -8,6 +8,7 @@ void			clear(t_stack **head)
 	if (head == NULL || *head == NULL)
 		return ;
 	tmp = *head;
+	tmp->prev->next = NULL;
 	while (tmp)
 	{
 		pre = tmp;

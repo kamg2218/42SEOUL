@@ -1,8 +1,6 @@
 #include "libstack.h"
 
-int			top(t_stack **head, t_stack **tail)
+int			top(t_stack **head)
 {
-	if (head == NULL || *head == NULL || tail == NULL)
-		return (NULL);
-	return (*tail->content);
+	return ((*head)->prev->content);
 }

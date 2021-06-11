@@ -9,7 +9,7 @@ int				size(t_stack **head)
 		return (0);
 	count = 1;
 	tmp = *head;
-	while (tmp->next)
+	while (tmp->next != *head)
 	{
 		++count;
 		tmp = tmp->next;
