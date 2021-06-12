@@ -19,7 +19,8 @@ void				swap(t_stack **head);
 void				pop(t_stack **head);
 void				rotate(t_stack **head);
 void				reverse_rotate(t_stack **head);
-t_stack				*push(t_stack **head, int content);
 t_stack				*new(int content);
+t_stack				*push(t_stack **head, int content);
+t_stack				*push_back(t_stack **head, int content);
 
 #endif

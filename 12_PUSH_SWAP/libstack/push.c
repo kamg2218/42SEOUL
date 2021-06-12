@@ -20,5 +20,6 @@ t_stack			*push(t_stack **head, int content)
 	n->next = *head;
 	(*head)->prev->next = n;
 	(*head)->prev = n;
+	*head = n;
 	return (n);
 }

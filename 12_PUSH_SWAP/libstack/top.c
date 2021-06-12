@@ -2,5 +2,5 @@
 
 int			top(t_stack **head)
 {
-	return ((*head)->prev->content);
+	return ((*head)->content);
 }

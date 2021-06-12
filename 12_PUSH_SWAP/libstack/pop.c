@@ -6,7 +6,8 @@ void			pop(t_stack **head)
 
 	if (head == NULL || *head == NULL)
 		return ;
-	tmp = (*head)->prev;
+	tmp = *head;
+	*head = (*head)->next;
 	if (tmp == *head)
 		*head = NULL;
 	else {

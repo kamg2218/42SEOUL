@@ -10,11 +10,12 @@ void		swap(t_stack **head)
 		*head = (*head)->next;
 		return ;
 	}
-	tmp = (*head)->prev;
-	tmp->prev->next = *head;
-	(*head)->prev = tmp->prev;
-	tmp->prev = (*head)->prev->prev;
-	(*head)->prev->prev->next = tmp;
-	tmp->next = (*head)->prev;
-	(*head)->prev->prev = tmp;
+	tmp = (*head)->next;
+	(*head)->next = tmp->next;
+	tmp->next->prev = *head;
+	tmp->prev = (*head)->prev;
+	(*head)->prev->next = tmp;
+	tmp->next = *head;
+	(*head)->prev = tmp;
+	*head = tmp;
 }
