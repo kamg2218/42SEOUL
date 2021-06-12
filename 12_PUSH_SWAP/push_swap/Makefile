@@ -3,7 +3,7 @@ NAME = push_swap
 SRC = main.c
 
 OBJECTS = *.o
-CFLAGS = -L. -lft -L./libstack -lstack
+CFLAGS = -L../utils -lft -L../utils/libstack -lstack
 DFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
