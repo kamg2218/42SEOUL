@@ -249,7 +249,7 @@ ft::list<T, Allocator>::list(size_type count, const T& value, const Allocator& a
 	push_back(0);
 	for (size_type i = 0; i < count; i++)
 		push_back(value);
-	this->sz = count;
+	//this->sz = count;
 }
 
 template <class T, class Allocator>
@@ -258,7 +258,7 @@ ft::list<T, Allocator>::list(InputIt first, InputIt last, const Allocator& alloc
 	push_back(0);
 	for (InputIt i = 0; i < first; i++)
 		push_back(last);
-	this->sz = first;
+	//this->sz = first;
 }
 
 template <class T, class Allocator>
@@ -309,13 +309,13 @@ typename ft::list<T, Allocator>::const_reverse_iterator	ft::list<T, Allocator>::
 
 //access
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::front() { return *(begin()); }
+typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::front() { return head->next->value; }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::front() const { return *(begin()); }
+typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::front() const { return head->next->value; }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::back() { return *(end()); }
+typename ft::list<T, Allocator>::reference	ft::list<T, Allocator>::back() { return head->prev->value; }
 template <class T, class Allocator>
-typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::back() const { return *(end()); }
+typename ft::list<T, Allocator>::const_reference	ft::list<T, Allocator>::back() const { return head->prev->value; }
 
 //capacity
 template <class T, class Allocator>
