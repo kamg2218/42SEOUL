@@ -374,7 +374,7 @@ int		main()
 		std::cout << "ft_lst and ft_lst2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
 	
-	while (1) ;
+	//while (1) ;
 
 	return 0;
 }
