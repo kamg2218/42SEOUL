@@ -162,21 +162,21 @@ void	sort_a_three(t_stack **a, t_stack **b, int num)
 
 void	sort_b_three(t_stack **a, t_stack **b, int num)
 {
-	if ((*b)->content > (*b)->next->content)
+	if ((*b)->content < (*b)->next->content)
 		printf("%s\n", is_command(a, b, "sb"));
 	if (check_b(*b, num))
 		return ;
 	printf("%s\n", is_command(a, b, "rb"));
 	if (check_b(*b, num))
 		return ;
-	if ((*b)->content > (*b)->next->content)
+	if ((*b)->content < (*b)->next->content)
 		printf("%s\n", is_command(a, b, "sb"));
 	if (check_b(*b, num))
 		return ;
 	printf("%s\n", is_command(a, b, "rrb"));
 	if (check_b(*b, num))
 		return ;
-	if ((*b)->content > (*b)->next->content)
+	if ((*b)->content < (*b)->next->content)
 		printf("%s\n", is_command(a, b, "sb"));
 	return ;
 }
@@ -198,8 +198,8 @@ int		sort_b_else(t_stack** a, t_stack** b, int num)
 				printf("%s\n", is_command(a, b, "sb"));
 				//stack_print(*b);
 			}
-			if (check_b(*b, size(b)))
-				return (cnt);
+			//if (check_b(*b, size(b)))
+			//	return (cnt);
 			printf("%s\n", is_command(a, b, "pa"));
 			//stack_print(*b);
 			cnt++;
@@ -210,12 +210,13 @@ int		sort_b_else(t_stack** a, t_stack** b, int num)
 				printf("%s\n", is_command(a, b, "sb"));
 				//stack_print(*b);
 			}
-			if (check_b(*b, size(b)))
-				return (cnt);
+			//if (check_b(*b, size(b)))
+			//	return (cnt);
 			printf("%s\n", is_command(a, b, "rb"));
 			//stack_print(*b);
 		}
 	}
+	//stack_print(*b);
 	return (cnt);
 }
 
@@ -223,7 +224,7 @@ void	sort_b(t_stack** a, t_stack** b, int num)
 {
 	int		cnt;
 
-	//printf("sort_b, %d\n", num);
+	printf("sort_b, %d\n", num);
 	if (num < 2)
 		return ;
 	else if (check_b(*b, num))
@@ -261,10 +262,10 @@ int		sort_a_else(t_stack** a, t_stack** b, int num)
 				printf("%s\n", is_command(a, b, "sa"));
 				//stack_print(*a);
 			}
-			if (check_a(*a, size(a)))
-				return (cnt);
+			//if (check_a(*a, size(a)))
+			//	return (cnt);
 			printf("%s\n", is_command(a, b, "ra"));
-			//stack_print(*a);
+		//	stack_print(*a);
 		}
 		else
 		{
@@ -273,8 +274,8 @@ int		sort_a_else(t_stack** a, t_stack** b, int num)
 				printf("%s\n", is_command(a, b, "sa"));
 				//stack_print(*a);
 			}
-			if (check_a(*a, size(a)))
-				return (cnt);
+			//if (check_a(*a, size(a)))
+			//	return (cnt);
 			printf("%s\n", is_command(a, b, "pb"));
 			//stack_print(*a);
 			cnt++;
@@ -305,6 +306,8 @@ void	sort_a(t_stack** a, t_stack** b, int num)
 	sort_a(a, b, num - cnt);
 	for (int i = 0; i < cnt; i++)
 		printf("%s\n", is_command(a, b, "pa"));
+	//stack_print(*a);
+	//stack_print(*b);
 }
 
 int			main(int argc, char* argv[])
