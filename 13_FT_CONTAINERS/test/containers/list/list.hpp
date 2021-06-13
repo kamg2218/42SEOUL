@@ -547,13 +547,9 @@ void		ft::list<T, Allocator>::sort(){
 
 	for (node* i = head->next; i != head; i = i->next){
 		for (node* j = i->next; j != head; j = j->next){
-			if (i->value > j->value){
-				tmp = j->next;
+			if (j->value < i->value){
 				move_node(j, i);
-				move_node(i, tmp);
-				tmp = i;
 				i = j;
-				j = i;
 			}
 		}
 	}
@@ -566,13 +562,9 @@ void	ft::list<T, Allocator>::sort(Compare cmp){
 
 	for (node* i = head->next; i != head; i = i->next){
 		for (node* j = i->next; j != head; j = j->next){
-			if (cmp(i->value, j->value) > 0){
-				tmp = j->next;
+			if (cmp(j->value, i->value)){
 				move_node(j, i);
-				move_node(i, tmp);
-				tmp = i;
 				i = j;
-				j = i;
 			}
 		}
 	}
@@ -688,14 +680,14 @@ void	ft::list<T, Allocator>::remove_if(UnaryPredicate p){
 
 template <class T, class Allocator>
 void	ft::list<T, Allocator>::reverse(){
-	iterator	first;
-	iterator	last;
+	node*		tmp;
+	node*		first;
 
-	first = begin();
-	last = end()--;
-	while (first != last){
-		move_node(last.getPointer(), first.getPointer());
-		last = end()--;
+	tmp = head->next->next;
+	while (tmp != head){
+		first = tmp->next;
+		move_node(tmp, head->next);
+		tmp = first;
 	}
 }
 

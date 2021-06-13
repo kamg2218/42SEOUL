@@ -4,14 +4,14 @@
 
 void	std_print(std::list<int>& lst){
 	std::cout << "---- std::list<int> -----------------------------------" << std::endl;
-	for (std::list<int>::iterator it = lst.begin(); it != lst.end();)
-		std::cout << *it << ": " << &(*it++) << std::endl;
+	for (std::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << *it << ": " << &(*it) << std::endl;
 }
 
 void	ft_print(ft::list<int>& lst){
 	std::cout << "---- ft::list<int> ------------------------------------" << std::endl;
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end();)
-		std::cout << *it << ": " << &(*it++) << std::endl;
+	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+		std::cout << *it << ": " << &(*it) << std::endl;
 }
 
 int		main()
@@ -304,6 +304,28 @@ int		main()
 	ft_lst.sort();
 	ft_print(ft_lst);
 
+	std::cout << "---- sort() --------------------------------------" << std::endl;
+	std::list<int> std_lst3(3, 5);
+	ft::list<int> ft_lst3(3, 5);
+
+	std_lst3.push_back(3);
+	std_lst3.push_back(7);
+	std_lst3.push_back(6);
+	std_lst3.push_back(4);
+
+	std_print(std_lst3);
+	std_lst3.sort();
+	std_print(std_lst3);
+
+	ft_lst3.push_back(3);
+	ft_lst3.push_back(7);
+	ft_lst3.push_back(6);
+	ft_lst3.push_back(4);
+
+	ft_print(ft_lst3);
+	ft_lst3.sort();
+	ft_print(ft_lst3);
+
 	std::cout << "---- reverse() -----------------------------------" << std::endl;
 	std_lst.reverse();
 	std_print(std_lst);
@@ -352,7 +374,7 @@ int		main()
 		std::cout << "ft_lst and ft_lst2 is same\n";
 	std::cout << "--------------------------------------------------" << std::endl;
 	
-	//while (1) ;
+	while (1) ;
 
 	return 0;
 }
