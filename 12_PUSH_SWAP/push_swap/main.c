@@ -45,40 +45,44 @@ int		check_b(t_stack* head, int num){
 	return 1;
 }
 
-char*		is_command(t_stack** a, t_stack** b, char* str){
-	if (!(ft_strncmp("sa", str, 3)))
+void		is_command(t_stack** a, t_stack** b, int cmd){
+	if (cmd == SA)
 		swap(a);
-	else if (!(ft_strncmp("sb", str, 3)))
+	else if (cmd == SB)
 		swap(b);
-	else if (!(ft_strncmp("ss", str, 3))){
+	else if (cmd == SS)
+	{
 		swap(a);
 		swap(b);
 	}
-	else if (!(ft_strncmp("pa", str, 3))){
+	else if (cmd == PA)
+	{
 		push(a, top(b));
 		pop(b);
 	}
-	else if (!(ft_strncmp("pb", str, 3))){
+	else if (cmd == PB)
+	{
 		push(b, top(a));
 		pop(a);
 	}
-	else if (!(ft_strncmp("ra", str, 3)))
+	else if (cmd == RA)
 		rotate(a);
-	else if (!(ft_strncmp("rb", str, 3)))
+	else if (cmd == RB)
 		rotate(b);
-	else if (!(ft_strncmp("rr", str, 3))){
+	else if (cmd == RR)
+	{
 		rotate(a);
 		rotate(b);
 	}
-	else if (!(ft_strncmp("rra", str, 3)))
+	else if (cmd == RRA)
 		reverse_rotate(a);
-	else if (!(ft_strncmp("rrb", str, 3)))
+	else if (cmd == RRB)
 		reverse_rotate(b);
-	else if (!(ft_strncmp("rrr", str, 3))){
+	else if (cmd == RRR)
+	{
 		reverse_rotate(a);
 		reverse_rotate(b);
 	}
-	return str;
 }
 
 void	sort_arr(int *arr, int start, int end)
