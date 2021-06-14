@@ -19,7 +19,7 @@ int		check(t_stack* head, int *arr, int num){
 	t_stack*	tmp;
 	int			i;
 
-	printf("num = %d\n", num);
+	//printf("num = %d\n", num);
 	stack_print(head);
 	for (int j = 0; j < num; j++)
 		printf("%d, ", arr[j]);
@@ -118,9 +118,9 @@ int*			sort(t_stack* head, int num){
 		i++;
 	}
 	arr[i] = 0;
-	for (int j = 0; j < num; j++)
-		printf("%d, ", arr[j]);
-	printf("\n");
+	//for (int j = 0; j < num; j++)
+	//	printf("%d, ", arr[j]);
+	//printf("\n");
 	sort_arr(arr, 0, num - 1);
 	return (arr);
 }
@@ -155,6 +155,7 @@ int			main(int argc, char* argv[])
 		free(c);
 	}
 	s = size(&a);
+	stack_print(a);
 	arr = sort(a, s);
 	while (get_next_line(0, &cmd))
 	{

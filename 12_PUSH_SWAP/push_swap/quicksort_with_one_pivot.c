@@ -114,13 +114,13 @@ void	sort_arr(int *arr, int start, int end)
 	sort_arr(arr, pivot + 1, end);
 }
 
-void		find_pivot(t_stack* head, int num, int *p1, int *p2){
+int		find_pivot(t_stack* head, int num){
 	int			i;
 	int			*arr;
 	t_stack*	tmp;
 
 	if (!(arr = (int *)malloc(sizeof(int) * (num + 1))))
-		return ;
+		return 0;
 	i = 0;
 	tmp = head;
 	while (i < num)
@@ -131,14 +131,12 @@ void		find_pivot(t_stack* head, int num, int *p1, int *p2){
 	}
 	arr[i] = 0;
 	sort_arr(arr, 0, num - 1);
-	*p1 = arr[num / 3];
-	*p2 = arr[num / 3 * 2];
-	if (num / 3 == 0)
-	{
-		*p1 -= 1;
-		*p2 -= 1;
-	}
+	if (num / 2)
+		i = arr[num / 2];
+	else
+		i = arr[num / 2 - 1];
 	free(arr);
+	return (i);
 }
 
 void	sort_a_three(t_stack **a, t_stack **b)
@@ -165,158 +163,59 @@ void	sort_b_three(t_stack **a, t_stack **b)
 		printf("%s\n", is_command(a, b, "sb"));
 }
 
-int		sort_a_else(t_stack** a, t_stack** b, int num)
-{
-	int			p1;
-	int			p2;
-	int			cnt;
-	int			r_cnt;
-	int			s;
-
-	cnt = 0;
-	r_cnt = 0;
-	s = size(a);
-	find_pivot(*a, num, &p1, &p2);
-	//printf("p1 = %d, p2 = %d\n", p1, p2);
-	for (int i = 0; i < num; i++)
-	{
-		if ((*a)->content >= p2)
-		{
-			if ((*a)->next->content >= p2
-					&& (*a)->content > (*a)->next->content
-					&& i != num - 1)
-				printf("%s\n", is_command(a, b, "sa"));
-			printf("%s\n", is_command(a, b, "ra"));
-			//stack_print(*a);
-			//stack_print(*b);
-		}
-		else
-		{
-			if ((*a)->next->content < p2
-					&& (*a)->content > (*a)->next->content
-					&& i != num - 1)
-				printf("%s\n", is_command(a, b, "sa"));
-			//if (cnt == 0 && check_a(*a, num))
-			//	break ;
-			printf("%s\n", is_command(a, b, "pb"));
-			//stack_print(*a);
-			//stack_print(*b);
-			if ((*b)->content > p1)
-			{
-				printf("%s\n", is_command(a, b, "rb"));
-				r_cnt++;
-			//	stack_print(*a);
-			//	stack_print(*b);
-			}
-			cnt++;
-		}
-	}
-	sort_b(a, b, cnt - r_cnt);
-	for (s = 0; s < num - cnt && s < r_cnt; s++)
-		printf("%s\n", is_command(a, b, "rrr"));
-	for (int i = s; i < num - cnt; i++)
-		printf("%s\n", is_command(a, b, "rra"));
-	//stack_print(*a);
-	//stack_print(*b);
-	for (int i = s; i < r_cnt; i++)
-		printf("%s\n", is_command(a, b, "rrb"));
-	//stack_print(*a);
-	//stack_print(*b);
-	sort_a(a, b, num - cnt);
-	sort_b(a, b, r_cnt);
-	return (cnt);
-}
-
 int		sort_b_else(t_stack** a, t_stack** b, int num)
 {
-	int			p1;
-	int			p2;
 	int			cnt;
-	int			r_cnt;
+	int			pivot;
 	int			s;
-
+	
 	cnt = 0;
-	r_cnt = 0;
 	s = size(b);
-	find_pivot(*b, num, &p1, &p2);
-	//printf("p1 = %d, p2 = %d\n", p1, p2);
+	pivot = find_pivot(*b, num);
+	//printf("pivot = %d\n", pivot);
 	for (int i = 0; i < num; i++)
 	{
-		if ((*b)->content < p1)
+		if ((*b)->content >= pivot)
 		{
-			if ((*b)->next->content < p1
+			if ((*b)->next->content >= pivot
 					&& (*b)->content < (*b)->next->content
 					&& i != num - 1)
-				printf("%s\n", is_command(a, b, "sb"));
-			printf("%s\n", is_command(a, b, "rb"));
-			//stack_print(*a);
-			//stack_print(*b);
-		}
-		else
-		{
-			if ((*b)->next->content >= p1
-					&& (*b)->content < (*b)->next->content
-					&& i != num - 1)
-				printf("%s\n", is_command(a, b, "sb"));
-			//stack_print(*a);
-			//stack_print(*b);
-			//if (cnt == 0 && check_b(*b, num))
-			//	break ;
-			printf("%s\n", is_command(a, b, "pa"));
-			if ((*a)->content < p2)
 			{
-				printf("%s\n", is_command(a, b, "ra"));
-			//	stack_print(*a);
-			//	stack_print(*b);
-				r_cnt++;
+				printf("%s\n", is_command(a, b, "sb"));
+				//stack_print(*b);
 			}
+			printf("%s\n", is_command(a, b, "pa"));
+			//stack_print(*b);
 			cnt++;
 		}
+		else {
+			if ((*b)->next->content < pivot
+					&& (*b)->content < (*b)->next->content
+					&& i != num - 1)
+			{
+				printf("%s\n", is_command(a, b, "sb"));
+			//	stack_print(*b);
+			}
+			if (check_b(*b, size(b)) && cnt == 0)
+				break ;
+			printf("%s\n", is_command(a, b, "rb"));
+			//stack_print(*b);
+		}
 	}
-	sort_a(a, b, cnt - r_cnt);
-	for (s = 0; s < num - cnt && s < r_cnt; s++)
-		printf("%s\n", is_command(a, b, "rrr"));
-//	stack_print(*b);
-	for (int i = s; i < num - cnt; i++)
-		printf("%s\n", is_command(a, b, "rrb"));
-//	stack_print(*b);
-	for (int i = s; i < r_cnt; i++)
-		printf("%s\n", is_command(a, b, "rra"));
-//	stack_print(*b);
-	sort_b(a, b, num - cnt);
-	sort_a(a, b, r_cnt);
-	return (cnt);
-}
-
-void	sort_a(t_stack** a, t_stack** b, int num)
-{
-	int			cnt;
-
-//	printf("sort_a = %d\n", num);
-	if (num < 2)
-		return ;
-	else if (check_a(*a, num))
-		return ;
-	else if (num == 2){
-		if ((*a)->next->content < (*a)->content)
-			printf("%s\n", is_command(a, b, "sa"));
-		return ;
+	if (s > num)
+	{
+		for (int i = 0; i < num - cnt; i++)
+			printf("%s\n", is_command(a, b, "rrb"));
 	}
-	else if (num == 3)
-		return (sort_a_three(a, b));
-	else
-		cnt = sort_a_else(a, b, num);
-	for (int i = 0; i < cnt; i++)
-		printf("%s\n", is_command(a, b, "pa"));
-	//stack_print(*a);
 	//stack_print(*b);
+	return (cnt);
 }
 
 void	sort_b(t_stack** a, t_stack** b, int num)
 {
-	int			cnt;
+	int		cnt;
 
-	//printf("sort_b = %d\n", num);
+	//printf("sort_b, %d\n", num);
 	if (num < 2)
 		return ;
 	else if (check_b(*b, num))
@@ -330,8 +229,83 @@ void	sort_b(t_stack** a, t_stack** b, int num)
 		return (sort_b_three(a, b));
 	else
 		cnt = sort_b_else(a, b, num);
+	sort_a(a, b, cnt);
+	sort_b(a, b, num - cnt);
 	for (int i = 0; i < cnt; i++)
 		printf("%s\n", is_command(a, b, "pb"));
+}
+
+int		sort_a_else(t_stack** a, t_stack** b, int num)
+{
+	int			pivot;
+	int			cnt;
+	int			s;
+
+	cnt = 0;
+	s = size(a);
+	pivot = find_pivot(*a, num);
+	//printf("pivot = %d, num = %d\n", pivot, num);
+	for (int i = 0; i < num; i++)
+	{
+		if ((*a)->content >= pivot)
+		{
+			if ((*a)->next->content >= pivot
+					&& (*a)->content > (*a)->next->content
+					&& i != num - 1)
+			{
+				printf("%s\n", is_command(a, b, "sa"));
+				//stack_print(*a);
+			}
+			if (check_a(*a, size(a)) && cnt == 0)
+				break ;
+			printf("%s\n", is_command(a, b, "ra"));
+			//stack_print(*a);
+		}
+		else
+		{
+			if ((*a)->next->content < pivot
+					&& (*a)->content > (*a)->next->content
+					&& i != num - 1)
+			{
+				printf("%s\n", is_command(a, b, "sa"));
+				//stack_print(*a);
+			}
+			printf("%s\n", is_command(a, b, "pb"));
+			//stack_print(*a);
+			cnt++;
+		}
+	}
+	if (s > num)
+	{
+		for (int i = 0; i < num - cnt; i++)
+			printf("%s\n", is_command(a, b, "rra"));
+	}
+	//stack_print(*a);
+	return (cnt);
+}
+
+void	sort_a(t_stack** a, t_stack** b, int num)
+{
+	int			cnt;
+
+	//printf("quicksort, %d\n", num);
+	if (num < 2)
+		return ;
+	else if (check_a(*a, num))
+		return ;
+	else if (num == 2){
+		if ((*a)->next->content < (*a)->content)
+			printf("%s\n", is_command(a, b, "sa"));
+		return ;
+	}
+	else if (num == 3)
+		return (sort_a_three(a, b));
+	else
+		cnt = sort_a_else(a, b, num);
+	sort_b(a, b, cnt);
+	sort_a(a, b, num - cnt);
+	for (int i = 0; i < cnt; i++)
+		printf("%s\n", is_command(a, b, "pa"));
 	//stack_print(*a);
 	//stack_print(*b);
 }
