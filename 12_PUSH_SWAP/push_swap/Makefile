@@ -1,6 +1,10 @@
 NAME = push_swap
 
-SRC = main.c
+SRC = main.c\
+	  command.c\
+	  sort_three.c\
+	  sort_small.c\
+	  utils.c
 
 OBJECTS = *.o
 CFLAGS = -L../utils -lft -L../utils/libstack -lstack

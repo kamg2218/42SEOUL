@@ -160,6 +160,8 @@ int			main(int argc, char* argv[])
 	while (get_next_line(0, &cmd))
 	{
 		is_command(&a, &b, cmd);
+		//stack_print(a);
+		//stack_print(b);
 		free(cmd);
 	}
 	if ((check(a, arr, s)))

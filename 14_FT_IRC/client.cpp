@@ -11,7 +11,7 @@ int		main(int argc, char* argv[]){
 	char	message[1024] = "hello\n";
 	char	*end;
 
-	client_sock = socket(PF_INET, SOCK_STREAM, 0);
+	client_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (client_sock == -1){
 		std::cout << "Socket Error\n";
 		exit(1);
@@ -23,14 +23,29 @@ int		main(int argc, char* argv[]){
 		std::cout << "Connect Error\n";
 		exit(1);
 	}
-	if (write(client_sock, message, sizeof(message) - 1) == -1){
-		std::cout << "Write Error\n";
-		exit(1);
-	}
-	std::cout << "Message = " << message << std::endl;
-	if (read(client_sock, message, sizeof(message) - 1) == -1){
-		std::cout << "Read Error\n";
-		exit(1);
+	std::cout << "Connected\n";
+	while (1){
+		fgets(message, 1024, stdin);
+		message[strlen(message) - 1] = 0;
+		if (write(client_sock, message, sizeof(message)) == -1){
+			std::cout << "Write Error\n";
+			close(client_sock);
+			exit(1);
+		}
+		if (strncmp(message, "quit", 4) == 0){
+			close(client_sock);
+			exit(1);
+		}
+		std::cout << "Message = " << message << std::endl;
+		while (1){
+			if (read(client_sock, message, 1024) == -1){
+				std::cout << "Read Error\n";
+				exit(1);
+			}
+			if (strncmp(message, "end", 3) == 0)
+				break ;
+		}
+		memset(message, 0, 1024);
 	}
 	close(client_sock);
 	return 0;
