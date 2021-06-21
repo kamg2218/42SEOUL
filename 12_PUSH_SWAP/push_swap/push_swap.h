@@ -28,7 +28,7 @@ int		sort_a_small(t_stack** a, t_stack** b, int* pre, int num);
 void	print_command(int cmd);
 void	do_rotate(t_stack** a, t_stack** b, int cmd);
 void	is_command(t_stack** a, t_stack** b, int cmd);
-int		check_command(t_stack** a, t_stack** b, int pre, int cmd);
+void	check_command(t_stack** a, t_stack** b, int* pre, int cmd);
 
 //sort_three.c
 void	sort_a_three(t_stack** a, t_stack** b, int* pre);

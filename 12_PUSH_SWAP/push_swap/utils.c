@@ -95,12 +95,15 @@ void		find_pivot(t_stack* head, int num, int *p1, int *p2){
 	}
 	arr[i] = 0;
 	sort_arr(arr, 0, num - 1);
-	*p1 = arr[num / 3];
-	*p2 = arr[num / 3 * 2];
 	if (num / 3 == 0)
 	{
-		*p1 -= 1;
-		*p2 -= 1;
+		*p1 = arr[num / 3 - 1];
+		*p2 = arr[num / 3 * 2 - 1];
+	}
+	else
+	{
+		*p1 = arr[num / 3];
+		*p2 = arr[num / 3 * 2];
 	}
 	free(arr);
 }

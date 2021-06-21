@@ -17,30 +17,21 @@ int		sort_a_else(t_stack** a, t_stack** b, int* pre, int num)
 	{
 		if ((*a)->content >= p2)
 		{
-			//printf("a = %d, p2 = %d\n", (*a)->content, p2);
-			if ((*a)->next->content >= p2
-					&& (*a)->content > (*a)->next->content
-					&& i != num - 1)
-				*pre = check_command(a, b, *pre, SA);
 			if (check_a(*a, size(a)) && (*a)->content >= p2 && size(a) == s)
 				break ;
-			*pre = check_command(a, b, *pre, RA);
+			check_command(a, b, pre, RA);
 			//stack_print(*a);
 			//stack_print(*b);
 		}
 		else
 		{
 			//printf("a = %d, p1 = %d\n", (*a)->content, p1);
-			if ((*a)->next->content < p2
-					&& (*a)->content > (*a)->next->content
-					&& i != num - 1)
-				*pre = check_command(a, b, *pre, SA);
-			*pre = check_command(a, b, *pre, PB);
+			check_command(a, b, pre, PB);
 			//stack_print(*a);
 			//stack_print(*b);
 			if ((*b)->content > p1)
 			{
-				*pre = check_command(a, b, *pre, RB);
+				check_command(a, b, pre, RB);
 				r_cnt++;
 				//stack_print(*a);
 				//stack_print(*b);
@@ -50,18 +41,18 @@ int		sort_a_else(t_stack** a, t_stack** b, int* pre, int num)
 	}
 	sort_b(a, b, pre, cnt - r_cnt);
 	for (s = 0; s < num - cnt && s < r_cnt; s++)
-		*pre = check_command(a, b, *pre, RRR);
+		check_command(a, b, pre, RRR);
 	if (size(a) != num - cnt)
 	{
 		for (int i = s; i < num - cnt; i++)
-			*pre = check_command(a, b, *pre, RRA);
+			check_command(a, b, pre, RRA);
 	}
 	//stack_print(*a);
 	//stack_print(*b);
 	if (size(b) != r_cnt)
 	{
 		for (int i = s; i < r_cnt; i++)
-			*pre = check_command(a, b, *pre, RRB);
+			check_command(a, b, pre, RRB);
 	//	stack_print(*a);
 	//	stack_print(*b);
 	}
@@ -91,28 +82,21 @@ int		sort_b_else(t_stack** a, t_stack** b, int* pre, int num)
 	{
 		if ((*b)->content < p1)
 		{
-			if ((*b)->next->content < p1
-					&& (*b)->content < (*b)->next->content
-					&& i != num - 1)
-				*pre = check_command(a, b, *pre, SB);
-			*pre = check_command(a, b, *pre, RB);
+			if (check_b(*b, size(b)) && (*b)->content < p1 && size(b) == s)
+				break ;
+		 	 check_command(a, b, pre, RB);
+		
 		//	stack_print(*a);
 		//	stack_print(*b);
 		}
 		else
 		{
-			if ((*b)->next->content >= p1
-					&& (*b)->content < (*b)->next->content
-					&& i != num - 1)
-				*pre = check_command(a, b, *pre, SB);
 			//stack_print(*a);
 			//stack_print(*b);
-			if (check_b(*b, size(b)) && size(b) == s && (*b)->content >= p1)
-				break ;
-			*pre = check_command(a, b, *pre, PA);
+			check_command(a, b, pre, PA);
 			if ((*a)->content < p2)
 			{
-				*pre = check_command(a, b, *pre, RA);
+				check_command(a, b, pre, RA);
 				//stack_print(*a);
 				//stack_print(*b);
 				r_cnt++;
@@ -123,18 +107,18 @@ int		sort_b_else(t_stack** a, t_stack** b, int* pre, int num)
 	sort_a(a, b, pre, cnt - r_cnt);
 	s = 0;
 	for (s = 0; s < num - cnt && s < r_cnt; s++)
-		*pre = check_command(a, b, *pre, RRR);
+		check_command(a, b, pre, RRR);
 	//	stack_print(*b);
 	if (size(b) != num - cnt)
 	{
 		for (int i = s; i < num - cnt; i++)
-			*pre = check_command(a, b, *pre, RRB);
+			check_command(a, b, pre, RRB);
 	}
 	//	stack_print(*b);
 	if (size(a) != r_cnt)
 	{
 		for (int i = s; i < r_cnt; i++)
-			*pre = check_command(a, b, *pre, RRA);
+			check_command(a, b, pre, RRA);
 	}
 	//stack_print(*a);
 	//stack_print(*b);
@@ -160,18 +144,16 @@ void	sort_a(t_stack** a, t_stack** b, int* pre, int num)
 		return ;
 	else if (num == 2){
 		if ((*a)->next->content < (*a)->content)
-			*pre = check_command(a, b, *pre, SA);
+			check_command(a, b, pre, SA);
 		return ;
 	}
 	else if (num == 3)
 		return (sort_a_three(a, b, pre));
-	//else if (num < 8)
-	//	cnt = sort_a_small(a, b, pre, num);
 	else
 		cnt = sort_a_else(a, b, pre, num);
 	//printf("cnt = %d\n", cnt);
 	for (int i = 0; i < cnt; i++)
-		*pre = check_command(a, b, *pre, PA);
+		check_command(a, b, pre, PA);
 	//stack_print(*a);
 	//stack_print(*b);
 }
@@ -191,7 +173,7 @@ void	sort_b(t_stack** a, t_stack** b, int* pre, int num)
 	{
 	//	ft_putstr_fd("num is 2\n", 1);
 		if ((*b)->next->content > (*b)->content)
-			*pre = check_command(a, b, *pre, SB);
+			check_command(a, b, pre, SB);
 		return ;
 	}
 	else if (num == 3)
@@ -200,7 +182,7 @@ void	sort_b(t_stack** a, t_stack** b, int* pre, int num)
 		cnt = sort_b_else(a, b, pre, num);
 	//printf("cnt = %d\n", cnt);
 	for (int i = 0; i < cnt; i++)
-		*pre = check_command(a, b, *pre, PB);
+		check_command(a, b, pre, PB);
 	//stack_print(*a);
 	//stack_print(*b);
 }
@@ -209,7 +191,7 @@ int			main(int argc, char* argv[])
 {
 	int			i;
 	int			j;
-	int			pre;
+	int			pre[2];
 	t_stack*	a = 0;
 	t_stack*	b = 0;
 	char		**c;
@@ -230,10 +212,15 @@ int			main(int argc, char* argv[])
 			free(c[j]);
 		free(c);
 	}
-	pre = 0;
-	sort_a(&a, &b, &pre, size(&a));
-	if (pre > 0)
-		print_command(pre);
+	pre[0] = 0;
+	pre[1] = 0;
+	sort_a(&a, &b, pre, size(&a));
+	//if (pre[0] > 0 || pre[1] > 0)
+	while (pre[0] && pre[1] > 0)
+	{
+		print_command(pre[0]);
+		pre[1] -= 1;
+	}
 	//stack_print(a);
 	//stack_print(b);
 	clear(&a);

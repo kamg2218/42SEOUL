@@ -73,23 +73,40 @@ void		print_command(int cmd)
 		ft_putstr_fd("rrr\n", 1);
 }
 
-int		check_command(t_stack** a, t_stack** b, int pre, int cmd)
+void	check_command(t_stack** a, t_stack** b, int* pre, int cmd)
 {
 	is_command(a, b, cmd);
-	if (pre == 0)
-		return (cmd);
-	else if ((pre == SA && cmd == SB) || (pre == SB && cmd == SA))
+	if (pre[0] == 0)
+	{
+		pre[0] = cmd;
+		pre[1] = 1;
+		return ;
+	}
+	else if (pre[0] == cmd)
+	{
+		pre[1] += 1;
+		return ;
+	}
+	else if ((pre[0] == SA && cmd == SB) || (pre[0] == SB && cmd == SA))
 		print_command(SS);
-	else if ((pre == RA && cmd == RB) || (pre == RB && cmd == RA))
+	else if ((pre[0] == RA && cmd == RB) || (pre[0] == RB && cmd == RA))
 		print_command(RR);
-	else if ((pre == PA && cmd == PB) || (pre == PB && cmd == PA))
-		pre = 0;
-	else if ((pre == RRA && cmd == RRB) || (pre == RRB && cmd == RRA))
+	else if ((pre[0] == PA && cmd == PB) || (pre[0] == PB && cmd == PA))
+		print_command(0);
+	else if ((pre[0] == RRA && cmd == RRB) || (pre[0] == RRB && cmd == RRA))
 		print_command(RRR);
 	else
 	{
-		print_command(pre);
-		return (cmd);
+		while (pre[1] > 0)
+		{
+			print_command(pre[0]);
+			pre[1] -= 1;
+		}
+		pre[0] = cmd;
+		pre[1] = 1;
+		return ;
 	}
-	return (0);
+	pre[1] -= 1;
+	if (pre[1] == 0)
+		pre[0] = 0;
 }

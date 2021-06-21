@@ -16,21 +16,21 @@ int		sort_a_small(t_stack** a, t_stack** b, int *pre, int num)
 	{
 		if ((*a)->content >= p1)
 		{
-			if ((*a)->next->content >= p1
-					&& (*a)->content > (*a)->next->content && i != num - 1)
-				*pre = check_command(a, b, *pre, SA);
+			//if ((*a)->next->content >= p1
+			//		&& (*a)->content > (*a)->next->content && i != num - 1)
+			//	check_command(a, b, pre, SA);
 			//if (check_a(*a, num) && (*a)->content >= p1)
 			//	break ;
-			*pre = check_command(a, b, *pre, RA);
+			check_command(a, b, pre, RA);
 		}
 		else
 		{
-			if ((*a)->next->content < p1
-					&& (*a)->content > (*a)->next->content && i != num - 1)
-				*pre = check_command(a, b, *pre, SA);
+			//if ((*a)->next->content < p1
+			//		&& (*a)->content > (*a)->next->content && i != num - 1)
+			//	check_command(a, b, pre, SA);
 			//if (check_a(*a, num) && (*a)->content >= p1)
 			//	break ;
-			*pre = check_command(a, b, *pre, PB);
+			check_command(a, b, pre, PB);
 			cnt++;
 		}
 	}
@@ -38,7 +38,7 @@ int		sort_a_small(t_stack** a, t_stack** b, int *pre, int num)
 	if (s != num)
 	{
 		for (i = 0; i < num - cnt; i++)
-			*pre = check_command(a, b, *pre, RRA);
+			check_command(a, b, pre, RRA);
 	}
 	sort_a(a, b, pre, num - cnt);
 	return (cnt);
