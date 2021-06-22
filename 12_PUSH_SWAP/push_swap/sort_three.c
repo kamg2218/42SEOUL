@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	sort_a_only_three(t_stack **a, t_stack **b, int* pre)
+void		sort_a_only_three(t_stack **a, t_stack **b, int *pre)
 {
 	int		p1;
 	int		p2;
@@ -14,7 +14,7 @@ void	sort_a_only_three(t_stack **a, t_stack **b, int* pre)
 		check_command(a, b, pre, SA);
 }
 
-void	sort_b_only_three(t_stack **a, t_stack **b, int* pre)
+void		sort_b_only_three(t_stack **a, t_stack **b, int *pre)
 {
 	int		p1;
 	int		p2;
@@ -28,7 +28,7 @@ void	sort_b_only_three(t_stack **a, t_stack **b, int* pre)
 		check_command(a, b, pre, SB);
 }
 
-void	sort_a_three(t_stack **a, t_stack **b, int* pre)
+void		sort_a_three(t_stack **a, t_stack **b, int *pre)
 {
 	int		p1;
 	int		p2;
@@ -48,7 +48,7 @@ void	sort_a_three(t_stack **a, t_stack **b, int* pre)
 		check_command(a, b, pre, SA);
 }
 
-void	sort_b_three(t_stack **a, t_stack **b, int* pre)
+void		sort_b_three(t_stack **a, t_stack **b, int *pre)
 {
 	int		p1;
 	int		p2;

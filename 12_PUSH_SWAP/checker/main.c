@@ -155,7 +155,7 @@ int			main(int argc, char* argv[])
 		free(c);
 	}
 	s = size(&a);
-	stack_print(a);
+	//stack_print(a);
 	arr = sort(a, s);
 	while (get_next_line(0, &cmd))
 	{
