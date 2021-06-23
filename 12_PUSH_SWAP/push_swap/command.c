@@ -1,49 +1,49 @@
 #include "push_swap.h"
 
-void		is_command(t_stack **a, t_stack **b, int cmd)
+void		is_command(t_param *param, int cmd)
 {
 	if (cmd == SA)
-		swap(a);
+		swap(&param->a);
 	else if (cmd == SB)
-		swap(b);
+		swap(&param->b);
 	else if (cmd == SS)
 	{
-		swap(a);
-		swap(b);
+		swap(&param->a);
+		swap(&param->b);
 	}
 	else if (cmd == PA)
 	{
-		push(a, top(b));
-		pop(b);
+		push(&param->a, top(&param->b));
+		pop(&param->b);
 	}
 	else if (cmd == PB)
 	{
-		push(b, top(a));
-		pop(a);
+		push(&param->b, top(&param->a));
+		pop(&param->a);
 	}
 	else
-		do_rotate(a, b, cmd);
+		do_rotate(param, cmd);
 }
 
-void		do_rotate(t_stack **a, t_stack **b, int cmd)
+void		do_rotate(t_param *param, int cmd)
 {
 	if (cmd == RA)
-		rotate(a);
+		rotate(&param->a);
 	else if (cmd == RB)
-		rotate(b);
+		rotate(&param->b);
 	else if (cmd == RR)
 	{
-		rotate(a);
-		rotate(b);
+		rotate(&param->a);
+		rotate(&param->b);
 	}
 	else if (cmd == RRA)
-		reverse_rotate(a);
+		reverse_rotate(&param->a);
 	else if (cmd == RRB)
-		reverse_rotate(b);
+		reverse_rotate(&param->b);
 	else if (cmd == RRR)
 	{
-		reverse_rotate(a);
-		reverse_rotate(b);
+		reverse_rotate(&param->a);
+		reverse_rotate(&param->b);
 	}
 }
 
@@ -99,16 +99,16 @@ void		check_else(int *pre, int cmd)
 		pre[0] = 0;
 }
 
-void		check_command(t_stack **a, t_stack **b, int *pre, int cmd)
+void		check_command(t_param *param, int cmd)
 {
-	is_command(a, b, cmd);
-	if (pre[0] == 0)
+	is_command(param, cmd);
+	if (param->pre[0] == 0)
 	{
-		pre[0] = cmd;
-		pre[1] = 1;
+		param->pre[0] = cmd;
+		param->pre[1] = 1;
 	}
-	else if (pre[0] == cmd)
-		pre[1] += 1;
+	else if (param->pre[0] == cmd)
+		param->pre[1] += 1;
 	else
-		check_else(pre, cmd);
+		check_else(param->pre, cmd);
 }

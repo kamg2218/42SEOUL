@@ -1,6 +1,6 @@
 #include "push_swap.h"
-
-int		sort_a_else(t_stack** a, t_stack** b, int* pre, int num)
+/*
+int				sort_a_else(t_stack **a, t_stack **b, int *pre, int num)
 {
 	int			p1;
 	int			p2;
@@ -51,7 +51,7 @@ int		sort_a_else(t_stack** a, t_stack** b, int* pre, int num)
 	return (cnt);
 }
 
-int		sort_b_else(t_stack** a, t_stack** b, int* pre, int num)
+int				sort_b_else(t_stack **a, t_stack **b, int *pre, int num)
 {
 	int			p1;
 	int			p2;
@@ -101,93 +101,70 @@ int		sort_b_else(t_stack** a, t_stack** b, int* pre, int num)
 	sort_a(a, b, pre, r_cnt);
 	return (cnt);
 }
-
-void	sort_a(t_stack** a, t_stack** b, int* pre, int num)
+*/
+void			sort_a(t_param *param, int num)
 {
+	int			i;
 	int			cnt;
 
 	if (num < 2)
 		return ;
-	else if (check_a(*a, num))
+	else if (check_a(param->a, num))
 		return ;
 	else if (num == 2){
-		if ((*a)->next->content < (*a)->content)
-			check_command(a, b, pre, SA);
+		if ((param->a)->next->content < (param->a)->content)
+			check_command(param, SA);
 		return ;
 	}
 	else if (num == 3)
-		return (sort_a_three(a, b, pre));
+		return (sort_a_three(param));
 	else
-		cnt = sort_a_else(a, b, pre, num);
-	for (int i = 0; i < cnt; i++)
-		check_command(a, b, pre, PA);
+		cnt = sort_a_else(param, num);
+	i = 0;
+	while (i++ < cnt)
+		check_command(param, PA);
 }
 
-void	sort_b(t_stack** a, t_stack** b, int* pre, int num)
+void			sort_b(t_param *param, int num)
 {
+	int			i;
 	int			cnt;
 
 	if (num < 2)
 		return ;
-	else if (check_b(*b, num))
+	else if (check_b(param->b, num))
 		return ;
 	else if (num == 2)
 	{
-		if ((*b)->next->content > (*b)->content)
-			check_command(a, b, pre, SB);
+		if ((param->b)->next->content > (param->b)->content)
+			check_command(param, SB);
 		return ;
 	}
 	else if (num == 3)
-		return (sort_b_three(a, b, pre));
+		return (sort_b_three(param));
 	else
-		cnt = sort_b_else(a, b, pre, num);
-	for (int i = 0; i < cnt; i++)
-		check_command(a, b, pre, PB);
+		cnt = sort_b_else(param, num);
+	i = 0;
+	while (i++ < cnt)
+		check_command(param, PB);
 }
 
-int			main(int argc, char* argv[])
+int				main(int argc, char* argv[])
 {
-	int			i;
-	int			j;
-	int			pre[2];
-	t_stack*	a = 0;
-	t_stack*	b = 0;
-	char		**c;
+	t_param		param;
 
-	if (argc < 2){
-		printf("Input Error\n");
-		return -1;
-	}
-	/*
-	for (i = 1; i < argc; i++){
-		c = ft_split(argv[i], ' ');
-		j = 0;
-		while (c[j]){
-			push_back(&a, ft_atoi(c[j]));
-			j++;
-		}
-		j = 0;
-		while (c[j])
-			free(c[j++]);
-		free(c);
-	}
-	*/
-	a = pre_processing(argc, argv);
-	if (a == NULL)
+	param.a = pre_processing(argc, argv, &param.pre);
+	if (param.a == NULL)
+		return (-1);
+	param.b = NULL;
+	sort_a(&param, size(&param.a));
+	while (param.pre[0] && param.pre[1] > 0)
 	{
-		printf("Input Error\n");
-		return -1;
+		print_command(param.pre[0]);
+		param.pre[1] -= 1;
 	}
-	return (0);
-	pre[0] = 0;
-	pre[1] = 0;
-	sort_a(&a, &b, pre, size(&a));
-	while (pre[0] && pre[1] > 0)
-	{
-		print_command(pre[0]);
-		pre[1] -= 1;
-	}
-	clear(&a);
-	clear(&b);
+	clear(&param.a);
+	if (param.b)
+		clear(&param.b);
 	return 0;
 }

@@ -1,69 +1,69 @@
 #include "push_swap.h"
 
-void		sort_a_only_three(t_stack **a, t_stack **b, int *pre)
+void		sort_a_only_three(t_param *param)
 {
-	int		p1;
-	int		p2;
+	int		*p;
 
-	find_pivot(*a, 3, &p1, &p2);
-	if ((*a)->content == p2)
-		check_command(a, b, pre, RA);
-	else if (!((*a)->content == p1 && (*a)->next->content < p1))
-		check_command(a, b, pre, RRA);
-	if ((*a)->content > (*a)->next->content)
-		check_command(a, b, pre, SA);
+	p = find_pivot(param->a, 3);
+	if (param->a->content == p[1])
+		check_command(param, RA);
+	else if (!(param->a->content == p[0] && param->a->next->content < p[0]))
+		check_command(param, RRA);
+	if (param->a->content > param->a->next->content)
+		check_command(param, SA);
+	free(p);
 }
 
-void		sort_b_only_three(t_stack **a, t_stack **b, int *pre)
+void		sort_b_only_three(t_param *param)
 {
-	int		p1;
-	int		p2;
+	int		*p;
 
-	find_pivot(*b, 3, &p1, &p2);
-	if ((*b)->content != p1 && (*b)->content != p2)
-		check_command(a, b, pre, RB);
-	if (!((*b)->content == p1 && (*b)->next->content > p1))
-		check_command(a, b, pre, RRB);
-	if ((*b)->content < (*b)->next->content)
-		check_command(a, b, pre, SB);
+	p = find_pivot(param->b, 3);
+	if (param->b->content != p[0] && param->b->content != p[1])
+		check_command(param, RB);
+	if (!(param->b->content == p[0] && param->b->next->content > p[0]))
+		check_command(param, RRB);
+	if (param->b->content < param->b->next->content)
+		check_command(param, SB);
+	free(p);
 }
 
-void		sort_a_three(t_stack **a, t_stack **b, int *pre)
+void		sort_a_three(t_param *param)
 {
-	int		p1;
-	int		p2;
+	int		*p;
 
-	if (size(a) == 3)
-		return (sort_a_only_three(a, b, pre));
-	find_pivot(*a, 3, &p1, &p2);
-	if ((*a)->content == p2)
-		check_command(a, b, pre, SA);
-	if (!((*a)->content == p1 && (*a)->next->content < p1))
+	if (size(&param->a) == 3)
+		return (sort_a_only_three(param));
+	p = find_pivot(param->a, 3);
+	if (param->a->content == p[1])
+		check_command(param, SA);
+	if (!(param->a->content == p[0] && param->a->next->content < p[0]))
 	{
-		check_command(a, b, pre, RA);
-		check_command(a, b, pre, SA);
-		check_command(a, b, pre, RRA);
+		check_command(param, RA);
+		check_command(param, SA);
+		check_command(param, RRA);
 	}
-	if ((*a)->content > (*a)->next->content)
-		check_command(a, b, pre, SA);
+	if (param->a->content > param->a->next->content)
+		check_command(param, SA);
+	free(p);
 }
 
-void		sort_b_three(t_stack **a, t_stack **b, int *pre)
+void		sort_b_three(t_param *param)
 {
-	int		p1;
-	int		p2;
+	int		*p;
 
-	if (size(b) == 3)
-		return (sort_b_only_three(a, b, pre));
-	find_pivot(*b, 3, &p1, &p2);
-	if ((*b)->content != p1 && (*b)->content != p2)
-		check_command(a, b, pre, SB);
-	if (!((*b)->content == p1 && (*b)->next->content > p1))
+	if (size(&param->b) == 3)
+		return (sort_b_only_three(param));
+	p = find_pivot(param->b, 3);
+	if (param->b->content != p[0] && param->b->content != p[1])
+		check_command(param, SB);
+	if (!(param->b->content == p[0] && param->b->next->content > p[0]))
 	{
-		check_command(a, b, pre, RB);
-		check_command(a, b, pre, SB);
-		check_command(a, b, pre, RRB);
+		check_command(param, RB);
+		check_command(param, SB);
+		check_command(param, RRB);
 	}
-	if ((*b)->content < (*b)->next->content)
-		check_command(a, b, pre, SB);
+	if (param->b->content < param->b->next->content)
+		check_command(param, SB);
+	free(p);
 }

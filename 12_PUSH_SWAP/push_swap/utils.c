@@ -84,14 +84,17 @@ void		sort_arr(int *arr, int start, int end)
 	sort_arr(arr, pivot + 1, end);
 }
 
-void			find_pivot(t_stack *head, int num, int *p1, int *p2)
+int				*find_pivot(t_stack *head, int num)
 {
 	int			i;
 	int			*arr;
+	int			*p;
 	t_stack*	tmp;
 
 	if (!(arr = (int *)malloc(sizeof(int) * (num + 1))))
-		return ;
+		return (NULL);
+	if (!(p = (int*)malloc(sizeof(int) * 2)))
+		return (NULL);
 	i = 0;
 	tmp = head;
 	while (i < num)
@@ -102,7 +105,8 @@ void			find_pivot(t_stack *head, int num, int *p1, int *p2)
 	}
 	arr[i] = 0;
 	sort_arr(arr, 0, num - 1);
-	*p1 = arr[num / 3];
-	*p2 = arr[num / 3 * 2];
+	p[0] = arr[num / 3];
+	p[1] = arr[num / 3 * 2];
 	free(arr);
+	return (p);
 }
