@@ -158,6 +158,7 @@ int			main(int argc, char* argv[])
 		printf("Input Error\n");
 		return -1;
 	}
+	/*
 	for (i = 1; i < argc; i++){
 		c = ft_split(argv[i], ' ');
 		j = 0;
@@ -166,10 +167,18 @@ int			main(int argc, char* argv[])
 			j++;
 		}
 		j = 0;
-		while (c[j++])
-			free(c[j]);
+		while (c[j])
+			free(c[j++]);
 		free(c);
 	}
+	*/
+	a = pre_processing(argc, argv);
+	if (a == NULL)
+	{
+		printf("Input Error\n");
+		return -1;
+	}
+	return (0);
 	pre[0] = 0;
 	pre[1] = 0;
 	sort_a(&a, &b, pre, size(&a));
