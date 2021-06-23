@@ -20,10 +20,10 @@ int		check(t_stack* head, int *arr, int num){
 	int			i;
 
 	//printf("num = %d\n", num);
-	stack_print(head);
-	for (int j = 0; j < num; j++)
-		printf("%d, ", arr[j]);
-	printf("\n");
+	//stack_print(head);
+	//for (int j = 0; j < num; j++)
+	//	printf("%d, ", arr[j]);
+	//printf("\n");
 	i = 0;
 	tmp = head;
 	while (tmp != head->prev && i < num){
@@ -155,7 +155,7 @@ int			main(int argc, char* argv[])
 		free(c);
 	}
 	s = size(&a);
-	stack_print(a);
+	//stack_print(a);
 	arr = sort(a, s);
 	while (get_next_line(0, &cmd))
 	{

@@ -1,6 +1,8 @@
 #include "push_swap.h"
 
-void		stack_print(t_stack*	head){
+/*
+void			stack_print(t_stack *head)
+{
 	t_stack*	tmp;
 
 	if (head == NULL)
@@ -14,56 +16,60 @@ void		stack_print(t_stack*	head){
 	}
 	printf("\n");
 }
+*/
 
-int		check_a(t_stack* head, int num){
-	t_stack*	tmp;
+int				check_a(t_stack *head, int num)
+{
 	int			i;
+	t_stack		*tmp;
 
 	i = 0;
 	tmp = head->next;
-	while (tmp != head && i < num - 1){
+	while (tmp != head && i < num - 1)
+	{
 		if (tmp->content < tmp->prev->content)
-			return 0;
+			return (0);
 		tmp = tmp->next;
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
-int		check_b(t_stack* head, int num){
-	t_stack*	tmp;
+int				check_b(t_stack *head, int num)
+{
 	int			i;
+	t_stack		*tmp;
 
 	i = 0;
 	tmp = head->next;
-	while (tmp != head && i < num - 1){
+	while (tmp != head && i < num - 1)
+	{
 		if (tmp->content > tmp->prev->content)
-			return 0;
+			return (0);
 		tmp = tmp->next;
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
-void	sort_arr(int *arr, int start, int end)
+void		sort_arr(int *arr, int start, int end)
 {
 	int		i;
 	int		j;
 	int		pivot;
 
-	//printf("sort_arr = %d, %d\n", start, end);
 	if (end - start < 1)
 		return ;
 	pivot = end;
 	i = start;
-	//printf("p = %d\n", pivot);
 	while (i < pivot)
 	{
 		if (arr[i] > arr[pivot])
 		{
 			j = arr[pivot - 1];
 			arr[pivot - 1] = arr[pivot];
-			if (i != pivot - 1){
+			if (i != pivot - 1)
+			{
 				arr[pivot] = arr[i];
 				arr[i] = j;
 			}
@@ -78,7 +84,8 @@ void	sort_arr(int *arr, int start, int end)
 	sort_arr(arr, pivot + 1, end);
 }
 
-void		find_pivot(t_stack* head, int num, int *p1, int *p2){
+void			find_pivot(t_stack *head, int num, int *p1, int *p2)
+{
 	int			i;
 	int			*arr;
 	t_stack*	tmp;
@@ -97,10 +104,5 @@ void		find_pivot(t_stack* head, int num, int *p1, int *p2){
 	sort_arr(arr, 0, num - 1);
 	*p1 = arr[num / 3];
 	*p2 = arr[num / 3 * 2];
-	if (num / 3 == 0)
-	{
-		*p1 -= 1;
-		*p2 -= 1;
-	}
 	free(arr);
 }
