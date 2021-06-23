@@ -24,6 +24,7 @@ int		main(int argc, char* argv[]){
 		exit(1);
 	}
 	std::cout << "Connected\n";
+	std::cout << "sock = " << client_sock << std::endl;
 	while (1){
 		fgets(message, 1024, stdin);
 		message[strlen(message) - 1] = 0;
@@ -37,6 +38,7 @@ int		main(int argc, char* argv[]){
 			exit(1);
 		}
 		std::cout << "Message = " << message << std::endl;
+		
 		while (1){
 			if (read(client_sock, message, 1024) == -1){
 				std::cout << "Read Error\n";
