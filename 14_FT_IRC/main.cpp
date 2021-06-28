@@ -81,7 +81,7 @@ int			main(){
 	while (true){
 		FD_CLR(0, &rfds);
 		FD_CLR(0, &wfds);
-		ret = select(42, &rfds, &wfds, NULL, &tv);
+		ret = select(42, &rfds, NULL, NULL, &tv);
 		if (ret == -2)
 			std::cout << "Select Error\n";
 		else if (ret){

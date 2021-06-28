@@ -61,6 +61,33 @@ void			reverse_rotate_a(t_param *param, int cnt, int r_cnt)
 	sort_b(param, r_cnt);
 }
 
+void			reverse_rotate_b(t_param *param, int cnt, int r_cnt)
+{
+	int			i;
+	int			j;
+
+	j = 0;
+	if (size(&param->b) != cnt && size(&param->a) != r_cnt)
+	{
+		while (j < cnt && j++ < r_cnt)
+			check_command(param, RRR);
+	}
+	if (size(&param->b) != cnt)
+	{
+		i = j;
+		while (i++ < cnt)
+			check_command(param, RRB);
+	}
+	if (size(&param->a) != r_cnt)
+	{
+		i = j;
+		while (i++ < r_cnt)
+			check_command(param, RRA);
+	}
+	sort_b(param, cnt);
+	sort_a(param, r_cnt);
+}
+
 int				sort_a_else(t_param *param, int num)
 {
 	int			i;
@@ -77,13 +104,18 @@ int				sort_a_else(t_param *param, int num)
 	while (i++ < num)
 	{
 		s = arrange_a(param, p);
-		if (s == 1)
-			cnt++;
+		if (s == 0)
+			cnt--;
 		else if (s == 2)
 			r_cnt++;
+		cnt++;
+		//stack_print(param->a);
+		//stack_print(param->b);
 	}
 	sort_b(param, cnt - r_cnt);
 	reverse_rotate_a(param, num - cnt, r_cnt);
+	//stack_print(param->a);
+	//stack_print(param->b);
 	free(p);
 	return (cnt);
 }
@@ -104,10 +136,13 @@ int				sort_b_else(t_param *param, int num)
 	while (i++ < num)
 	{
 		s = arrange_b(param, p);
-		if (s == 1)
-			cnt++;
+		if (s == 0)
+			cnt--;
 		else if (s == 2)
 			r_cnt++;
+		cnt++;
+		//stack_print(param->a);
+		//stack_print(param->b);
 	}
 	sort_a(param, cnt - r_cnt);
 	/*
@@ -130,7 +165,9 @@ int				sort_b_else(t_param *param, int num)
 	sort_b(param, num - cnt);
 	sort_a(param, r_cnt);
 	*/
-	reverse_rotate_a(param, r_cnt, num - cnt);
+	reverse_rotate_b(param, num - cnt, r_cnt);
+	//stack_print(param->a);
+	//stack_print(param->b);
 	free(p);
 	return (cnt);
 }

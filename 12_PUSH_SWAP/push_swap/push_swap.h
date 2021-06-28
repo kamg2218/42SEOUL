@@ -47,9 +47,10 @@ int		arrange_b(t_param *param, int *p);
 int		sort_a_else(t_param *param, int num);
 int		sort_b_else(t_param *param, int num);
 void	reverse_rotatae_a(t_param *param, int cnt, int r_cnt);
+void	reverse_rotatae_b(t_param *param, int cnt, int r_cnt);
 
 //utils.c
-//void	stack_print(t_stack*	head);
+void	stack_print(t_stack*	head);
 int		check_a(t_stack* head, int num);
 int		check_b(t_stack* head, int num);
 void	sort_arr(int *arr, int start, int end);

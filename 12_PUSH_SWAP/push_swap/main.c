@@ -123,6 +123,8 @@ void			sort_a(t_param *param, int num)
 	i = 0;
 	while (i++ < cnt)
 		check_command(param, PA);
+	//stack_print(param->a);
+	//stack_print(param->b);
 }
 
 void			sort_b(t_param *param, int num)
@@ -147,6 +149,8 @@ void			sort_b(t_param *param, int num)
 	i = 0;
 	while (i++ < cnt)
 		check_command(param, PB);
+	//stack_print(param->a);
+	//stack_print(param->b);
 }
 
 int				main(int argc, char* argv[])
@@ -163,6 +167,8 @@ int				main(int argc, char* argv[])
 		print_command(param.pre[0]);
 		param.pre[1] -= 1;
 	}
+	stack_print(param.a);
+	stack_print(param.b);
 	clear(&param.a);
 	if (param.b)
 		clear(&param.b);

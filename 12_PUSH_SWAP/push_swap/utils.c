@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-/*
+
 void			stack_print(t_stack *head)
 {
 	t_stack*	tmp;
@@ -16,7 +16,7 @@ void			stack_print(t_stack *head)
 	}
 	printf("\n");
 }
-*/
+
 
 int				check_a(t_stack *head, int num)
 {
