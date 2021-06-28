@@ -1,5 +1,5 @@
-#ifndef		LIBSTACK_H
-# define	LIBSTACK_H
+#ifndef LIBSTACK_H
+# define LIBSTACK_H
 
 # include <stdio.h>
 # include <stdlib.h>

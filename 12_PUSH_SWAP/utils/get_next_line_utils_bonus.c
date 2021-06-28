@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 18:03:29 by hyoon             #+#    #+#             */
-/*   Updated: 2020/05/01 19:31:47 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/06/28 17:41:27 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_lst_clear(t_g_list **lst, int fd)
+void			ft_lst_clear(t_g_list **lst, int fd)
 {
 	t_g_list	*l;
 	t_g_list	*front;
@@ -40,10 +40,10 @@ void	ft_lst_clear(t_g_list **lst, int fd)
 		*lst = l;
 }
 
-t_g_list	*ft_lst_new(int fd)
+t_g_list		*ft_lst_new(int fd)
 {
-	int				i;
-	t_g_list			*lst;
+	int			i;
+	t_g_list	*lst;
 
 	lst = (t_g_list *)malloc(sizeof(t_g_list));
 	lst->content = (char *)malloc(sizeof(char) * BUFFER_SIZE);
@@ -60,10 +60,10 @@ t_g_list	*ft_lst_new(int fd)
 	return (lst);
 }
 
-void	ft_lst_add_back(t_g_list **lst, t_g_list *n, int fd)
+void			ft_lst_add_back(t_g_list **lst, t_g_list *n, int fd)
 {
-	t_g_list			*l;
-	t_g_list			*front;
+	t_g_list	*l;
+	t_g_list	*front;
 
 	l = *lst;
 	if (!n)
@@ -89,10 +89,10 @@ void	ft_lst_add_back(t_g_list **lst, t_g_list *n, int fd)
 	l->next = n;
 }
 
-int		ft_start_check(t_g_list *start, int fd)
+int				ft_start_check(t_g_list *start, int fd)
 {
-	int				i;
-	int				j;
+	int			i;
+	int			j;
 
 	while (start && start->num != fd)
 		start = start->next;
@@ -118,11 +118,11 @@ int		ft_start_check(t_g_list *start, int fd)
 	return (-1);
 }
 
-void	ft_cpy_line(char *line, t_g_list *start, int i, int fd)
+void			ft_cpy_line(char *line, t_g_list *start, int i, int fd)
 {
-	int				count;
-	int				s_count;
-	t_g_list			*lst;
+	int			count;
+	int			s_count;
+	t_g_list	*lst;
 
 	count = 0;
 	s_count = 0;

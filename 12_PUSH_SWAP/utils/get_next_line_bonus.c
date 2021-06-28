@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 17:43:36 by hyoon             #+#    #+#             */
-/*   Updated: 2020/05/01 19:33:21 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/06/28 17:40:01 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int		ft_find_i(t_g_list *start, int i, int fd)
+int					ft_find_i(t_g_list *start, int i, int fd)
 {
 	int				count;
 	int				l_count;
 	int				result;
-	t_g_list			*lst;
+	t_g_list		*lst;
 
 	count = 0;
 	l_count = 0;
@@ -41,11 +41,11 @@ int		ft_find_i(t_g_list *start, int i, int fd)
 	return (result);
 }
 
-t_g_list	*ft_mem_cpy(t_g_list *start, int num, int fd)
+t_g_list			*ft_mem_cpy(t_g_list *start, int num, int fd)
 {
 	int				i;
 	char			ch;
-	t_g_list			*lst;
+	t_g_list		*lst;
 
 	lst = start;
 	while (lst && lst->num != fd)
@@ -70,10 +70,10 @@ t_g_list	*ft_mem_cpy(t_g_list *start, int num, int fd)
 	return (lst->next);
 }
 
-int		ft_read_file(int fd, t_g_list *start)
+int					ft_read_file(int fd, t_g_list *start)
 {
 	int				re;
-	t_g_list			*lst;
+	t_g_list		*lst;
 
 	lst = start;
 	while (lst && lst->num != fd)
@@ -98,11 +98,11 @@ int		ft_read_file(int fd, t_g_list *start)
 	return (re);
 }
 
-int		ft_first_processing(int fd, char **line, t_g_list **start)
+int					ft_first_processing(int fd, char **line, t_g_list **start)
 {
 	int				i;
 	int				re;
-	t_g_list			*lst;
+	t_g_list		*lst;
 
 	re = 0;
 	if (fd < 0 || line == NULL)
@@ -123,12 +123,12 @@ int		ft_first_processing(int fd, char **line, t_g_list **start)
 	return (i);
 }
 
-int		get_next_line(int fd, char **line)
+int					get_next_line(int fd, char **line)
 {
 	int				i;
 	int				next;
 	static t_g_list	*start;
-	t_g_list			*lst;
+	t_g_list		*lst;
 
 	if ((i = ft_first_processing(fd, line, &start)) == -1)
 	{

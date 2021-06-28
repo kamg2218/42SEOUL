@@ -2,7 +2,9 @@ NAME = checker
 
 SRC = main.c\
 	  ../utils/get_next_line_bonus.c\
-	  ../utils/get_next_line_utils_bonus.c
+	  ../utils/get_next_line_utils_bonus.c\
+	  command.c\
+	  pre_processing.c
 
 OBJECTS = *.o
 CFLAGS = -L../utils -lft -L../utils/libstack -lstack

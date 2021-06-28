@@ -1,23 +1,5 @@
 #include "push_swap.h"
 
-
-void			stack_print(t_stack *head)
-{
-	t_stack*	tmp;
-
-	if (head == NULL)
-		return ;
-	tmp = head;
-	printf("%d, ", tmp->content);
-	tmp = tmp->next;
-	while (tmp != head){
-		printf("%d, ", tmp->content);
-		tmp = tmp->next;
-	}
-	printf("\n");
-}
-
-
 int				check_a(t_stack *head, int num)
 {
 	int			i;
@@ -52,11 +34,25 @@ int				check_b(t_stack *head, int num)
 	return (1);
 }
 
-void		sort_arr(int *arr, int start, int end)
+void			change_arr(int *arr, int i, int pivot)
 {
-	int		i;
-	int		j;
-	int		pivot;
+	int			j;
+
+	j = arr[pivot - 1];
+	arr[pivot - 1] = arr[pivot];
+	if (i != pivot - 1)
+	{
+		arr[pivot] = arr[i];
+		arr[i] = j;
+	}
+	else
+		arr[pivot] = j;
+}
+
+void			sort_arr(int *arr, int start, int end)
+{
+	int			i;
+	int			pivot;
 
 	if (end - start < 1)
 		return ;
@@ -66,15 +62,7 @@ void		sort_arr(int *arr, int start, int end)
 	{
 		if (arr[i] > arr[pivot])
 		{
-			j = arr[pivot - 1];
-			arr[pivot - 1] = arr[pivot];
-			if (i != pivot - 1)
-			{
-				arr[pivot] = arr[i];
-				arr[i] = j;
-			}
-			else
-				arr[pivot] = j;
+			change_arr(arr, i, pivot);
 			pivot--;
 		}
 		else
@@ -89,9 +77,9 @@ int				*find_pivot(t_stack *head, int num)
 	int			i;
 	int			*arr;
 	int			*p;
-	t_stack*	tmp;
+	t_stack		*tmp;
 
-	if (!(arr = (int *)malloc(sizeof(int) * (num + 1))))
+	if (!(arr = (int*)malloc(sizeof(int) * (num + 1))))
 		return (NULL);
 	if (!(p = (int*)malloc(sizeof(int) * 2)))
 		return (NULL);
