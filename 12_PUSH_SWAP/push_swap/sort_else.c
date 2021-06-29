@@ -38,18 +38,22 @@ void			reverse_rotate_ab(t_param *param, int cnt, int r_cnt)
 {
 	int			i;
 	int			j;
+	int			sa;
+	int			sb;
 
-	j = 0;
-	while (j < cnt && j < r_cnt)
+	sa = size(&param->a);
+	sb = size(&param->b);
+	i = 0;
+	while (sa != cnt && sb != r_cnt && i < cnt && i < r_cnt)
 	{
 		check_command(param, RRR);
-		j++;
+		i++;
 	}
-	i = j;
-	while (i++ < cnt)
+	j = i;
+	while (sa != cnt && j++ < cnt)
 		check_command(param, RRA);
-	i = j;
-	while (i++ < r_cnt)
+	j = i;
+	while (sb != r_cnt && j++ < r_cnt)
 		check_command(param, RRB);
 	sort_a(param, cnt);
 	sort_b(param, r_cnt);
@@ -58,9 +62,9 @@ void			reverse_rotate_ab(t_param *param, int cnt, int r_cnt)
 int				sort_a_else(t_param *param, int num)
 {
 	int			i;
+	int			j;
 	int			cnt;
 	int			r_cnt;
-	int			s;
 	int			*p;
 
 	cnt = 0;
@@ -70,10 +74,10 @@ int				sort_a_else(t_param *param, int num)
 	i = 0;
 	while (i++ < num)
 	{
-		s = arrange_a(param, p);
-		if (s == 0)
+		j = arrange_a(param, p);
+		if (j == 0)
 			cnt--;
-		else if (s == 2)
+		else if (j == 2)
 			r_cnt++;
 		cnt++;
 	}

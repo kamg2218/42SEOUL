@@ -320,6 +320,18 @@ int		main()
 	std::cout << "ft_cit = " << *ft_cit << std::endl;
 	
 	std::cout << "--------------------------------------------------" << std::endl;
+	
+	ft::vector<int>::iterator it;
+	ft::vector<int>::iterator it2;
+
+	it = ft_v.begin();
+	it2 = ft_v.begin();
+	it++;
+	it++;
+	it++;
+	std::cout << "it - it2 = " << it - it2 << std::endl;
+
+	std::cout << "--------------------------------------------------" << std::endl;
 
 	//while (1);
 

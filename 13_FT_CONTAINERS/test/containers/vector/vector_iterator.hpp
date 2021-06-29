@@ -61,6 +61,10 @@ template<class T, class Category, class Distance, class Pointer, class Reference
 		pointer		operator->() const { return getPointer(); }
 		reference	getValue() const { return *this->ptr; }
 		pointer		getPointer() const { return this->ptr; }
+		/*
+		VectorIterator	operator+(ptrdiff_t n){
+		return VectorIterator(ptr + n);
+		}*/
 };
 
 template<class T>

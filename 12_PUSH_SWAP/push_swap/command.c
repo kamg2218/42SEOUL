@@ -79,10 +79,12 @@ void		check_else(int *pre, int cmd)
 		print_command(SS);
 	else if ((pre[0] == RA && cmd == RB) || (pre[0] == RB && cmd == RA))
 		print_command(RR);
-	else if ((pre[0] == PA && cmd == PB) || (pre[0] == PB && cmd == PA))
-		print_command(0);
 	else if ((pre[0] == RRA && cmd == RRB) || (pre[0] == RRB && cmd == RRA))
 		print_command(RRR);
+	else if ((pre[0] == PA && cmd == PB) || (pre[0] == PB && cmd == PA)
+			|| (pre[0] == RA && cmd == RRA) || (pre[0] == RRA && cmd == RA)
+			|| (pre[0] == RB && cmd == RRB) || (pre[0] == RRB && cmd == RB))
+		print_command(0);
 	else
 	{
 		while (pre[1] > 0)
