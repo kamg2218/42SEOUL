@@ -89,80 +89,80 @@ ptrdiff_t	operator-(VectorIterator<T> v, VectorIterator<T> i){
 
 template<class T>
 bool	operator==(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	return a.getValue() == b.getValue();
+	return a.getPointer() == b.getPointer();
 }
 
 template<class T>
 bool	operator==(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	return a.getValue() == b.getValue();
+	return a.getPointer() == b.getPointer();
 }
 
 template<class T>
 bool	operator!=(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	if (a.getValue() != b.getValue())
+	if (a.getPointer() != b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator!=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	if (a.getValue() != b.getValue())
+	if (a.getPointer() != b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator<(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	if (a.getValue() < b.getValue())
+	if (a.getPointer() < b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator<(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	if (a.getValue() < b.getValue())
+	if (a.getPointer() < b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator>(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	if (a.getValue() > b.getValue())
+	if (a.getPointer() > b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator>(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	if (a.getValue() > b.getValue())
+	if (a.getPointer() > b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator<=(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	if (a.getValue() <= b.getValue())
+	if (a.getPointer() <= b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator<=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	if (a.getValue() <= b.getValue())
+	if (a.getPointer() <= b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator>=(VectorIterator<T> const &a, VectorIterator<T> const &b){
-	if (a.getValue() >= b.getValue())
+	if (a.getPointer() >= b.getPointer())
 		return true;
 	return false;
 }
 
 template<class T>
 bool	operator>=(VectorIterator<T> const &a, VectorConstIterator<T> const &b){
-	if (a.getValue() >= b.getValue())
+	if (a.getPointer() >= b.getPointer())
 		return true;
 	return false;
 }
