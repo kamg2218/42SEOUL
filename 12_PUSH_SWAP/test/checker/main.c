@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 19:58:53 by hyoon             #+#    #+#             */
-/*   Updated: 2021/07/05 13:29:15 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/05 17:47:05 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	main(int argc, char *argv[])
 	char		*cmd;
 
 	a = pre_processing(argc, argv);
+	if (a == NULL)
+		return (-1);
 	b = 0;
 	arr = sort(a, size(&a));
 	while (get_next_line(0, &cmd))

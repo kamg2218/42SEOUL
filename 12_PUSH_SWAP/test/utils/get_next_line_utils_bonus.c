@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 18:03:29 by hyoon             #+#    #+#             */
-/*   Updated: 2021/07/05 15:11:09 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/05 17:58:14 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_g_list	*ft_lst_new(int fd)
 	int			i;
 	t_g_list	*lst;
 
-	printf("lst_new\n");
 	lst = (t_g_list *)malloc(sizeof(t_g_list));
 	lst->content = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 	if (lst->content == NULL || lst == NULL)
@@ -58,7 +57,7 @@ t_g_list	*ft_lst_new(int fd)
 	}
 	lst->next = NULL;
 	lst->num = fd;
-	printf("lst_new\n");
+	printf("new_lst = %p\n", lst);
 	return (lst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 17:43:36 by hyoon             #+#    #+#             */
-/*   Updated: 2021/07/05 14:38:05 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/05 18:37:08 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ int	ft_find_i(t_g_list *start, int i, int fd)
 	int				count;
 	int				l_count;
 	int				result;
-	t_g_list		*lst;
 
 	count = 0;
 	l_count = 0;
-	lst = start;
-	while (lst && lst->num != fd)
-		lst = lst->next;
-	while (count <= i && lst)
+	while (start && start->num != fd)
+		start = start->next;
+	while (count <= i && start)
 	{
-		result = *((char *)(lst->content) + l_count);
+		if (l_count != BUFFER_SIZE)
+			result = *((char *)(start->content) + l_count);
 		if (l_count == BUFFER_SIZE || !result)
 		{
-			lst = lst->next;
+			start = start->next;
 			l_count = -1;
 			count--;
 		}
 		count++;
 		l_count++;
 	}
-	if ((!lst && count <= i) || lst->num != fd)
+	if ((!start && count <= i) || start->num != fd)
 		result = -2;
 	return (result);
 }

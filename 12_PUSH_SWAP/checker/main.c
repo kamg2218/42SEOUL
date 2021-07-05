@@ -84,6 +84,8 @@ int				main(int argc, char *argv[])
 	char		*cmd;
 
 	a = pre_processing(argc, argv);
+	if (a == NULL)
+		return (-1);
 	b = 0;
 	arr = sort(a, size(&a));
 	while (get_next_line(0, &cmd))

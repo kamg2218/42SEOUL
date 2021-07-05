@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 17:43:36 by hyoon             #+#    #+#             */
-/*   Updated: 2021/07/05 15:05:25 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/05 18:26:04 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ int	ft_first_processing(int fd, char **line, t_g_list **start)
 	lst = *start;
 	while (lst && lst->num != fd)
 		lst = lst->next;
-	printf("start = %p\n", start);
-	printf("*start = %p\n", *start);
-	printf("lst = %p\n", lst);
 	if (!lst || *(char *)lst->content)
 		ft_lst_add_back(start, ft_lst_new(fd), fd);
-	printf("lst = %p\n", lst);
 	i = ft_start_check(*start, fd);
 	if (i == -1)
 	{
