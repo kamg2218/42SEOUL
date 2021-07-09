@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 17:43:36 by hyoon             #+#    #+#             */
-/*   Updated: 2021/06/28 17:40:01 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/09 15:27:04 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int					ft_read_file(int fd, t_g_list *start)
 	}
 	re = read(fd, lst->content, BUFFER_SIZE);
 	if (re == -1 || BUFFER_SIZE <= 0)
+		return (-1);
+	else if (re == 0 && fd == 0)
 		return (-1);
 	else if (re < BUFFER_SIZE)
 	{

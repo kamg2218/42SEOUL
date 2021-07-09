@@ -12,8 +12,9 @@ void	sort_arr(int *arr, int start, int end);
 int		*sort(t_stack *head, int num);
 int		check(t_stack *head, int *arr, int num);
 
-void	do_rotate(t_stack **a, t_stack **b, char *cmd);
-void	is_command(t_stack **a, t_stack **b, char *cmd);
+int		do_rotate(t_stack **a, t_stack **b, char *cmd);
+int		is_command(t_stack **a, t_stack **b, char *cmd);
+void	do_command(t_stack **a, t_stack **b);
 
 size_t	numlen(int num);
 int		check_string(char *c);
