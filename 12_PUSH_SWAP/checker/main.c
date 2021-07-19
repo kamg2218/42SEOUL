@@ -81,36 +81,19 @@ int				main(int argc, char *argv[])
 	int			*arr;
 	t_stack		*a;
 	t_stack		*b;
-	//char		*cmd;
 
 	a = pre_processing(argc, argv);
 	if (a == NULL)
 		return (-1);
 	b = 0;
 	arr = sort(a, size(&a));
-	/*
-	while (1)
+	if (!(do_command(&a, &b)))
 	{
-		int	re = get_next_line(0, &cmd);
-		if (re == -1)
-			break ;
-		else if (re)
-		{
-			if (is_command(&a, &b, cmd))
-			{
-				write(1, "ERROR\n", 6);
-				free(cmd);
-				return (0);
-			}
-		}
-		free(cmd);
+		if ((check(a, arr, size(&a))))
+			write(1, "OK\n", 3);
+		else
+			write(1, "KO\n", 3);
 	}
-	*/
-	do_command(&a, &b);
-	if ((check(a, arr, size(&a))))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
 	clear(&a);
 	clear(&b);
 	free(arr);

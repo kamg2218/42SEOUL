@@ -6,7 +6,7 @@
 /*   By: hyoon <hyoon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 19:59:19 by hyoon             #+#    #+#             */
-/*   Updated: 2021/07/09 16:31:22 by hyoon            ###   ########.fr       */
+/*   Updated: 2021/07/19 18:30:54 by hyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		do_rotate(t_stack **a, t_stack **b, char *cmd)
 	return (0);
 }
 
-void	do_command(t_stack **a, t_stack **b)
+int	do_command(t_stack **a, t_stack **b)
 {
 	int		re;
 	char	*cmd;
@@ -72,16 +72,17 @@ void	do_command(t_stack **a, t_stack **b)
 	{
 		re = get_next_line(0, &cmd);
 		if (re == -1)
-			return ;
+			return (0);
 		else if (re)
 		{
 			if (is_command(a, b, cmd))
 			{
 				write(1, "ERROR\n", 6);
 				free(cmd);
-				return ;
+				return (1);
 			}
 		}
 		free(cmd);
 	}
+	return (0);
 }
