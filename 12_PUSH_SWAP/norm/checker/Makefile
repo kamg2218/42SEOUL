@@ -3,6 +3,7 @@ NAME = checker
 SRC = main.c\
 	  ../utils/get_next_line_bonus.c\
 	  ../utils/get_next_line_utils_bonus.c\
+	  ../utils/get_next_line_second.c\
 	  command.c\
 	  pre_processing.c
 
