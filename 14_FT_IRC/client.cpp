@@ -38,16 +38,14 @@ int		main(int argc, char* argv[]){
 			exit(1);
 		}
 		std::cout << "Message = " << message << std::endl;
-		/*
-		while (1){
+		//while (1){
 			if (read(client_sock, message, 1024) == -1){
 				std::cout << "Read Error\n";
 				exit(1);
 			}
-			if (strncmp(message, "end", 3) == 0)
-				break ;
-		}
-		*/
+			//if (strncmp(message, "end", 3) == 0)
+			//	break ;
+		//}
 		memset(message, 0, 1024);
 	}
 	close(client_sock);

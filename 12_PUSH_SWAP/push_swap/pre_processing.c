@@ -105,7 +105,7 @@ t_stack			*pre_processing(int argc, char *argv[], int **pre)
 		clear(&tmp);
 		return (NULL);
 	}
-	*pre[0] = 0;
-	*pre[1] = 1;
+	(*pre)[0] = 0;
+	(*pre)[1] = 1;
 	return (tmp);
 }

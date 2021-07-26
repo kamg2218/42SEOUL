@@ -85,6 +85,15 @@ int				main(int argc, char *argv[])
 	a = pre_processing(argc, argv);
 	if (a == NULL)
 		return (-1);
+	t_stack *tmp = a;
+	while (tmp){
+		ft_putnbr_fd(tmp->content, 1);
+		ft_putstr_fd(" ", 1);
+		//printf("%d ", tmp->content);
+		tmp = tmp->next;
+		if (tmp == a)
+			break ;
+	}
 	b = 0;
 	arr = sort(a, size(&a));
 	if (!(do_command(&a, &b)))

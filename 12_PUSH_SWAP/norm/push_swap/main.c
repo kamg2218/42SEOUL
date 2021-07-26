@@ -5,6 +5,7 @@ void	sort_a(t_param *param, int num)
 	int	i;
 	int	cnt;
 
+	//printf("sort_a = %d\n", num);
 	if (num < 2)
 		return ;
 	else if (check_a(param->a, num))
@@ -17,8 +18,8 @@ void	sort_a(t_param *param, int num)
 	}
 	else if (num == 3)
 		return (sort_a_three(param));
-	else
-		cnt = sort_a_else(param, num);
+	cnt = sort_a_else(param, num);
+	//printf("sort_a = %d, cnt = %d\n", num, cnt);
 	i = 0;
 	while (i++ < cnt)
 		check_command(param, PA);
@@ -29,6 +30,7 @@ void	sort_b(t_param *param, int num)
 	int	i;
 	int	cnt;
 
+	//printf("sort_b = %d\n", num);
 	if (num < 2)
 		return ;
 	else if (check_b(param->b, num))
@@ -41,8 +43,8 @@ void	sort_b(t_param *param, int num)
 	}
 	else if (num == 3)
 		return (sort_b_three(param));
-	else
-		cnt = sort_b_else(param, num);
+	cnt = sort_b_else(param, num);
+	//printf("sort_b = %d, cnt = %d\n", num, cnt);
 	i = 0;
 	while (i++ < cnt)
 		check_command(param, PB);
@@ -51,19 +53,20 @@ void	sort_b(t_param *param, int num)
 int	main(int argc, char *argv[])
 {
 	t_param	param;
+	int		i;
 
-	param.a = pre_processing(argc, argv, &param.pre);
+	param.a = pre_processing(argc, argv, &param);
 	if (param.a == NULL)
 		return (-1);
 	param.b = NULL;
 	sort_a(&param, size(&param.a));
-	while (param.pre[0] && param.pre[1] > 0)
-	{
-		print_command(param.pre[0]);
-		param.pre[1] -= 1;
-	}
+	arrange_command(&param);
+	i = 0;
+	while (i < param.size)
+		print_command(param.cmd[i++]);
 	clear(&param.a);
 	if (param.b)
 		clear(&param.b);
+	free(param.cmd);
 	return (0);
 }

@@ -41,6 +41,7 @@ void	reverse_rotate_ab(t_param *param, int cnt, int r_cnt)
 	int		sa;
 	int		sb;
 
+	//printf("cnt = %d, r_cnt = %d\n", cnt, r_cnt);
 	sa = size(&param->a);
 	sb = size(&param->b);
 	i = 0;
@@ -73,7 +74,7 @@ int	sort_a_else(t_param *param, int num)
 	if (!p)
 		return (-1);
 	i = 0;
-	while (i++ < num)
+	while (i++ < num && num - cnt >= num / 3)
 	{
 		j = arrange_a(param, p);
 		if (j == 0)
@@ -102,7 +103,7 @@ int	sort_b_else(t_param *param, int num)
 	if (!p)
 		return (-1);
 	i = 0;
-	while (i++ < num)
+	while (i++ < num && num - cnt >= num / 3)
 	{
 		s = arrange_b(param, p);
 		if (s == 0)

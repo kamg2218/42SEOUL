@@ -96,7 +96,23 @@ int	*find_pivot(t_stack *head, int num)
 	arr[i] = 0;
 	sort_arr(arr, 0, num - 1);
 	p[0] = arr[num / 3];
-	p[1] = arr[num / 3 * 2];
+	p[1] = arr[num * 2 / 3];
 	free(arr);
 	return (p);
+}
+
+int		check_dup(t_stack *a, int num)
+{
+	t_stack	*tmp;
+
+	tmp = a;
+	while (tmp)
+	{
+		if (tmp->content == num)
+			return (1);
+		tmp = tmp->next;
+		if (tmp == a)
+			break ;
+	}
+	return (0);
 }
