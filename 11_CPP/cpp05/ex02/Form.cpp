@@ -43,14 +43,8 @@ void	Form::check(Bureaucrat const &executor) const
 
 void	Form::execute(Bureaucrat const &executor) const
 {
-	try{
-		check(executor);
-		action();
-	}
-	catch (std::exception& ex){
-		std::cout << executor.getName() << " can not execute this form, ";
-		std::cout << "because " << ex.what();
-	}
+	check(executor);
+	action();
 }
 
 std::string		Form::getName() const { return _name; }
