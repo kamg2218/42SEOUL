@@ -14,3 +14,7 @@
 |9|3| - |[**FT_SERVICES**](./09_FT_SERVICES)| - |kubernetes, minikube, docker|
 |10|3| C |[**PHILOSOPHERS**](./10_PHILOSOPHERS)| - |process, thread|
 |11|4| CPP |[**CPP**](./11_CPP)| - | cpp language |
+|12|2| C |[**PUSH_SWAP**](./12_PUSH_SWAP)| - | stack, quick sort |
+|13|5| CPP |[**FT_CONTAINERS**](./12_FT_CONTAINERS)| - | stack, queue, vector, list, map |
+|14|5| CPP |[**FT_IRC**](./14_FT_IRC)| - | Internet Relay Chat, OOP |
+|15|6| JS | [**FT_TRANSCENDENCES**](./15_FT_TRANSCENDENCES)| - | JS, TS, nestJS, socketIO, React, Bootstrap5, CRA |
