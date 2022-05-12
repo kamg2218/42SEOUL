@@ -16,5 +16,5 @@
 |11|4| CPP |[**CPP**](./11_CPP)| - | cpp language |
 |12|2| C |[**PUSH_SWAP**](./12_PUSH_SWAP)| - | stack, quick sort |
 |13|5| CPP |[**FT_CONTAINERS**](./13_FT_CONTAINERS)| - | stack, queue, vector, list, map |
-|14|5| CPP |[**FT_IRC**](./14_FT_IRC)| - | Internet Relay Chat, OOP |
+|14|5| CPP |[**FT_IRC**](./14_FT_IRC)| - | Internet Relay Chat, socket, OOP |
 |15|6| JS | [**FT_TRANSCENDENCES**](../../../pingpong)| - | JS, TS, nestJS, HTTP, socketIO, React, Bootstrap5, CRA |
